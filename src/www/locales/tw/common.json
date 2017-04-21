@@ -1,0 +1,21 @@
+{
+"logoSrc":"/image/itri_CEL_A.png",
+"language":"語言",
+"appName":"TW DNN webportal",
+"username":"帳號(工號)",
+"password":"密碼",
+"submit":"確認",
+"create":"創建",
+"refresh":"重新整理",
+"startDate":"起始日期",
+"endDate":"結束日期",
+"instance":"Instance",
+"status":{
+"status":"狀態",
+"initial":"初始化",
+"running":"運作中",
+"stop":"停止"},
+"image":"Image",
+"account":"帳密",
+"project":"計畫代號"
+}

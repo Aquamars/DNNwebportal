@@ -1,0 +1,21 @@
+{
+"logoSrc":"/image/itri_EL_A.png",
+"language":"Language",
+"appName":"DNN webportal",
+"username":"Username",
+"password":"Password",
+"submit":"Submit",
+"create":"Create",
+"refresh":"Refresh",
+"startDate":"startDate",
+"endDate":"EndDate",
+"instance":"Instance",
+"status":{
+"status":"Status",
+"initial":"Initial",
+"running":"Running",
+"stop":"Stop"},
+"image":"Image",
+"account":"Account",
+"project":"Project"
+}
