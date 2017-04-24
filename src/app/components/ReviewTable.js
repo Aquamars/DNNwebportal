@@ -9,18 +9,20 @@ import Divider from 'material-ui/Divider'
 import EditModal from './EditModal'
 import DeleteModal from './DeleteModal'
 import CreatePage from './CreatePage'
+import HoverDiv from './HoverDiv'
+
 // API call
 import axios from 'axios'
 import {API_URL} from '../resource'
 // ICON
 import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh'
 import ContentAdd from 'material-ui/svg-icons/content/add'
-import FaEye from 'react-icons/lib/fa/eye'
+
 // COLOR
 import { blueA400, orangeA700, redA700, greenA700 } from 'material-ui/styles/colors'
 // Data
 import {DATA} from '../resource'
-
+// i18n
 import { translate, Interpolate } from 'react-i18next'
 import i18n from '../utils/i18n'
 
@@ -53,7 +55,6 @@ class ReviewTable extends Component {
 	      data:DATA,
 	      switchCreatePage: false,
 	      singleInfo:{},
-	      hover: false
 	    }
 	}
 
@@ -68,18 +69,7 @@ class ReviewTable extends Component {
 	refresh = (event) => {
 	    event.preventDefault()
 
-	}
-	onMouseEnterHandler = () => {
-		this.setState({
-		   hover: true
-		})
-	}
-
-	onMouseLeaveHandler = () => {
-		this.setState({
-		   hover: false
-		})
-	}
+	}	
 
 	setStatus = (status) => {
 		let color;
@@ -151,11 +141,7 @@ class ReviewTable extends Component {
 			      <TableRowColumn>{this.setStatus(data.status)}</TableRowColumn>
 			      <TableRowColumn>{data.image}</TableRowColumn>			      
 			      <TableRowColumn>
-			      	<div 
-	                  onMouseEnter={this.onMouseEnterHandler}
-	                  onMouseLeave={this.onMouseLeaveHandler} >
-	                  {this.state.hover ? data.account+'/'+data.password : <FaEye/>}
-	                </div>
+			      	<HoverDiv {...data}/>
 	              </TableRowColumn>
 	              <TableRowColumn>{data.project}</TableRowColumn>
 			      <TableRowColumn style={{width: '8%'}}><DeleteModal data = {data}/></TableRowColumn>
