@@ -16,6 +16,9 @@ import moment from 'moment'
 import MdViewComfortable from 'react-icons/lib/md/view-comfortable'
 // COLOR
 import { blueA400, blue500, green500,orange500, orangeA700, redA700, greenA700 } from 'material-ui/styles/colors'
+// i18n
+import { translate, Interpolate } from 'react-i18next'
+import i18n from '../utils/i18n'
 
 const styles = {
   errorStyle: {
@@ -102,7 +105,7 @@ class CreatePage extends React.Component {
 
   handleChangeProjectNum = (event, value) => this.setState({projectNum: value})
   disableStartDate = (date) => (moment(date).isBefore(moment()))
-  disableEndDate = (date) => (moment(date).isBefore(moment(this.state.startDate)) || moment(date).isAfter(moment(this.state.startDate).add(1, 'month')))
+  disableEndDate = (date) => (moment(date).isBefore(moment(this.state.startDate).add(1, 'days')) || moment(date).isAfter(moment(this.state.startDate).add(1, 'month')))
 
   imageSelect = (machine, index, image) => {
     // console.log( machine, index, image)
@@ -115,33 +118,34 @@ class CreatePage extends React.Component {
   }
   
   getStepContent(stepIndex) {
+    const {t} = this.props
     switch (stepIndex) {
       case 0:
         return (
           <div>
             <DatePicker
               autoOk={true}
-              floatingLabelText="Start Date"
+              floatingLabelText={t('common:startDate')}
               shouldDisableDate={this.disableStartDate}
               onChange={this.handleChangeStartDate}
               value =  {this.state.startDate}    
             />
             <DatePicker
               autoOk={true}
-              floatingLabelText="End Date"
+              floatingLabelText={t('common:endDate')}
               onChange = {this.handleChangeEndDate}
               value =  {this.state.endDate}    
               shouldDisableDate={this.disableEndDate}
             />            
-            {this.state.increaseDay > 0 && <span>Interval : <font color={green500}>{this.state.increaseDay} days</font></span>}
-            {this.state.increaseDay < 0 && <span>Interval : <font color={redA700}>{this.state.increaseDay} days</font></span>}
+            {this.state.increaseDay > 0 && <span>{t('common:interval')} : <font color={green500}>{this.state.increaseDay} {t('common:days')}</font></span>}
+            {this.state.increaseDay < 0 && <span>{t('common:interval')} : <font color={redA700}>{this.state.increaseDay} {t('common:days')}</font></span>}
           </div>
         )
       case 1:
         return (
           <div>
             <SelectField
-              floatingLabelText="Number of machine"
+              floatingLabelText={t('common:InstanceNum')}
               value={this.state.machineNum}
               onChange={this.handleMachineNumChange}
             >
@@ -154,7 +158,7 @@ class CreatePage extends React.Component {
               <div>
               <SelectField
                 key = {machine.machine}
-                floatingLabelText={'Image of Machine'+machine.machine}                
+                floatingLabelText={"Instance"+machine.machine+t('common:machineImage')}
                 onChange={this.imageSelect.bind(null, machine.machine)}
                 value={machine.image}
               >
@@ -170,7 +174,7 @@ class CreatePage extends React.Component {
         return (
           <div>
             <TextField
-              floatingLabelText = "Project Number"
+              floatingLabelText = {t('common:project')}
               floatingLabelStyle = {styles.floatingLabelStyle}
               floatingLabelFocusStyle = {styles.floatingLabelFocusStyle}
               onChange = {this.handleChangeProjectNum}
@@ -184,25 +188,25 @@ class CreatePage extends React.Component {
             <List>                
               <Divider />
                 <ListItem
-                  primaryText={<b>Interval Date</b>}
+                  primaryText={<b>{t('common:dateRange')}</b>}
                   secondaryText={<p>{moment(this.state.startDate).format('YYYY-MM-DD')} ~ {moment(this.state.endDate).format('YYYY-MM-DD')}</p>}
                 />
                 <Divider />
                 <ListItem
-                  primaryText={<b>Machine</b>}
-                  secondaryText={<p>You Create <b>{this.state.machineArr.length}</b> machine.</p>}
+                  primaryText={<b>{t('common:instance')}</b>}
+                  secondaryText={<p>{t('common:youCreate')} <b>{this.state.machineArr.length}</b> {t('common:instance')}.</p>}
                   initiallyOpen={true}
                   primaryTogglesNestedList={true}
                   nestedItems={this.state.machineArr.map((machine)=>(        
                     <ListItem
-                      primaryText={<b>Machine{machine.machine}</b>}
+                      primaryText={<b>{t('common:instance')}{machine.machine}</b>}
                       secondaryText={<p>Image - <b>{this.state.imageArr[machine.image]}</b></p>}
                     />
                   ))}
                 />
                 <Divider />
                 <ListItem
-                  primaryText={<b>Project Number</b>}
+                  primaryText={<b>{t('common:project')}</b>}
                   secondaryText={this.state.projectNum}
                 />
               <Divider />
@@ -210,14 +214,14 @@ class CreatePage extends React.Component {
           </div>
         )
       default:
-        return 'You\'re a long way from home sonny jim!';
+        return 'Fly Me To The Moon';
     }
   }
 
   renderContent() {
     const {finished, stepIndex} = this.state
     const contentStyle = {margin: '0 16px', overflow: 'hidden'}
-
+    const {t} = this.props
     if (finished) {
       return (
         <div style={contentStyle}>
@@ -226,7 +230,7 @@ class CreatePage extends React.Component {
               <h1>It's DONE !</h1>
             <Divider />
             <RaisedButton 
-              label="Back Review"
+              label={t('common:backReview')}
               icon={<MdViewComfortable />}
               onTouchTap={this.props.switchReview}
             />           
@@ -240,13 +244,13 @@ class CreatePage extends React.Component {
         <div>{this.getStepContent(stepIndex)}</div>
         <div style={{marginTop: 24, marginBottom: 12}}>
           <FlatButton
-            label="Back"
+            label={t('common:createStep.back')}
             disabled={stepIndex === 0}
             onTouchTap={this.handlePrev}
             style={{marginRight: 12}}
           />
           <RaisedButton
-            label={stepIndex === 3 ? 'Finish' : 'Next'}
+            label={stepIndex === 3 ? t('common:createStep.finish') : t('common:createStep.next')}
             primary={true}
             disabled={this.state.increaseDay <= 0 || this.state.endDate === null}
             onTouchTap={this.handleNext}
@@ -258,7 +262,7 @@ class CreatePage extends React.Component {
 
   render() {
     const {loading, stepIndex} = this.state
-
+    const {t} = this.props
     return (
       <Card>
         <CardActions style={{ 
@@ -268,26 +272,26 @@ class CreatePage extends React.Component {
           right: '10px'
         }}>
           <FlatButton 
-            label="Back Review"
+            label={t('common:backReview')}
             style = {{color:blueA400}}
             icon={<MdViewComfortable />}
             onTouchTap={this.props.switchReview}
           />
         </CardActions>
-        <CardTitle title={'Create'}/>
+        <CardTitle title={t('common:create')}/>
         <div style={{width: '100%', maxWidth: 700, margin: 'auto'}}>
           <Stepper activeStep={stepIndex}>
             <Step>
-              <StepLabel>Select Date Range</StepLabel>
+              <StepLabel>{t('common:createStep.step1')}</StepLabel>
             </Step>
             <Step>
-              <StepLabel>Setting Machine & Image</StepLabel>
+              <StepLabel>{t('common:createStep.step2')}</StepLabel>
             </Step>
             <Step>
-              <StepLabel>Input Project Number</StepLabel>
+              <StepLabel>{t('common:createStep.step3')}</StepLabel>
             </Step>
             <Step>
-              <StepLabel>Comfirm Page</StepLabel>
+              <StepLabel>{t('common:createStep.step4')}</StepLabel>
             </Step>
           </Stepper>
           <ExpandTransition loading={loading} open={true}>
@@ -298,5 +302,4 @@ class CreatePage extends React.Component {
     )
   }
 }
-
-export default CreatePage;
+export default translate('')(CreatePage)
