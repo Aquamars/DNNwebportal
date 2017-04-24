@@ -8,15 +8,12 @@ import AppBar from 'material-ui/AppBar'
 import Drawer from 'material-ui/Drawer'
 import MenuItem from 'material-ui/MenuItem'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation'
 import FontIcon from 'material-ui/FontIcon'
-import Paper from 'material-ui/Paper'
 import autoprefixer from 'material-ui/utils/autoprefixer'
 import { Card, CardHeader,CardMedia, CardTitle, CardText, CardActions } from 'material-ui/Card'
 import IconButton from 'material-ui/IconButton'
 import ReviewTable from './ReviewTable'
-import SiginFrom from './SiginFrom'
-import LanguageBtn from './LanguageBtn'
+import Footer from './Footer'
 //ICON
 import ExitIcon from 'material-ui/svg-icons/action/power-settings-new'
 // COLOR
@@ -65,23 +62,9 @@ const styles = {
         zIndex: 1200,
     }
 }
-const MenuStyles = {
-    sidebarOpen: {
-        flex: '0 0 16em',
-        marginLeft: 0,
-        order: -1,
-        transition: 'margin 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms',
-    },
-    sidebarClosed: {
-        flex: '0 0 16em',
-        marginLeft: '-16em',
-        order: -1,
-        transition: 'margin 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms',
-    },
-}
 const prefixedStyles = {}
 const muiTheme = getMuiTheme({userAgent: 'all'})
-const favoritesIcon = <FontIcon className="material-icons">favorite</FontIcon>
+
 if (!prefixedStyles.main) {
     // do this once because user agent never changes
     const prefix = autoprefixer(muiTheme)
@@ -113,8 +96,6 @@ class MainContainer extends Component {
       data: value
     })
   }
-
-
   handleTouchTap = () => {
     this.setState({
       open: true,
@@ -132,7 +113,7 @@ class MainContainer extends Component {
         				          onLeftIconButtonTouchTap={this.handleToggle}
                           iconElementRight={
                             <IconButton 
-                              tooltip="SignOut" 
+                              tooltip={t('common:signOut')} 
                               onTouchTap={() => this.props.SignOut()}>                           >
                               <ExitIcon/>
                             </IconButton>
@@ -143,14 +124,7 @@ class MainContainer extends Component {
                             <ReviewTable/>                            
                             </div>                            
                         </div>
-                        <Paper zDepth={1}>
-                            <BottomNavigation>
-                            <BottomNavigationItem
-                              icon={<img src={t('common:logoSrc')} />}                              
-                            />
-                            <LanguageBtn/>
-                            </BottomNavigation>
-                        </Paper>
+                        <Footer/>
                     </div>
                 </div>
 	        </MuiThemeProvider>
