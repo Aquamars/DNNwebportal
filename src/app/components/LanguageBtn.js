@@ -14,7 +14,7 @@ class LanguageBtn extends Component {
 	  valueSingle: '3',	  
 	}
 	handleChangeSingle = (event, value) => {
-	  console.log(value)	
+	  // console.log(value)	
 	  switch(value){
 	  	case "0":
 	  		toggle('en')
