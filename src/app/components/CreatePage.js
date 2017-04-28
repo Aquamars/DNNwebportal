@@ -10,12 +10,16 @@ import Divider from 'material-ui/Divider'
 import {List, ListItem} from 'material-ui/List'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
-
+import Paper from 'material-ui/Paper'
 import moment from 'moment'
+import HoverDiv from './HoverDiv'
+import ReactTooltip from 'react-tooltip'
 //ICON
 import MdViewComfortable from 'react-icons/lib/md/view-comfortable'
+import ContentAddCircleOutline from 'material-ui/svg-icons/content/add-circle-outline'
+import ContentRemoveCircleOutline  from 'material-ui/svg-icons/content/remove-circle-outline'
 // COLOR
-import { blueA400, blue500, green500,orange500, orangeA700, redA700, greenA700 } from 'material-ui/styles/colors'
+import { blueA400, blue500, green500, orange500, orangeA700, redA700, greenA700 } from 'material-ui/styles/colors'
 // i18n
 import { translate, Interpolate } from 'react-i18next'
 import i18n from '../utils/i18n'
@@ -47,8 +51,8 @@ class CreatePage extends React.Component {
       startDate: moment().add(1,'day').format('YYYY-MM-DD'),
       endDate: null,
       increaseDay: 0,
-      machineNum:1,
-      machineArr: [{ machine: 0, image: 2}],
+      instanceNum:1,
+      instanceArr: [{ instance: 0, image: 0, dataSet:false, dataSetPath:'', dataSetId:'', dataSetPass:''}],
       imageArr: ['Cowboy Bebop','Trigun','Baccano','Chobits','Lupin the third']
     }
   }
@@ -65,7 +69,7 @@ class CreatePage extends React.Component {
       this.dummyAsync(() => this.setState({
         loading: false,
         stepIndex: stepIndex + 1,
-        finished: stepIndex >= 3,
+        finished: stepIndex >= 2,
       }))
     }
   }
@@ -79,21 +83,21 @@ class CreatePage extends React.Component {
       }))
     }
   }
-  handleMachineNumChange = (event, index, value) => {
+  handleInstanceNumChange = (event, index, value) => {
     let arr = []
     for(let i = 0; i < value; i++){
-      const obj = { machine: i, image: 1}
+      const obj = { instance: i, image: 0, dataSet:false, dataSetPath:'', dataSetId:'', dataSetPass:''}
       arr.push(obj)
     }
     this.setState({
-        machineNum: value,
-        machineArr: arr
+        instanceNum: value,
+        instanceArr: arr
     })    
   }
   handleChangeStartDate = (event, date) => {    
     this.setState({
       startDate: date,
-      increaseDay: moment(this.state.endDate).diff(moment(date), 'days')      
+      increaseDay: moment(this.state.endDate).diff(moment(date), 'days')
     })
   }
   handleChangeEndDate = (event, date) => {    
@@ -107,14 +111,29 @@ class CreatePage extends React.Component {
   disableStartDate = (date) => (moment(date).isBefore(moment()))
   disableEndDate = (date) => (moment(date).isBefore(moment(this.state.startDate).add(1, 'days')) || moment(date).isAfter(moment(this.state.startDate).add(1, 'month')))
 
-  imageSelect = (machine, index, image) => {
-    // console.log( machine, index, image)
+  imageSelect = (instance, index, image) => {
+    // console.log( instance, index, image)
     const imageArr = this.state.imageArr
-    let machineArr = this.state.machineArr
-    machineArr[machine].image = image    
+    let instanceArr = this.state.instanceArr
+    instanceArr[instance].image = image    
     this.setState({
-        machineArr: machineArr
+        instanceArr: instanceArr
     }) 
+  }
+  handleEnableDataSet = (instance) => {
+    let instanceArr = this.state.instanceArr
+    instanceArr[instance].dataSet = !instanceArr[instance].dataSet
+    this.setState({
+        instanceArr: instanceArr
+    })
+  }
+  dataPathSet = (instance, event) => {    
+    let instanceArr = this.state.instanceArr
+    instanceArr[instance][event.target.id] = event.target.value
+    // console.log( event.target.id, event.target.value)
+    this.setState({
+        instanceArr: instanceArr
+    })
   }
   
   getStepContent(stepIndex) {
@@ -144,63 +163,118 @@ class CreatePage extends React.Component {
       case 1:
         return (
           <div>
+            <TextField
+              floatingLabelText = {t('common:project')}
+              floatingLabelStyle = {styles.floatingLabelStyle}
+              floatingLabelFocusStyle = {styles.floatingLabelFocusStyle}
+              onChange = {this.handleChangeProjectNum}              
+            />
+            <br/>
             <SelectField
               floatingLabelText={t('common:InstanceNum')}
-              value={this.state.machineNum}
-              onChange={this.handleMachineNumChange}
+              value={this.state.instanceNum}
+              onChange={this.handleInstanceNumChange}
             >
               <MenuItem value={1} primaryText="1" />
               <MenuItem value={2} primaryText="2" />
               <MenuItem value={3} primaryText="3" />
-            </SelectField>
-            <Divider />
-            {this.state.machineArr.map((machine)=>(
-              <div>
-              <SelectField
-                key = {machine.machine}
-                floatingLabelText={"Instance"+machine.machine+t('common:machineImage')}
-                onChange={this.imageSelect.bind(null, machine.machine)}
-                value={machine.image}
-              >
-                {this.state.imageArr.map((image,index)=>(
-                  <MenuItem key={index} value={index} primaryText={image} />
-                ))}
-              </SelectField>
-              </div>)
+            </SelectField>            
+            <br />
+            {this.state.instanceArr.map((instance)=>(
+              <Card style={{borderRadius: '5px', border:'1px solid #e0e0e0', margin: '2px'}}>
+                <CardHeader
+                  title={instance.dataSet ? <b>Instance{instance.instance} <font color={green500}>{t('common:createStep.withDataSet')}</font></b> : <b>Instance{instance.instance} <font color={orange500}>{t('common:createStep.withoutDataSet')}</font></b>}
+                  actAsExpander={true}
+                  showExpandableButton={true}
+                />
+                <Divider />
+                <CardText expandable={true}>
+                <div>                
+                <SelectField
+                  key = {instance.instance}
+                  floatingLabelText={"Instance"+instance.instance+t('common:instanceImage')}
+                  onChange={this.imageSelect.bind(null, instance.instance)}
+                  value={instance.image}
+                >
+                  {this.state.imageArr.map((image,index)=>(
+                    <MenuItem key={index} value={index} primaryText={image} />
+                  ))}
+                </SelectField>
+                <FlatButton
+                  style = {{verticalAlign:'text-bottom'}}                                
+                  label={t('common:createStep.dataSetPath')}
+                  onTouchTap={this.handleEnableDataSet.bind(null, instance.instance)}
+                  secondary={instance.dataSet}
+                  primary={!instance.dataSet}
+                  data-tip data-for='dataSet'
+                  icon={instance.dataSet ? <ContentRemoveCircleOutline /> : <ContentAddCircleOutline />}
+                />
+                <ReactTooltip id='dataSet' place="bottom" effect='solid'>
+                  <span>{t('common:createStep.option')}</span>
+                </ReactTooltip>
+                </div>
+                { instance.dataSet &&
+                <div>
+                <TextField
+                  id = 'dataSetPath'
+                  errorText={!instance.dataSetPath && t('common:createStep.fieldRequired')}
+                  floatingLabelText = {t('common:createStep.dataSetPath')}
+                  onChange={this.dataPathSet.bind(null, instance.instance)}
+                  value={instance.dataSetPath}
+                  fullWidth={true}
+                />
+                <TextField
+                  id = 'dataSetId'
+                  errorText={!instance.dataSetId && t('common:createStep.fieldRequired')}
+                  floatingLabelText = {t('common:createStep.id')}
+                  value={instance.dataSetId}
+                  onChange={this.dataPathSet.bind(null, instance.instance)}                    
+                />
+                <TextField
+                  id = 'dataSetPass'
+                  type="password"
+                  errorText={!instance.dataSetPass && t('common:createStep.fieldRequired')}
+                  floatingLabelText = {t('common:createStep.password')}
+                  value={instance.dataSetPass}
+                  onChange={this.dataPathSet.bind(null, instance.instance)}
+                />
+                </div>
+                }
+                </CardText>
+              </Card>)
             )}
           </div>
         )
       case 2:
         return (
           <div>
-            <TextField
-              floatingLabelText = {t('common:project')}
-              floatingLabelStyle = {styles.floatingLabelStyle}
-              floatingLabelFocusStyle = {styles.floatingLabelFocusStyle}
-              onChange = {this.handleChangeProjectNum}
-              
-            />
-          </div>
-        )
-      case 3:
-        return (
-          <div>
             <List>                
               <Divider />
                 <ListItem
-                  primaryText={<b>{t('common:dateRange')}</b>}
+                  primaryText={<span><b>{t('common:dateRange')} </b>{t('common:interval')} : <font color={green500}>{this.state.increaseDay} {t('common:days')}</font></span>}
                   secondaryText={<p>{moment(this.state.startDate).format('YYYY-MM-DD')} ~ {moment(this.state.endDate).format('YYYY-MM-DD')}</p>}
                 />
                 <Divider />
                 <ListItem
                   primaryText={<b>{t('common:instance')}</b>}
-                  secondaryText={<p>{t('common:youCreate')} <b>{this.state.machineArr.length}</b> {t('common:instance')}.</p>}
+                  secondaryText={<p>{t('common:youCreate')} <b>{this.state.instanceArr.length}</b> {t('common:instance')}.</p>}
                   initiallyOpen={true}
                   primaryTogglesNestedList={true}
-                  nestedItems={this.state.machineArr.map((machine)=>(        
+                  nestedItems={this.state.instanceArr.map((instance, index)=>(        
                     <ListItem
-                      primaryText={<b>{t('common:instance')}{machine.machine}</b>}
-                      secondaryText={<p>Image - <b>{this.state.imageArr[machine.image]}</b></p>}
+                      key = {index}
+                      primaryText={instance.dataSet ? <b>Instance{instance.instance} <font color={green500}>{t('common:createStep.withDataSet')}</font></b> : <b>Instance{instance.instance} <font color={orange500}>{t('common:createStep.withoutDataSet')}</font></b>}
+                      secondaryText={<p>Image - <b>{this.state.imageArr[instance.image]}</b></p>}
+                      nestedItems={instance.dataSet && [
+                        <ListItem
+                          primaryText={<b>{t('common:createStep.dataSetPath')}</b>}
+                          secondaryText={<p><b>{instance.dataSetPath}</b></p>}
+                        />,
+                        <ListItem
+                          primaryText={<b>{t('common:createStep.id')}/{t('common:createStep.password')}</b>}
+                          secondaryText={<HoverDiv account={instance.dataSetId} password={instance.dataSetPass}/>}
+                        />                        
+                      ]}
                     />
                   ))}
                 />
@@ -238,7 +312,17 @@ class CreatePage extends React.Component {
         </div>
       )
     }
-
+    let nextBtn = false
+    switch (stepIndex){
+      case 0:
+        nextBtn = (this.state.increaseDay <= 0 || this.state.endDate === null)
+        break
+      case 1:
+        this.state.instanceArr.map((instance)=>{
+          nextBtn = (instance.dataSet === true && (instance.dataSetPath.length === 0 || instance.dataSetId.length === 0 || instance.dataSetPass.length === 0))
+        })
+        break
+      }
     return (
       <div style={contentStyle}>
         <div>{this.getStepContent(stepIndex)}</div>
@@ -250,9 +334,9 @@ class CreatePage extends React.Component {
             style={{marginRight: 12}}
           />
           <RaisedButton
-            label={stepIndex === 3 ? t('common:createStep.finish') : t('common:createStep.next')}
+            label={stepIndex === 2 ? t('common:createStep.finish') : t('common:createStep.next')}
             primary={true}
-            disabled={this.state.increaseDay <= 0 || this.state.endDate === null}
+            disabled={nextBtn}
             onTouchTap={this.handleNext}
           />          
         </div>
@@ -286,9 +370,6 @@ class CreatePage extends React.Component {
             </Step>
             <Step>
               <StepLabel>{t('common:createStep.step2')}</StepLabel>
-            </Step>
-            <Step>
-              <StepLabel>{t('common:createStep.step3')}</StepLabel>
             </Step>
             <Step>
               <StepLabel>{t('common:createStep.step4')}</StepLabel>
