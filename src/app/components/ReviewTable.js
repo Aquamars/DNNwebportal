@@ -10,7 +10,7 @@ import EditModal from './EditModal'
 import DeleteModal from './DeleteModal'
 import CreatePage from './CreatePage'
 import HoverDiv from './HoverDiv'
-
+import DetailModal from './DetailModal'
 // API call
 import axios from 'axios'
 import {API_URL} from '../resource'
@@ -43,7 +43,11 @@ const styles = {
 		display: 'inline-block', 
 		float: 'right',
 		right: '10px'
+	},
+	textCenter: {
+		textAlign:'center'
 	}
+
 }
 
 class ReviewTable extends Component {
@@ -113,18 +117,18 @@ class ReviewTable extends Component {
 			  <CardTitle title={'DNN'}/>
 			  <Paper>
 			  <Table>
-    			<TableHeader
+    			<TableHeader    			 
     			 displaySelectAll={false}
     			 adjustForCheckbox={false}>
     			  <TableRow>
     			    <TableHeaderColumn style={{width: '8%'}}></TableHeaderColumn>
-			        <TableHeaderColumn>{t('common:startDate')}</TableHeaderColumn>
-			        <TableHeaderColumn>{t('common:endDate')}</TableHeaderColumn>
-			        <TableHeaderColumn>{t('common:instance')}</TableHeaderColumn>
-			        <TableHeaderColumn>{t('common:status.status')}</TableHeaderColumn>
-			        <TableHeaderColumn>{t('common:image')}</TableHeaderColumn>
-			        <TableHeaderColumn>{t('common:account')}</TableHeaderColumn>
-			        <TableHeaderColumn>{t('common:project')}</TableHeaderColumn>			        
+			        <TableHeaderColumn style = {styles.textCenter}>{t('common:startDate')}</TableHeaderColumn>
+			        <TableHeaderColumn style = {styles.textCenter}>{t('common:endDate')}</TableHeaderColumn>
+			        <TableHeaderColumn style = {styles.textCenter}>{t('common:instance')}</TableHeaderColumn>
+			        <TableHeaderColumn style = {styles.textCenter}>{t('common:status.status')}</TableHeaderColumn>
+			        <TableHeaderColumn style = {styles.textCenter}>{t('common:image')}</TableHeaderColumn>
+			        <TableHeaderColumn style = {styles.textCenter}>{t('common:account')}</TableHeaderColumn>
+			        <TableHeaderColumn style = {styles.textCenter}>{t('common:project')}</TableHeaderColumn>			        
 			        <TableHeaderColumn style={{width: '8%'}}></TableHeaderColumn>
 			      </TableRow>
 			    </TableHeader>
@@ -134,16 +138,16 @@ class ReviewTable extends Component {
 			    	displayRowCheckbox={false}>
 			  	{ this.state.data.map((data, index)=>(
 			  	<TableRow key = {index}>
-			  	  <TableRowColumn style={{width: '8%'}}><EditModal data = {data}/></TableRowColumn>
-			      <TableRowColumn>{data.startTime}</TableRowColumn>
-			      <TableRowColumn>{data.endTime}</TableRowColumn>
-			      <TableRowColumn>{data.machine}</TableRowColumn>
-			      <TableRowColumn>{this.setStatus(data.status)}</TableRowColumn>
-			      <TableRowColumn>{data.image}</TableRowColumn>			      
-			      <TableRowColumn>
+			  	  <TableRowColumn style={{width: '8%'}}><DetailModal data = {data}/></TableRowColumn>
+			      <TableRowColumn style = {styles.textCenter}>{data.startTime}</TableRowColumn>
+			      <TableRowColumn style = {styles.textCenter}><EditModal data = {data}/></TableRowColumn>
+			      <TableRowColumn style = {styles.textCenter}>{data.instance}</TableRowColumn>
+			      <TableRowColumn style = {styles.textCenter}>{this.setStatus(data.status)}</TableRowColumn>
+			      <TableRowColumn style = {styles.textCenter}>{data.image}</TableRowColumn>			      
+			      <TableRowColumn style = {styles.textCenter}>
 			      	<HoverDiv {...data}/>
 	              </TableRowColumn>
-	              <TableRowColumn>{data.project}</TableRowColumn>
+	              <TableRowColumn style = {styles.textCenter}>{data.project}</TableRowColumn>
 			      <TableRowColumn style={{width: '8%'}}><DeleteModal data = {data}/></TableRowColumn>
 			    </TableRow>
 			  	))}
@@ -156,5 +160,4 @@ class ReviewTable extends Component {
 		)
 	}
 }
-
 export default translate('')(ReviewTable)
