@@ -16,8 +16,10 @@ import ReviewTable from './ReviewTable'
 import Footer from './Footer'
 //ICON
 import ExitIcon from 'material-ui/svg-icons/action/power-settings-new'
+import SocialPerson  from 'material-ui/svg-icons/social/person'
+import FaUser from 'react-icons/lib/fa/user'
 // COLOR
-import { lightBlue500 } from 'material-ui/styles/colors'
+import { lightBlue500, lightBlue900 } from 'material-ui/styles/colors'
 
 import { translate, Interpolate } from 'react-i18next'
 import i18n from '../utils/i18n'
@@ -108,15 +110,20 @@ class MainContainer extends Component {
 	            <div style={prefixedStyles.wrapper}>
                     <div style={prefixedStyles.main}>
                         <AppBar 
-                          title={this.props.user}
-                          style={{ backgroundColor: lightBlue500 }}
+                          title={<span><img style={{height:32, width:64, verticalAlign:'middle'}} src='./image/DNN Web logo_yellow.png'/><b> DNN Web portal</b></span>}
+                          style={{ backgroundColor: lightBlue900 }}
         				          onLeftIconButtonTouchTap={this.handleToggle}
                           iconElementRight={
+                            <div>
+                            <SocialPerson color='white'/>
+                            <span style={{verticalAlign:'super'}}><b><font color='#FDD100'> {this.props.user}</font></b></span>
                             <IconButton 
                               tooltip={t('common:signOut')} 
-                              onTouchTap={() => this.props.SignOut()}>                           >
-                              <ExitIcon/>
+                              onTouchTap={() => this.props.SignOut()}>                           
+                            >
+                              <ExitIcon color='white'/>
                             </IconButton>
+                            </div>
                           }
         				        />
                         <div className="body" style={prefixedStyles.body}>
