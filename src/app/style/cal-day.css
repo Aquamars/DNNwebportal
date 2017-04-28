@@ -1,0 +1,14 @@
+.DayPicker-Day--odd:not(.DayPicker-Day--outside) {
+  background-color: #d6e685;
+  color: white;
+}
+
+.DayPicker-Day--even:not(.DayPicker-Day--outside) {
+  background-color: #8cc665;
+  color: white;
+}
+
+.DayPicker-Day--first:not(.DayPicker-Day--outside) {
+  background-color: #44a340;
+  color: white;
+}
