@@ -99,6 +99,7 @@ class SiginFrom extends Component {
           });
       }, 1500)
     })
+
     // this.refs.notificationSystem.addNotification({
     //   message: 'Notification message',
     //   level: 'success',
