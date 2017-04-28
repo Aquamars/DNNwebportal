@@ -11,8 +11,8 @@ import Avatar from 'material-ui/Avatar'
 import CircularProgress from 'material-ui/CircularProgress'
 
 import LanguageBtn from './LanguageBtn'
+import {muiStyle} from '../myTheme'
 
-import { cyan500, lightBlue500, pinkA200 } from 'material-ui/styles/colors'
 // ICON
 import LockIcon from 'material-ui/svg-icons/action/lock-outline'
 
@@ -118,10 +118,10 @@ class SiginFrom extends Component {
     const {t} = this.props
     return (
       <div>        
-        <div style={{ ...styles.main, backgroundColor: lightBlue500 }}>
+        <div style={{ ...styles.main, backgroundColor: muiStyle.palette.primary1Color }}>
             <Card style={styles.card}>               
                 <div style={styles.avatar}>
-                    <Avatar backgroundColor={pinkA200} icon={<LockIcon />} size={60} />
+                    <Avatar backgroundColor={muiStyle.palette.accent1Color} icon={<LockIcon />} size={60} />
                 </div>
                 {signInError && <Snackbar open autoHideDuration={2000} message='SignIn ERROR!' bodyStyle={styleSnackbar} />}
                 <form onSubmit={this.submit}>
@@ -133,6 +133,7 @@ class SiginFrom extends Component {
                               disabled={submitting}
                               onChange={this.handleChange}
                               value= {this.state.username}
+                              underlineFocusStyle={{borderColor:muiStyle.palette.primary1Color}} 
                           />
                       </div>
                       <div style={styles.input}>
@@ -142,7 +143,8 @@ class SiginFrom extends Component {
                               type="password"
                               disabled={submitting}
                               onChange={this.handleChange}
-                              value= {this.state.password}                             
+                              value= {this.state.password}  
+                              underlineFocusStyle={{borderColor:muiStyle.palette.primary1Color}}                           
                           />
                       </div>
                     </div>
@@ -150,7 +152,7 @@ class SiginFrom extends Component {
                       <LanguageBtn />
                       <RaisedButton
                           type="submit"
-                          backgroundColor = {lightBlue500}
+                          backgroundColor = {muiStyle.palette.primary1Color}
                           disabled={submitting}
                           icon={submitting && <CircularProgress size={25} thickness={2} />}
                           label={t('common:submit')}

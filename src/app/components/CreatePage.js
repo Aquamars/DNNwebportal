@@ -14,12 +14,15 @@ import Paper from 'material-ui/Paper'
 import moment from 'moment'
 import HoverDiv from './HoverDiv'
 import ReactTooltip from 'react-tooltip'
+
 //ICON
 import MdViewComfortable from 'react-icons/lib/md/view-comfortable'
 import ContentAddCircleOutline from 'material-ui/svg-icons/content/add-circle-outline'
 import ContentRemoveCircleOutline  from 'material-ui/svg-icons/content/remove-circle-outline'
 // COLOR
 import { blueA400, blue500, green500, orange500, orangeA700, redA700, greenA700 } from 'material-ui/styles/colors'
+import {muiStyle, muiTheme} from '../myTheme'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 // i18n
 import { translate, Interpolate } from 'react-i18next'
 import i18n from '../utils/i18n'
@@ -35,7 +38,7 @@ const styles = {
     color: orange500,
   },
   floatingLabelFocusStyle: {
-    color: blue500,
+    color: muiStyle.palette.primary1Color,
   },
 }
 
@@ -141,7 +144,7 @@ class CreatePage extends React.Component {
     switch (stepIndex) {
       case 0:
         return (
-          <div>
+          <div>            
             <DatePicker
               autoOk={true}
               floatingLabelText={t('common:startDate')}
@@ -334,8 +337,9 @@ class CreatePage extends React.Component {
             style={{marginRight: 12}}
           />
           <RaisedButton
-            label={stepIndex === 2 ? t('common:createStep.finish') : t('common:createStep.next')}
-            primary={true}
+            label={stepIndex === 2 ? t('common:createStep.finish') : t('common:createStep.next')}            
+            backgroundColor = {muiStyle.palette.primary1Color}
+            labelColor = 'white'
             disabled={nextBtn}
             onTouchTap={this.handleNext}
           />          
@@ -348,6 +352,7 @@ class CreatePage extends React.Component {
     const {loading, stepIndex} = this.state
     const {t} = this.props
     return (
+      <MuiThemeProvider muiTheme={muiTheme}>
       <Card>
         <CardActions style={{ 
           zIndex: 2, 
@@ -357,13 +362,13 @@ class CreatePage extends React.Component {
         }}>
           <FlatButton 
             label={t('common:backReview')}
-            style = {{color:blueA400}}
+            style = {{color:muiStyle.palette.primary1Color}}
             icon={<MdViewComfortable />}
             onTouchTap={this.props.switchReview}
           />
         </CardActions>
         <CardTitle title={t('common:create')}/>
-        <div style={{width: '100%', maxWidth: 700, margin: 'auto'}}>
+        <div style={{width: '100%', maxWidth: 700, margin: 'auto'}}>          
           <Stepper activeStep={stepIndex}>
             <Step>
               <StepLabel>{t('common:createStep.step1')}</StepLabel>
@@ -377,9 +382,10 @@ class CreatePage extends React.Component {
           </Stepper>
           <ExpandTransition loading={loading} open={true}>
             {this.renderContent()}
-          </ExpandTransition>
+          </ExpandTransition>          
         </div>
       </Card>
+      </MuiThemeProvider>
     )
   }
 }

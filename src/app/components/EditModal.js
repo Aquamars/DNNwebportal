@@ -12,6 +12,9 @@ import IconButton from 'material-ui/IconButton'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 // ICON
 import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit'
+// theme
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import {muiStyle, muiTheme} from '../myTheme'
 // COLOR
 import { blueA400, green500, pink500 } from 'material-ui/styles/colors'
 // i18n
@@ -67,10 +70,11 @@ class EditModal extends React.Component {
     const optionsStyle = {
         marginRight: 'auto',
     }
-    return (      
+    return (
+    <MuiThemeProvider muiTheme={muiTheme}>        
       <div>
         <FlatButton
-          style = {{color:blueA400}} 
+          style = {{color:muiStyle.palette.primary1Color}} 
           data-tip data-for='edit'
           label={this.props.data.endTime}
           labelPosition="before"
@@ -100,10 +104,11 @@ class EditModal extends React.Component {
             defaultDate={new Date(this.props.data.endTime)}
           />
           {this.state.increaseDay > 0 && <span>{this.props.data.endTime} <font color={green500}>+ {this.state.increaseDay} {t('common:days')}</font></span>}
-          <ReviewCalendar />
+          
         </div>
         </Dialog>
       </div>
+    </MuiThemeProvider>  
     )
   }
 }

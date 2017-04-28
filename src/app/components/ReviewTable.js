@@ -18,8 +18,9 @@ import {API_URL} from '../resource'
 import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh'
 import ContentAdd from 'material-ui/svg-icons/content/add'
 
+import {muiStyle} from '../myTheme'
 // COLOR
-import { blueA400, orangeA700, redA700, greenA700 } from 'material-ui/styles/colors'
+import { orangeA700, redA700, greenA700 } from 'material-ui/styles/colors'
 // Data
 import {DATA} from '../resource'
 // i18n
@@ -47,7 +48,6 @@ const styles = {
 	textCenter: {
 		textAlign:'center'
 	}
-
 }
 
 class ReviewTable extends Component {
@@ -103,13 +103,13 @@ class ReviewTable extends Component {
 			  <CardActions style={styles.actions}>
 				<FlatButton 
 		          label={t('common:refresh')}
-		          style = {{color:blueA400}}
+		          style = {{color:muiStyle.palette.primary1Color}}
 		          icon={<NavigationRefresh />}
 		          onTouchTap={this.refresh}
 		        />
 		        <FlatButton 
 		          label={t('common:create')}
-		          style = {{color:blueA400}}
+		          style = {{color:muiStyle.palette.primary1Color}}
 		          icon={<ContentAdd />}
 		          onTouchTap={this.SwitchCreatePage}
 		        />

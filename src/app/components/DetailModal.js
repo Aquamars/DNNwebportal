@@ -9,25 +9,15 @@ import moment from 'moment'
 import HoverDiv from './HoverDiv'
 // theme
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import getMuiTheme from 'material-ui/styles/getMuiTheme'
 // i18n
 import { translate, Interpolate } from 'react-i18next'
 import i18n from '../utils/i18n'
 // ICON
 import ActionToc from 'material-ui/svg-icons/action/toc'
 // COLOR
-import { blueA400, green500, orange500, greenA700, pink500, redA700, orangeA700 } from 'material-ui/styles/colors'
+import { green500, orange500, greenA700, redA700, orangeA700 } from 'material-ui/styles/colors'
+import {muiStyle, muiTheme} from '../myTheme'
 
-const muiTheme = getMuiTheme({
-  tabs: {
-      backgroundColor: 'white',
-      selectedTextColor: '#00bcd4',
-      textColor: '#757575',
-  },
-  inkBar: {
-      backgroundColor: '#00bcd4',
-  },
-})
 class DetailModal extends React.Component {
 	constructor(props) {
 	    super(props)
@@ -39,8 +29,7 @@ class DetailModal extends React.Component {
 	      increaseDay: increaseDay,
 	      excuteDay: excuteDay,
 	      leftDay: leftDay
-	    }
-		console.log(this.state.increaseDay, this.state.excuteDay, this.state.leftDay)
+	    }		
 	}
 
 
@@ -74,13 +63,13 @@ class DetailModal extends React.Component {
 	  return (
 	  	<div>
         <FlatButton
-          style = {{color:blueA400}} 
-          data-tip data-for='edit'
+          style = {{color:muiStyle.palette.primary1Color}} 
+          data-tip data-for='detail'
           labelPosition="before"
           icon={<ActionToc />}
           onTouchTap={this.handleOpen} />
-        <ReactTooltip id='edit' place="bottom" effect='solid'>
-          <span>{t('common:editDate')}</span>
+        <ReactTooltip id='detail' place="bottom" effect='solid'>
+          <span>{t('common:detail')}</span>
         </ReactTooltip>
         <Dialog
           title={<p><b>{this.props.data.instance}</b> - {this.setStatus(this.props.data.status)}</p>}
@@ -97,7 +86,7 @@ class DetailModal extends React.Component {
 		        <div>
 			        <List>
 		              <ListItem
-		                primaryText={this.props.data.dataSet ? <b>Instance{this.props.data.instance} <font color={green500}>{t('common:createStep.withDataSet')}</font></b> : <b>Instance{this.props.data.instance} <font color={orange500}>{t('common:createStep.withoutDataSet')}</font></b>}
+		                primaryText={this.props.data.dataSet ? <b>Instance <font color={green500}>{t('common:createStep.withDataSet')}</font></b> : <b>Instance <font color={orange500}>{t('common:createStep.withoutDataSet')}</font></b>}
 		                secondaryText={<p><b>{this.props.data.instance}</b></p>}
 		                initiallyOpen={true}
 		                nestedItems={[
@@ -163,6 +152,4 @@ class DetailModal extends React.Component {
 	  )
 	}
 }
-
-
 export default translate('')(DetailModal)
