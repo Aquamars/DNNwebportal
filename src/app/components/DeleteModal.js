@@ -74,24 +74,24 @@ class DeleteModal extends React.Component {
           <font color={redA700}><MdDelete/><b> {t('common:remove.warning')}</b></font>
           <div>
             <List>                
-                <Divider />
+                <Divider style={{color:redA700}}/>
                 <ListItem
-                  primaryText={t('common:dateRange')}
-                  secondaryText={<span>{this.props.data.startTime} ~ {this.props.data.endTime}</span>}
+                  primaryText={<span><b>{t('common:dateRange')}</b></span>}
+                  secondaryText={<p>{this.props.data.startTime} ~ {this.props.data.endTime}</p>}
                 />
                 <ListItem
-                  primaryText={t('common:instance')}
-                  secondaryText={this.props.data.machine}
+                  primaryText={<b>{t('common:instance')}</b>}
+                  secondaryText={this.props.data.instance}
                 />
                 <ListItem
-                  primaryText={t('common:image')}
+                  primaryText={<b>{t('common:image')}</b>}
                   secondaryText={this.props.data.image}
                 />
                 <ListItem
-                  primaryText={t('common:project')}
+                  primaryText={<b>{t('common:project')}</b>}
                   secondaryText={this.props.data.project}
                 />
-                <Divider />
+                <Divider style={{color:redA700}}/>
             </List>
           </div>
         </Dialog>
