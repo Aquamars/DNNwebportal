@@ -1,15 +1,17 @@
 import React from 'react'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
-import RaisedButton from 'material-ui/RaisedButton'
 import DatePicker from 'material-ui/DatePicker'
 import Divider from 'material-ui/Divider'
 import {List, ListItem} from 'material-ui/List'
 import TextField from 'material-ui/TextField'
 import ReactTooltip from 'react-tooltip'
 import moment from 'moment'
+import ReviewCalendar from './ReviewCalendar'
+import IconButton from 'material-ui/IconButton'
+import FloatingActionButton from 'material-ui/FloatingActionButton'
 // ICON
-import MdEdit from 'react-icons/lib/md/edit'
+import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit'
 // COLOR
 import { blueA400, green500, pink500 } from 'material-ui/styles/colors'
 // i18n
@@ -21,10 +23,10 @@ import i18n from '../utils/i18n'
 class EditModal extends React.Component {
 
   constructor(props) {
-      super(props)      
+      super(props)
       this.state = {
         open: false,
-        increaseDay:0  
+        increaseDay:0 
       }
   }
 
@@ -37,7 +39,7 @@ class EditModal extends React.Component {
   }
 
   handleChangeMaxDate = (event, date) => {
-    console.log(date)    
+    // console.log(date)    
     this.setState({
       endTime: date,
       increaseDay: moment(date).diff(moment(this.props.data.endTime), 'days')
@@ -46,10 +48,6 @@ class EditModal extends React.Component {
 
   disableDate = (date) => {    
     return moment(date).isBefore(this.props.data.endTime) || moment(date).isAfter(moment(this.props.data.endTime).add(1, 'month'))
-  }
-
-  countDays = (date) => {
-    console.log(moment(date).diff(moment(this.props.data.endTime), 'days'))
   }
 
   render() {
@@ -67,23 +65,22 @@ class EditModal extends React.Component {
       />,
     ]
     const optionsStyle = {
-        maxWidth: 255,
         marginRight: 'auto',
     }
     return (      
       <div>
         <FlatButton
           style = {{color:blueA400}} 
-          fullWidth = {true}
-          label="" 
           data-tip data-for='edit'
-          icon={<MdEdit />} 
+          label={this.props.data.endTime}
+          labelPosition="before"
+          icon={<EditorModeEdit />}
           onTouchTap={this.handleOpen} />
         <ReactTooltip id='edit' place="bottom" effect='solid'>
           <span>{t('common:editDate')}</span>
         </ReactTooltip>
         <Dialog
-          title={this.props.data.machine+"-"+t('common:editDate')}
+          title={this.props.data.instance+'-'+t('common:editDate')}
           actions={actions}
           modal={true}
           open={this.state.open}
@@ -103,6 +100,7 @@ class EditModal extends React.Component {
             defaultDate={new Date(this.props.data.endTime)}
           />
           {this.state.increaseDay > 0 && <span>{this.props.data.endTime} <font color={green500}>+ {this.state.increaseDay} {t('common:days')}</font></span>}
+          <ReviewCalendar />
         </div>
         </Dialog>
       </div>
