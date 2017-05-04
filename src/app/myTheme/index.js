@@ -34,7 +34,7 @@ export const muiTheme = getMuiTheme({
   },
   datePicker: { 
     selectColor: muiStyle.palette.primary1Color,
-    selectTextColor: 'white',
+    selectTextColor: white,
   },
   stepper: {
       backgroundColor: 'transparent',
