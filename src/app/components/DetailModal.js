@@ -21,9 +21,9 @@ import {muiStyle, muiTheme} from '../myTheme'
 class DetailModal extends React.Component {
 	constructor(props) {
 	    super(props)
-	    const increaseDay = moment(this.props.data.endTime).diff(moment(this.props.data.startTime), 'days')
-	    const excuteDay = moment(this.props.data.startTime).isBefore(moment()) ? moment().diff(moment(this.props.data.startTime), 'days') : 0
-	    const leftDay = moment(this.props.data.endTime).diff(moment(), 'days')
+	    const increaseDay = moment(this.props.data.endedAt).diff(moment(this.props.data.startedAt), 'days')
+	    const excuteDay = moment(this.props.data.startedAt).isBefore(moment()) ? moment().diff(moment(this.props.data.startedAt), 'days') : 0
+	    const leftDay = moment(this.props.data.endedAt).diff(moment(), 'days')
 	    this.state = {
 	      open: false,
 	      increaseDay: increaseDay,
@@ -41,19 +41,21 @@ class DetailModal extends React.Component {
 	  this.setState({open: false});
 	}
 	setStatus = (status) => {
-		let color;
+		let obj;
 		switch(status){
-			case 'initial':
-				color = orangeA700
+			case 0:
+				obj = <font color ={orangeA700}><b>{'initial'}</b></font>
 				break
-			case 'running':
-				color = greenA700
+			case 1:				
+				obj = <font color ={greenA700}><b>{'running'}</b></font>
 				break
 			case 'stop':
-				color = redA700
+				obj = <font color ={redA700}><b>{'stop'}</b></font>
 				break
+			default:
+				obj = <font color ={'#000'}><b>{'??????'}</b></font>
 		}
-		return (<span><font color ={color}><b>{status}</b></font></span>)
+		return (obj)
 	}
 	render(){
 	  const {t} = this.props
@@ -72,7 +74,7 @@ class DetailModal extends React.Component {
           <span>{t('common:detail')}</span>
         </ReactTooltip>
         <Dialog
-          title={<p><b>{this.props.data.instance}</b> - {this.setStatus(this.props.data.status)}</p>}
+          title={<p><b>{this.props.data.instance.id}</b> - {this.setStatus(this.props.data.instance.statusId)}</p>}
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
@@ -86,34 +88,34 @@ class DetailModal extends React.Component {
 		        <div>
 			        <List>
 		              <ListItem
-		                primaryText={this.props.data.dataSet ? <b>Instance <font color={green500}>{t('common:createStep.withDataSet')}</font></b> : <b>Instance <font color={orange500}>{t('common:createStep.withoutDataSet')}</font></b>}
-		                secondaryText={<p><b>{this.props.data.instance}</b></p>}
+		                primaryText={(this.props.data.instance.datasetPath!=null) ? <b>Instance <font color={green500}>{t('common:createStep.withDataSet')}</font></b> : <b>Instance <font color={orange500}>{t('common:createStep.withoutDataSet')}</font></b>}
+		                secondaryText={<p><b>{this.props.data.instance.id}</b></p>}
 		                initiallyOpen={true}
 		                nestedItems={[
 		                	<ListItem
 				              primaryText={<span><b>{t('common:account')}</b></span>}
-				              secondaryText={<HoverDiv account={this.props.data.account} password={this.props.data.password}/>}
+				              secondaryText={<HoverDiv account={this.props.data.instance.username} password={this.props.data.instance.password}/>}
 				            />
 		                ]}
 		              />
 		              <ListItem
 		                primaryText={<span><b>{t('common:image')} </b></span>}
-		                secondaryText={<p><b>{this.props.data.image}</b></p>}
+		                secondaryText={<p><b>{this.props.data.instance.image.name}</b></p>}
 		                initiallyOpen={true}
-		                nestedItems={this.props.data.dataSet && [
+		                nestedItems={(this.props.data.instance.datasetPath!=null) && [
 		                    <ListItem
 		                       primaryText={<b>{t('common:createStep.dataSetPath')}</b>}
-		                       secondaryText={<p><b>{this.props.data.dataSetPath}</b></p>}
+		                       secondaryText={<p><b>{this.props.data.instance.datasetPath}</b></p>}
 		                    />,
 		                    <ListItem
 		                       primaryText={<b>{t('common:createStep.id')}/{t('common:createStep.password')}</b>}
-		                       secondaryText={<HoverDiv account={this.props.data.dataSetId} password={this.props.data.dataSetPass}/>}
+		                       secondaryText={<HoverDiv account={this.props.data.instance.datasetUsername} password={this.props.data.instance.datasetPassword}/>}
 		                    />                        
 		                ]}
 		              />
 		              <ListItem
 		                primaryText={<span><b>{t('common:project')} </b></span>}
-		                secondaryText={<p><b>{this.props.data.project}</b></p>}
+		                secondaryText={<p><b>{this.props.data.projectCode}</b></p>}
 		              />
 		              <Divider style={{color:green500}}/>
 		            </List>
@@ -124,7 +126,7 @@ class DetailModal extends React.Component {
 			        <List>
 				        <ListItem
 			              primaryText={<span><b>{t('common:dateRange')} </b></span>}
-			              secondaryText={<p>{this.props.data.startTime} ~ {this.props.data.endTime}</p>}
+			              secondaryText={<p>{moment(this.props.data.startedAt).format('YYYY-MM-DD')} ~ {moment(this.props.data.endedAt).format('YYYY-MM-DD')}</p>}
 			              initiallyOpen={true}
 			              nestedItems={[
 			              	<ListItem
