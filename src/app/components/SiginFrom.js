@@ -70,21 +70,22 @@ class SiginFrom extends Component {
       submitting: true      
     })
 
-    axios.post(
-      API_URL+'signin',
+    axios.get(
+      API_URL, 
       {
-        username: this.state.username,
-        password: this.state.password
-        // username: 'itri',
-        // password: 'itri'
+        params: {
+          username: this.state.username,
+          password: this.state.password
+        }
       }
     )
-    .then((result)=>{           
+    .then((result)=>{
+      console.log(result)
       this.setState({
         submitting: false,
         data:result.data
       })
-      this.props.SigninCheck(this.state.username,this.state.password)
+      this.props.SigninCheck(this.state.username,result.data.token)
     }).catch((err)=>{
       console.log(err)
       this.setState({
