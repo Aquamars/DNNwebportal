@@ -76,7 +76,7 @@ class EditModal extends React.Component {
         <FlatButton
           style = {{color:muiStyle.palette.primary1Color}} 
           data-tip data-for='edit'
-          label={this.props.data.endTime}
+          label={moment(this.props.data.endedAt).format('YYYY-MM-DD')}
           labelPosition="before"
           icon={<EditorModeEdit />}
           onTouchTap={this.handleOpen} />
@@ -84,7 +84,7 @@ class EditModal extends React.Component {
           <span>{t('common:editDate')}</span>
         </ReactTooltip>
         <Dialog
-          title={this.props.data.instance+'-'+t('common:editDate')}
+          title={this.props.data.instance.id+'-'+t('common:editDate')}
           actions={actions}
           modal={true}
           open={this.state.open}
@@ -93,7 +93,7 @@ class EditModal extends React.Component {
           <Divider />
           <TextField
             disabled={true}
-            defaultValue={this.props.data.startTime}
+            defaultValue={moment(this.props.data.startedAt).format('YYYY-MM-DD')}
             floatingLabelText={t('common:startDate')}
           />
           <DatePicker
@@ -101,14 +101,14 @@ class EditModal extends React.Component {
             autoOk={true}
             floatingLabelText={t('common:endDate')}
             shouldDisableDate={this.disableDate}
-            defaultDate={new Date(this.props.data.endTime)}
+            defaultDate={new Date(this.props.data.endedAt)}
           />
-          {this.state.increaseDay > 0 && <span>{this.props.data.endTime} <font color={green500}>+ {this.state.increaseDay} {t('common:days')}</font></span>}
-          
+          {this.state.increaseDay > 0 && <span>{moment(this.props.data.endedAt).format('YYYY-MM-DD')} <font color={green500}>+ {this.state.increaseDay} {t('common:days')}</font></span>}
+          <ReviewCalendar />
         </div>
         </Dialog>
       </div>
-    </MuiThemeProvider>  
+    </MuiThemeProvider>
     )
   }
 }
