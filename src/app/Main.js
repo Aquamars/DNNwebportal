@@ -74,16 +74,16 @@ class Main extends Component {
     this.state = {
       SignInCheck: false,
       username: '',
-      password: ''
+      token: ''
     };
   }  
 
 // handle signIn and get username,password
-  handleSigninCheck = (username, password) => {
+  handleSigninCheck = (username, token) => {
     this.setState({
       SignInCheck: true,
       username: username,
-      password: password
+      token: token
     })
   }
 
@@ -91,7 +91,8 @@ class Main extends Component {
     this.setState({
       SignInCheck: false,
       username: '',
-      password: ''
+      password: '',
+      token: ''
     })
   }
 
@@ -100,7 +101,7 @@ class Main extends Component {
         return (
             <MainContainer 
             user={this.state.username} 
-            pass={this.state.password} 
+            token={this.state.token} 
             SignOut={this.handleSignOut}/>
         )
       }else{
