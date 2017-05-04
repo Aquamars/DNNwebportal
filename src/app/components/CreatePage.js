@@ -14,13 +14,19 @@ import Paper from 'material-ui/Paper'
 import moment from 'moment'
 import HoverDiv from './HoverDiv'
 import ReactTooltip from 'react-tooltip'
-
+import CircularProgress from 'material-ui/CircularProgress'
+import ReviewCalendar from './ReviewCalendar'
+import Hints from './Hints'
+// API
+import axios from 'axios'
+import {API_URL, API_CheckInstance} from '../resource'
 //ICON
 import MdViewComfortable from 'react-icons/lib/md/view-comfortable'
 import ContentAddCircleOutline from 'material-ui/svg-icons/content/add-circle-outline'
 import ContentRemoveCircleOutline  from 'material-ui/svg-icons/content/remove-circle-outline'
+import ActionCheckCircle  from 'material-ui/svg-icons/action/check-circle'
 // COLOR
-import { blueA400, blue500, green500, orange500, orangeA700, redA700, greenA700 } from 'material-ui/styles/colors'
+import { white, blueA400, blue500, green500, orange500, orangeA700, redA700, greenA700 } from 'material-ui/styles/colors'
 import {muiStyle, muiTheme} from '../myTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 // i18n
@@ -45,16 +51,20 @@ const styles = {
 class CreatePage extends React.Component {
   
   constructor(props) {
-    super(props)      
+    super(props)
+    console.log('currentInstanceNumthis',this.props.currentInstanceNum)    
     this.state = {
       loading: false,
       finished: false,
       stepIndex: 0,
+      submitting: false,
       projectNum: null,
-      startDate: moment().add(1,'day').format('YYYY-MM-DD'),
+      startDate: new Date(moment().add(1,'day').format('YYYY-MM-DD')),
       endDate: null,
       increaseDay: 0,
-      instanceNum:1,
+      instanceNum: 1,
+      queryNumber: 0,
+      avalableNumber: [],
       instanceArr: [{ instance: 0, image: 0, dataSet:false, dataSetPath:'', dataSetId:'', dataSetPass:''}],
       imageArr: ['Cowboy Bebop','Trigun','Baccano','Chobits','Lupin the third']
     }
@@ -102,18 +112,54 @@ class CreatePage extends React.Component {
       startDate: date,
       increaseDay: moment(this.state.endDate).diff(moment(date), 'days')
     })
+    if(this.state.endDate != null)this.checkInstanceRemain()
   }
   handleChangeEndDate = (event, date) => {    
     this.setState({
       endDate: date,
       increaseDay: moment(date).diff(moment(this.state.startDate), 'days')
     })
+    this.checkInstanceRemain()
   }
 
+  checkInstanceRemain = () => {
+    const {startDate, endDate} = this.state
+    axios.get(
+      API_CheckInstance,
+      {
+        params: {
+          endedAt: moment(endDate).format('YYYY-MM-DD'),
+          startedAt: moment(startDate).format('YYYY-MM-DD')
+        }
+      }
+    )
+    .then((result)=>{ 
+      let avalableNum = []
+      let number
+      if(result.data.avalableNumber <= (3 - this.props.currentInstanceNum)){
+        number = result.data.avalableNumber
+      }else{
+        number = 3 - this.props.currentInstanceNum
+      }
+      for (let i = 0; i < (number); i++) {
+        avalableNum.push(i)
+      }
+      this.setState({
+        queryNumber: result.data.avalableNumber,
+        submitting: false,
+        avalableNumber: avalableNum
+      })
+      console.log(
+        'queryNumber',result.data.avalableNumber, 
+        'avalableNumber',avalableNum.length,
+        'currentInstanceNum',this.props.currentInstanceNum)
+    }).catch((err)=>{
+      console.log(err)
+    })
+  }
   handleChangeProjectNum = (event, value) => this.setState({projectNum: value})
   disableStartDate = (date) => (moment(date).isBefore(moment()))
   disableEndDate = (date) => (moment(date).isBefore(moment(this.state.startDate).add(1, 'days')) || moment(date).isAfter(moment(this.state.startDate).add(1, 'month')))
-
   imageSelect = (instance, index, image) => {
     // console.log( instance, index, image)
     const imageArr = this.state.imageArr
@@ -123,24 +169,9 @@ class CreatePage extends React.Component {
         instanceArr: instanceArr
     }) 
   }
-  handleEnableDataSet = (instance) => {
-    let instanceArr = this.state.instanceArr
-    instanceArr[instance].dataSet = !instanceArr[instance].dataSet
-    this.setState({
-        instanceArr: instanceArr
-    })
-  }
-  dataPathSet = (instance, event) => {    
-    let instanceArr = this.state.instanceArr
-    instanceArr[instance][event.target.id] = event.target.value
-    // console.log( event.target.id, event.target.value)
-    this.setState({
-        instanceArr: instanceArr
-    })
-  }
-  
   getStepContent(stepIndex) {
     const {t} = this.props
+    const {submitting} = this.state
     switch (stepIndex) {
       case 0:
         return (
@@ -158,9 +189,13 @@ class CreatePage extends React.Component {
               onChange = {this.handleChangeEndDate}
               value =  {this.state.endDate}    
               shouldDisableDate={this.disableEndDate}
+            />
+            <Hints 
+              increaseDay = {this.state.increaseDay}
+              avalableNumber = {this.state.avalableNumber.length}
+              currentInstanceNum = {this.props.currentInstanceNum}
             />            
-            {this.state.increaseDay > 0 && <span>{t('common:interval')} : <font color={green500}>{this.state.increaseDay} {t('common:days')}</font></span>}
-            {this.state.increaseDay < 0 && <span>{t('common:interval')} : <font color={redA700}>{this.state.increaseDay} {t('common:days')}</font></span>}
+            <ReviewCalendar />
           </div>
         )
       case 1:
@@ -173,20 +208,21 @@ class CreatePage extends React.Component {
               onChange = {this.handleChangeProjectNum}              
             />
             <br/>
+            
             <SelectField
               floatingLabelText={t('common:InstanceNum')}
               value={this.state.instanceNum}
               onChange={this.handleInstanceNumChange}
             >
-              <MenuItem value={1} primaryText="1" />
-              <MenuItem value={2} primaryText="2" />
-              <MenuItem value={3} primaryText="3" />
+              {this.state.avalableNumber.map((num) => (
+                <MenuItem key={num+1} value={num+1} primaryText={num+1} />
+              ))}           
             </SelectField>            
             <br />
             {this.state.instanceArr.map((instance)=>(
               <Card style={{borderRadius: '5px', border:'1px solid #e0e0e0', margin: '2px'}}>
                 <CardHeader
-                  title={instance.dataSet ? <b>Instance{instance.instance} <font color={green500}>{t('common:createStep.withDataSet')}</font></b> : <b>Instance{instance.instance} <font color={orange500}>{t('common:createStep.withoutDataSet')}</font></b>}
+                  title={<b>Instance{instance.instance}</b>}
                   actAsExpander={true}
                   showExpandableButton={true}
                 />
@@ -202,47 +238,8 @@ class CreatePage extends React.Component {
                   {this.state.imageArr.map((image,index)=>(
                     <MenuItem key={index} value={index} primaryText={image} />
                   ))}
-                </SelectField>
-                <FlatButton
-                  style = {{verticalAlign:'text-bottom'}}                                
-                  label={t('common:createStep.dataSetPath')}
-                  onTouchTap={this.handleEnableDataSet.bind(null, instance.instance)}
-                  secondary={instance.dataSet}
-                  primary={!instance.dataSet}
-                  data-tip data-for='dataSet'
-                  icon={instance.dataSet ? <ContentRemoveCircleOutline /> : <ContentAddCircleOutline />}
-                />
-                <ReactTooltip id='dataSet' place="bottom" effect='solid'>
-                  <span>{t('common:createStep.option')}</span>
-                </ReactTooltip>
-                </div>
-                { instance.dataSet &&
-                <div>
-                <TextField
-                  id = 'dataSetPath'
-                  errorText={!instance.dataSetPath && t('common:createStep.fieldRequired')}
-                  floatingLabelText = {t('common:createStep.dataSetPath')}
-                  onChange={this.dataPathSet.bind(null, instance.instance)}
-                  value={instance.dataSetPath}
-                  fullWidth={true}
-                />
-                <TextField
-                  id = 'dataSetId'
-                  errorText={!instance.dataSetId && t('common:createStep.fieldRequired')}
-                  floatingLabelText = {t('common:createStep.id')}
-                  value={instance.dataSetId}
-                  onChange={this.dataPathSet.bind(null, instance.instance)}                    
-                />
-                <TextField
-                  id = 'dataSetPass'
-                  type="password"
-                  errorText={!instance.dataSetPass && t('common:createStep.fieldRequired')}
-                  floatingLabelText = {t('common:createStep.password')}
-                  value={instance.dataSetPass}
-                  onChange={this.dataPathSet.bind(null, instance.instance)}
-                />
-                </div>
-                }
+                </SelectField>                
+                </div>                
                 </CardText>
               </Card>)
             )}
@@ -266,18 +263,8 @@ class CreatePage extends React.Component {
                   nestedItems={this.state.instanceArr.map((instance, index)=>(        
                     <ListItem
                       key = {index}
-                      primaryText={instance.dataSet ? <b>Instance{instance.instance} <font color={green500}>{t('common:createStep.withDataSet')}</font></b> : <b>Instance{instance.instance} <font color={orange500}>{t('common:createStep.withoutDataSet')}</font></b>}
-                      secondaryText={<p>Image - <b>{this.state.imageArr[instance.image]}</b></p>}
-                      nestedItems={instance.dataSet && [
-                        <ListItem
-                          primaryText={<b>{t('common:createStep.dataSetPath')}</b>}
-                          secondaryText={<p><b>{instance.dataSetPath}</b></p>}
-                        />,
-                        <ListItem
-                          primaryText={<b>{t('common:createStep.id')}/{t('common:createStep.password')}</b>}
-                          secondaryText={<HoverDiv account={instance.dataSetId} password={instance.dataSetPass}/>}
-                        />                        
-                      ]}
+                      primaryText={<b>Instance{instance.instance}</b>}
+                      secondaryText={<p>Image - <b>{this.state.imageArr[instance.image]}</b></p>}                      
                     />
                   ))}
                 />
@@ -315,16 +302,16 @@ class CreatePage extends React.Component {
         </div>
       )
     }
-    let nextBtn = false
+    let nextBtnDisable = false
     switch (stepIndex){
       case 0:
-        nextBtn = (this.state.increaseDay <= 0 || this.state.endDate === null)
+        nextBtnDisable = (this.state.increaseDay <= 0 || this.state.increaseDay > 31 || this.state.endDate === null || this.state.avalableNumber.length === 0)
         break
-      case 1:
-        this.state.instanceArr.map((instance)=>{
-          nextBtn = (instance.dataSet === true && (instance.dataSetPath.length === 0 || instance.dataSetId.length === 0 || instance.dataSetPass.length === 0))
-        })
-        break
+      // case 1:
+      //   this.state.instanceArr.map((instance)=>{
+      //     nextBtnDisable = (instance.dataSet === true && (instance.dataSetPath.length === 0 || instance.dataSetId.length === 0 || instance.dataSetPass.length === 0))
+      //   })
+      //   break
       }
     return (
       <div style={contentStyle}>
@@ -339,8 +326,8 @@ class CreatePage extends React.Component {
           <RaisedButton
             label={stepIndex === 2 ? t('common:createStep.finish') : t('common:createStep.next')}            
             backgroundColor = {muiStyle.palette.primary1Color}
-            labelColor = 'white'
-            disabled={nextBtn}
+            labelColor = {white}
+            disabled={nextBtnDisable}
             onTouchTap={this.handleNext}
           />          
         </div>
