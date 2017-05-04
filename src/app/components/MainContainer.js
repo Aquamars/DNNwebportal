@@ -13,6 +13,7 @@ import autoprefixer from 'material-ui/utils/autoprefixer'
 import { Card, CardHeader,CardMedia, CardTitle, CardText, CardActions } from 'material-ui/Card'
 import IconButton from 'material-ui/IconButton'
 import ReviewTable from './ReviewTable'
+import HistoryTable from './HistoryTable'
 import Footer from './Footer'
 //ICON
 import ExitIcon from 'material-ui/svg-icons/action/power-settings-new'
@@ -128,8 +129,10 @@ class MainContainer extends Component {
         				        />
                         <div className="body" style={prefixedStyles.body}>
                             <div style={prefixedStyles.content}> 
-                            <ReviewTable/>                            
-                            </div>                            
+                              <ReviewTable token = {this.props.token}/>
+                              <br/>
+                              <HistoryTable token = {this.props.token}/>                            
+                            </div>
                         </div>
                         <Footer/>
                     </div>
