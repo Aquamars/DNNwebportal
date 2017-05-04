@@ -12,3 +12,20 @@
   background-color: #44a340;
   color: white;
 }
+
+.DayPicker-Day--full:not(.DayPicker-Day--outside) {
+  background-color: #d50000;
+  color: white;
+}
+.DayPicker-Day--avil1:not(.DayPicker-Day--outside) {
+  background-color: #66BB6A;
+  color: white;
+}
+.DayPicker-Day--avil2:not(.DayPicker-Day--outside) {
+  background-color: #43A047;
+  color: white;
+}
+.DayPicker-Day--avil3:not(.DayPicker-Day--outside) {
+  background-color: #1B5E20;
+  color: white;
+}
