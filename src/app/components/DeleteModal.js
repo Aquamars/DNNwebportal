@@ -6,6 +6,7 @@ import Divider from 'material-ui/Divider'
 import Subheader from 'material-ui/Subheader'
 import {List, ListItem} from 'material-ui/List'
 import ReactTooltip from 'react-tooltip'
+import moment from 'moment'
 // ICON
 import MdDelete from 'react-icons/lib/md/delete'
 // COLOR
@@ -77,19 +78,19 @@ class DeleteModal extends React.Component {
                 <Divider style={{color:redA700}}/>
                 <ListItem
                   primaryText={<span><b>{t('common:dateRange')}</b></span>}
-                  secondaryText={<p>{this.props.data.startTime} ~ {this.props.data.endTime}</p>}
+                  secondaryText={<p>{moment(this.props.data.startedAt).format('YYYY-MM-DD')} ~ {moment(this.props.data.endedAt).format('YYYY-MM-DD')}</p>}
                 />
                 <ListItem
                   primaryText={<b>{t('common:instance')}</b>}
-                  secondaryText={this.props.data.instance}
+                  secondaryText={this.props.data.instance.id}
                 />
                 <ListItem
                   primaryText={<b>{t('common:image')}</b>}
-                  secondaryText={this.props.data.image}
+                  secondaryText={this.props.data.instance.image.name}
                 />
                 <ListItem
                   primaryText={<b>{t('common:project')}</b>}
-                  secondaryText={this.props.data.project}
+                  secondaryText={this.props.data.projectCode}
                 />
                 <Divider style={{color:redA700}}/>
             </List>
