@@ -19,7 +19,7 @@
     },
     "image": "Image",
     "account": "Account",
-    "project": "Project",
+    "project": "Project Number",
     "createStep": {
         "step1": "Select Date Range",
         "step2": "Setting Machine & Image",
@@ -34,7 +34,15 @@
         "fieldRequired":"This field is required",
         "withDataSet":"with DataSet",
         "withoutDataSet":"without DataSet",
-        "option":"It's Option."
+        "option":"It's Option.",
+        "check":"Check DataSet Path",
+        "avalableInstance":"Avalable Instance",
+        "currentInstance":"Subscribed Instance"
+    },
+    "calendar":{
+        "fullyDay":"Fully Day",
+        "instanceAvailable":"Instance Available",
+        "noData":"No data"
     },
     "backReview": "Back Review",
     "InstanceNum": "Number of Instance",

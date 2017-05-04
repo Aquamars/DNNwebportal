@@ -34,7 +34,15 @@
         "fieldRequired":"此欄位必填",
         "withDataSet":"附加資料集",
         "withoutDataSet":"無附加資料集",
-        "option":"可選"
+        "option":"可選",
+        "check":"驗證路徑",
+        "avalableInstance":"可用的 Instance",
+        "currentInstance":"已使用 Instance"
+    },
+    "calendar":{
+        "fullyDay":"無Instance可用",
+        "instanceAvailable":"Instance 可用",
+        "noData":"無資料"
     },
     "backReview": "返回列表",
     "InstanceNum": "Instance數量",
