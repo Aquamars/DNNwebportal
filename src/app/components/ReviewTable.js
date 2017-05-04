@@ -11,9 +11,11 @@ import DeleteModal from './DeleteModal'
 import CreatePage from './CreatePage'
 import HoverDiv from './HoverDiv'
 import DetailModal from './DetailModal'
+import ExpandTransition from 'material-ui/internal/ExpandTransition'
+import moment from 'moment'
 // API call
 import axios from 'axios'
-import {API_URL} from '../resource'
+import {API_URL, API_GetInfo} from '../resource'
 // ICON
 import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh'
 import ContentAdd from 'material-ui/svg-icons/content/add'
@@ -55,8 +57,8 @@ class ReviewTable extends Component {
 	    super(props)
 	       
 	    this.state = {
-	      submitting: false ,
-	      data:DATA,
+	      loading: true,
+	      data:[],
 	      switchCreatePage: false,
 	      singleInfo:{},
 	    }
@@ -72,34 +74,64 @@ class ReviewTable extends Component {
 
 	refresh = (event) => {
 	    event.preventDefault()
-
+	    this.getData()
 	}	
 
 	setStatus = (status) => {
-		let color;
+		let obj;
 		switch(status){
-			case 'initial':
-				color = orangeA700
+			case 0:
+				obj = <font color ={orangeA700}><b>{'initial'}</b></font>
 				break
-			case 'running':
-				color = greenA700
+			case 1:				
+				obj = <font color ={greenA700}><b>{'running'}</b></font>
 				break
 			case 'stop':
-				color = redA700
+				obj = <font color ={redA700}><b>{'stop'}</b></font>
 				break
+			default:
+				obj = <font color ={'#000'}><b>{'??????'}</b></font>
 		}
-		return (<font color ={color}><b>{status}</b></font>)
+		return (obj)
+	}
+	dummyAsync = (cb) => {
+	    this.setState({loading: true}, () => {
+	      this.asyncTimer = setTimeout(cb, 500);
+	   })
+	}
+	getData = () => {
+		console.log(API_GetInfo, this.props.token)
+	    axios.get(
+	      API_GetInfo,
+	      {
+	        headers: {'X-Access-Token': this.props.token},
+	        params: { mode: 'booked' }
+	      }
+	    )
+	    .then((result)=>{
+	      console.log(result.data.schedules)
+	      this.dummyAsync(()=>
+	      	this.setState({
+			  loading: false,
+			  data: result.data.schedules
+			})
+	      )		      
+	    }).catch((err)=>{
+	      console.log(err)
+	    })
 	}
 
 	componentDidMount(){
+		this.getData()
 	}
 
 	render(){
-		const {t} = this.props		
+		const {t} = this.props
+		const {switchCreatePage, loading} = this.state
 		return (
 			<div>
-			{ !this.state.switchCreatePage ?
-			<Card>			
+			{ !switchCreatePage ?
+			<Card>		
 			  <CardActions style={styles.actions}>
 				<FlatButton 
 		          label={t('common:refresh')}
@@ -107,15 +139,18 @@ class ReviewTable extends Component {
 		          icon={<NavigationRefresh />}
 		          onTouchTap={this.refresh}
 		        />
-		        <FlatButton 
+		        <FlatButton
 		          label={t('common:create')}
 		          style = {{color:muiStyle.palette.primary1Color}}
 		          icon={<ContentAdd />}
-		          onTouchTap={this.SwitchCreatePage}
+		          disabled={this.state.data.length === 3}
+		          onTouchTap={this.SwitchCreatePage}		          
 		        />
 			  </CardActions>
 			  <CardTitle title={'DNN'}/>
+			  <ExpandTransition loading={loading} open={true}>
 			  <Paper>
+			  {loading && <div style = {{textAlign:'center'}}><CircularProgress size={80} thickness={5} /></div>}
 			  <Table>
     			<TableHeader    			 
     			 displaySelectAll={false}
@@ -139,23 +174,27 @@ class ReviewTable extends Component {
 			  	{ this.state.data.map((data, index)=>(
 			  	<TableRow key = {index}>
 			  	  <TableRowColumn style={{width: '8%'}}><DetailModal data = {data}/></TableRowColumn>
-			      <TableRowColumn style = {styles.textCenter}>{data.startTime}</TableRowColumn>
+			      <TableRowColumn style = {styles.textCenter}>{moment(data.startedAt).format('YYYY-MM-DD')}</TableRowColumn>
 			      <TableRowColumn style = {styles.textCenter}><EditModal data = {data}/></TableRowColumn>
-			      <TableRowColumn style = {styles.textCenter}>{data.instance}</TableRowColumn>
-			      <TableRowColumn style = {styles.textCenter}>{this.setStatus(data.status)}</TableRowColumn>
-			      <TableRowColumn style = {styles.textCenter}>{data.image}</TableRowColumn>			      
+			      <TableRowColumn style = {styles.textCenter}>{data.instance.id}</TableRowColumn>
+			      <TableRowColumn style = {styles.textCenter}>{this.setStatus(data.instance.statusId)}</TableRowColumn>
+			      <TableRowColumn style = {styles.textCenter}>{data.instance.image.name}</TableRowColumn>			      
 			      <TableRowColumn style = {styles.textCenter}>
-			      	<HoverDiv {...data}/>
+			      	<HoverDiv account={data.instance.username} password={data.instance.password}/>
 	              </TableRowColumn>
-	              <TableRowColumn style = {styles.textCenter}>{data.project}</TableRowColumn>
+	              <TableRowColumn style = {styles.textCenter}>{data.projectCode}</TableRowColumn>
 			      <TableRowColumn style={{width: '8%'}}><DeleteModal data = {data}/></TableRowColumn>
 			    </TableRow>
 			  	))}
 			  	</TableBody>
 			  </Table>
 			  </Paper>
+			  </ExpandTransition>
 			</Card>
-			: <CreatePage switchReview={this.switchReview}/>}
+			: <CreatePage 
+				switchReview={this.switchReview}
+				currentInstanceNum={this.state.data.length}
+			  />}
 			</div>
 		)
 	}
