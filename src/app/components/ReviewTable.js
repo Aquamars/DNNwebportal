@@ -19,7 +19,9 @@ import {API_URL, API_GetInfo} from '../resource'
 // ICON
 import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh'
 import ContentAdd from 'material-ui/svg-icons/content/add'
-
+import DeviceStorage from 'material-ui/svg-icons/device/storage'
+import GoDatabase from 'react-icons/lib/go/database'
+// style
 import {muiStyle} from '../myTheme'
 // COLOR
 import { orangeA700, redA700, greenA700 } from 'material-ui/styles/colors'
@@ -96,7 +98,7 @@ class ReviewTable extends Component {
 	}
 	dummyAsync = (cb) => {
 	    this.setState({loading: true}, () => {
-	      this.asyncTimer = setTimeout(cb, 500);
+	      this.asyncTimer = setTimeout(cb, 300);
 	   })
 	}
 	getData = () => {
@@ -133,6 +135,13 @@ class ReviewTable extends Component {
 			{ !switchCreatePage ?
 			<Card>		
 			  <CardActions style={styles.actions}>
+			    <a href='http://demo.wftpserver.com' target="_blank">
+				    <FlatButton
+			          label={t('common:openStorage')}
+			          style = {{color:muiStyle.palette.remind1Color}}
+			          icon={<DeviceStorage />}
+			        />
+			    </a>
 				<FlatButton 
 		          label={t('common:refresh')}
 		          style = {{color:muiStyle.palette.primary1Color}}
@@ -157,13 +166,13 @@ class ReviewTable extends Component {
     			 adjustForCheckbox={false}>
     			  <TableRow>
     			    <TableHeaderColumn style={{width: '8%'}}></TableHeaderColumn>
-			        <TableHeaderColumn style = {styles.textCenter}>{t('common:startDate')}</TableHeaderColumn>
-			        <TableHeaderColumn style = {styles.textCenter}>{t('common:endDate')}</TableHeaderColumn>
-			        <TableHeaderColumn style = {styles.textCenter}>{t('common:instance')}</TableHeaderColumn>
-			        <TableHeaderColumn style = {styles.textCenter}>{t('common:status.status')}</TableHeaderColumn>
-			        <TableHeaderColumn style = {styles.textCenter}>{t('common:image')}</TableHeaderColumn>
-			        <TableHeaderColumn style = {styles.textCenter}>{t('common:account')}</TableHeaderColumn>
-			        <TableHeaderColumn style = {styles.textCenter}>{t('common:project')}</TableHeaderColumn>			        
+			        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:startDate')}</b></TableHeaderColumn>
+			        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:endDate')}</b></TableHeaderColumn>
+			        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:instance')}</b></TableHeaderColumn>
+			        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:status.status')}</b></TableHeaderColumn>
+			        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:image')}</b></TableHeaderColumn>
+			        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:account')}</b></TableHeaderColumn>
+			        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:project')}</b></TableHeaderColumn>			        
 			        <TableHeaderColumn style={{width: '8%'}}></TableHeaderColumn>
 			      </TableRow>
 			    </TableHeader>
