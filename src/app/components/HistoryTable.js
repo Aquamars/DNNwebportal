@@ -24,7 +24,7 @@ import ActionHistory from 'material-ui/svg-icons/action/history'
 // sytle
 import {muiStyle} from '../myTheme'
 // COLOR
-import { orangeA700, redA700, greenA700 } from 'material-ui/styles/colors'
+import { orangeA700, redA700, greenA700, grey500 } from 'material-ui/styles/colors'
 // Data
 import {DATA} from '../resource'
 // i18n
@@ -88,24 +88,6 @@ class HistoryTable extends Component {
 	    event.preventDefault()
 
 	}	
-
-	setStatus = (status) => {
-		let obj;
-		switch(status){
-			case 0:
-				obj = <font color ={orangeA700}><b>{'initial'}</b></font>
-				break
-			case 1:				
-				obj = <font color ={greenA700}><b>{'running'}</b></font>
-				break
-			case 'stop':
-				obj = <font color ={redA700}><b>{'stop'}</b></font>
-				break
-			default:
-				obj = <font color ={'#000'}><b>{'??????'}</b></font>
-		}
-		return (obj)
-	}
 	dummyAsync = (cb) => {
 	    this.setState({loading: true}, () => {
 	      this.asyncTimer = setTimeout(cb, 500);
@@ -145,13 +127,13 @@ class HistoryTable extends Component {
 		      tooltip="History"
 		      onTouchTap={this.switchPage}
 		    >
-		      <ActionHistory />
+		      <ActionHistory color={grey500}/>
 		    </IconButton>
 	        {switchPage &&
 			<Card>		
 			  <CardActions style={styles.actions}>
 			  </CardActions>			  
-			  <CardTitle title={'History'}/>
+			  <CardTitle title={<font color={grey500}>History</font>}/>
 			  <ExpandTransition loading={loading} open={switchPage}> 
 			  <Paper>
 			  {loading && <div style = {{textAlign:'center'}}><CircularProgress size={80} thickness={5} /></div>}
@@ -163,8 +145,7 @@ class HistoryTable extends Component {
     			    <TableHeaderColumn style={{width: '8%'}}></TableHeaderColumn>
 			        <TableHeaderColumn style = {styles.textCenter}>{t('common:startDate')}</TableHeaderColumn>
 			        <TableHeaderColumn style = {styles.textCenter}>{t('common:endDate')}</TableHeaderColumn>
-			        <TableHeaderColumn style = {styles.textCenter}>{t('common:instance')}</TableHeaderColumn>
-			        <TableHeaderColumn style = {styles.textCenter}>{t('common:status.status')}</TableHeaderColumn>
+			        <TableHeaderColumn style = {styles.textCenter}>{t('common:instance')}</TableHeaderColumn>			        
 			        <TableHeaderColumn style = {styles.textCenter}>{t('common:image')}</TableHeaderColumn>
 			        <TableHeaderColumn style = {styles.textCenter}>{t('common:account')}</TableHeaderColumn>
 			        <TableHeaderColumn style = {styles.textCenter}>{t('common:project')}</TableHeaderColumn>			        
@@ -179,8 +160,7 @@ class HistoryTable extends Component {
 			  	  <TableRowColumn style={{width: '8%'}}><DetailModal data = {data}/></TableRowColumn>
 			      <TableRowColumn style = {styles.textCenter}>{moment(data.startedAt).format('YYYY-MM-DD')}</TableRowColumn>
 			      <TableRowColumn style = {styles.textCenter}>{moment(data.endedAt).format('YYYY-MM-DD')}</TableRowColumn>
-			      <TableRowColumn style = {styles.textCenter}>{data.instance.id}</TableRowColumn>
-			      <TableRowColumn style = {styles.textCenter}>{this.setStatus(data.instance.statusId)}</TableRowColumn>
+			      <TableRowColumn style = {styles.textCenter}>{data.instance.id}</TableRowColumn>			      
 			      <TableRowColumn style = {styles.textCenter}>{data.instance.image.name}</TableRowColumn>			      
 			      <TableRowColumn style = {styles.textCenter}>
 			      	<HoverDiv account={data.instance.username} password={data.instance.password}/>

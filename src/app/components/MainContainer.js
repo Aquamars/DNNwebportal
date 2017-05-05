@@ -9,6 +9,7 @@ import Drawer from 'material-ui/Drawer'
 import MenuItem from 'material-ui/MenuItem'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import FontIcon from 'material-ui/FontIcon'
+import Paper from 'material-ui/Paper'
 import autoprefixer from 'material-ui/utils/autoprefixer'
 import { Card, CardHeader,CardMedia, CardTitle, CardText, CardActions } from 'material-ui/Card'
 import IconButton from 'material-ui/IconButton'
@@ -18,7 +19,6 @@ import Footer from './Footer'
 //ICON
 import ExitIcon from 'material-ui/svg-icons/action/power-settings-new'
 import SocialPerson  from 'material-ui/svg-icons/social/person'
-import FaUser from 'react-icons/lib/fa/user'
 // COLOR
 import { lightBlue500, lightBlue900 } from 'material-ui/styles/colors'
 
@@ -65,6 +65,20 @@ const styles = {
         zIndex: 1200,
     }
 }
+const MenuStyles = {
+    sidebarOpen: {
+        flex: '0 0 21em',
+        marginLeft: 0,
+        order: -1,
+        transition: 'margin 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms',
+    },
+    sidebarClosed: {
+        flex: '0 0 21em',
+        marginLeft: '-21em',
+        order: -1,
+        transition: 'margin 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms',
+    },
+}
 const prefixedStyles = {}
 const muiTheme = getMuiTheme({userAgent: 'all'})
 
@@ -83,7 +97,7 @@ class MainContainer extends Component {
   constructor(props, context) {
     super(props, context)
     this.state = {
-      open: true,
+      open: false,
       data: ''
     }
   }  
@@ -116,14 +130,14 @@ class MainContainer extends Component {
         				          onLeftIconButtonTouchTap={this.handleToggle}
                           iconElementRight={
                             <div>
-                            <SocialPerson color='white'/>
-                            <span style={{verticalAlign:'super'}}><b><font color='#FDD100'> {this.props.user}</font></b></span>
-                            <IconButton 
-                              tooltip={t('common:signOut')} 
-                              onTouchTap={() => this.props.SignOut()}>                           
-                            >
-                              <ExitIcon color='white'/>
-                            </IconButton>
+                              <SocialPerson color='white'/>
+                              <span style={{verticalAlign:'super'}}><b><font color='#FDD100'> {this.props.user}</font></b></span>
+                              <IconButton 
+                                tooltip={t('common:signOut')} 
+                                onTouchTap={() => this.props.SignOut()}>                           
+                              >
+                                <ExitIcon color='white'/>
+                              </IconButton>
                             </div>
                           }
         				        />
@@ -133,6 +147,10 @@ class MainContainer extends Component {
                               <br/>
                               <HistoryTable token = {this.props.token}/>                            
                             </div>
+                            <img
+                              src = './image/2013060723055881547495.jpg'
+                              style={this.state.open ? MenuStyles.sidebarOpen : MenuStyles.sidebarClosed}                      
+                            />                            
                         </div>
                         <Footer/>
                     </div>

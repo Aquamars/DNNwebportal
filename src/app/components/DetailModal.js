@@ -88,7 +88,7 @@ class DetailModal extends React.Component {
 		        <div>
 			        <List>
 		              <ListItem
-		                primaryText={(this.props.data.instance.datasetPath!=null) ? <b>Instance <font color={green500}>{t('common:createStep.withDataSet')}</font></b> : <b>Instance <font color={orange500}>{t('common:createStep.withoutDataSet')}</font></b>}
+		                primaryText={<b>Instance</b>}
 		                secondaryText={<p><b>{this.props.data.instance.id}</b></p>}
 		                initiallyOpen={true}
 		                nestedItems={[
@@ -139,7 +139,7 @@ class DetailModal extends React.Component {
 					        />,
 					        <ListItem
 					          primaryText={<span><b>{t('common:leftDay')} </b></span>}
-					          secondaryText={<p><b><font color={green500}>{this.state.leftDay} {t('common:days')}</font></b></p>}
+					          secondaryText={this.state.leftDay>0 ? <p><b><font color={green500}>{this.state.leftDay} {t('common:days')}</font></b></p> : <p><b><font color={redA700}>{this.state.leftDay} {t('common:days')}</font></b></p>}
 					        />
 			              ]}
 			            />
