@@ -60,5 +60,6 @@
     "signOut": "SignOut",
     "detail":"Detail",
     "excuteDay": "Excuted Day",
-    "leftDay": "Left Day"
+    "leftDay": "Left Day",
+    "openStorage":"Open Storage"
 }
