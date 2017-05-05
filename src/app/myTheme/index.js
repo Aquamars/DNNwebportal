@@ -6,6 +6,8 @@ import {
 	orangeA700, 
 	redA700, 
 	greenA700,
+  deepOrangeA400,
+  deepOrangeA700,
 	green500,
 	pink500,
 	white,
@@ -19,6 +21,7 @@ export const muiStyle = {
     primary2Color: lightBlue500,    
     accent1Color: pink500,
     accent2Color: redA700,
+    remind1Color: deepOrangeA400,
     textColor: darkBlack,    
   },
 }
