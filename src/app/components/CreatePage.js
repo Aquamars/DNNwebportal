@@ -25,6 +25,7 @@ import MdViewComfortable from 'react-icons/lib/md/view-comfortable'
 import ContentAddCircleOutline from 'material-ui/svg-icons/content/add-circle-outline'
 import ContentRemoveCircleOutline  from 'material-ui/svg-icons/content/remove-circle-outline'
 import ActionCheckCircle  from 'material-ui/svg-icons/action/check-circle'
+import DeviceStorage from 'material-ui/svg-icons/device/storage'
 // COLOR
 import { white, blueA400, blue500, green500, orange500, orangeA700, redA700, greenA700 } from 'material-ui/styles/colors'
 import {muiStyle, muiTheme} from '../myTheme'
@@ -207,8 +208,7 @@ class CreatePage extends React.Component {
               floatingLabelFocusStyle = {styles.floatingLabelFocusStyle}
               onChange = {this.handleChangeProjectNum}              
             />
-            <br/>
-            
+            <br/>            
             <SelectField
               floatingLabelText={t('common:InstanceNum')}
               value={this.state.instanceNum}
@@ -229,16 +229,26 @@ class CreatePage extends React.Component {
                 <Divider />
                 <CardText expandable={true}>
                 <div>                
-                <SelectField
-                  key = {instance.instance}
-                  floatingLabelText={"Instance"+instance.instance+t('common:instanceImage')}
-                  onChange={this.imageSelect.bind(null, instance.instance)}
-                  value={instance.image}
-                >
-                  {this.state.imageArr.map((image,index)=>(
-                    <MenuItem key={index} value={index} primaryText={image} />
-                  ))}
-                </SelectField>                
+                  <SelectField
+                    key = {instance.instance}
+                    floatingLabelText={"Instance"+instance.instance+t('common:instanceImage')}
+                    onChange={this.imageSelect.bind(null, instance.instance)}
+                    value={instance.image}
+                  >
+                    {this.state.imageArr.map((image,index)=>(
+                      <MenuItem key={index} value={index} primaryText={image} />
+                    ))}
+                  </SelectField>
+                  <FlatButton
+                    label={t('common:openStorage')}
+                    style = {{color:muiStyle.palette.remind1Color, verticalAlign:'text-bottom'}}
+                    icon={<DeviceStorage />}
+                    href='http://demo.wftpserver.com' target="_blank"
+                    data-tip data-for='storage'
+                  />
+                  <ReactTooltip id='storage' place="bottom" effect='solid'>
+                      <span>{t('common:storage')}</span>
+                  </ReactTooltip>
                 </div>                
                 </CardText>
               </Card>)
@@ -281,6 +291,10 @@ class CreatePage extends React.Component {
         return 'Fly Me To The Moon';
     }
   }
+  CreateDone = () => {    
+    this.props.refresh()
+    this.props.switchReview()
+  }
 
   renderContent() {
     const {finished, stepIndex} = this.state
@@ -296,7 +310,7 @@ class CreatePage extends React.Component {
             <RaisedButton 
               label={t('common:backReview')}
               icon={<MdViewComfortable />}
-              onTouchTap={this.props.switchReview}
+              onTouchTap={this.CreateDone}
             />           
           </List>          
         </div>
@@ -336,7 +350,7 @@ class CreatePage extends React.Component {
   }
 
   render() {
-    const {loading, stepIndex} = this.state
+    const {loading, stepIndex, finished} = this.state
     const {t} = this.props
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
@@ -349,8 +363,9 @@ class CreatePage extends React.Component {
         }}>
           <FlatButton 
             label={t('common:backReview')}
-            style = {{color:muiStyle.palette.primary1Color}}
+            style = {finished ? {color:'white'} : {color:muiStyle.palette.primary1Color}}
             icon={<MdViewComfortable />}
+            disabled = {finished}
             onTouchTap={this.props.switchReview}
           />
         </CardActions>
