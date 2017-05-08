@@ -27,29 +27,45 @@ const config = {
         warnings: false,
       },
     }),
+    new webpack.LoaderOptionsPlugin({
+      minimize: true
+    }),
     // Allows error warnings but does not stop compiling.
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     // Transfer Files
     new TransferWebpackPlugin([
       {from: 'www'},
     ], path.resolve(__dirname, 'src')),
     // Ingnore /moment/locale 
-    new webpack.IgnorePlugin(/\.\/locale$/)
+    new webpack.IgnorePlugin(/\.\/locale$/),
   ],
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/, // All .js files
-        loaders: ['babel-loader'], // react-hot is like browser sync and babel loads jsx and es6-7
-        exclude: [nodeModulesPath],
+        use: [
+       
+          'babel-loader'
+      
+        ], // react-hot is like browser sync and babel loads jsx and es6-7
+        exclude: /(node_modules)/,
       },
       { test: /\.less/,
-        loader: 'style-loader!css-loader!less-loader',
+        use: [
+          
+            "style-loader",
+            "css-loader",
+            "less-loader"
+          
+        ],
         exclude: /node_modules/ 
       },
       {
         test: /\.css$/,
-        loader:'style!css!'
+        use: [
+            'style-loader',
+            'css-loader'          
+        ],
       }
     ],
   },
