@@ -67,14 +67,14 @@ const styles = {
 }
 const MenuStyles = {
     sidebarOpen: {
-        flex: '0 0 21em',
+        flex: '0 0 28em',
         marginLeft: 0,
         order: -1,
         transition: 'margin 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms',
     },
     sidebarClosed: {
-        flex: '0 0 21em',
-        marginLeft: '-21em',
+        flex: '0 0 28em',
+        marginLeft: '-28em',
         order: -1,
         transition: 'margin 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms',
     },
@@ -148,7 +148,8 @@ class MainContainer extends Component {
                               <HistoryTable token = {this.props.token}/>                            
                             </div>
                             <img
-                              src = './image/2013060723055881547495.jpg'
+                              src = './image/2013060723055881547495.jpg'                              
+                              width="200"
                               style={this.state.open ? MenuStyles.sidebarOpen : MenuStyles.sidebarClosed}                      
                             />                            
                         </div>
