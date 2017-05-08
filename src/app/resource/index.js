@@ -8,6 +8,8 @@ export const API_URL = DOMAIN+'/'+PATH
 export const API_CheckInstance = DOMAIN+'/'+'machine/remain'
 export const API_GetCalendar = DOMAIN+'/machine/calendar/'
 export const API_GetInfo = DOMAIN+'/user/schedule'
+export const API_DeleteSchedule = DOMAIN+'/machine/calendar/'
+// fake data
 export const DATA = [
 {startTime:'2017-01-02',endTime:'2017-05-02', instance:'eeny', status:'running', image:'c2c3152907b5', project:'G352BQ2100', account:'information', password:'research', dataSet:false, dataSetPath:'', dataSetId:'', dataSetPass:''},
 {startTime:'2017-03-22',endTime:'2017-06-26', instance:'meeny', status:'stop', image:'fb434121fc77', project:'G352BQ2100', account:'communications', password:'research', dataSet:true, dataSetPath:'/var/www/html', dataSetId:'123', dataSetPass:'123456'},
