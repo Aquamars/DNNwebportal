@@ -90,7 +90,7 @@ class HistoryTable extends Component {
 	}	
 	dummyAsync = (cb) => {
 	    this.setState({loading: true}, () => {
-	      this.asyncTimer = setTimeout(cb, 500);
+	      this.asyncTimer = setTimeout(cb, 300);
 	   })
 	}
 	getData = () => {		
@@ -124,7 +124,7 @@ class HistoryTable extends Component {
 		return (
 		  <div>	        
 		    <IconButton 
-		      tooltip="History"
+		      tooltip={t('common:history')}
 		      onTouchTap={this.switchPage}
 		    >
 		      <ActionHistory color={grey500}/>
@@ -157,7 +157,7 @@ class HistoryTable extends Component {
 			    	displayRowCheckbox={false}>
 			  	{ this.state.data.map((data, index)=>(
 			  	<TableRow key = {index}>
-			  	  <TableRowColumn style={{width: '8%'}}><DetailModal data = {data}/></TableRowColumn>
+			  	  <TableRowColumn style={{width: '8%'}}><DetailModal data = {data} iconColor = {grey500} showStatus={false}/></TableRowColumn>
 			      <TableRowColumn style = {styles.textCenter}>{moment(data.startedAt).format('YYYY-MM-DD')}</TableRowColumn>
 			      <TableRowColumn style = {styles.textCenter}>{moment(data.endedAt).format('YYYY-MM-DD')}</TableRowColumn>
 			      <TableRowColumn style = {styles.textCenter}>{data.instance.id}</TableRowColumn>			      
