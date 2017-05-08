@@ -14,6 +14,9 @@ import { redA700 } from 'material-ui/styles/colors'
 // i18n
 import { translate, Interpolate } from 'react-i18next'
 import i18n from '../utils/i18n'
+// API call
+import axios from 'axios'
+import {API_DeleteSchedule} from '../resource'
 /**
  * A modal dialog can only be closed by selecting one of the actions.
  */
@@ -22,6 +25,8 @@ class DeleteModal extends React.Component {
       super(props)      
       this.state = {
         open: false,
+        loading: false,
+        comfirm: false
       }
   }
 
@@ -34,7 +39,24 @@ class DeleteModal extends React.Component {
   }
 
   handleSubmit = () => {
-    this.setState({open: false})
+    if(!this.state.comfirm){
+      axios.get(
+        API_DeleteSchedule,
+        {}
+      ).then((result)=>{
+        console.log(result.data)
+        this.setState({
+          loading: false,
+          comfirm: true
+        })        
+      }).catch((err)=>{
+          console.log(err)
+      })
+    }else{
+      console.log('refresh')
+      this.setState({open: false,comfirm: false})
+      this.props.refresh()
+    }
   }
 
   render() {
@@ -43,6 +65,7 @@ class DeleteModal extends React.Component {
       <FlatButton
         label={t('common:cancel')}
         primary={true}
+        disabled={this.state.comfirm}
         onTouchTap={this.handleClose}
       />,
       <FlatButton
@@ -71,9 +94,10 @@ class DeleteModal extends React.Component {
           actions={actions}
           modal={true}
           open={this.state.open}
-        >
-          <font color={redA700}><MdDelete/><b> {t('common:remove.warning')}</b></font>
+        >        
+        {this.state.comfirm ? <div>Already Deleted</div> :          
           <div>
+            <font color={redA700}><MdDelete/><b> {t('common:remove.warning')}</b></font>
             <List>                
                 <Divider style={{color:redA700}}/>
                 <ListItem
@@ -95,6 +119,7 @@ class DeleteModal extends React.Component {
                 <Divider style={{color:redA700}}/>
             </List>
           </div>
+        }
         </Dialog>
       </div>
     )
