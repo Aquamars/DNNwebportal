@@ -61,5 +61,8 @@
     "detail":"詳細資料",
     "excuteDay": "已執行天數",
     "leftDay": "剩餘天數",
-    "openStorage":"開啟儲存空間"
+    "openStorage":"開啟儲存空間",
+    "storage":"開啟FTP頁面上傳資料，或是使用其他的FTP client，例如 FileZilla",
+    "noInstance":"無連續可用的Instance!",
+    "history":"瀏覽歷史紀錄"
 }

@@ -61,5 +61,8 @@
     "detail":"Detail",
     "excuteDay": "Excuted Day",
     "leftDay": "Left Day",
-    "openStorage":"Open Storage"
+    "openStorage":"Open Storage",
+    "storage":"Open FTP webportal uploading dataset or you can using client FTP such as FileZilla",
+    "noInstance":"No Continuously Available Instance!",
+    "history":"History"
 }
