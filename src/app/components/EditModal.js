@@ -71,44 +71,44 @@ class EditModal extends React.Component {
         marginRight: 'auto',
     }
     return (
-    <MuiThemeProvider muiTheme={muiTheme}>        
-      <div>
-        <FlatButton
-          style = {{color:muiStyle.palette.primary1Color}} 
-          data-tip data-for='edit'
-          label={moment(this.props.data.endedAt).format('YYYY-MM-DD')}
-          labelPosition="before"
-          icon={<EditorModeEdit />}
-          onTouchTap={this.handleOpen} />
-        <ReactTooltip id='edit' place="bottom" effect='solid'>
-          <span>{t('common:editDate')}</span>
-        </ReactTooltip>
-        <Dialog
-          title={this.props.data.instance.id+'-'+t('common:editDate')}
-          actions={actions}
-          modal={true}
-          open={this.state.open}
-        >
-        <div style={optionsStyle}>
-          <Divider />
-          <TextField
-            disabled={true}
-            defaultValue={moment(this.props.data.startedAt).format('YYYY-MM-DD')}
-            floatingLabelText={t('common:startDate')}
-          />
-          <DatePicker
-            onChange={this.handleChangeMaxDate}
-            autoOk={true}
-            floatingLabelText={t('common:endDate')}
-            shouldDisableDate={this.disableDate}
-            defaultDate={new Date(this.props.data.endedAt)}
-          />
-          {this.state.increaseDay > 0 && <span>{moment(this.props.data.endedAt).format('YYYY-MM-DD')} <font color={green500}>+ {this.state.increaseDay} {t('common:days')}</font></span>}
-          <ReviewCalendar />
+      <MuiThemeProvider muiTheme={muiTheme}>        
+        <div>
+          <FlatButton
+            style = {{color:muiStyle.palette.primary1Color}} 
+            data-tip data-for='edit'
+            label={moment(this.props.data.endedAt).format('YYYY-MM-DD')}
+            labelPosition="before"
+            icon={<EditorModeEdit />}
+            onTouchTap={this.handleOpen} />
+          <ReactTooltip id='edit' place="bottom" effect='solid'>
+            <span>{t('common:editDate')}</span>
+          </ReactTooltip>
+          <Dialog
+            title={this.props.data.instance.id+'-'+t('common:editDate')}
+            actions={actions}
+            modal={true}
+            open={this.state.open}
+          >
+            <div style={optionsStyle}>
+              <Divider />
+              <TextField
+                disabled={true}
+                defaultValue={moment(this.props.data.startedAt).format('YYYY-MM-DD')}
+                floatingLabelText={t('common:startDate')}
+              />
+              <DatePicker
+                onChange={this.handleChangeMaxDate}
+                autoOk={true}
+                floatingLabelText={t('common:endDate')}
+                shouldDisableDate={this.disableDate}
+                defaultDate={new Date(this.props.data.endedAt)}
+              />
+              {this.state.increaseDay > 0 && <span>{moment(this.props.data.endedAt).format('YYYY-MM-DD')} <font color={green500}>+ {this.state.increaseDay} {t('common:days')}</font></span>}
+              <ReviewCalendar />
+            </div>
+          </Dialog>
         </div>
-        </Dialog>
-      </div>
-    </MuiThemeProvider>
+      </MuiThemeProvider>
     )
   }
 }
