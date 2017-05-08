@@ -6,6 +6,7 @@ import Paper from 'material-ui/Paper'
 import IconButton from 'material-ui/IconButton'
 import CircularProgress from 'material-ui/CircularProgress'
 import Divider from 'material-ui/Divider'
+import ReactTooltip from 'react-tooltip'
 import EditModal from './EditModal'
 import DeleteModal from './DeleteModal'
 import CreatePage from './CreatePage'
@@ -135,13 +136,16 @@ class ReviewTable extends Component {
 			{ !switchCreatePage ?
 			<Card>		
 			  <CardActions style={styles.actions}>
-			    <a href='http://demo.wftpserver.com' target="_blank">
-				    <FlatButton
-			          label={t('common:openStorage')}
-			          style = {{color:muiStyle.palette.remind1Color}}
-			          icon={<DeviceStorage />}
-			        />
-			    </a>
+				<FlatButton
+			      label={t('common:openStorage')}
+			      style = {{color:muiStyle.palette.remind1Color}}
+			      icon={<DeviceStorage />}
+			      href='http://demo.wftpserver.com' target="_blank"
+			      data-tip data-for='storage'
+			    />
+			    <ReactTooltip id='storage' place="bottom" effect='solid'>
+		          <span>{t('common:storage')}</span>
+		        </ReactTooltip>
 				<FlatButton 
 		          label={t('common:refresh')}
 		          style = {{color:muiStyle.palette.primary1Color}}
@@ -192,7 +196,7 @@ class ReviewTable extends Component {
 			      	<HoverDiv account={data.instance.username} password={data.instance.password}/>
 	              </TableRowColumn>
 	              <TableRowColumn style = {styles.textCenter}>{data.projectCode}</TableRowColumn>
-			      <TableRowColumn style={{width: '8%'}}><DeleteModal data = {data}/></TableRowColumn>
+			      <TableRowColumn style={{width: '8%'}}><DeleteModal data = {data} refresh={this.getData}/></TableRowColumn>
 			    </TableRow>
 			  	))}
 			  	</TableBody>
@@ -202,6 +206,7 @@ class ReviewTable extends Component {
 			</Card>
 			: <CreatePage 
 				switchReview={this.switchReview}
+				refresh = {this.getData}
 				currentInstanceNum={this.state.data.length}
 			  />}
 			</div>
