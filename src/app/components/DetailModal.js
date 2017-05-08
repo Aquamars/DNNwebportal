@@ -19,6 +19,15 @@ import { green500, orange500, greenA700, redA700, orangeA700 } from 'material-ui
 import {muiStyle, muiTheme} from '../myTheme'
 
 class DetailModal extends React.Component {
+	static propTypes = {
+        iconColor: React.PropTypes.string,
+        showStatus: React.PropTypes.bool
+    }
+
+	static defaultProps = {
+        iconColor: muiStyle.palette.primary1Color,
+        showStatus: true
+    }
 	constructor(props) {
 	    super(props)
 	    const increaseDay = moment(this.props.data.endedAt).diff(moment(this.props.data.startedAt), 'days')
@@ -29,8 +38,10 @@ class DetailModal extends React.Component {
 	      increaseDay: increaseDay,
 	      excuteDay: excuteDay,
 	      leftDay: leftDay
-	    }		
+	    }
+	    console.log('this.props.iconColor',this.props.iconColor)
 	}
+	
 
 
 	handleOpen = () => {
@@ -58,14 +69,14 @@ class DetailModal extends React.Component {
 		return (obj)
 	}
 	render(){
-	  const {t} = this.props
+	  const {t, iconColor, showStatus } = this.props
 	  const optionsStyle = {
 	      marginRight: 'auto',
 	  }
 	  return (
 	  	<div>
         <FlatButton
-          style = {{color:muiStyle.palette.primary1Color}} 
+          style = {{color:iconColor}} 
           data-tip data-for='detail'
           labelPosition="before"
           icon={<ActionToc />}
@@ -74,7 +85,7 @@ class DetailModal extends React.Component {
           <span>{t('common:detail')}</span>
         </ReactTooltip>
         <Dialog
-          title={<p><b>{this.props.data.instance.id}</b> - {this.setStatus(this.props.data.instance.statusId)}</p>}
+          title={<p><b>{this.props.data.instance.id}</b>{showStatus &&<span> - {this.setStatus(this.props.data.instance.statusId)}</span>}</p>}
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
