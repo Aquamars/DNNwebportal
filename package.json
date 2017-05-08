@@ -1,10 +1,10 @@
 {
-  "name": "TarsanAdmin",
+  "name": "DNNwebportal",
   "version": "0.1.0",
-  "description": "Tarsan web panel",
+  "description": "ITRI DNN web portal",
   "repository": {
     "type": "git",
-    "url": "https://a40503@bitbucket.org/a40503/tarsanadmin.git"
+    "url": "https://a40503@bitbucket.org/a40503/dnnwebportal.git"
   },
   "scripts": {
     "start": "webpack-dev-server --config webpack-dev-server.config.js --progress --inline --colors",
@@ -39,13 +39,11 @@
     "postcss": "^5.2.17",
     "react": "^15.4.1",
     "react-addons-css-transition-group": "^15.5.2",
-    "react-dates": "^10.1.1",
     "react-day-picker": "^5.3.0",
     "react-dom": "^15.4.1",
     "react-icons": "^2.2.3",
     "react-notification-system": "^0.2.13",
     "react-tap-event-plugin": "^2.0.1",
-    "react-tooltip": "^3.3.0",
-    "recharts": "^0.22.1"
+    "react-tooltip": "^3.3.0"
   }
 }
