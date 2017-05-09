@@ -188,7 +188,7 @@ class ReviewTable extends Component {
 			  	<TableRow key = {index}>
 			  	  <TableRowColumn style={{width: '8%'}}><DetailModal data = {data}/></TableRowColumn>
 			      <TableRowColumn style = {styles.textCenter}>{moment(data.startedAt).format('YYYY-MM-DD')}</TableRowColumn>
-			      <TableRowColumn style = {styles.textCenter}><EditModal data = {data}/></TableRowColumn>
+			      <TableRowColumn style = {styles.textCenter}><EditModal data = {data} refresh={this.getData}/></TableRowColumn>
 			      <TableRowColumn style = {styles.textCenter}>{data.instance.id}</TableRowColumn>
 			      <TableRowColumn style = {styles.textCenter}>{this.setStatus(data.instance.statusId)}</TableRowColumn>
 			      <TableRowColumn style = {styles.textCenter}>{data.instance.image.name}</TableRowColumn>			      
