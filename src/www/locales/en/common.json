@@ -64,5 +64,7 @@
     "openStorage":"Open Storage",
     "storage":"Open FTP webportal uploading dataset or you can using client FTP such as FileZilla",
     "noInstance":"No Continuously Available Instance!",
-    "history":"History"
+    "history":"History",
+    "specailOrder":"Specail Required",
+    "mailto":"Mail to us what you want."
 }
