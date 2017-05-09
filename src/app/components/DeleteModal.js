@@ -3,7 +3,7 @@ import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton'
 import Divider from 'material-ui/Divider'
-import Subheader from 'material-ui/Subheader'
+import CircularProgress from 'material-ui/CircularProgress'
 import {List, ListItem} from 'material-ui/List'
 import ReactTooltip from 'react-tooltip'
 import moment from 'moment'
@@ -37,24 +37,31 @@ class DeleteModal extends React.Component {
   handleClose = () => {
     this.setState({open: false})
   }
-
+  dummyAsync = (cb) => {
+      this.setState({loading: true}, () => {
+        this.asyncTimer = setTimeout(cb, 1300);
+     })
+  }
   handleSubmit = () => {
     if(!this.state.comfirm){
+      this.setState({
+        loading: true,
+      })
       axios.get(
         API_DeleteSchedule,
         {}
       ).then((result)=>{
         console.log(result.data)
-        this.setState({
+        this.dummyAsync(()=>this.setState({
           loading: false,
           comfirm: true
-        })        
+        }))        
       }).catch((err)=>{
           console.log(err)
       })
     }else{
       console.log('refresh')
-      this.setState({open: false,comfirm: false})
+      this.setState({open: false, comfirm: false})
       this.props.refresh()
     }
   }
@@ -65,17 +72,16 @@ class DeleteModal extends React.Component {
       <FlatButton
         label={t('common:cancel')}
         primary={true}
-        disabled={this.state.comfirm}
+        disabled={this.state.comfirm || this.state.loading}
         onTouchTap={this.handleClose}
       />,
       <FlatButton
         label={t('common:submit')}
         secondary={true}
-        disabled={false}
+        disabled={this.state.loading}
         onTouchTap={this.handleSubmit}
       />,
     ]
-
     return (
       <div>
         <FlatButton 
@@ -95,29 +101,34 @@ class DeleteModal extends React.Component {
           modal={true}
           open={this.state.open}
         >        
-        {this.state.comfirm ? <div>Already Deleted</div> :          
+        {this.state.comfirm ? 
+          <div><b>Already Deleted !</b></div> :
           <div>
-            <font color={redA700}><MdDelete/><b> {t('common:remove.warning')}</b></font>
-            <List>                
-                <Divider style={{color:redA700}}/>
-                <ListItem
-                  primaryText={<span><b>{t('common:dateRange')}</b></span>}
-                  secondaryText={<p>{moment(this.props.data.startedAt).format('YYYY-MM-DD')} ~ {moment(this.props.data.endedAt).format('YYYY-MM-DD')}</p>}
-                />
-                <ListItem
-                  primaryText={<b>{t('common:instance')}</b>}
-                  secondaryText={this.props.data.instance.id}
-                />
-                <ListItem
-                  primaryText={<b>{t('common:image')}</b>}
-                  secondaryText={this.props.data.instance.image.name}
-                />
-                <ListItem
-                  primaryText={<b>{t('common:project')}</b>}
-                  secondaryText={this.props.data.projectCode}
-                />
-                <Divider style={{color:redA700}}/>
-            </List>
+            {this.state.loading ? <div style = {{textAlign:'center'}}><CircularProgress size={80} thickness={5} /></div> :
+              <div>
+              <font color={redA700}><MdDelete/><b> {t('common:remove.warning')}</b></font>
+              <List>                
+                  <Divider style={{color:redA700}}/>
+                  <ListItem
+                    primaryText={<span><b>{t('common:dateRange')}</b></span>}
+                    secondaryText={<p>{moment(this.props.data.startedAt).format('YYYY-MM-DD')} ~ {moment(this.props.data.endedAt).format('YYYY-MM-DD')}</p>}
+                  />
+                  <ListItem
+                    primaryText={<b>{t('common:instance')}</b>}
+                    secondaryText={this.props.data.instance.id}
+                  />
+                  <ListItem
+                    primaryText={<b>{t('common:image')}</b>}
+                    secondaryText={this.props.data.instance.image.name}
+                  />
+                  <ListItem
+                    primaryText={<b>{t('common:project')}</b>}
+                    secondaryText={this.props.data.projectCode}
+                  />
+                  <Divider style={{color:redA700}}/>
+              </List>
+              </div>            
+            }
           </div>
         }
         </Dialog>

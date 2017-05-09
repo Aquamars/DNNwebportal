@@ -42,8 +42,6 @@ class DetailModal extends React.Component {
 	    console.log('this.props.iconColor',this.props.iconColor)
 	}
 	
-
-
 	handleOpen = () => {
 	  this.setState({open: true})
     }
