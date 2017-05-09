@@ -21,11 +21,12 @@ import Hints from './Hints'
 import axios from 'axios'
 import {API_URL, API_CheckInstance} from '../resource'
 //ICON
-import MdViewComfortable from 'react-icons/lib/md/view-comfortable'
+import ImageViewComfy from 'material-ui/svg-icons/image/view-comfy'
 import ContentAddCircleOutline from 'material-ui/svg-icons/content/add-circle-outline'
 import ContentRemoveCircleOutline  from 'material-ui/svg-icons/content/remove-circle-outline'
 import ActionCheckCircle  from 'material-ui/svg-icons/action/check-circle'
 import DeviceStorage from 'material-ui/svg-icons/device/storage'
+import CommunicationContactMail from 'material-ui/svg-icons/communication/contact-mail'
 // COLOR
 import { white, blueA400, blue500, green500, orange500, orangeA700, redA700, greenA700 } from 'material-ui/styles/colors'
 import {muiStyle, muiTheme} from '../myTheme'
@@ -65,6 +66,7 @@ class CreatePage extends React.Component {
       increaseDay: 0,
       instanceNum: 1,
       queryNumber: 0,
+      loadingCreate:false,
       avalableNumber: [],
       instanceArr: [{ instance: 0, image: 0, dataSet:false, dataSetPath:'', dataSetId:'', dataSetPass:''}],
       imageArr: ['Cowboy Bebop','Trigun','Baccano','Chobits','Lupin the third']
@@ -76,18 +78,31 @@ class CreatePage extends React.Component {
       this.asyncTimer = setTimeout(cb, 500);
     })
   }
-
+  dummyAsync2 = (cb) => {
+    this.setState({loadingCreate: true}, () => {
+      this.asyncTimer = setTimeout(cb, 500);
+    })
+  }
   handleNext = () => {
     const {stepIndex} = this.state;
     if (!this.state.loading) {
-      this.dummyAsync(() => this.setState({
-        loading: false,
-        stepIndex: stepIndex + 1,
-        finished: stepIndex >= 2,
-      }))
+      if(stepIndex === 2){
+          this.setState({loadingCreate: true})
+          this.createApi()
+      }else{
+        this.dummyAsync(() => this.setState({
+          loading: false,
+          stepIndex: stepIndex + 1,
+          // finished: stepIndex >= 2,
+        }))
+      }
     }
   }
-
+  createApi = () => {
+    this.dummyAsync2(() => this.setState({
+      finished: true,
+    }))
+  }
   handlePrev = () => {
     const {stepIndex} = this.state;
     if (!this.state.loading) {
@@ -100,7 +115,7 @@ class CreatePage extends React.Component {
   handleInstanceNumChange = (event, index, value) => {
     let arr = []
     for(let i = 0; i < value; i++){
-      const obj = { instance: i, image: 0, dataSet:false, dataSetPath:'', dataSetId:'', dataSetPass:''}
+      const obj = { instance: this.state.avalableNumber[i].instance, image: 0, dataSet:false, dataSetPath:'', dataSetId:'', dataSetPass:''}
       arr.push(obj)
     }
     this.setState({
@@ -122,7 +137,6 @@ class CreatePage extends React.Component {
     })
     this.checkInstanceRemain()
   }
-
   checkInstanceRemain = () => {
     const {startDate, endDate} = this.state
     axios.get(
@@ -137,18 +151,21 @@ class CreatePage extends React.Component {
     .then((result)=>{ 
       let avalableNum = []
       let number
+      
       if(result.data.avalableNumber <= (3 - this.props.currentInstanceNum)){
         number = result.data.avalableNumber
       }else{
         number = 3 - this.props.currentInstanceNum
       }
       for (let i = 0; i < (number); i++) {
-        avalableNum.push(i)
+        const obj = {num: i, instance: result.data.machines[i]}
+        avalableNum.push(obj)
       }
       this.setState({
         queryNumber: result.data.avalableNumber,
         submitting: false,
-        avalableNumber: avalableNum
+        avalableNumber: avalableNum,
+        instanceArr:[{ instance: result.data.machines[0], image: 0, dataSet:false, dataSetPath:'', dataSetId:'', dataSetPass:''}]
       })
       console.log(
         'queryNumber',result.data.avalableNumber, 
@@ -162,9 +179,10 @@ class CreatePage extends React.Component {
   disableStartDate = (date) => (moment(date).isBefore(moment()))
   disableEndDate = (date) => (moment(date).isBefore(moment(this.state.startDate).add(1, 'days')) || moment(date).isAfter(moment(this.state.startDate).add(1, 'month')))
   imageSelect = (instance, index, image) => {
-    // console.log( instance, index, image)
+    console.log( instance, index, image)
     const imageArr = this.state.imageArr
     let instanceArr = this.state.instanceArr
+    console.log(instanceArr)
     instanceArr[instance].image = image    
     this.setState({
         instanceArr: instanceArr
@@ -172,7 +190,7 @@ class CreatePage extends React.Component {
   }
   getStepContent(stepIndex) {
     const {t} = this.props
-    const {submitting} = this.state
+    const {submitting, loadingCreate} = this.state
     switch (stepIndex) {
       case 0:
         return (
@@ -214,15 +232,15 @@ class CreatePage extends React.Component {
               value={this.state.instanceNum}
               onChange={this.handleInstanceNumChange}
             >
-              {this.state.avalableNumber.map((num) => (
-                <MenuItem key={num+1} value={num+1} primaryText={num+1} />
+              {this.state.avalableNumber.map((data) => (
+                <MenuItem key={data.num+1} value={data.num+1} primaryText={data.num+1} />
               ))}           
             </SelectField>            
             <br />
-            {this.state.instanceArr.map((instance)=>(
+            {this.state.instanceArr.map((instance, index)=>(
               <Card style={{borderRadius: '5px', border:'1px solid #e0e0e0', margin: '2px'}}>
                 <CardHeader
-                  title={<b>Instance{instance.instance}</b>}
+                  title={<b>Instance - {instance.instance}</b>}
                   actAsExpander={true}
                   showExpandableButton={true}
                 />
@@ -232,7 +250,7 @@ class CreatePage extends React.Component {
                   <SelectField
                     key = {instance.instance}
                     floatingLabelText={"Instance"+instance.instance+t('common:instanceImage')}
-                    onChange={this.imageSelect.bind(null, instance.instance)}
+                    onChange={this.imageSelect.bind(null, index)}
                     value={instance.image}
                   >
                     {this.state.imageArr.map((image,index)=>(
@@ -258,6 +276,7 @@ class CreatePage extends React.Component {
       case 2:
         return (
           <div>
+          {loadingCreate ? <div style = {{textAlign:'center'}}><CircularProgress size={80} thickness={5} /></div> :
             <List>                
               <Divider />
                 <ListItem
@@ -273,7 +292,7 @@ class CreatePage extends React.Component {
                   nestedItems={this.state.instanceArr.map((instance, index)=>(        
                     <ListItem
                       key = {index}
-                      primaryText={<b>Instance{instance.instance}</b>}
+                      primaryText={<b>Instance - {instance.instance}</b>}
                       secondaryText={<p>Image - <b>{this.state.imageArr[instance.image]}</b></p>}                      
                     />
                   ))}
@@ -285,6 +304,7 @@ class CreatePage extends React.Component {
                 />
               <Divider />
             </List>
+          }
           </div>
         )
       default:
@@ -300,7 +320,7 @@ class CreatePage extends React.Component {
     const {finished, stepIndex} = this.state
     const contentStyle = {margin: '0 16px', overflow: 'hidden'}
     const {t} = this.props
-    if (finished) {
+    if (finished) {      
       return (
         <div style={contentStyle}>
           <List>                
@@ -309,7 +329,7 @@ class CreatePage extends React.Component {
             <Divider />
             <RaisedButton 
               label={t('common:backReview')}
-              icon={<MdViewComfortable />}
+              icon={<ImageViewComfy />}
               onTouchTap={this.CreateDone}
             />           
           </List>          
@@ -348,45 +368,55 @@ class CreatePage extends React.Component {
       </div>
     )
   }
-
   render() {
     const {loading, stepIndex, finished} = this.state
     const {t} = this.props
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
-      <Card>
-        <CardActions style={{ 
-          zIndex: 2, 
-          display: 'inline-block', 
-          float: 'right',
-          right: '10px'
-        }}>
-          <FlatButton 
-            label={t('common:backReview')}
-            style = {finished ? {color:'white'} : {color:muiStyle.palette.primary1Color}}
-            icon={<MdViewComfortable />}
-            disabled = {finished}
-            onTouchTap={this.props.switchReview}
-          />
-        </CardActions>
-        <CardTitle title={t('common:create')}/>
-        <div style={{width: '100%', maxWidth: 700, margin: 'auto'}}>          
-          <Stepper activeStep={stepIndex}>
-            <Step>
-              <StepLabel>{t('common:createStep.step1')}</StepLabel>
-            </Step>
-            <Step>
-              <StepLabel>{t('common:createStep.step2')}</StepLabel>
-            </Step>
-            <Step>
-              <StepLabel>{t('common:createStep.step4')}</StepLabel>
-            </Step>
-          </Stepper>
-          <ExpandTransition loading={loading} open={true}>
-            {this.renderContent()}
-          </ExpandTransition>          
-        </div>
-      </Card>
+        <Card>
+          <CardActions style={{ 
+            zIndex: 2, 
+            display: 'inline-block', 
+            float: 'right',
+            right: '10px'
+          }}>
+            <FlatButton 
+              label={t('common:specailOrder')}
+              style = {finished ? {color:'white'} : {color:muiStyle.palette.primary1Color}}
+              icon={<CommunicationContactMail />}
+              disabled = {finished}
+              href = {'mailto:eNgiNEer@No.oNe.cARe'}
+              data-tip data-for='mailto'
+            />
+            <ReactTooltip id='mailto' place="bottom" effect='solid'>
+              <span>{t('common:mailto')}</span>
+            </ReactTooltip>
+            <FlatButton 
+              label={t('common:backReview')}
+              style = {finished ? {color:'white'} : {color:muiStyle.palette.primary1Color}}
+              icon={<ImageViewComfy />}
+              disabled = {finished}
+              onTouchTap={this.props.switchReview}
+            />
+          </CardActions>
+          <CardTitle title={t('common:create')}/>
+          <div style={{width: '100%', maxWidth: 700, margin: 'auto'}}>          
+            <Stepper activeStep={stepIndex}>
+              <Step>
+                <StepLabel>{t('common:createStep.step1')}</StepLabel>
+              </Step>
+              <Step>
+                <StepLabel>{t('common:createStep.step2')}</StepLabel>
+              </Step>
+              <Step>
+                <StepLabel>{t('common:createStep.step4')}</StepLabel>
+              </Step>
+            </Stepper>
+            <ExpandTransition loading={loading} open={true}>
+              {this.renderContent()}
+            </ExpandTransition>          
+          </div>
+        </Card>
       </MuiThemeProvider>
     )
   }
