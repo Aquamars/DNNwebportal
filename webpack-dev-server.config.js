@@ -3,13 +3,16 @@ const path = require('path');
 const buildPath = path.resolve(__dirname, 'build');
 const nodeModulesPath = path.resolve(__dirname, 'node_modules');
 const TransferWebpackPlugin = require('transfer-webpack-plugin');
-
 const config = {
+  // context: path.join(__dirname, '/src/app/app.js'),
   // Entry points to the project
-  entry: {
-    // 'webpack/hot/dev-server',
-    // 'webpack/hot/only-dev-server',
-    'app':path.join(__dirname, '/src/app/app.js'),
+  entry:{
+    //'webpack/hot/dev-server',
+    //'webpack/hot/only-dev-server',
+    'app':[
+        path.join(__dirname, '/src/app/app.js'),
+	'webpack/hot/only-dev-server',
+    ]
   },
   // Server Configuration options
   devServer: {
@@ -26,8 +29,23 @@ const config = {
     filename: 'app.js',
   },
   plugins: [
+    new webpack.optimize.UglifyJsPlugin({
+      beautify: false,
+      comments: false,
+      compress: {
+        warnings: false,
+        drop_console: true,
+        collapse_vars: true,
+        reduce_vars: true,
+      }
+    }),
+    new webpack.LoaderOptionsPlugin({
+      minimize: true
+    }),
     // Enables Hot Modules Replacement
     new webpack.HotModuleReplacementPlugin(),
+    // prints more readable module names in the browser console on HMR updates
+    new webpack.NamedModulesPlugin(),
     // Allows error warnings but does not stop compiling.
     new webpack.NoEmitOnErrorsPlugin(),
     // Moves files

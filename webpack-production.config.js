@@ -22,10 +22,15 @@ const config = {
     }),
     // Minify the bundle
     new webpack.optimize.UglifyJsPlugin({
+      beautify: false,
+      comments: false,
       compress: {
         // suppresses warnings, usually from module minification
         warnings: false,
-      },
+        drop_console: true,
+        collapse_vars: true,
+        reduce_vars: true,
+      }
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true
