@@ -17,7 +17,7 @@ import {muiStyle} from '../myTheme'
 import LockIcon from 'material-ui/svg-icons/action/lock-outline'
 
 import axios from 'axios'
-import {API_URL} from '../resource'
+import {API_SIGNIN} from '../resource'
 
 import { translate, Interpolate } from 'react-i18next'
 import i18n from '../utils/i18n'
@@ -71,7 +71,7 @@ class SiginFrom extends Component {
     })
 
     axios.get(
-      API_URL, 
+      API_SIGNIN, 
       {
         params: {
           username: this.state.username,
