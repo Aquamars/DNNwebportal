@@ -1,13 +1,14 @@
 import React, { Component, PropTypes } from 'react'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import MenuItem from 'material-ui/MenuItem'
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import RaisedButton from 'material-ui/RaisedButton'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import AppBar from 'material-ui/AppBar'
 import Drawer from 'material-ui/Drawer'
-import MenuItem from 'material-ui/MenuItem'
-import getMuiTheme from 'material-ui/styles/getMuiTheme'
+import Snackbar from 'material-ui/Snackbar'
 import FontIcon from 'material-ui/FontIcon'
 import Paper from 'material-ui/Paper'
 import autoprefixer from 'material-ui/utils/autoprefixer'
@@ -79,6 +80,7 @@ const MenuStyles = {
         transition: 'margin 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms',
     },
 }
+const styleSnackbar = {backgroundColor: '#ff405c'}
 const prefixedStyles = {}
 const muiTheme = getMuiTheme({userAgent: 'all'})
 
@@ -98,7 +100,9 @@ class MainContainer extends Component {
     super(props, context)
     this.state = {
       open: false,
-      data: ''
+      data: '',
+      notifiyOpen: false,
+      notifiyMsg:''
     }
   }  
   handleToggle = () => {
@@ -116,6 +120,12 @@ class MainContainer extends Component {
   handleTouchTap = () => {
     this.setState({
       open: true,
+    })
+  }
+  handleNotify = (msg) => {
+    this.setState({
+      notifiyOpen: true,
+      notifiyMsg: msg
     })
   }
   render(){ 
@@ -143,9 +153,16 @@ class MainContainer extends Component {
         				        />
                         <div className="body" style={prefixedStyles.body}>
                             <div style={prefixedStyles.content}> 
-                              <ReviewTable token = {this.props.token}/>
+                              <ReviewTable token = {this.props.token} notify = {this.handleNotify} />
                               <br/>
-                              <HistoryTable token = {this.props.token}/>                            
+                              <HistoryTable token = {this.props.token} notify = {this.handleNotify}/>
+                              <Snackbar
+                                open = {this.state.notifiyOpen}
+                                autoHideDuration = {2500}
+                                message={this.state.notifiyMsg}
+                                bodyStyle={styleSnackbar}
+                                action={<FlatButton href={'mailto:eNgiNEer@No.oNe.cARe'} labelStyle={{color:'white'}}>Tell us</FlatButton>}
+                              />
                             </div>
                             <img
                               src = './image/2013060723055881547495.jpg'                              
