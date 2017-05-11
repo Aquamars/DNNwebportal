@@ -23,7 +23,7 @@ import { translate, Interpolate } from 'react-i18next'
 import i18n from '../utils/i18n'
 // API call
 import axios from 'axios'
-import {API_DeleteSchedule} from '../resource'
+import {API_PutExtDate, API_GetExtDate} from '../resource'
 /**
  * A modal dialog can only be closed by selecting one of the actions.
  */
@@ -35,7 +35,8 @@ class EditModal extends React.Component {
         open: false,
         increaseDay:0,
         loading: false,
-        comfirm: false
+        comfirm: false,
+        latestDate:''
       }
   }
   dummyAsync = (cb) => {
@@ -50,51 +51,93 @@ class EditModal extends React.Component {
     this.setState({open: false});
   }
   handleSubmit = () => {
+    console.log(moment(this.state.endTime).format('YYYY-MM-DD'))
     if(!this.state.comfirm){
       this.setState({
         loading: true,
       })
-      axios.get(
-        API_DeleteSchedule,
-        {}
-      ).then((result)=>{
-        console.log(result.data)
-        this.dummyAsync(()=>this.setState({
-          loading: false,
-          comfirm: true
-        }))        
+      const api = API_PutExtDate+this.props.id
+      fetch(api, 
+        { 
+          method: 'put', 
+          headers: {
+            'x-access-token': this.props.token,
+            'Content-Type': 'application/json',
+          },
+          body:JSON.stringify({end:moment(this.state.endTime).format('YYYY-MM-DD')})
+          // body:data
+      }).then((response)=>{
+        console.log(response)
+        if(response.ok){
+          this.dummyAsync(()=>this.setState({
+            // loading: false,
+            comfirm: true,
+          }))
+        }
+        return response.json()
+      })
+      .then((data)=>{
+        console.log('data:'+data)
+        // this.setState({
+        //   loading: false, 
+        // })        
       }).catch((err)=>{
-          console.log(err)
+        console.log('err:'+err)
+        this.props.notify('ERROR : Edit Date')
       })
     }else{
       console.log('refresh')
-      this.setState({open: false, comfirm: false})
+      this.setState({open: false, increaseDay:0, loading: false, comfirm: false})
       this.props.refresh()
     }
   }
   handleChangeMaxDate = (event, date) => {
-    // console.log(date)    
+    console.log(this.props.data.endedAt,date)    
     this.setState({
       endTime: date,
-      increaseDay: moment(date).diff(moment(this.props.data.endTime), 'days')
+      increaseDay: moment(date).diff(moment(this.props.data.endedAt), 'days')
     })
   }
+  getExtandDate = () => {
+    console.log(this.props.id)
+    console.log(this.props.token)
+    const api = API_GetExtDate+this.props.id+"/extendable"
+    axios.get(api,
+        {
+          headers: {
+          'x-access-token': this.props.token,
+          'Content-Type': 'application/json'
+          }
+        }
+      ).then((result)=>{
+        console.log(result.data.extendableLatestDate)
+        this.setState({
+          latestDate:moment(result.data.extendableLatestDate).format('YYYY-MM-DD')
+        })
+        console.log('latestDate', this.state.latestDate)
+      }).catch((err)=>{
+          console.log(err)
+      })
+  }
   disableDate = (date) => {    
-    return moment(date).isBefore(this.props.data.endTime) || moment(date).isAfter(moment(this.props.data.endTime).add(1, 'month'))
+    return moment(date).isBefore(this.props.data.endedAt) || moment(date).isAfter(moment(this.state.latestDate))
+  }
+  componentDidMount(){
+    this.getExtandDate()
   }
   render() {
     const {t} = this.props
     const actions = [
       <FlatButton
         label={t('common:cancel')}
-        primary={true}
+        style = {this.state.comfirm ? {color:'white'} : {color:muiStyle.palette.primary1Color}}
         disabled={this.state.comfirm || this.state.loading}
         onTouchTap={this.handleClose}
       />,
       <FlatButton
-        label={t('common:submit')}
+        label={this.state.comfirm ? 'OK' : t('common:submit')}
         secondary={true}
-        disabled={this.state.loading || this.state.increaseDay<=0}
+        disabled={ this.state.increaseDay<=0 || (!this.state.comfirm && this.state.loading)}
         onTouchTap={this.handleSubmit}
       />,
     ]
@@ -121,27 +164,32 @@ class EditModal extends React.Component {
             open={this.state.open}
           >
           {this.state.comfirm ?
-            <div><b>Already Updated !</b></div> :
+            <div><b>{t('common:updatedSuccess')}</b></div> :
             <div style={optionsStyle}>
               {this.state.loading ? 
                 <div style = {{textAlign:'center'}}><CircularProgress size={80} thickness={5} /></div> :
-              <div>
-              <Divider />
-              <TextField
-                disabled={true}
-                defaultValue={moment(this.props.data.startedAt).format('YYYY-MM-DD')}
-                floatingLabelText={t('common:startDate')}
-              />
-              <DatePicker
-                onChange={this.handleChangeMaxDate}
-                autoOk={true}
-                floatingLabelText={t('common:endDate')}
-                shouldDisableDate={this.disableDate}
-                defaultDate={new Date(this.props.data.endedAt)}
-              />
-              {this.state.increaseDay > 0 && <span>{moment(this.props.data.endedAt).format('YYYY-MM-DD')} <font color={green500}>+ {this.state.increaseDay} {t('common:days')}</font></span>}
-              <ReviewCalendar />
-              </div>
+                <div>
+                  <Divider />
+                  <TextField
+                    disabled={true}
+                    defaultValue={moment(this.props.data.startedAt).format('YYYY-MM-DD')}
+                    floatingLabelText={t('common:startDate')}
+                  />
+                  <DatePicker
+                    onChange={this.handleChangeMaxDate}
+                    autoOk={true}
+                    floatingLabelText={t('common:endDate')}
+                    shouldDisableDate={this.disableDate}
+                    defaultDate={new Date(this.props.data.endedAt)}
+                  />
+                  {this.state.increaseDay > 0 && <span>{moment(this.props.data.endedAt).format('YYYY-MM-DD')} <font color={green500}>+ {this.state.increaseDay} {t('common:days')}</font></span>}
+                  <ReviewCalendar 
+                    defualtLoading={false}
+                    startDate = {moment(this.props.data.endedAt).format('YYYY-MM-DD')}
+                    endDate = {moment(this.state.latestDate).format('YYYY-MM-DD')}
+                    title = {<b>{t('common:editCalendarTile')}</b>}
+                  />
+                </div>
               }
             </div>
           }
