@@ -14,6 +14,16 @@ import i18n from '../utils/i18n'
 import axios from 'axios'
 import {API_URL, API_GetCalendar} from '../resource'
 class ReviewCalendar extends React.Component {
+  static propTypes = {
+    defualtLoading: React.PropTypes.bool,    
+    startDate: React.PropTypes.string,
+    endDate: React.PropTypes.string,
+    title: React.PropTypes.object
+  }
+  static defaultProps = {
+    defualtLoading: true,
+  }
+
 	constructor(props) {
       super(props)
       this.state = {
@@ -65,7 +75,19 @@ class ReviewCalendar extends React.Component {
     })
   }
   componentDidMount(){
-    this.getData()
+    if(this.props.defualtLoading){
+      this.getData()
+    }else{
+      let avil1 = []
+      let dateStart = moment(this.props.startDate)
+      while (moment(this.props.endDate) >= dateStart) {
+        avil1.push(dateStart.format('YYYY-MM-DD'))
+        dateStart.add(1,'days')
+      }
+      this.setState({
+        avil1: avil1,
+      })
+    }
   }
   handleDayClick = (day, { full, avil1, avil2, avil3 }) => {
     let text
@@ -103,7 +125,8 @@ class ReviewCalendar extends React.Component {
         },
 	    }
   		return (
-  		<div style={{textAlign:'center'}}>        
+  		<div style={{textAlign:'center'}}> 
+        {this.props.title}       
         <DayPicker
           enableOutsideDays
           numberOfMonths={2}
@@ -114,7 +137,7 @@ class ReviewCalendar extends React.Component {
           toMonth={new Date(2017, 10, 30, 23, 59)}                                    
         />
         <p>
-          {this.state.text}
+          {this.props.defualtLoading && this.state.text}
         </p>
       </div>
   		)
