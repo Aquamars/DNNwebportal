@@ -7,6 +7,8 @@ import CircularProgress from 'material-ui/CircularProgress'
 import {List, ListItem} from 'material-ui/List'
 import ReactTooltip from 'react-tooltip'
 import moment from 'moment'
+// style
+import {muiStyle} from '../myTheme'
 // ICON
 import MdDelete from 'react-icons/lib/md/delete'
 // COLOR
@@ -29,11 +31,9 @@ class DeleteModal extends React.Component {
         comfirm: false
       }
   }
-
   handleOpen = () => {
     this.setState({open: true})
   }
-
   handleClose = () => {
     this.setState({open: false})
   }
@@ -71,7 +71,7 @@ class DeleteModal extends React.Component {
     const actions = [
       <FlatButton
         label={t('common:cancel')}
-        primary={true}
+        style = {this.state.comfirm ? {color:'white'} : {color:muiStyle.palette.primary1Color}}
         disabled={this.state.comfirm || this.state.loading}
         onTouchTap={this.handleClose}
       />,
@@ -102,7 +102,7 @@ class DeleteModal extends React.Component {
           open={this.state.open}
         >        
         {this.state.comfirm ? 
-          <div><b>Already Deleted !</b></div> :
+          <div><b>{t('common:deletedSuccess')}</b></div> :
           <div>
             {this.state.loading ? <div style = {{textAlign:'center'}}><CircularProgress size={80} thickness={5} /></div> :
               <div>
