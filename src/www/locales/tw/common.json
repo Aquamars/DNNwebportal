@@ -66,5 +66,9 @@
     "noInstance":"無連續可用的Instance!",
     "history":"瀏覽歷史紀錄",
     "specailOrder":"特殊需求",
-    "mailto":"Mail給我們您的需求"
+    "mailto":"Mail給我們您的需求",
+    "maxHint":"一個人最多三個instance，包含預定",
+    "editCalendarTile":"此Instance可延長的日期",
+    "updatedSuccess":"更新成功 !",
+    "deletedSuccess":"移除成功 !"
 }

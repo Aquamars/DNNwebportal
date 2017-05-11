@@ -66,5 +66,9 @@
     "noInstance":"No Continuously Available Instance!",
     "history":"History",
     "specailOrder":"Specail Required",
-    "mailto":"Mail to us what you want."
+    "mailto":"Mail to us what you want.",
+    "maxHint":"Each user have 3 instance limit.",
+    "editCalendarTile":"The instance can extend dates",
+    "updatedSuccess":"Updated Success !",
+    "deletedSuccess":"Deleted Success !"
 }
