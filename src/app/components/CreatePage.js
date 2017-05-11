@@ -72,7 +72,6 @@ class CreatePage extends React.Component {
       imageArr: ['Cowboy Bebop','Trigun','Baccano','Chobits','Lupin the third']
     }
   }
-
   dummyAsync = (cb) => {
     this.setState({loading: true}, () => {
       this.asyncTimer = setTimeout(cb, 500);
@@ -87,7 +86,7 @@ class CreatePage extends React.Component {
     const {stepIndex} = this.state;
     if (!this.state.loading) {
       if(stepIndex === 2){
-          this.setState({loadingCreate: true})
+          this.setState({ loadingCreate: true})
           this.createApi()
       }else{
         this.dummyAsync(() => this.setState({
@@ -99,6 +98,7 @@ class CreatePage extends React.Component {
     }
   }
   createApi = () => {
+    console.log(this.state.instanceArr)
     this.dummyAsync2(() => this.setState({
       finished: true,
     }))
@@ -143,15 +143,15 @@ class CreatePage extends React.Component {
       API_CheckInstance,
       {
         params: {
-          endedAt: moment(endDate).format('YYYY-MM-DD'),
-          startedAt: moment(startDate).format('YYYY-MM-DD')
+          end: moment(endDate).format('YYYY-MM-DD'),
+          start: moment(startDate).format('YYYY-MM-DD')
         }
       }
     )
     .then((result)=>{ 
       let avalableNum = []
       let number
-      
+      console.log(result.data)
       if(result.data.avalableNumber <= (3 - this.props.currentInstanceNum)){
         number = result.data.avalableNumber
       }else{
@@ -172,7 +172,8 @@ class CreatePage extends React.Component {
         'avalableNumber',avalableNum.length,
         'currentInstanceNum',this.props.currentInstanceNum)
     }).catch((err)=>{
-      console.log(err)
+      console.log(err)      
+      this.props.notify('Check instance : ERROR')
     })
   }
   handleChangeProjectNum = (event, value) => this.setState({projectNum: value})
@@ -238,7 +239,7 @@ class CreatePage extends React.Component {
             </SelectField>            
             <br />
             {this.state.instanceArr.map((instance, index)=>(
-              <Card style={{borderRadius: '5px', border:'1px solid #e0e0e0', margin: '2px'}}>
+              <Card initiallyExpanded={true} style={{borderRadius: '5px', border:'1px solid #e0e0e0', margin: '2px'}}>
                 <CardHeader
                   title={<b>Instance - {instance.instance}</b>}
                   actAsExpander={true}
@@ -315,7 +316,6 @@ class CreatePage extends React.Component {
     this.props.refresh()
     this.props.switchReview()
   }
-
   renderContent() {
     const {finished, stepIndex} = this.state
     const contentStyle = {margin: '0 16px', overflow: 'hidden'}
@@ -414,7 +414,7 @@ class CreatePage extends React.Component {
             </Stepper>
             <ExpandTransition loading={loading} open={true}>
               {this.renderContent()}
-            </ExpandTransition>          
+            </ExpandTransition> 
           </div>
         </Card>
       </MuiThemeProvider>
