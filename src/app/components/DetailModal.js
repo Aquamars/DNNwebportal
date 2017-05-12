@@ -5,8 +5,10 @@ import ReactTooltip from 'react-tooltip'
 import Divider from 'material-ui/Divider'
 import {List, ListItem} from 'material-ui/List'
 import {Tab, Tabs} from 'material-ui'
+import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table'
 import moment from 'moment'
 import HoverDiv from './HoverDiv'
+import ReviewCalendar from './ReviewCalendar'
 // theme
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 // i18n
@@ -102,6 +104,14 @@ class DetailModal extends React.Component {
 		                initiallyOpen={true}
 		                nestedItems={[
 		                	<ListItem
+				              primaryText={<span><b>{t('common:ip')}</b></span>}
+				              secondaryText={this.props.data.instance.ip}
+				            />,
+				            <ListItem
+				              primaryText={<span><b>{t('common:port')}</b></span>}
+				              secondaryText={this.props.data.instance.port}
+				            />,
+		                	<ListItem
 				              primaryText={<span><b>{t('common:account')}</b></span>}
 				              secondaryText={<HoverDiv account={this.props.data.instance.username} password={this.props.data.instance.password}/>}
 				            />
@@ -136,23 +146,37 @@ class DetailModal extends React.Component {
 				        <ListItem
 			              primaryText={<span><b>{t('common:dateRange')} </b></span>}
 			              secondaryText={<p>{moment(this.props.data.startedAt).format('YYYY-MM-DD')} ~ {moment(this.props.data.endedAt).format('YYYY-MM-DD')}</p>}
-			              initiallyOpen={true}
-			              nestedItems={[
-			              	<ListItem
-					            primaryText={<span><b>{t('common:interval')} </b></span>}
-					            secondaryText={<p><b><font>{this.state.increaseDay} {t('common:days')}</font></b></p>}
-					        />,
-			              	<ListItem
-					            primaryText={<span><b>{t('common:excuteDay')} </b></span>}
-					            secondaryText={<p><b><font color={green500}>{this.state.excuteDay} {t('common:days')}</font></b></p>}
-					        />,
-					        <ListItem
-					          primaryText={<span><b>{t('common:leftDay')} </b></span>}
-					          secondaryText={this.state.leftDay>0 ? <p><b><font color={green500}>{this.state.leftDay} {t('common:days')}</font></b></p> : <p><b><font color={redA700}>{this.state.leftDay} {t('common:days')}</font></b></p>}
-					        />
-			              ]}
+			              initiallyOpen={true}			              
 			            />
 		            </List>
+		            <Divider />
+		            <Table>
+					    <TableHeader
+					    	displaySelectAll={false}
+	    			 		adjustForCheckbox={false}
+					    >
+					      <TableRow>
+					        <TableHeaderColumn>{<font color='#000'><b>{t('common:interval')}</b></font>}</TableHeaderColumn>
+					        <TableHeaderColumn>{<font color='#000'><b>{t('common:excuteDay')}</b></font>}</TableHeaderColumn>
+					        <TableHeaderColumn>{<font color='#000'><b>{t('common:leftDay')} </b></font>}</TableHeaderColumn>
+					      </TableRow>
+					    </TableHeader>
+					    <TableBody displayRowCheckbox={false}>
+					      <TableRow>
+					        <TableRowColumn>{<p><b><font>{this.state.increaseDay} {t('common:days')}</font></b></p>}</TableRowColumn>
+					        <TableRowColumn>{<p><b><font color={green500}>{this.state.excuteDay} {t('common:days')}</font></b></p>}</TableRowColumn>
+					        <TableRowColumn>{this.state.leftDay>0 ? <p><b><font color={green500}>{this.state.leftDay} {t('common:days')}</font></b></p> : <p><b><font color={redA700}>{this.state.leftDay} {t('common:days')}</font></b></p>}</TableRowColumn>
+					      </TableRow>
+					    </TableBody>
+					</Table>
+					<Divider />
+		            <ReviewCalendar 
+			           defualtLoading={false}
+	                   startDate = {moment(this.props.data.startedAt).format('YYYY-MM-DD')}
+	                   endDate = {moment(this.props.data.endedAt).format('YYYY-MM-DD')}
+	                   showDetail = {true}
+		            />
+		            <Divider />
 		        </div>
 		       </Tab>
 	      </Tabs>  
