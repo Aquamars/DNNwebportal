@@ -107,7 +107,7 @@ class ReviewTable extends Component {
 	    axios.get(
 	      API_GetInfo,
 	      {
-	        headers: {'X-Access-Token': this.props.token},
+	        headers: {'X-Access-Token': this.props.token, 'Accept': 'application/json'},
 	        params: { mode: 'booked' }
 	      }
 	    )
@@ -121,6 +121,7 @@ class ReviewTable extends Component {
 	      )
 	    }).catch((err)=>{
 	      console.log(err)
+	      this.props.notify('ERROR : ReviewTable')
 	    })
 	}
 
@@ -154,7 +155,7 @@ class ReviewTable extends Component {
 		        />
 		        <FlatButton
 		          label={t('common:create')}
-		          style = {{color:muiStyle.palette.primary1Color}}
+		          style = {this.state.data.length === 3 ? {color:'grey'} : {color:muiStyle.palette.primary1Color}}
 		          icon={<ContentAdd />}
 		          disabled={this.state.data.length === 3}
 		          onTouchTap={this.SwitchCreatePage}		          
@@ -162,46 +163,46 @@ class ReviewTable extends Component {
 			  </CardActions>
 			  <CardTitle title={'DNN'}/>
 			  <ExpandTransition loading={loading} open={true}>
-			  <Paper>
-			  {loading && <div style = {{textAlign:'center'}}><CircularProgress size={80} thickness={5} /></div>}
-			  <Table>
-    			<TableHeader    			 
-    			 displaySelectAll={false}
-    			 adjustForCheckbox={false}>
-    			  <TableRow>
-    			    <TableHeaderColumn style={{width: '8%'}}></TableHeaderColumn>
-			        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:startDate')}</b></TableHeaderColumn>
-			        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:endDate')}</b></TableHeaderColumn>
-			        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:instance')}</b></TableHeaderColumn>
-			        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:status.status')}</b></TableHeaderColumn>
-			        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:image')}</b></TableHeaderColumn>
-			        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:account')}</b></TableHeaderColumn>
-			        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:project')}</b></TableHeaderColumn>			        
-			        <TableHeaderColumn style={{width: '8%'}}></TableHeaderColumn>
-			      </TableRow>
-			    </TableHeader>
-			    <TableBody
-			    	style = {{textAlign:'center'}} 
-			    	showRowHover={true} 
-			    	displayRowCheckbox={false}>
-			  	{ this.state.data.map((data, index)=>(
-			  	<TableRow key = {index}>
-			  	  <TableRowColumn style={{width: '8%'}}><DetailModal data = {data}/></TableRowColumn>
-			      <TableRowColumn style = {styles.textCenter}>{moment(data.startedAt).format('YYYY-MM-DD')}</TableRowColumn>
-			      <TableRowColumn style = {styles.textCenter}><EditModal notify = {this.props.notify} id={data.id} token={this.props.token} data = {data} refresh={this.getData}/></TableRowColumn>
-			      <TableRowColumn style = {styles.textCenter}>{data.instance.id}</TableRowColumn>
-			      <TableRowColumn style = {styles.textCenter}>{this.setStatus(data.instance.statusId)}</TableRowColumn>
-			      <TableRowColumn style = {styles.textCenter}>{data.instance.image.name}</TableRowColumn>			      
-			      <TableRowColumn style = {styles.textCenter}>
-			      	<HoverDiv account={data.instance.username} password={data.instance.password}/>
-	              </TableRowColumn>
-	              <TableRowColumn style = {styles.textCenter}>{data.projectCode}</TableRowColumn>
-			      <TableRowColumn style={{width: '8%'}}><DeleteModal data = {data} refresh={this.getData}/></TableRowColumn>
-			    </TableRow>
-			  	))}
-			  	</TableBody>
-			  </Table>
-			  </Paper>
+				  <Paper>
+				  {loading && <div style = {{textAlign:'center'}}><CircularProgress size={80} thickness={5} /></div>}
+				  <Table>
+	    			<TableHeader    			 
+	    			 displaySelectAll={false}
+	    			 adjustForCheckbox={false}>
+	    			  <TableRow>
+	    			    <TableHeaderColumn style={{width: '8%'}}></TableHeaderColumn>
+				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:startDate')}</b></TableHeaderColumn>
+				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:endDate')}</b></TableHeaderColumn>
+				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:instance')}</b></TableHeaderColumn>
+				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:status.status')}</b></TableHeaderColumn>
+				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:image')}</b></TableHeaderColumn>
+				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:account')}</b></TableHeaderColumn>
+				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:project')}</b></TableHeaderColumn>			        
+				        <TableHeaderColumn style={{width: '8%'}}></TableHeaderColumn>
+				      </TableRow>
+				    </TableHeader>
+				    <TableBody
+				    	style = {{textAlign:'center'}} 
+				    	showRowHover={true} 
+				    	displayRowCheckbox={false}>
+				  	{ this.state.data.map((data, index)=>(
+				  	<TableRow key = {index}>
+				  	  <TableRowColumn style={{width: '8%'}}><DetailModal data = {data}/></TableRowColumn>
+				      <TableRowColumn style = {styles.textCenter}>{moment(data.startedAt).format('YYYY-MM-DD')}</TableRowColumn>
+				      <TableRowColumn style = {styles.textCenter}><EditModal notify = {this.props.notify} id={data.id} token={this.props.token} data = {data} refresh={this.getData}/></TableRowColumn>
+				      <TableRowColumn style = {styles.textCenter}>{data.instance.id}</TableRowColumn>
+				      <TableRowColumn style = {styles.textCenter}>{this.setStatus(data.instance.statusId)}</TableRowColumn>
+				      <TableRowColumn style = {styles.textCenter}>{data.instance.image.name}</TableRowColumn>			      
+				      <TableRowColumn style = {styles.textCenter}>
+				      	<HoverDiv account={data.instance.username} password={data.instance.password}/>
+		              </TableRowColumn>
+		              <TableRowColumn style = {styles.textCenter}>{data.projectCode}</TableRowColumn>
+				      <TableRowColumn style={{width: '8%'}}><DeleteModal data = {data} id={data.id} refresh={this.getData} token={this.props.token}/></TableRowColumn>
+				    </TableRow>
+				  	))}
+				  	</TableBody>
+				  </Table>
+				  </Paper>
 			  </ExpandTransition>
 			</Card>
 			: <CreatePage 
@@ -209,6 +210,7 @@ class ReviewTable extends Component {
 				refresh = {this.getData}
 				currentInstanceNum={this.state.data.length}
 				notify = {this.props.notify}
+				token={this.props.token}
 			  />}
 			</div>
 		)
