@@ -3,15 +3,17 @@
 // export const PATH = 'web'
 // export const API_URL = DOMAIN+':'+PORT+'/'+PATH+'/'
 export const DOMAIN = 'http://54.249.32.121'
-export const API_SIGNIN = DOMAIN+'/user/signin'
+export const API_SIGNIN = DOMAIN + '/user/signin'
 export const PATH = 'user/signin'
-export const API_URL = DOMAIN+'/'+PATH
-export const API_CheckInstance = DOMAIN+'/'+'machine/remain'
-export const API_GetCalendar = DOMAIN+'/machine/calendar/'
-export const API_GetInfo = DOMAIN+'/user/schedule'
-export const API_DeleteSchedule = DOMAIN+'/machine/calendar/'
-export const API_GetExtDate= DOMAIN+'/user/schedule/'
-export const API_PutExtDate= DOMAIN+'/user/schedule/'
+export const API_URL = DOMAIN + '/'+PATH
+export const API_CreateSchedule = DOMAIN + '/user/schedule/'
+export const API_CheckInstance = DOMAIN + '/machine/remain'
+export const API_GetCalendar = DOMAIN + '/machine/calendar/'
+export const API_GetInfo = DOMAIN + '/user/schedule'
+export const API_DeleteSchedule = DOMAIN + '/user/schedule/'
+export const API_GetExtDate = DOMAIN + '/user/schedule/'
+export const API_PutExtDate = DOMAIN + '/user/schedule/'
+export const API_GetImage = DOMAIN + '/image/'
 // fake data
 export const DATA = [
 {startTime:'2017-01-02',endTime:'2017-05-02', instance:'eeny', status:'running', image:'c2c3152907b5', project:'G352BQ2100', account:'information', password:'research', dataSet:false, dataSetPath:'', dataSetId:'', dataSetPass:''},
