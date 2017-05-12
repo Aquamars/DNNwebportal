@@ -12,7 +12,6 @@
   background-color: #44a340;
   color: white;
 }
-
 .DayPicker-Day--full:not(.DayPicker-Day--outside) {
   background-color: #d50000;
   color: white;
@@ -27,5 +26,9 @@
 }
 .DayPicker-Day--avil3:not(.DayPicker-Day--outside) {
   background-color: #1B5E20;
+  color: white;
+}
+.DayPicker-Day--executed:not(.DayPicker-Day--outside) {
+  background-color: #9E9E9E;
   color: white;
 }
