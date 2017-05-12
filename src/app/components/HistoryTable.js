@@ -97,7 +97,7 @@ class HistoryTable extends Component {
 	    axios.get(
 	      API_GetInfo,
 	      {
-	        headers: {'X-Access-Token': this.props.token},
+	        headers: {'X-Access-Token': this.props.token, 'Accept': 'application/json'},
 	        params: { mode: 'history' }
 	      }
 	    )
@@ -112,10 +112,12 @@ class HistoryTable extends Component {
 	      
 	    }).catch((err)=>{
 	      console.log(err)
+	      this.props.notify('ERROR : HistoryTable')
 	    })
 	}
 	componentDidMount(){
 		// this.getData()
+		this.switchPage()
 	}
 
 	render(){
