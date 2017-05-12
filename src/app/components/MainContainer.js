@@ -161,7 +161,7 @@ class MainContainer extends Component {
                                 autoHideDuration = {2500}
                                 message={this.state.notifiyMsg}
                                 bodyStyle={styleSnackbar}
-                                action={<FlatButton href={'mailto:eNgiNEer@No.oNe.cARe'} labelStyle={{color:'white'}}>Tell us</FlatButton>}
+                                action={<FlatButton href={'mailto:eNgiNEer@No.oNe.cARe'} style={{color:'white'}}>Tell us</FlatButton>}
                               />
                             </div>
                             <img
