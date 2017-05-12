@@ -18,6 +18,7 @@
         "stop": "停止"
     },
     "image": "Image",
+    "imageDesc": "Image 內容描述",
     "account": "帳密",
     "project": "計畫代號",
     "createStep": {
@@ -42,7 +43,10 @@
     "calendar":{
         "fullyDay":"無Instance可用",
         "instanceAvailable":"Instance 可用",
-        "noData":"無資料"
+        "noData":"無資料",
+        "today":"今天日期:",
+        "executed":"已執行日期",
+        "notyetExecute": "尚未執行日期"
     },
     "backReview": "返回列表",
     "InstanceNum": "Instance數量",
@@ -70,5 +74,7 @@
     "maxHint":"一個人最多三個instance，包含預定",
     "editCalendarTile":"此Instance可延長的日期",
     "updatedSuccess":"更新成功 !",
-    "deletedSuccess":"移除成功 !"
+    "deletedSuccess":"移除成功 !",
+    "ip":"網際協定位址",
+    "port":"通訊埠"
 }
