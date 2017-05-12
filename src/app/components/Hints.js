@@ -16,7 +16,8 @@ class Hints extends React.Component {
   	render(){
   		const {t} = this.props
   		return (
-  		  <div>  		  	
+  		  <div>
+          <font size = {3}>  		  	
   		    <br/>
   			{(this.props.increaseDay > 0 && this.props.increaseDay <= 31) && <span><TiTick color={greenA700} /> {t('common:interval')} : <font color={green500}>{this.props.increaseDay} {t('common:days')}</font></span>}
             {(this.props.increaseDay <= 0 || this.props.increaseDay > 31) && <span><TiTimes color={redA700} /> {t('common:interval')} : <font color={redA700}>{this.props.increaseDay} {t('common:days')}</font></span>}
@@ -28,6 +29,7 @@ class Hints extends React.Component {
             <ReactTooltip id='maxHint' place="left" effect='solid'>
               <span>{t('common:maxHint')}</span>
             </ReactTooltip>
+            </font>
           </div>
         )
   	}
