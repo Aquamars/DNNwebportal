@@ -56,13 +56,23 @@ class EditModal extends React.Component {
       this.setState({
         loading: true,
       })
-      const api = API_PutExtDate+this.props.id
-      fetch(api, 
+      this.editDateApi()
+    }else{
+      console.log('refresh')
+      this.setState({open: false, increaseDay:0, loading: false, comfirm: false})
+      this.props.refresh()
+    }
+  }
+  editDateApi = () => {
+    const api = API_PutExtDate+this.props.id
+    console.log(moment(this.state.endTime).format('YYYY-MM-DD'))
+    fetch(api, 
         { 
           method: 'put', 
           headers: {
             'x-access-token': this.props.token,
             'Content-Type': 'application/json',
+            'Accept': 'application/json',
           },
           body:JSON.stringify({end:moment(this.state.endTime).format('YYYY-MM-DD')})
           // body:data
@@ -85,11 +95,6 @@ class EditModal extends React.Component {
         console.log('err:'+err)
         this.props.notify('ERROR : Edit Date')
       })
-    }else{
-      console.log('refresh')
-      this.setState({open: false, increaseDay:0, loading: false, comfirm: false})
-      this.props.refresh()
-    }
   }
   handleChangeMaxDate = (event, date) => {
     console.log(this.props.data.endedAt,date)    
@@ -103,21 +108,22 @@ class EditModal extends React.Component {
     console.log(this.props.token)
     const api = API_GetExtDate+this.props.id+"/extendable"
     axios.get(api,
-        {
-          headers: {
-          'x-access-token': this.props.token,
-          'Content-Type': 'application/json'
-          }
+      {
+        headers: {
+        'x-access-token': this.props.token,
+        'Content-Type': 'application/json'
         }
-      ).then((result)=>{
-        console.log(result.data.extendableLatestDate)
-        this.setState({
-          latestDate:moment(result.data.extendableLatestDate).format('YYYY-MM-DD')
-        })
-        console.log('latestDate', this.state.latestDate)
-      }).catch((err)=>{
-          console.log(err)
+      }
+    ).then((result)=>{
+      console.log(result.data.extendableLatestDate)
+      this.setState({
+        latestDate:moment(result.data.extendableLatestDate).format('YYYY-MM-DD')
       })
+      console.log('latestDate', this.state.latestDate)
+    }).catch((err)=>{
+        console.log(err)
+        this.props.notify('ERROR : Extend Date')
+    })
   }
   disableDate = (date) => {    
     return moment(date).isBefore(this.props.data.endedAt) || moment(date).isAfter(moment(this.state.latestDate))
@@ -167,7 +173,7 @@ class EditModal extends React.Component {
             <div><b>{t('common:updatedSuccess')}</b></div> :
             <div style={optionsStyle}>
               {this.state.loading ? 
-                <div style = {{textAlign:'center'}}><CircularProgress size={80} thickness={5} /></div> :
+                <div style = {{textAlign:'center'}}><CircularProgress size={80} color={muiStyle.palette.primary1Color} thickness={5} /></div> :
                 <div>
                   <Divider />
                   <TextField
@@ -175,6 +181,7 @@ class EditModal extends React.Component {
                     defaultValue={moment(this.props.data.startedAt).format('YYYY-MM-DD')}
                     floatingLabelText={t('common:startDate')}
                   />
+                  <br/>
                   <DatePicker
                     onChange={this.handleChangeMaxDate}
                     autoOk={true}
