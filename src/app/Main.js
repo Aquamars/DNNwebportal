@@ -80,29 +80,36 @@ class Main extends Component {
 
 // handle signIn and get username,password
   handleSigninCheck = (username, token) => {
+    localStorage.setItem('token', token)
+    localStorage.setItem('itriUser', username)
     this.setState({
       SignInCheck: true,
       username: username,
       token: token
     })
+     console.log(localStorage.getItem('token'))
   }
 
   handleSignOut = () => {
+    localStorage.setItem('token', '')
+    localStorage.setItem('itriUser', '')
     this.setState({
       SignInCheck: false,
       username: '',
       password: '',
       token: ''
     })
+     console.log(localStorage.getItem('token'))
   }
 
   render() {
-      if(this.state.SignInCheck){
+      if(localStorage.getItem('token')){
         return (
             <MainContainer 
-            user={this.state.username} 
-            token={this.state.token} 
-            SignOut={this.handleSignOut}/>
+              user={localStorage.getItem('itriUser')} 
+              token={localStorage.getItem('token')} 
+              SignOut={this.handleSignOut}
+            />
         )
       }else{
         return (
