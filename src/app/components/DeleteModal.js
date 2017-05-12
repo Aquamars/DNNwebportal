@@ -47,17 +47,30 @@ class DeleteModal extends React.Component {
       this.setState({
         loading: true,
       })
-      axios.get(
-        API_DeleteSchedule,
-        {}
-      ).then((result)=>{
-        console.log(result.data)
-        this.dummyAsync(()=>this.setState({
-          loading: false,
-          comfirm: true
-        }))        
+      const api = API_DeleteSchedule + this.props.id
+      fetch(api, 
+      { 
+        method: 'delete', 
+        headers: {
+          'x-access-token': this.props.token,
+          'Content-Type': 'application/json',
+        },       
+        // body:data
+      }).then((response)=>{
+        console.log(response)
+        if(response.ok){
+          this.dummyAsync(()=>this.setState({
+            loading: false,
+            comfirm: true
+          }))
+        }
+        return response.json()
+      })
+      .then((data)=>{
+        console.log('data:'+data)       
       }).catch((err)=>{
-          console.log(err)
+        console.log('err:'+err)
+        this.props.notify('ERROR : Delete Schedule')
       })
     }else{
       console.log('refresh')
@@ -104,7 +117,7 @@ class DeleteModal extends React.Component {
         {this.state.comfirm ? 
           <div><b>{t('common:deletedSuccess')}</b></div> :
           <div>
-            {this.state.loading ? <div style = {{textAlign:'center'}}><CircularProgress size={80} thickness={5} /></div> :
+            {this.state.loading ? <div style = {{textAlign:'center'}}><CircularProgress size={80} color={muiStyle.palette.primary1Color} thickness={5} /></div> :
               <div>
               <font color={redA700}><MdDelete/><b> {t('common:remove.warning')}</b></font>
               <List>                
