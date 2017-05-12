@@ -18,21 +18,25 @@ class ReviewCalendar extends React.Component {
     defualtLoading: React.PropTypes.bool,    
     startDate: React.PropTypes.string,
     endDate: React.PropTypes.string,
-    title: React.PropTypes.object
+    title: React.PropTypes.object,
+    showDetail: React.PropTypes.bool,
   }
   static defaultProps = {
     defualtLoading: true,
+    showDetail: false
   }
 
 	constructor(props) {
       super(props)
+      const {t} = this.props
       this.state = {
         fullDate: [], 
-        text: '',
+        text: t('common:calendar.today') + ' ' + moment().format('YYYY-MM-DD'),
         full: [],
         avil3: [],
         avil2: [],
-        avil1: []       
+        avil1: [],
+        executed: [],
       }
   }
   getData = () => {
@@ -77,6 +81,42 @@ class ReviewCalendar extends React.Component {
   componentDidMount(){
     if(this.props.defualtLoading){
       this.getData()
+    }else if(this.props.showDetail){
+      let avil1 = []
+      let executed = []
+      const currentDate = moment().format('YYYY-MM-DD')
+      // {startDate, endDate} = this.props
+      const startDate = this.props.startDate
+      const endDate = this.props.endDate
+      // let dateStart = moment(this.props.startDate)
+      if(moment(currentDate).isBetween(startDate,endDate)){
+        let dateStart = moment(startDate)
+        while (moment(currentDate) > dateStart) {
+          executed.push(dateStart.format('YYYY-MM-DD'))
+          dateStart.add(1,'days')
+        }
+        let dateStart2= moment(currentDate).add(1,'days')
+        while (moment(endDate) >= dateStart2) {
+          avil1.push(dateStart2.format('YYYY-MM-DD'))
+          dateStart2.add(1,'days')
+        }
+      }else if(moment(currentDate).isBefore(startDate)){
+        let dateStart = moment(startDate)
+        while (moment(endDate) >= dateStart) {
+          avil1.push(dateStart.format('YYYY-MM-DD'))
+          dateStart.add(1,'days')
+        }
+      }else if(moment(currentDate).isAfter(endDate)){
+        let dateStart = moment(startDate)
+        while (moment(endDate) >= dateStart) {
+          executed.push(dateStart.format('YYYY-MM-DD'))
+          dateStart.add(1,'days')
+        }
+      }
+      this.setState({
+        avil1: avil1,
+        executed: executed
+      })
     }else{
       let avil1 = []
       let dateStart = moment(this.props.startDate)
@@ -89,9 +129,9 @@ class ReviewCalendar extends React.Component {
       })
     }
   }
-  handleDayClick = (day, { full, avil1, avil2, avil3 }) => {
+  handleDayClick = (day, { full, avil1, avil2, avil3, executed}) => {
     let text
-    const {t} = this.props
+    const {t, showDetail} = this.props
     if(full){
       text = <span>{moment(day).format('YYYY-MM-DD')}<font color={redA700}> <b>{t('common:calendar.fullyDay')}</b></font></span>
     }else if(avil1){
@@ -102,6 +142,17 @@ class ReviewCalendar extends React.Component {
       text = <span>{moment(day).format('YYYY-MM-DD')}<font color={'#1B5E20'}> <b>3 {t('common:calendar.instanceAvailable')}</b></font></span>
     }else {
       text = <span>{moment(day).format('YYYY-MM-DD')}<font> <b>{t('common:calendar.noData')}</b></font></span>
+    }
+
+    if(showDetail){
+      if(executed){
+        text = <span>{moment(day).format('YYYY-MM-DD')}<font> <b>{t('common:calendar.executed')}</b></font></span>
+      }else if(avil1){
+        text = <span>{moment(day).format('YYYY-MM-DD')}<font color={'#66BB6A'}> <b> {t('common:calendar.notyetExecute')}</b></font></span>
+      }
+      if(moment(moment(day).format('YYYY-MM-DD')).isSame(moment().format('YYYY-MM-DD'))){        
+        text = <span><font> <b>{t('common:calendar.today')}</b> {moment(day).format('YYYY-MM-DD')}</font></span>
+      }
     }
 
     this.setState({ 
@@ -123,22 +174,26 @@ class ReviewCalendar extends React.Component {
         avil3: (day) => {
           return (this.state.avil3.indexOf(moment(day).format('YYYY-MM-DD'))>=0)
         },
+        executed: (day) => {
+          return (this.state.executed.indexOf(moment(day).format('YYYY-MM-DD'))>=0)
+        },
 	    }
   		return (
   		<div style={{textAlign:'center'}}> 
-        {this.props.title}       
+        {this.props.title}
+        <p>
+          {(this.props.defualtLoading || this.props.showDetail) && this.state.text}
+        </p>
         <DayPicker
           enableOutsideDays
           numberOfMonths={2}
           modifiers={modifiers}
           onDayClick={this.handleDayClick}
           initialMonth={new Date()}
-          fromMonth={new Date()}
-          toMonth={new Date(2017, 10, 30, 23, 59)}                                    
+          fromMonth={!this.props.showDetail && new Date()}
+          toMonth={new Date(2077, 12, 30, 23, 59)}                                    
         />
-        <p>
-          {this.props.defualtLoading && this.state.text}
-        </p>
+        
       </div>
   		)
   	}
