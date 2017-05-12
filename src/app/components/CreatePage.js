@@ -19,7 +19,7 @@ import ReviewCalendar from './ReviewCalendar'
 import Hints from './Hints'
 // API
 import axios from 'axios'
-import {API_URL, API_CheckInstance} from '../resource'
+import {API_CreateSchedule, API_CheckInstance, API_GetImage} from '../resource'
 //ICON
 import ImageViewComfy from 'material-ui/svg-icons/image/view-comfy'
 import ContentAddCircleOutline from 'material-ui/svg-icons/content/add-circle-outline'
@@ -68,8 +68,8 @@ class CreatePage extends React.Component {
       queryNumber: 0,
       loadingCreate:false,
       avalableNumber: [],
-      instanceArr: [{ instance: 0, image: 0, dataSet:false, dataSetPath:'', dataSetId:'', dataSetPass:''}],
-      imageArr: ['Cowboy Bebop','Trigun','Baccano','Chobits','Lupin the third']
+      instanceArr: [{ instance: 0, image: 0, imageDesc:''}],
+      imageArr: ['Cowboy Bebop','Trigun','Baccano','Chobits','Lupin the third'],
     }
   }
   dummyAsync = (cb) => {
@@ -98,10 +98,60 @@ class CreatePage extends React.Component {
     }
   }
   createApi = () => {
-    console.log(this.state.instanceArr)
-    this.dummyAsync2(() => this.setState({
-      finished: true,
-    }))
+    console.table(this.state.instanceArr)
+    // this.dummyAsync2(() => this.setState({
+    //   finished: true,
+    // }))
+    console.log(this.props.token)
+    console.log(moment(this.state.startDate).format('YYYY-MM-DD'))
+    console.log(moment(this.state.endDate).format('YYYY-MM-DD'))
+    fetch(API_CreateSchedule, 
+      { 
+        method: 'post', 
+        headers: {
+          'x-access-token': this.props.token,
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body:JSON.stringify({
+          start: moment(this.state.startDate).format('YYYY-MM-DD'),
+          end:moment(this.state.endDate).format('YYYY-MM-DD'),
+          image_id: this.state.imageArr[this.state.instanceArr[0].image].id
+        })
+        // body:data
+    }).then((response)=>{
+      console.log(response)
+      if(response.ok){
+        this.dummyAsync2(()=>this.setState({
+          // loading: false,
+          finished: true,
+        }))
+      }
+      return response.json()
+    })
+    .then((data)=>{
+      console.log(data)
+      // this.setState({
+      //   loading: false, 
+      // })        
+    }).catch((err)=>{
+      console.log('err:'+err)
+      this.props.notify('ERROR : Create Schedule')
+    })
+  }
+  getImageApi = () => {
+    axios.get(
+      API_GetImage,
+      {}
+    )
+    .then((result)=>{      
+      this.setState({
+        imageArr: result.data.images,        
+      })
+    }).catch((err)=>{
+      console.log(err)
+      this.props.notify('ERROR : Image')
+    })
   }
   handlePrev = () => {
     const {stepIndex} = this.state;
@@ -115,13 +165,16 @@ class CreatePage extends React.Component {
   handleInstanceNumChange = (event, index, value) => {
     let arr = []
     for(let i = 0; i < value; i++){
-      const obj = { instance: this.state.avalableNumber[i].instance, image: 0, dataSet:false, dataSetPath:'', dataSetId:'', dataSetPass:''}
+      const obj = { 
+        instance: this.state.avalableNumber[i].instance, 
+        image: 0, 
+        imageDesc:this.state.imageArr[0].description}
       arr.push(obj)
     }
     this.setState({
         instanceNum: value,
         instanceArr: arr
-    })    
+    })
   }
   handleChangeStartDate = (event, date) => {    
     this.setState({
@@ -142,6 +195,7 @@ class CreatePage extends React.Component {
     axios.get(
       API_CheckInstance,
       {
+        headers: {'Accept': 'application/json'},
         params: {
           end: moment(endDate).format('YYYY-MM-DD'),
           start: moment(startDate).format('YYYY-MM-DD')
@@ -165,15 +219,16 @@ class CreatePage extends React.Component {
         queryNumber: result.data.avalableNumber,
         submitting: false,
         avalableNumber: avalableNum,
-        instanceArr:[{ instance: result.data.machines[0], image: 0, dataSet:false, dataSetPath:'', dataSetId:'', dataSetPass:''}]
+        instanceArr:[{ instance: result.data.machines[0], image: 0, imageDesc: this.state.imageArr[0].description}]
       })
       console.log(
         'queryNumber',result.data.avalableNumber, 
         'avalableNumber',avalableNum.length,
         'currentInstanceNum',this.props.currentInstanceNum)
     }).catch((err)=>{
-      console.log(err)      
-      this.props.notify('Check instance : ERROR')
+      console.log(err)
+      console.log(err.response.data.message)      
+      this.props.notify(err.response.data.message)
     })
   }
   handleChangeProjectNum = (event, value) => this.setState({projectNum: value})
@@ -181,10 +236,12 @@ class CreatePage extends React.Component {
   disableEndDate = (date) => (moment(date).isBefore(moment(this.state.startDate).add(1, 'days')) || moment(date).isAfter(moment(this.state.startDate).add(1, 'month')))
   imageSelect = (instance, index, image) => {
     console.log( instance, index, image)
-    const imageArr = this.state.imageArr
+    // const imageArr = this.state.imageArr
     let instanceArr = this.state.instanceArr
     console.log(instanceArr)
-    instanceArr[instance].image = image    
+    console.log(this.state.imageArr[image].description)
+    instanceArr[instance].image = image
+    instanceArr[instance].imageDesc = this.state.imageArr[image].description
     this.setState({
         instanceArr: instanceArr
     }) 
@@ -241,7 +298,7 @@ class CreatePage extends React.Component {
             {this.state.instanceArr.map((instance, index)=>(
               <Card initiallyExpanded={true} style={{borderRadius: '5px', border:'1px solid #e0e0e0', margin: '2px'}}>
                 <CardHeader
-                  title={<b>Instance - {instance.instance}</b>}
+                  title={<b>Instance - {index}</b>}
                   actAsExpander={true}
                   showExpandableButton={true}
                 />
@@ -250,24 +307,25 @@ class CreatePage extends React.Component {
                 <div>                
                   <SelectField
                     key = {instance.instance}
-                    floatingLabelText={"Instance"+instance.instance+t('common:instanceImage')}
+                    floatingLabelText={"Instance "+index+" "+t('common:instanceImage')}
                     onChange={this.imageSelect.bind(null, index)}
                     value={instance.image}
                   >
                     {this.state.imageArr.map((image,index)=>(
-                      <MenuItem key={index} value={index} primaryText={image} />
+                      <MenuItem key={image.id} value={index} primaryText={image.name} />
                     ))}
                   </SelectField>
-                  <FlatButton
-                    label={t('common:openStorage')}
-                    style = {{color:muiStyle.palette.remind1Color, verticalAlign:'text-bottom'}}
-                    icon={<DeviceStorage />}
-                    href='http://demo.wftpserver.com' target="_blank"
-                    data-tip data-for='storage'
-                  />
-                  <ReactTooltip id='storage' place="bottom" effect='solid'>
-                      <span>{t('common:storage')}</span>
-                  </ReactTooltip>
+                  <br/>
+                  <div>
+                    <Card>
+                      <CardHeader
+                        subtitle={<p>{this.state.imageArr[instance.image].name} - {t('common:imageDesc')}</p>}
+                      />
+                      <CardText>
+                        {instance.imageDesc}
+                      </CardText>
+                    </Card>
+                  </div>
                 </div>                
                 </CardText>
               </Card>)
@@ -277,7 +335,7 @@ class CreatePage extends React.Component {
       case 2:
         return (
           <div>
-          {loadingCreate ? <div style = {{textAlign:'center'}}><CircularProgress size={80} thickness={5} /></div> :
+          {loadingCreate ? <div style = {{textAlign:'center'}}><CircularProgress size={80} color={muiStyle.palette.primary1Color} thickness={5} /></div> :
             <List>                
               <Divider />
                 <ListItem
@@ -293,8 +351,8 @@ class CreatePage extends React.Component {
                   nestedItems={this.state.instanceArr.map((instance, index)=>(        
                     <ListItem
                       key = {index}
-                      primaryText={<b>Instance - {instance.instance}</b>}
-                      secondaryText={<p>Image - <b>{this.state.imageArr[instance.image]}</b></p>}                      
+                      primaryText={<b>Instance - {index}</b>}
+                      secondaryText={<p>Image - <b>{this.state.imageArr[instance.image].name}</b></p>}                      
                     />
                   ))}
                 />
@@ -367,6 +425,9 @@ class CreatePage extends React.Component {
         </div>
       </div>
     )
+  }
+  componentWillMount(){
+    this.getImageApi()       
   }
   render() {
     const {loading, stepIndex, finished} = this.state
