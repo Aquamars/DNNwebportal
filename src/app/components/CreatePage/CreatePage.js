@@ -15,8 +15,8 @@ import moment from 'moment'
 import HoverDiv from '../HoverDiv'
 import ReactTooltip from 'react-tooltip'
 import CircularProgress from 'material-ui/CircularProgress'
-import ReviewCalendar from '../ReviewCalendar'
-import Hints from '../Hints'
+import ReviewCalendar from '../ReviewCalendar/ReviewCalendar'
+import Hints from './Hints'
 import ConfirmPage from './ConfirmPage'
 import FinishPage from './FinishPage'
 // API
@@ -255,26 +255,40 @@ class CreatePage extends React.Component {
     switch (stepIndex) {
       case 0:
         return (
-          <div>            
-            <DatePicker
-              autoOk={true}
-              floatingLabelText={t('common:startDate')}
-              shouldDisableDate={this.disableStartDate}
-              onChange={this.handleChangeStartDate}
-              value =  {this.state.startDate}    
-            />
-            <DatePicker
-              autoOk={true}
-              floatingLabelText={t('common:endDate')}
-              onChange = {this.handleChangeEndDate}
-              value =  {this.state.endDate}    
-              shouldDisableDate={this.disableEndDate}
-            />
-            <Hints 
-              increaseDay = {this.state.increaseDay}
-              avalableNumber = {this.state.avalableNumber.length}
-              currentInstanceNum = {this.props.currentInstanceNum}
-            />            
+          <div>
+            <div style={{margin: '0px auto'}}>
+              <div style={{display: 'inline-block'}}>
+                <DatePicker
+                  autoOk={true}
+                  floatingLabelText={t('common:startDate')}
+                  shouldDisableDate={this.disableStartDate}
+                  onChange={this.handleChangeStartDate}
+                  value =  {this.state.startDate}    
+                  data-tip data-for='click'
+                />
+                <ReactTooltip id='click' place="left" effect='solid'>
+                  <span>{t('common:clickEdit')}</span>
+                </ReactTooltip>
+                <DatePicker
+                  autoOk={true}
+                  floatingLabelText={t('common:endDate')}
+                  onChange = {this.handleChangeEndDate}
+                  value =  {this.state.endDate}    
+                  shouldDisableDate={this.disableEndDate}
+                  data-tip data-for='click'
+                />
+                <ReactTooltip id='click' place="left" effect='solid'>
+                  <span>{t('common:clickEdit')}</span>
+                </ReactTooltip>
+              </div>
+              <div style={{display: 'inline-block'}}>
+                <Hints 
+                  increaseDay = {this.state.increaseDay}
+                  avalableNumber = {this.state.avalableNumber.length}
+                  currentInstanceNum = {this.props.currentInstanceNum}
+                />
+              </div>
+            </div>
             <ReviewCalendar />
           </div>
         )
@@ -428,7 +442,7 @@ class CreatePage extends React.Component {
             right: '10px'
           }}>
             <FlatButton 
-              label={t('common:specailOrder')}
+              label={t('common:specialOrder')}
               style = {finished ? {color:'white'} : {color:muiStyle.palette.primary1Color}}
               icon={<CommunicationContactMail />}
               disabled = {finished}
