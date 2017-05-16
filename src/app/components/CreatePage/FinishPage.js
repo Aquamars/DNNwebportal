@@ -17,7 +17,7 @@ class FinishPage extends React.Component {
     const { t } = this.props
     return (
       <div>
-        <h2 style={{textAlign: 'center'}}><b><font color = {muiStyle.palette.primary1Color}> Create instance success ! </font></b></h2>
+        <h2 style={{textAlign: 'center'}}><b><font color = {muiStyle.palette.primary1Color}>{t('common:createStep.success')}</font></b></h2>
         <List>
           <ListItem
             primaryText={<b>Instance</b>}
