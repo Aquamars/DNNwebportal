@@ -82,6 +82,17 @@ const config = {
             'style-loader',
             'css-loader'          
         ],
+      },
+      //image package
+      {
+        test: /\.(jpe?g|png|gif|svg)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: { limit: 40000 }
+          },
+          'image-webpack-loader'
+        ]
       }
     ],
   },
