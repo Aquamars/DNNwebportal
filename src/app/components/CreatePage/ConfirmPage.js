@@ -26,6 +26,7 @@ class ConfirmPage extends React.Component {
     } = this.props
     return (
       <div>
+        <Divider />
         <h2 style={{textAlign: 'center'}}><b><font color = {muiStyle.palette.primary1Color}>{t('common:createStep.confirm')}</font></b></h2>
         <List>
           <Divider />
