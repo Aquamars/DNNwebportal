@@ -127,7 +127,7 @@ class DeleteModal extends React.Component {
                     secondaryText={<p>{moment(this.props.data.startedAt).format('YYYY-MM-DD')} ~ {moment(this.props.data.endedAt).format('YYYY-MM-DD')}</p>}
                   />
                   <ListItem
-                    primaryText={<b>{t('common:instance')}</b>}
+                    primaryText={<b>{t('common:instanceID')}</b>}
                     secondaryText={this.props.data.instance.id}
                   />
                   <ListItem
