@@ -1,5 +1,6 @@
 {
     "logoSrc": "/image/itri_EL_A.png",
+    "wlogoSrc": "/image/itri_EL_A_w.png",
     "language": "Language",
     "appName": "DNN webportal",
     "username": "Username",
@@ -11,6 +12,7 @@
     "startDate": "StartDate",
     "endDate": "EndDate",
     "instance": "Instance",
+    "instanceID": "Instance ID",
     "status": {
         "status": "Status",
         "initial": "Initial",
@@ -31,6 +33,7 @@
         "confirm":"Confirm your setting !",
         "finish": "Finish",
         "create": "Create Instance",
+        "success":"Create instance success !",
         "id": "ID",
         "password": "Password",
         "dataSetPath": "DataSetPath",
@@ -58,6 +61,7 @@
     "dateRange": "Date Range",
     "youCreate": "You create",
     "editDate": "Edit Date",
+    "clickEdit": "Click to edit",
     "remove": {
         "remove": "Remove",
         "comfirmRemove": "Comfirm Remove",
@@ -69,14 +73,18 @@
     "leftDay": "Left Day",
     "openStorage":"Open Storage",
     "storage":"Open FTP webportal uploading dataset or you can using client FTP such as FileZilla",
-    "noInstance":"No Continuously Available Instance!",
-    "history":"History",
-    "specailOrder":"Specail Required",
+    "noInstance":",No Continuously Available Instance!",
+    "history":{
+        "history":"History",
+        "title":"History"
+    },
+    "specialOrder":"Special Required",
     "mailto":"Mail to us what you want.",
     "maxHint":"Each user have 3 instance limit.",
-    "editCalendarTile":"The instance can extend dates",
+    "editCalendarTitle":"The instance can extend dates",
     "updatedSuccess":"Updated Success !",
     "deletedSuccess":"Deleted Success !",
     "ip":"Internet Protocol Address",
-    "port":"Port"
+    "port":"Port",
+    "reviewTitle": "Instance information"
 }

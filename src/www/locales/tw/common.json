@@ -1,5 +1,6 @@
 {
     "logoSrc": "/image/itri_CEL_A.png",
+    "wlogoSrc": "/image/itri_CEL_A_w.png",
     "language": "語言",
     "appName": "TW DNN webportal",
     "username": "帳號(工號)",
@@ -11,6 +12,7 @@
     "startDate": "起始日期",
     "endDate": "結束日期",
     "instance": "Instance",
+    "instanceID": "Instance ID",
     "status": {
         "status": "狀態",
         "initial": "初始化",
@@ -31,6 +33,7 @@
         "confirm":"請確認您的設定 !",
         "finish": "完成",
         "create": "創建Instance",
+        "success":"成功創建Instance !",
         "id": "帳號",
         "password": "密碼",
         "dataSetPath": "資料集路徑",
@@ -58,6 +61,7 @@
     "dateRange": "日期範圍",
     "youCreate": "創建了",
     "editDate": "編輯結束日期",
+    "clickEdit": "點此編輯日期",
     "remove": {
         "remove": "移除",
         "comfirmRemove": "確認移除",
@@ -69,14 +73,18 @@
     "leftDay": "剩餘天數",
     "openStorage":"開啟儲存空間",
     "storage":"開啟FTP頁面上傳資料，或是使用其他的FTP client，例如 FileZilla",
-    "noInstance":"無連續可用的Instance!",
-    "history":"瀏覽歷史紀錄",
-    "specailOrder":"特殊需求",
+    "noInstance":",無連續可用的Instance!",    
+    "history":{
+        "history":"瀏覽歷史紀錄",
+        "title":"歷史紀錄"
+    },
+    "specialOrder":"特殊需求",
     "mailto":"Mail給我們您的需求",
     "maxHint":"一個人最多三個instance，包含預定",
-    "editCalendarTile":"此Instance可延長的日期",
+    "editCalendarTitle":"此Instance可延長的日期",
     "updatedSuccess":"更新成功 !",
     "deletedSuccess":"移除成功 !",
     "ip":"網際協定位址",
-    "port":"通訊埠"
+    "port":"通訊埠",
+    "reviewTitle": "Instance 資訊"
 }
