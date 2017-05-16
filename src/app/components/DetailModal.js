@@ -8,7 +8,7 @@ import {Tab, Tabs} from 'material-ui'
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table'
 import moment from 'moment'
 import HoverDiv from './HoverDiv'
-import ReviewCalendar from './ReviewCalendar'
+import ReviewCalendar from './ReviewCalendar/ReviewCalendar'
 // theme
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 // i18n
@@ -73,6 +73,7 @@ class DetailModal extends React.Component {
 	  const optionsStyle = {
 	      marginRight: 'auto',
 	  }
+	  const textCenter = { textAlign:'center'}
 	  return (
 	  	<div>
         <FlatButton
@@ -99,7 +100,7 @@ class DetailModal extends React.Component {
 		        <div>
 			        <List>
 		              <ListItem
-		                primaryText={<b>Instance</b>}
+		                primaryText={<b>{t('common:instanceID')}</b>}
 		                secondaryText={<p><b>{this.props.data.instance.id}</b></p>}
 		                initiallyOpen={true}
 		                nestedItems={[
@@ -156,16 +157,16 @@ class DetailModal extends React.Component {
 	    			 		adjustForCheckbox={false}
 					    >
 					      <TableRow>
-					        <TableHeaderColumn>{<font color='#000'><b>{t('common:interval')}</b></font>}</TableHeaderColumn>
-					        <TableHeaderColumn>{<font color='#000'><b>{t('common:excuteDay')}</b></font>}</TableHeaderColumn>
-					        <TableHeaderColumn>{<font color='#000'><b>{t('common:leftDay')} </b></font>}</TableHeaderColumn>
+					        <TableHeaderColumn style={textCenter}>{<font color='#000'><b>{t('common:interval')}</b></font>}</TableHeaderColumn>
+					        <TableHeaderColumn style={textCenter}>{<font color='#000'><b>{t('common:excuteDay')}</b></font>}</TableHeaderColumn>
+					        <TableHeaderColumn style={textCenter}>{<font color='#000'><b>{t('common:leftDay')} </b></font>}</TableHeaderColumn>
 					      </TableRow>
 					    </TableHeader>
 					    <TableBody displayRowCheckbox={false}>
 					      <TableRow>
-					        <TableRowColumn>{<p><b><font>{this.state.increaseDay} {t('common:days')}</font></b></p>}</TableRowColumn>
-					        <TableRowColumn>{<p><b><font color={green500}>{this.state.excuteDay} {t('common:days')}</font></b></p>}</TableRowColumn>
-					        <TableRowColumn>{this.state.leftDay>0 ? <p><b><font color={green500}>{this.state.leftDay} {t('common:days')}</font></b></p> : <p><b><font color={redA700}>{this.state.leftDay} {t('common:days')}</font></b></p>}</TableRowColumn>
+					        <TableRowColumn style={textCenter}>{<p><b><font>{this.state.increaseDay} {t('common:days')}</font></b></p>}</TableRowColumn>
+					        <TableRowColumn style={textCenter}>{<p><b><font color={green500}>{this.state.excuteDay} {t('common:days')}</font></b></p>}</TableRowColumn>
+					        <TableRowColumn style={textCenter}>{this.state.leftDay>0 ? <p><b><font color={green500}>{this.state.leftDay} {t('common:days')}</font></b></p> : <p><b><font color={redA700}>{this.state.leftDay} {t('common:days')}</font></b></p>}</TableRowColumn>
 					      </TableRow>
 					    </TableBody>
 					</Table>
@@ -176,7 +177,6 @@ class DetailModal extends React.Component {
 	                   endDate = {moment(this.props.data.endedAt).format('YYYY-MM-DD')}
 	                   showDetail = {true}
 		            />
-		            <Divider />
 		        </div>
 		       </Tab>
 	      </Tabs>  
