@@ -158,10 +158,10 @@ class ReviewTable extends Component {
 		          style = {this.state.data.length === 3 ? {color:'grey'} : {color:muiStyle.palette.primary1Color}}
 		          icon={<ContentAdd />}
 		          disabled={this.state.data.length === 3}
-		          onTouchTap={this.SwitchCreatePage}		          
+		          onTouchTap={this.SwitchCreatePage}		          		          
 		        />
 			  </CardActions>
-			  <CardTitle title={'DNN'}/>
+			  <CardTitle title={t('common:reviewTitle')}/>
 			  <ExpandTransition loading={loading} open={true}>
 				  <Paper>
 				  {loading && <div style = {{textAlign:'center'}}><CircularProgress size={80} thickness={5} /></div>}
@@ -173,7 +173,7 @@ class ReviewTable extends Component {
 	    			    <TableHeaderColumn style={{width: '8%'}}></TableHeaderColumn>
 				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:startDate')}</b></TableHeaderColumn>
 				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:endDate')}</b></TableHeaderColumn>
-				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:instance')}</b></TableHeaderColumn>
+				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:instanceID')}</b></TableHeaderColumn>
 				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:status.status')}</b></TableHeaderColumn>
 				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:image')}</b></TableHeaderColumn>
 				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:account')}</b></TableHeaderColumn>
