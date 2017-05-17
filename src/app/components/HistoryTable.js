@@ -12,7 +12,6 @@ import HoverDiv from './HoverDiv'
 import DetailModal from './DetailModal'
 import moment from 'moment'
 import ExpandTransition from 'material-ui/internal/ExpandTransition'
-import Badge from 'material-ui/Badge'
 // API call
 import axios from 'axios'
 import {API_URL, API_GetInfo} from '../resource'
@@ -24,8 +23,6 @@ import ActionHistory from 'material-ui/svg-icons/action/history'
 import {muiStyle} from '../myTheme'
 // COLOR
 import { orangeA700, redA700, greenA700, grey500 } from 'material-ui/styles/colors'
-// Data
-import {DATA} from '../resource'
 // i18n
 import { translate, Interpolate } from 'react-i18next'
 import i18n from '../utils/i18n'
@@ -125,7 +122,7 @@ class HistoryTable extends Component {
 		return (
 		  <div>	        
 		    <IconButton 
-		      tooltip={t('common:history')}
+		      tooltip={t('common:history.history')}
 		      onTouchTap={this.switchPage}
 		    >
 		      <ActionHistory color={grey500}/>
@@ -134,7 +131,7 @@ class HistoryTable extends Component {
 			<Card>		
 			  <CardActions style={styles.actions}>
 			  </CardActions>			  
-			  <CardTitle title={<font color={grey500}>History</font>}/>
+			  <CardTitle title={<font color={grey500}>{t('common:history.title')}</font>}/>
 			  <ExpandTransition loading={loading} open={switchPage}> 
 			  <Paper>
 			  {loading && <div style = {{textAlign:'center'}}><CircularProgress size={80} thickness={5} /></div>}
@@ -146,7 +143,7 @@ class HistoryTable extends Component {
     			    <TableHeaderColumn style={{width: '8%'}}></TableHeaderColumn>
 			        <TableHeaderColumn style = {styles.textCenter}>{t('common:startDate')}</TableHeaderColumn>
 			        <TableHeaderColumn style = {styles.textCenter}>{t('common:endDate')}</TableHeaderColumn>
-			        <TableHeaderColumn style = {styles.textCenter}>{t('common:instance')}</TableHeaderColumn>			        
+			        <TableHeaderColumn style = {styles.textCenter}>{t('common:instanceID')}</TableHeaderColumn>			        
 			        <TableHeaderColumn style = {styles.textCenter}>{t('common:image')}</TableHeaderColumn>
 			        <TableHeaderColumn style = {styles.textCenter}>{t('common:account')}</TableHeaderColumn>
 			        <TableHeaderColumn style = {styles.textCenter}>{t('common:project')}</TableHeaderColumn>			        
