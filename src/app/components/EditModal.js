@@ -7,7 +7,7 @@ import {List, ListItem} from 'material-ui/List'
 import TextField from 'material-ui/TextField'
 import ReactTooltip from 'react-tooltip'
 import moment from 'moment'
-import ReviewCalendar from './ReviewCalendar'
+import ReviewCalendar from './ReviewCalendar/ReviewCalendar'
 import IconButton from 'material-ui/IconButton'
 import CircularProgress from 'material-ui/CircularProgress'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
@@ -188,14 +188,20 @@ class EditModal extends React.Component {
                     floatingLabelText={t('common:endDate')}
                     shouldDisableDate={this.disableDate}
                     defaultDate={new Date(this.props.data.endedAt)}
+                    data-tip data-for='click'
                   />
+                  <ReactTooltip id='click' place="right" effect='solid'>
+                    <span>{t('common:clickEdit')}</span>
+                  </ReactTooltip>
+                  <Divider />
+                  <br />
                   {this.state.increaseDay > 0 && <span>{moment(this.props.data.endedAt).format('YYYY-MM-DD')} <font color={green500}>+ {this.state.increaseDay} {t('common:days')}</font></span>}
                   <ReviewCalendar 
                     defualtLoading={false}
                     startDate = {moment(this.props.data.endedAt).format('YYYY-MM-DD')}
                     endDate = {moment(this.state.latestDate).format('YYYY-MM-DD')}
-                    title = {<b>{t('common:editCalendarTile')}</b>}
-                  />
+                    title = {<b>{t('common:editCalendarTitle')}</b>}
+                  />                  
                 </div>
               }
             </div>
