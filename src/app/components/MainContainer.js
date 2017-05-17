@@ -22,9 +22,11 @@ import ExitIcon from 'material-ui/svg-icons/action/power-settings-new'
 import SocialPerson  from 'material-ui/svg-icons/social/person'
 // COLOR
 import { lightBlue500, lightBlue900 } from 'material-ui/styles/colors'
-
+// i18n
 import { translate, Interpolate } from 'react-i18next'
 import i18n from '../utils/i18n'
+import DnnLogo from '../image/DNN Web logo_yellow.png'
+import EasterEgg from '../image/2013060723055881547495.jpg'
 
 const styles = {
 	container: {
@@ -135,7 +137,7 @@ class MainContainer extends Component {
 	            <div style={prefixedStyles.wrapper}>
                     <div style={prefixedStyles.main}>
                         <AppBar 
-                          title={<span><img style={{height:32, width:64, verticalAlign:'middle'}} src='./image/DNN Web logo_yellow.png'/><b> DNN Web portal</b></span>}
+                          title={<span><img style={{height:32, width:64, verticalAlign:'middle'}} src={DnnLogo}/><b> DNN Web portal</b></span>}
                           style={{ backgroundColor: lightBlue900 }}
         				          onLeftIconButtonTouchTap={this.handleToggle}
                           iconElementRight={
@@ -165,7 +167,7 @@ class MainContainer extends Component {
                               />
                             </div>
                             <img
-                              src = './image/2013060723055881547495.jpg'                              
+                              src = {EasterEgg}                              
                               width="200"
                               style={this.state.open ? MenuStyles.sidebarOpen : MenuStyles.sidebarClosed}                      
                             />                            
