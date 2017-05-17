@@ -6,7 +6,7 @@ import Paper from 'material-ui/Paper'
 import Drawer from 'material-ui/Drawer'
 import { translate, Interpolate } from 'react-i18next'
 import i18n from '../utils/i18n'
-
+import EasterEgg from '../image/op.jpg'
 class Footer extends Component {
     constructor(props, context) {
       super(props, context)
@@ -26,7 +26,7 @@ class Footer extends Component {
                     containerStyle={{overflow:'hidden'}}
                 >
                   <img height='100%'
-                    src = './image/op.jpg'                    
+                    src = {EasterEgg}                    
                    />
                 </Drawer>
                 <BottomNavigation>
