@@ -19,24 +19,24 @@ class Footer extends Component {
 		const {t} = this.props 
 		return (
 			<Paper zDepth={1}>
-                <Drawer
-                    width={500}
-                    openSecondary={true} 
-                    open={this.state.open} 
-                    containerStyle={{overflow:'hidden'}}
-                >
-                  <img height='100%'
-                    src = {EasterEgg}                    
-                   />
-                </Drawer>
-                <BottomNavigation>
-                <BottomNavigationItem
-                  icon={<img src={t('common:logoSrc')} />}
-                  onTouchTap={this.handleToggle}                              
-                />
-                <LanguageBtn/>
-                </BottomNavigation>
-            </Paper>
+        <Drawer
+          width={500}
+          openSecondary={true} 
+          open={this.state.open} 
+          containerStyle={{overflow:'hidden'}}
+        >
+          <img height='100%'
+            src = {EasterEgg}                    
+          />
+        </Drawer>
+        <BottomNavigation>        
+          <BottomNavigationItem
+            icon={<img src={t('common:logoSrc')} />}
+            onTouchTap={this.handleToggle}                              
+          />
+          <LanguageBtn/>          
+        </BottomNavigation>        
+      </Paper>
 		)
 	}
 }
