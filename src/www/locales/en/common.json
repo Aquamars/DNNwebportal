@@ -73,12 +73,12 @@
     "leftDay": "Left Day",
     "openStorage":"Open Storage",
     "storage":"Open FTP webportal uploading dataset or you can using client FTP such as FileZilla",
-    "noInstance":",No Continuously Available Instance!",
+    "noInstance":",No Continuously Instance !",
     "history":{
         "history":"History",
         "title":"History"
     },
-    "specialOrder":"Special Required",
+    "specialOrder":"Special request",
     "mailto":"Mail to us what you want.",
     "maxHint":"Each user have 3 instance limit.",
     "editCalendarTitle":"The instance can extend dates",
