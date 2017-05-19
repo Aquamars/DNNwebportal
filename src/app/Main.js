@@ -12,7 +12,7 @@ import autoprefixer from 'material-ui/utils/autoprefixer'
 
 // components
 import MainContainer from './components/MainContainer'
-import SiginFrom from './components/SiginFrom'
+import SigninFrom from './components/SigninFrom'
 const muiTheme = getMuiTheme({
   palette: {
     accent1Color: deepOrange500,
@@ -114,11 +114,10 @@ class Main extends Component {
       }else{
         return (
           <MuiThemeProvider muiTheme={muiTheme}>
-            <SiginFrom SigninCheck={this.handleSigninCheck}/>
+            <SigninFrom SigninCheck={this.handleSigninCheck}/>
           </MuiThemeProvider>
         )
       }
   }
 }
-
 export default Main;
