@@ -89,7 +89,7 @@ class ReviewTable extends Component {
 			case 1:				
 				obj = <font color ={greenA700}><b>{'running'}</b></font>
 				break
-			case 'stop':
+			case 2:
 				obj = <font color ={redA700}><b>{'stop'}</b></font>
 				break
 			default:
