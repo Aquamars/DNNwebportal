@@ -156,7 +156,6 @@ class MainContainer extends Component {
                         <div className="body" style={prefixedStyles.body}>
                             <div style={prefixedStyles.content}> 
                               <ReviewTable token = {this.props.token} notify = {this.handleNotify} />
-                              <br/>
                               <HistoryTable token = {this.props.token} notify = {this.handleNotify}/>
                               <Snackbar
                                 open = {this.state.notifiyOpen}
