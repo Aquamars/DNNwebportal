@@ -19,6 +19,7 @@ import ReviewCalendar from '../ReviewCalendar/ReviewCalendar'
 import Hints from './Hints'
 import ConfirmPage from './ConfirmPage'
 import FinishPage from './FinishPage'
+import ProjectCode from './ProjectCode'
 // API
 import axios from 'axios'
 import {API_CreateSchedule, API_CheckInstance, API_GetImage} from '../../resource'
@@ -63,6 +64,7 @@ class CreatePage extends React.Component {
       stepIndex: 0,
       submitting: false,
       projectNum: null,
+      selectprojectNum:null,
       startDate: new Date(moment().add(1,'day').format('YYYY-MM-DD')),
       endDate: null,
       increaseDay: 0,
@@ -249,6 +251,12 @@ class CreatePage extends React.Component {
         instanceArr: instanceArr
     }) 
   }
+  ChangeProjectNum = (value, selectValue) => {
+    this.setState({
+      projectNum: value,
+      selectprojectNum: selectValue
+    })
+  }
   getStepContent(stepIndex) {
     const {t} = this.props
     const {submitting, loadingCreate} = this.state
@@ -295,15 +303,13 @@ class CreatePage extends React.Component {
       case 1:
         return (
           <div>
-            <TextField
-              floatingLabelText = {t('common:project')}
-              floatingLabelStyle = {styles.floatingLabelStyle}
-              floatingLabelFocusStyle = {styles.floatingLabelFocusStyle}
-              onChange = {this.handleChangeProjectNum}              
-            />
-            <br/>            
+            <ProjectCode 
+              ProjectNum = {this.ChangeProjectNum}
+              selectprojectNum = {this.state.selectprojectNum}
+            />           
             <SelectField
               floatingLabelText={t('common:InstanceNum')}
+              floatingLabelStyle={{color: orangeA700}}
               value={this.state.instanceNum}
               onChange={this.handleInstanceNumChange}
             >
