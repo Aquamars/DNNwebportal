@@ -86,5 +86,8 @@
     "deletedSuccess":"Deleted Success !",
     "ip":"Internet Protocol Address",
     "port":"Port",
-    "reviewTitle": "Instance information"
+    "reviewTitle": "Instance information",
+    "department":"Department",
+    "instanceEmpty":"Mybe try the cross button ?",
+    "searchSelect":"You can input project Name, Host, Number to search"
 }

@@ -86,5 +86,8 @@
     "deletedSuccess":"移除成功 !",
     "ip":"網際協定位址",
     "port":"通訊埠",
-    "reviewTitle": "Instance 資訊"
+    "reviewTitle": "Instance 資訊",
+    "department":"單位",
+    "instanceEmpty":"或許該試試十字的按鈕 ?",
+    "searchSelect":"輸入 計畫主持人, 計畫名稱, 計畫代號 來搜尋"
 }
