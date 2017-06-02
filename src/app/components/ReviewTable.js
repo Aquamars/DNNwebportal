@@ -32,6 +32,8 @@ import {DATA} from '../resource'
 import { translate, Interpolate } from 'react-i18next'
 import i18n from '../utils/i18n'
 
+import empty from '../image/think.png'
+
 const styles = {
 	root: {
 	    margin: '-2px',
@@ -165,6 +167,7 @@ class ReviewTable extends Component {
 			  <ExpandTransition loading={loading} open={true}>
 				  <Paper>
 				  {loading && <div style = {{textAlign:'center'}}><CircularProgress size={80} thickness={5} /></div>}
+				  { this.state.data.length > 0 ?
 				  <Table>
 	    			<TableHeader    			 
 	    			 displaySelectAll={false}
@@ -202,6 +205,11 @@ class ReviewTable extends Component {
 				  	))}
 				  	</TableBody>
 				  </Table>
+				  : <div style={{textAlign:'center'}}>
+				  		<img width="15%" src={empty}></img>				  		
+				  		<h2>{t('common:instanceEmpty')}</h2><br/>
+				  	</div>
+				  }
 				  </Paper>
 			  </ExpandTransition>
 			</Card>
