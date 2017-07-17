@@ -89,5 +89,14 @@
     "reviewTitle": "Instance information",
     "department":"Department",
     "instanceEmpty":"Mybe try the cross button ?",
-    "searchSelect":"You can input project Name, Host, Number to search"
+    "searchSelect":"You can input project Name, Host, Number to search",
+    "menu":{
+        "info":"Information",
+        "history":"History",
+        "create":"Create Instance",
+        "storage":"Open Storage",
+        "charts":"Charts",
+        "machine":"Machines",
+        "signOut":"SignOut"
+    }
 }

@@ -89,5 +89,14 @@
     "reviewTitle": "Instance 資訊",
     "department":"單位",
     "instanceEmpty":"或許該試試十字的按鈕 ?",
-    "searchSelect":"輸入 計畫主持人, 計畫名稱, 計畫代號 來搜尋"
+    "searchSelect":"輸入 計畫主持人, 計畫名稱, 計畫代號 來搜尋",
+    "menu":{
+        "info":"Instance資訊",
+        "history":"歷史紀錄",
+        "create":"創建Instance",
+        "storage":"開啟儲存空間",
+        "charts":"圖表分析",
+        "machine":"機器",
+        "signOut":"登出"
+    }
 }
