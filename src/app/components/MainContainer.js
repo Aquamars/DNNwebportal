@@ -10,16 +10,26 @@ import AppBar from 'material-ui/AppBar'
 import Drawer from 'material-ui/Drawer'
 import Snackbar from 'material-ui/Snackbar'
 import FontIcon from 'material-ui/FontIcon'
+import ReactTooltip from 'react-tooltip'
 import Paper from 'material-ui/Paper'
 import autoprefixer from 'material-ui/utils/autoprefixer'
 import { Card, CardHeader,CardMedia, CardTitle, CardText, CardActions } from 'material-ui/Card'
 import IconButton from 'material-ui/IconButton'
 import ReviewTable from './ReviewTable'
 import HistoryTable from './HistoryTable'
+import ChartContainer from './Charts/ChartContainer'
 import Footer from './Footer'
+import CreatePage from './CreatePage/CreatePage'
+import Machines from './Charts/Machines'
 //ICON
 import ExitIcon from 'material-ui/svg-icons/action/power-settings-new'
 import SocialPerson  from 'material-ui/svg-icons/social/person'
+import AnalysisIcon from 'material-ui/svg-icons/action/assessment'
+import ImageViewComfy from 'material-ui/svg-icons/image/view-comfy'
+import DeviceStorage from 'material-ui/svg-icons/device/storage'
+import ContentAdd from 'material-ui/svg-icons/content/add'
+import ActionHistory from 'material-ui/svg-icons/action/history'
+import MachineIcon from 'material-ui/svg-icons/action/dns'
 // COLOR
 import { lightBlue500, lightBlue900 } from 'material-ui/styles/colors'
 // i18n
@@ -27,6 +37,9 @@ import { translate, Interpolate } from 'react-i18next'
 import i18n from '../utils/i18n'
 import DnnLogo from '../image/DNN Web logo_yellow.png'
 import EasterEgg from '../image/2013060723055881547495.jpg'
+// API call
+import axios from 'axios'
+import {API_URL, API_GetInfo} from '../resource'
 
 const styles = {
 	container: {
@@ -70,14 +83,14 @@ const styles = {
 }
 const MenuStyles = {
     sidebarOpen: {
-        flex: '0 0 28em',
+        flex: '0 0 16em',
         marginLeft: 0,
         order: -1,
         transition: 'margin 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms',
     },
     sidebarClosed: {
-        flex: '0 0 28em',
-        marginLeft: '-28em',
+        flex: '0 0 16em',
+        marginLeft: '-16em',
         order: -1,
         transition: 'margin 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms',
     },
@@ -101,22 +114,25 @@ class MainContainer extends Component {
   constructor(props, context) {
     super(props, context)
     this.state = {
-      open: false,
-      data: '',
+      open: (localStorage.getItem('itriUser')=== 'itri'),
+      content: '',
       notifiyOpen: false,
-      notifiyMsg:''
+      notifiyMsg:'',
+      data:''
     }
   }  
   handleToggle = () => {
-    this.setState({
-      open: !this.state.open,
-    })
+    if(localStorage.getItem('itriUser')=== 'itri'){
+      this.setState({
+        open: !this.state.open,
+      })
+    }   
   }
 
   handleMenuTap = (value) => {
     // console.log(value)    
     this.setState({
-      data: value
+      content: value
     })
   }
   handleTouchTap = () => {
@@ -129,6 +145,70 @@ class MainContainer extends Component {
       notifiyOpen: true,
       notifiyMsg: msg
     })
+  }
+  getData = () => {
+    axios.get(
+        API_GetInfo,
+        {
+          headers: {'X-Access-Token': this.props.token, 'Accept': 'application/json'},
+          params: { mode: 'booked' }
+        }
+      )
+      .then((result)=>{
+        console.log(result.data.schedules)
+        this.dummyAsync(()=>
+          this.setState({
+            data: result.data.schedules
+          })
+        )
+      }).catch((err)=>{
+        console.log(err) 
+      })
+  }
+  selectItem = (value) =>{
+      switch(value){
+        case 0:
+          return (
+                  <div>
+                    <ReviewTable token = {this.props.token} notify = {this.handleNotify} />
+                    <HistoryTable token = {this.props.token} notify = {this.handleNotify}/>
+                  </div>
+                 )
+          break
+        case 1:
+          return (<ReviewTable token = {this.props.token} notify = {this.handleNotify} />)
+          break
+        case 2:
+          return (<HistoryTable token = {this.props.token} notify = {this.handleNotify}/>)
+          break
+        case 3:
+          return (
+                    <CreatePage 
+                      switchReview={()=> this.handleMenuTap(1)}
+                      refresh = {this.getData}
+                      currentInstanceNum={this.state.data.length}
+                      notify = {this.handleNotify}
+                      token={this.props.token}
+                    />
+                  )
+          break
+        case 4:
+          return (<Card><CardText></CardText></Card>)
+          break
+        case 5:
+          return (<ChartContainer />)
+          break
+        case 6:
+          return (<div><Machines /></div>)
+          break
+        default:
+          return (
+                  <div>
+                    <ReviewTable token = {this.props.token} notify = {this.handleNotify} />
+                    <HistoryTable token = {this.props.token} notify = {this.handleNotify}/>
+                  </div>
+                 )
+      }
   }
   render(){ 
       const {t} = this.props 	    
@@ -154,9 +234,14 @@ class MainContainer extends Component {
                           }
         				        />
                         <div className="body" style={prefixedStyles.body}>
-                            <div style={prefixedStyles.content}> 
-                              <ReviewTable token = {this.props.token} notify = {this.handleNotify} />
-                              <HistoryTable token = {this.props.token} notify = {this.handleNotify}/>
+                            <div style={prefixedStyles.content}>
+                              {this.selectItem(this.state.content)}
+                              {false &&
+                                <div>
+                                  <ReviewTable token = {this.props.token} notify = {this.handleNotify} />
+                                  <HistoryTable token = {this.props.token} notify = {this.handleNotify}/>
+                                </div>
+                              }
                               <Snackbar
                                 open = {this.state.notifiyOpen}
                                 autoHideDuration = {2500}
@@ -165,11 +250,59 @@ class MainContainer extends Component {
                                 action={<FlatButton href={'mailto:eNgiNEer@No.oNe.cARe'} style={{color:'white'}}>Tell us</FlatButton>}
                               />
                             </div>
-                            <img
-                              src = {EasterEgg}                              
-                              width="200"
+                            <Paper
                               style={this.state.open ? MenuStyles.sidebarOpen : MenuStyles.sidebarClosed}                      
-                            />                            
+                            >
+                              <MenuItem
+                               primaryText={'Dashboard'}
+                               onTouchTap={() => this.handleMenuTap(0)}
+                               />
+                              <MenuItem
+                               leftIcon={<ImageViewComfy />}
+                               primaryText={t('common:menu.info')}
+                               onTouchTap={() => this.handleMenuTap(1)}
+                              />
+                              <MenuItem
+                               leftIcon={<ActionHistory />}
+                               primaryText={t('common:menu.history')}
+                               onTouchTap={() => this.handleMenuTap(2)}
+                              />
+                              <MenuItem
+                               leftIcon={<ContentAdd />}
+                               primaryText={t('common:menu.create')}
+                               onTouchTap={() => this.handleMenuTap(3)}
+                              />
+                              <MenuItem
+                               leftIcon={<DeviceStorage />}
+                               primaryText={t('common:menu.storage')}
+                               href='http://140.96.29.153/ABC/index.php' 
+                               target="_blank"
+                               data-tip data-for='storage'
+                              />
+                              <ReactTooltip id='storage' place="bottom" effect='solid'>
+                                <span>{t('common:storage')}</span>
+                              </ReactTooltip>
+                            { 
+                              localStorage.getItem('itriUser') === 'itri' &&
+                              <div>
+                              <MenuItem
+                               leftIcon={<AnalysisIcon />}
+                               primaryText={t('common:menu.charts')}
+                               onTouchTap={() => this.handleMenuTap(5)}
+                              />
+                              <MenuItem
+                               leftIcon={<MachineIcon />}
+                               primaryText={t('common:menu.machine')}
+                               onTouchTap={() => this.handleMenuTap(6)}
+                              />
+                              </div>
+                            }
+                              <MenuItem
+                               leftIcon={<ExitIcon />}
+                               primaryText={'SignOut'}
+                               onTouchTap={() => this.props.SignOut()}
+                              />
+                            </Paper>                            
                         </div>
                         <Footer/>
                     </div>
