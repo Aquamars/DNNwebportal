@@ -16,40 +16,6 @@ import styles from '../../style/VirtualizedSelect.css'
 
 import { project2017 } from '../../resource'
 
-// https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions#Using_Special_Characters
-function escapeRegexCharacters(str) {
-  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-}
-
-function getSuggestionValue(suggestion) {
-  // return suggestion.text;
-  return suggestion.code
-}
-
-function renderSuggestion(suggestion) {
-  // return (
-  //   <span>{suggestion.name}</span>
-  // );
-
-  return (
-    <span>{suggestion.code}-{suggestion.name}</span>
-  );
-}
-
-function renderSectionTitle(section) {
-  // return (
-  //   <strong>{section.title}</strong>
-  // );
-  return (
-    <strong>{section.unit}</strong>
-  );
-}
-
-function getSectionSuggestions(section) {
-  // return section.languages;
-  return section.project;
-}
-
 class ProjectCode extends React.Component {
 	constructor(props) {
 	  super(props)

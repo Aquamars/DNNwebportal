@@ -159,14 +159,14 @@ class DetailModal extends React.Component {
 					      <TableRow>
 					        <TableHeaderColumn style={textCenter}>{<font color='#000'><b>{t('common:interval')}</b></font>}</TableHeaderColumn>
 					        <TableHeaderColumn style={textCenter}>{<font color='#000'><b>{t('common:excuteDay')}</b></font>}</TableHeaderColumn>
-					        <TableHeaderColumn style={textCenter}>{<font color='#000'><b>{t('common:leftDay')} </b></font>}</TableHeaderColumn>
+					        {this.state.leftDay>0 && <TableHeaderColumn style={textCenter}>{<font color='#000'><b>{t('common:leftDay')} </b></font>}</TableHeaderColumn>}
 					      </TableRow>
 					    </TableHeader>
 					    <TableBody displayRowCheckbox={false}>
 					      <TableRow>
 					        <TableRowColumn style={textCenter}>{<p><b><font>{this.state.increaseDay} {t('common:days')}</font></b></p>}</TableRowColumn>
 					        <TableRowColumn style={textCenter}>{<p><b><font color={green500}>{this.state.excuteDay} {t('common:days')}</font></b></p>}</TableRowColumn>
-					        <TableRowColumn style={textCenter}>{this.state.leftDay>0 ? <p><b><font color={green500}>{this.state.leftDay} {t('common:days')}</font></b></p> : <p><b><font color={redA700}>{this.state.leftDay} {t('common:days')}</font></b></p>}</TableRowColumn>
+					        {this.state.leftDay>0 && <TableRowColumn style={textCenter}> <p><b><font color={green500}>{this.state.leftDay} {t('common:days')}</font></b></p></TableRowColumn>}
 					      </TableRow>
 					    </TableBody>
 					</Table>
