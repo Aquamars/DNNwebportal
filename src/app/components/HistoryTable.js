@@ -86,7 +86,7 @@ class HistoryTable extends Component {
 	}	
 	dummyAsync = (cb) => {
 	    this.setState({loading: true}, () => {
-	      this.asyncTimer = setTimeout(cb, 300);
+	      this.asyncTimer = setTimeout(cb, 500);
 	   })
 	}
 	getData = () => {		
