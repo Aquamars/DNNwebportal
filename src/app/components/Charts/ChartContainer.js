@@ -19,7 +19,7 @@ import BarChart from './BarChart'
 import Machines from './Machines'
 import PieChart from './PieChart'
 import LinearProgress from './LinearProgress'
-import {toBarData, toPieDoughnutData} from '../../utils/ChartDataHandler'
+import {toBarData, toPieDoughnutData, toLineData} from '../../utils/ChartDataHandler'
 // resource
 import {imageTotalUsed, 
 		machineStatusData, 
@@ -63,13 +63,13 @@ const styles = {
   }
 };
 const layouts = [
-	{i:'Bar',x:0, y: 0, w:1, h:2},
-	{i:'Line',x:0, y: 1, w:1, h:2},
+	{i:'Bar',x:0, y: 0, w:2, h:4},
+	{i:'Line',x:1, y: 2, w:2, h:4},
 	{i:'PolarArea',x:2, y: 0, w:1, h:4},
 	{i:'Radar',x:1, y: 2, w:1, h:4},
 	{i:'Pie',x:2, y: 0, w:1, h:4},
 	{i:'Bubble',x:1, y: 1, w:1, h:2},
-	{i:'Doughnut',x:1, y: 0, w:1, h:4},
+	{i:'Doughnut',x:0, y: 1, w:1, h:4},
 	{i:'BarChart',x:0, y: 0, w:1, h:2},
 	{i:'PieChart',x:0, y: 0, w:1, h:4},
 	{i:'LinearProgress',x:2, y: 0, w:1, h:2},
@@ -117,14 +117,14 @@ const charts = [
    		title:'Instances Status',
    		data: instancesStatusData,
    	},
+   	// {
+   	// 	id:8,
+   	// 	type:'BarChart',
+   	// 	title:'Images Using',
+   	// 	data: instanceUsing,
+   	// },
    	{
    		id:8,
-   		type:'BarChart',
-   		title:'Images Using',
-   		data: instanceUsing,
-   	},
-   	{
-   		id:9,
    		type:'Bar',
    		title:'instance Used',
    		data: instanceUsing,
@@ -208,7 +208,7 @@ class ChartContainer extends Component {
 				chart = <Bar data = {toBarData(key.data)} title = {key.title} />				
 				break
 			case 'Line':
-				chart = <Line data = {key.data} title = {key.title} />				
+				chart = <Line data = {toLineData(key.data)} title = {key.title} />				
 				break
 			case 'PolarArea':
 				chart = <PolarArea />				
