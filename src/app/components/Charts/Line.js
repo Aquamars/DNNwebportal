@@ -46,7 +46,7 @@ class Line extends Component {
     return (
       <Card style={{height:'100%'}}>
         <CardTitle style={{padding:'10px'}} title={this.props.title} />
-        <RC2 data={data} type='line' />
+        <RC2 data={this.props.data} type='line' />
       </Card>
     );
   }
