@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import { Card, CardTitle } from 'material-ui/Card'
+import { Card, CardTitle, CardText} from 'material-ui/Card'
+import ReactTooltip from 'react-tooltip'
+import moment from 'moment'
 import {Responsive, WidthProvider, ReactGridLayout } from 'react-grid-layout';
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 import 'react-grid-layout/css/styles.css';
@@ -31,18 +33,25 @@ class Machines extends Component {
 	      {}
 	    )
 	    .then((result)=>{
-	      // console.log(result.data)
+	      let current = moment()
+	      let addYears = current
+	      // console.log(current.format('YYYY-MM-DD'),current.add(1,'years').format('YYYY-MM-DD'))
 	      axios.get(
 		      API_GetAll,
-		      {}
+		      {
+		      	params: {
+		          start: current.format('YYYY-MM-DD'),
+		          end: current.add(1,'years').format('YYYY-MM-DD')
+		        }
+		      }
 		  )
 		  .then((resultAll)=>{
 		  	const machineToInstance = this.toMachineData(result.data, resultAll.data)
 		  	console.log(machineToInstance)
 		  	this.setState({
-		  	  machineData:result.data,
-	      	  instanceData:resultAll.data,
-			  data:machineToInstance
+		  	  machineData: result.data,
+	      	  instanceData: resultAll.data,
+			  data: machineToInstance
 			})
 		  })
 	  //     this.dummyAsync(()=>
@@ -102,13 +111,16 @@ class Machines extends Component {
 			>
 			{ 
 				data.machines.map((machine, index)=>{
-						let machineGrid = {x:0, y: 0, w:4, h:3}
+						let machineGrid = {x:0, y: 0, w:4, h:3, isResizable:false}
 						machineGrid.x = index % 4
 						machineGrid.y = Math.floor(index / 4)
 						if(machine.instances.length < 3){
 							machineGrid.w = 1
 							machineGrid.h = 2
 							machineGrid.x = 3
+						}else if(machine.instances.length < 5){
+							machineGrid.w = 1
+							machineGrid.x = 0
 						}else if(machine.instances.length < 13){
 							machineGrid.w = 3
 							machineGrid.x = 0
@@ -116,7 +128,22 @@ class Machines extends Component {
 						return(
 							<div key={machine.id} data-grid={machineGrid}>
 							<Card style={{height:'100%'}}>
-							<CardTitle style={{padding:'10px'}} title={'Machine:'+machine.id} />
+							<CardTitle 
+								style={{padding:'10px'}} 
+								title={'Machine:'+machine.id}
+								data-tip data-for={'machine'+machine.id}
+							/>
+							<ReactTooltip id={'machine'+machine.id} place="bottom" >
+                                <span>id:{machine.id}</span>
+                                <br/>
+                                <span>name:{machine.name}</span>
+                                <br/>
+                                <span>Description:{machine.description}</span>
+                                <br/>
+                                <span>GPU:{machine.gpuType}</span>
+                                <br/>
+                                <span>Status:{machine.statusId}</span>
+                            </ReactTooltip>
 							<div>
 							<ResponsiveReactGridLayout 
 							  className="layout"
@@ -125,7 +152,7 @@ class Machines extends Component {
 							>
 							{
 								machine.instances.map((instance, index)=>{
-										let instancesGrid = {x:0, y: 0, w:1, h:1, static: true, isResizable:false}										
+										let instancesGrid = {x:0, y: 0, w:1, h:1, static: true, isResizable:false}
 										if(index < 2 ){
 											if(machine.instances.length < 3){
 												instancesGrid.x = index
@@ -141,18 +168,32 @@ class Machines extends Component {
 										const instanceTitle = 'instance: '+instance.id
 										return(
 											<div key={instance.id} data-grid={instancesGrid}>
-												<Card style={{height:'100%'}}>										
-													<CardTitle style={{padding:'10px'}} title={instanceTitle} />
-													{instance.intanceStatusId}
+												<Card style={{height:'100%'}} data-tip data-for={'instance: '+instance.id}>										
+													<CardTitle style={{padding:'10px'}} title={instanceTitle} />													
 												</Card>
+												<ReactTooltip id={'instance: '+instance.id} type="info" place="top" >
+					                                <span>ip:{instance.ip}</span>
+					                                <br/>
+					                                <span>port:{instance.port}</span>
+					                                <br/>
+					                                <span>imageId:{instance.imageId}</span>
+					                                <br/>
+					                                <span>projectCode:{instance.projectCode}</span>
+					                                <br/>
+					                                <span>startedAt:{moment(instance.startedAt).format('YYYY-MM-DD')}</span>
+					                                <br/>
+					                                <span>endedAt:{moment(instance.endedAt).format('YYYY-MM-DD')}</span>
+					                                <br/>
+					                                <span>userId:{instance.userId}</span>
+					                            </ReactTooltip>
 											</div>
 										)
 									}
 								)
 							}
 							</ResponsiveReactGridLayout>
-							</div>
-							</Card>
+							</div>							
+							</Card>							
 							</div>
 						)
 					}
