@@ -14,7 +14,7 @@ export const API_DeleteSchedule = DOMAIN + '/user/schedule/'
 export const API_GetExtDate = DOMAIN + '/user/schedule/'
 export const API_PutExtDate = DOMAIN + '/user/schedule/'
 export const API_GetImage = DOMAIN + '/image/'
-export const API_GetAll = DOMAIN + '/schedule/'
+export const API_GetAll = DOMAIN + '/schedule'
 export const API_GetMachine = DOMAIN + '/machine/'
 // fake data
 export const DATA = [
