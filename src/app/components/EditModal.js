@@ -51,21 +51,21 @@ class EditModal extends React.Component {
     this.setState({open: false});
   }
   handleSubmit = () => {
-    console.log(moment(this.state.endTime).format('YYYY-MM-DD'))
+    // console.log(moment(this.state.endTime).format('YYYY-MM-DD'))
     if(!this.state.comfirm){
       this.setState({
         loading: true,
       })
       this.editDateApi()
     }else{
-      console.log('refresh')
+      // console.log('refresh')
       this.setState({open: false, increaseDay:0, loading: false, comfirm: false})
       this.props.refresh()
     }
   }
   editDateApi = () => {
     const api = API_PutExtDate+this.props.id
-    console.log(moment(this.state.endTime).format('YYYY-MM-DD'))
+    // console.log(moment(this.state.endTime).format('YYYY-MM-DD'))
     fetch(api, 
         { 
           method: 'put', 
@@ -77,7 +77,7 @@ class EditModal extends React.Component {
           body:JSON.stringify({end:moment(this.state.endTime).format('YYYY-MM-DD')})
           // body:data
       }).then((response)=>{
-        console.log(response)
+        // console.log(response)
         if(response.ok){
           this.dummyAsync(()=>this.setState({
             // loading: false,
@@ -87,12 +87,12 @@ class EditModal extends React.Component {
         return response.json()
       })
       .then((data)=>{
-        console.log('data:'+data)
+        // console.log('data:'+data)
         // this.setState({
         //   loading: false, 
         // })        
       }).catch((err)=>{
-        console.log('err:'+err)
+        // console.log('err:'+err)
         this.props.notify('ERROR : Edit Date')
       })
   }
@@ -104,8 +104,8 @@ class EditModal extends React.Component {
     })
   }
   getExtandDate = () => {
-    console.log(this.props.id)
-    console.log(this.props.token)
+    // console.log(this.props.id)
+    // console.log(this.props.token)
     const api = API_GetExtDate+this.props.id+"/extendable"
     axios.get(api,
       {
@@ -115,11 +115,11 @@ class EditModal extends React.Component {
         }
       }
     ).then((result)=>{
-      console.log(result.data.extendableLatestDate)
+      // console.log(result.data.extendableLatestDate)
       this.setState({
         latestDate:moment(result.data.extendableLatestDate).format('YYYY-MM-DD')
       })
-      console.log('latestDate', this.state.latestDate)
+      // console.log('latestDate', this.state.latestDate)
     }).catch((err)=>{
         console.log(err)
         this.props.notify('ERROR : Extend Date')
