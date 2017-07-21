@@ -79,12 +79,12 @@ class CreatePage extends React.Component {
   }
   dummyAsync = (cb) => {
     this.setState({loading: true}, () => {
-      this.asyncTimer = setTimeout(cb, 500);
+      this.asyncTimer = setTimeout(cb, 450);
     })
   }
   dummyAsync2 = (cb) => {
     this.setState({loadingCreate: true}, () => {
-      this.asyncTimer = setTimeout(cb, 500);
+      this.asyncTimer = setTimeout(cb, 450);
     })
   }
   handleNext = () => {
@@ -136,9 +136,19 @@ class CreatePage extends React.Component {
     })
     .then((data)=>{
       console.log(data)
-      this.setState({
-        createdRespData: data, 
-      })        
+      if(data.code === '401'){
+        this.props.notify('ERROR : '+data.message)
+        this.props.notify('Please, pick another date.')
+        this.setState({
+          stepIndex: 0, 
+          loadingCreate: false
+        })
+      }else{
+        this.setState({
+          createdRespData: data, 
+        })
+      }
+              
     }).catch((err)=>{
       console.log('err:'+err)
       this.props.notify('ERROR : Create Schedule')
@@ -175,9 +185,9 @@ class CreatePage extends React.Component {
         image: 0, 
         imageDesc:this.state.imageArr[0].description}
       arr.push(obj)
-    }
+    } 
     this.setState({
-        instanceNum: value,
+        instanceNum: value,     
         instanceArr: arr
     })
   }
@@ -313,9 +323,10 @@ class CreatePage extends React.Component {
               value={this.state.instanceNum}
               onChange={this.handleInstanceNumChange}
             >
-              {this.state.avalableNumber.map((data) => (
+              {false && this.state.avalableNumber.map((data) => (
                 <MenuItem key={data.num+1} value={data.num+1} primaryText={data.num+1} />
-              ))}           
+              ))}
+              <MenuItem key={1} value={1} primaryText={1} />
             </SelectField>            
             <br />
             {this.state.instanceArr.map((instance, index)=>(
