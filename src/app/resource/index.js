@@ -1,3 +1,6 @@
+// API call
+import axios from 'axios'
+
 // export const DOMAIN = 'http://tarsanad.ddns.net'
 // export const PORT = '9527'
 // export const PATH = 'web'
@@ -1034,4 +1037,44 @@ export const machineToInstance = {
       ]
     }
   ]     
+}
+
+
+export const getInfo = async (token, mode) => {
+  return await axios.get(
+    API_GetInfo,
+    {
+      headers: {'X-Access-Token': token, 'Accept': 'application/json'},
+      params: { mode: mode }
+    }
+  ).then((res)=>(res)).catch((err)=>(err))
+}
+
+export const getschedule = async (years) => {
+  let data =  {}
+  for (let i = 1; i < 13; i++) {
+    let key = years+'-'+i
+    data[key] = 0 
+    if(i === 12){
+      const sheduleData = await axios.get(
+        API_GetAll,
+        {
+          headers: {'Accept': 'application/json'},
+          params: { start:key+'-1', end:key+'-31'  }
+        }
+      ).then((res)=>(res)).catch((err)=>(err))
+      data[key] = sheduleData.data.length
+    }else{
+      const sheduleData = await axios.get(
+        API_GetAll,
+        {
+          headers: {'Accept': 'application/json'},
+          params: { start:key, end:years+'-'+(i+1)  }
+        }
+      ).then((res)=>(res)).catch((err)=>(err))
+      data[key] = sheduleData.data.length
+    }        
+  }
+  console.log(data)
+  return data
 }
