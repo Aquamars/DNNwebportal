@@ -15,8 +15,7 @@ import DetailModal from './DetailModal'
 import ExpandTransition from 'material-ui/internal/ExpandTransition'
 import moment from 'moment'
 // API call
-import axios from 'axios'
-import {API_URL, API_GetInfo} from '../resource'
+import {getInfo} from '../resource'
 // ICON
 import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh'
 import ContentAdd from 'material-ui/svg-icons/content/add'
@@ -80,6 +79,7 @@ class ReviewTable extends Component {
 	refresh = (event) => {
 	    event.preventDefault()
 	    this.getData()
+	    // setTimeout(()=>this.setState({loading: false,}), 1000)
 	}	
 
 	setStatus = (status) => {
@@ -100,35 +100,33 @@ class ReviewTable extends Component {
 		return (obj)
 	}
 	dummyAsync = (cb) => {
-	    this.setState({loading: true}, () => {
-	      this.asyncTimer = setTimeout(cb, 300);
-	   })
+		console.log('dummyAsync')
+	    this.asyncTimer = setTimeout(cb, 400)
 	}
-	getData = () => {
-		console.log(API_GetInfo, this.props.token)
-	    axios.get(
-	      API_GetInfo,
-	      {
-	        headers: {'X-Access-Token': this.props.token, 'Accept': 'application/json'},
-	        params: { mode: 'booked' }
-	      }
-	    )
-	    .then((result)=>{
-	      console.log(result.data.schedules)
-	      this.dummyAsync(()=>
-	      	this.setState({
-			  loading: false,
-			  data: result.data.schedules
-			})
-	      )
-	    }).catch((err)=>{
-	      console.log(err)
-	      this.props.notify('ERROR : ReviewTable')
-	    })
+	getData = async () => {
+		try{
+			this.setState({
+		        loading: true,
+		    })
+			const api = await getInfo(this.props.token, 'booked')
+		    console.log(api)		    
+		    if(api.data.schedules){
+		    	this.dummyAsync(()=>{
+		    		console.log('api:'+false)
+		    	    this.setState({
+		    	    	loading: false,
+		    		    data: api.data.schedules
+		    		})
+		    	})
+		    }		    
+		}catch(err){
+			this.props.notify('ERROR : ReviewTable')
+		}
+	    	    
 	}
 
 	componentDidMount(){
-		this.getData()
+		this.getData()		
 	}
 
 	render(){
