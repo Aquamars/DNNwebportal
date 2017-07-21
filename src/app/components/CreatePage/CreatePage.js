@@ -198,14 +198,21 @@ class CreatePage extends React.Component {
     })
     if(this.state.endDate != null)this.checkInstanceRemain()
   }
-  handleChangeEndDate = (event, date) => {    
+  handleChangeEndDate = (event, date) => {  
+    const startDate = moment(this.state.startDate).format('YYYY-MM-DD')
+    const endDate = moment(date).format('YYYY-MM-DD')
+    // console.log('handleChangeEndDate:'+moment(endDate).diff(moment(startDate), 'days'))
+    // console.log('handleChangeEndDate-Startdate:'+moment(startDate).format('YYYY-MM-DD'))
+    // console.log('handleChangeEndDate-Enddate:'+moment(endDate).format('YYYY-MM-DD'))
+
     this.setState({
       endDate: date,
-      increaseDay: moment(date).diff(moment(this.state.startDate), 'days')
+      increaseDay: moment(endDate).diff(moment(startDate), 'days')
     })
     this.checkInstanceRemain()
   }
   checkInstanceRemain = () => {
+    console.log('checkInstanceRemain')
     const {startDate, endDate} = this.state
     axios.get(
       API_CheckInstance,
@@ -248,7 +255,7 @@ class CreatePage extends React.Component {
   }
   handleChangeProjectNum = (event, value) => this.setState({projectNum: value})
   disableStartDate = (date) => (moment(date).isBefore(moment()))
-  disableEndDate = (date) => (moment(date).isBefore(moment(this.state.startDate).add(1, 'days')) || moment(date).isAfter(moment(this.state.startDate).add(1, 'month')))
+  disableEndDate = (date) => (moment(date).isBefore(moment(this.state.startDate)) || moment(date).isAfter(moment(this.state.startDate).add(1, 'month')))
   imageSelect = (instance, index, image) => {
     console.log( instance, index, image)
     // const imageArr = this.state.imageArr
