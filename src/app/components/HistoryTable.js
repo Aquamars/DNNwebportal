@@ -13,8 +13,7 @@ import DetailModal from './DetailModal'
 import moment from 'moment'
 import ExpandTransition from 'material-ui/internal/ExpandTransition'
 // API call
-import axios from 'axios'
-import {API_URL, API_GetInfo} from '../resource'
+import {getInfo} from '../resource'
 // ICON
 import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh'
 import ContentAdd from 'material-ui/svg-icons/content/add'
@@ -73,6 +72,8 @@ class HistoryTable extends Component {
     	this.setState({switchPage: !this.state.switchPage})    	
     	if(!this.state.switchPage){
     		this.getData()
+    		setTimeout(()=>this.setState({loading: false,}), 300)
+    		
     	}else{
     		this.setState({
 			  data: []
@@ -84,32 +85,27 @@ class HistoryTable extends Component {
 	    event.preventDefault()
 
 	}	
-	dummyAsync = (cb) => {
-	    this.setState({loading: true}, () => {
-	      this.asyncTimer = setTimeout(cb, 500);
-	   })
-	}
-	getData = () => {		
-	    axios.get(
-	      API_GetInfo,
-	      {
-	        headers: {'X-Access-Token': this.props.token, 'Accept': 'application/json'},
-	        params: { mode: 'history' }
-	      }
-	    )
-	    .then((result)=>{
-	      console.log(result.data.historySchedules)
-	      this.dummyAsync(()=>
-	      	this.setState({
-			  loading: false,
-			  data: result.data.historySchedules
+	// dummyAsync = (cb) => {
+	//     this.setState({loading: true}, () => {
+	//       this.asyncTimer = setTimeout(cb, 500);
+	//    })
+	// }
+	getData = async () => {
+	  	try{
+	  		this.setState({
+			  loading: true,
 			})
-	      )	      
-	      
-	    }).catch((err)=>{
-	      console.log(err)
-	      this.props.notify('ERROR : HistoryTable')
-	    })
+			const api = await getInfo(this.props.token, 'history')
+			console.log(api)
+			// this.dummyAsync(()=>
+			this.setState({
+			  // loading: false,
+			  data: api.data.historySchedules
+			})
+	  		// )
+		}catch(err){
+	  		this.props.notify('ERROR : HistoryTable')
+	    }
 	}
 	componentDidMount(){
 		// this.getData()
@@ -118,7 +114,7 @@ class HistoryTable extends Component {
 
 	render(){
 		const {t} = this.props
-		const {switchPage, loading} = this.state
+		const {switchPage, loading} = this.state		
 		return (
 		  <div>	        
 		    <IconButton 
