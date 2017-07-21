@@ -116,8 +116,8 @@ class MainContainer extends Component {
     this.state = {
       open: (localStorage.getItem('itriUser')=== 'itri'),
       content: '',
-      notifiyOpen: false,
-      notifiyMsg:'',
+      notifyOpen: false,
+      notifyMsg:'',
       data:''
     }
   }  
@@ -142,8 +142,15 @@ class MainContainer extends Component {
   }
   handleNotify = (msg) => {
     this.setState({
-      notifiyOpen: true,
-      notifiyMsg: msg
+      notifyOpen: true,
+      notifyMsg: msg
+    })
+    // setTimeout(console.log('handleNotify'), 5400)
+  }
+  closeNotify = () => {
+    console.log('closeNotify')
+    this.setState({
+      notifyOpen: false,      
     })
   }
   getData = () => {
@@ -243,9 +250,10 @@ class MainContainer extends Component {
                                 </div>
                               }
                               <Snackbar
-                                open = {this.state.notifiyOpen}
+                                open = {this.state.notifyOpen}
                                 autoHideDuration = {2500}
-                                message={this.state.notifiyMsg}
+                                message={this.state.notifyMsg}
+                                onRequestClose = {this.closeNotify}
                                 bodyStyle={styleSnackbar}
                                 action={<FlatButton href={'mailto:eNgiNEer@No.oNe.cARe'} style={{color:'white'}}>Tell us</FlatButton>}
                               />
