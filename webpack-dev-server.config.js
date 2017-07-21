@@ -9,9 +9,10 @@ const config = {
   entry:{
     //'webpack/hot/dev-server',
     //'webpack/hot/only-dev-server',
-    'app':[
+    'app':['babel-polyfill',
         path.join(__dirname, '/src/app/app.js'),
-	'webpack/hot/only-dev-server',
+	  'webpack/hot/only-dev-server',
+    
     ]
   },
   // Server Configuration options
