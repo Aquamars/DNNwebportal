@@ -101,6 +101,17 @@ class Main extends Component {
     })
      console.log(localStorage.getItem('token'))
   }
+  componentDidMount(){
+    const ele = document.getElementById('ipl-progress-indicator')
+    if(ele){
+      setTimeout(() => {
+        ele.classList.add('available')
+        setTimeout(() => {
+          ele.outerHTML = ''
+        }, 2000)
+      }, 1000)
+    }
+  }
 
   render() {
       if(localStorage.getItem('token')){
