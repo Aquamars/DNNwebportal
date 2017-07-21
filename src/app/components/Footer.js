@@ -14,7 +14,7 @@ class Footer extends Component {
         open: false,
       }
     }
-    handleToggle = () => this.setState({open: !this.state.open})
+    handleToggle = () => this.setState({open: this.state.open})
 	render(){
 		const {t} = this.props 
 		return (
