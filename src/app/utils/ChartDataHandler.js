@@ -69,7 +69,7 @@ export function toPieDoughnutData (jsonData){
 export function toLineData (jsonData){
   let data = {}
   data.datasets = []
-  console.log(jsonData)
+  // console.log(jsonData)
   let r = new randomColors()
   let dataset = {}
   let chartData = [] 
@@ -108,9 +108,34 @@ export function toLineData (jsonData){
   dataset.data = chartData
 
   data.datasets.push(dataset)
-  data.labels = chartlabels
-
-    
-  console.log(data)
+  data.labels = chartlabels    
+  // console.log(data)
   return data
+}
+
+export function toMachineData (machines, instances){
+  let data = machines
+  machines.machines.map((obj,index)=>(data.machines[index].instances = []))
+  instances.map((obj)=>{
+    let instanceObj = {}
+    instanceObj.projectCode = obj.projectCode
+    instanceObj.startedAt = obj.startedAt
+    instanceObj.endedAt = obj.endedAt
+    instanceObj.createdAt = obj.createdAt
+    instanceObj.updatedAt = obj.updatedAt
+    instanceObj.userId = obj.userId
+    instanceObj.id = obj.instance.id
+    instanceObj.ip = obj.instance.ip
+    instanceObj.port = obj.instance.port
+    instanceObj.statusId = obj.instance.statusId
+   instanceObj.imageId = obj.instance.imageId
+    // console.log(instanceObj.id)
+    machines.machines.filter((objs, index)=>{
+      if(objs.id === obj.instance.machine.id){
+        data.machines[index].instances.push(instanceObj)
+      }
+    })
+  })
+  // console.log(data)
+  return data      
 }
