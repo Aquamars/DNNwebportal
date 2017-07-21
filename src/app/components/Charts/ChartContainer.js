@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component,PureComponent, PropTypes } from 'react'
 // i18n
 import { translate, Interpolate } from 'react-i18next'
 
@@ -27,7 +27,8 @@ import {imageTotalUsed,
 		instancesMonthlyUsed,
 		imageMonthlyUsed,
 		machineToInstance,
-		instanceUsing} from '../../resource'
+		instanceUsing,
+		getschedule} from '../../resource'
 
 import {Responsive, WidthProvider, ReactGridLayout } from 'react-grid-layout';
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
@@ -74,97 +75,99 @@ const layouts = [
 	{i:'PieChart',x:0, y: 0, w:1, h:4},
 	{i:'LinearProgress',x:2, y: 0, w:1, h:2},
 ];
-const charts = [
-   	{
-   		id:1,
-   		type:'Bar',
-   		title:'Images Monthly Used',
-   		data: imageMonthlyUsed,
-   	},
-   	// {
-   	// 	id:2,
-   	// 	type:'Pie',
-   	// 	title:'Instances Status',
-   	// 	data: instancesStatusData,
-   	// },
-   	{
-   		id:3,
-   		type:'Doughnut',
-   		title:'Image Used',
-   		data: imageTotalUsed,
-   	},
-   	{
-   		id:4,
-   		type:'Line',
-   		title:'Instances Monthly Used',
-   		data: instancesMonthlyUsed,
-   	},
-   	// {
-   	// 	id:5,
-   	// 	type:'Pie',
-   	// 	title:'Machine Status',
-   	// 	data: machineStatusData,
-   	// },
-   	{
-   		id:6,
-   		type:'Pie',
-   		title:'Machine Status',
-   		data: machineStatusData,
-   	},
-   	{
-   		id:7,
-   		type:'Pie',
-   		title:'Instances Status',
-   		data: instancesStatusData,
-   	},
-   	// {
-   	// 	id:8,
-   	// 	type:'BarChart',
-   	// 	title:'Images Using',
-   	// 	data: instanceUsing,
-   	// },
-   	{
-   		id:8,
-   		type:'Bar',
-   		title:'instance Used',
-   		data: instanceUsing,
-   	},
-   	// {
-   	// 	id:6,
-   	// 	type:'BarChart',
-   	// 	title:'BarChart',
-   	// 	data: imageMonthlyUsed,
-   	// },
-   	// {
-   	// 	id:7,
-   	// 	type:'PieChart',
-   	// 	title:'PieChart',
-   	// 	data: instancesStatusData,
-   	// },
-   	// {
-   	// 	id:8,
-   	// 	type:'PieChart',
-   	// 	title:'PieChart2',
-   	// 	data: machineStatusData,
-   	// },
-]
-class ChartContainer extends Component {
+
+class ChartContainer extends PureComponent {
 	constructor(props) {
 	    super(props)
+	    const setCharts = [
+		   	{
+		   		id:1,
+		   		type:'Bar',
+		   		title:'Images Monthly Used',
+		   		data: null,
+		   	},
+		   	// {
+		   	// 	id:2,
+		   	// 	type:'Pie',
+		   	// 	title:'Instances Status',
+		   	// 	data: instancesStatusData,
+		   	// },
+		   	{
+		   		id:3,
+		   		type:'Doughnut',
+		   		title:'Image Used',
+		   		data: {},
+		   	},
+		   	{
+		   		id:4,
+		   		type:'Line',
+		   		title:'Instances Monthly Used',
+		   		data: {},
+		   	},
+		   	// {
+		   	// 	id:5,
+		   	// 	type:'Pie',
+		   	// 	title:'Machine Status',
+		   	// 	data: machineStatusData,
+		   	// },
+		   	{
+		   		id:6,
+		   		type:'Pie',
+		   		title:'Machine Status',
+		   		data: {},
+		   	},
+		   	{
+		   		id:7,
+		   		type:'Pie',
+		   		title:'Instances Status',
+		   		data: {},
+		   	},
+		   	// {
+		   	// 	id:8,
+		   	// 	type:'BarChart',
+		   	// 	title:'Images Using',
+		   	// 	data: instanceUsing,
+		   	// },
+		   	{
+		   		id:8,
+		   		type:'Bar',
+		   		title:'instance Used',
+		   		data: {},
+		   	},
+		   	// {
+		   	// 	id:6,
+		   	// 	type:'BarChart',
+		   	// 	title:'BarChart',
+		   	// 	data: imageMonthlyUsed,
+		   	// },
+		   	// {
+		   	// 	id:7,
+		   	// 	type:'PieChart',
+		   	// 	title:'PieChart',
+		   	// 	data: instancesStatusData,
+		   	// },
+		   	// {
+		   	// 	id:8,
+		   	// 	type:'PieChart',
+		   	// 	title:'PieChart2',
+		   	// 	data: machineStatusData,
+		   	// },
+		]
 	    const {t} = this.props
-	    const chartShow = charts
-	    // charts.map((obj)=>(chartShow.push(obj.type)))
+	    const chartShow = setCharts  
+	    // charts.map((obj)=>(chartShow.push(obj.type)))	    
 	    this.state = {
 	    	// charts:['Pie','Line','Bar','Doughnut'],
-	    	charts:charts,
+	    	charts:setCharts,
 	    	chartShow:chartShow,
 	    	layouts: layouts,
-	    	renderCharts:[] 
+	    	renderCharts:[],
+	    	count:0
 	    }
-	    console.log(toBarData(imageMonthlyUsed))
-	    console.log(toBarData(instanceUsing))
+	    console.log(setCharts)
+	    console.log(this.state.charts)
 	    this.chartDisplay = this.chartDisplay.bind(this);
-	    // this.resize = this.resize.bind(this);
+	    this.getChartData()
 	}
 
 	chartDisplay(i, event, isCheck){		
@@ -184,20 +187,54 @@ class ChartContainer extends Component {
 	}
 	onBreakpointChange(breakpoint, cols){
 		// console.log(breakpoint, cols)
-	}	
-	// resize(key){	
-	// 	let resizeLayout = this.state.layouts
-	// 	const layoutIndex = resizeLayout.findIndex(obj => obj.i === key)
-	// 	resizeLayout[layoutIndex].h = 2
-	// 	resizeLayout[layoutIndex].w = 1
-	// 	console.log(key)
-	// 	console.log(this.state.layouts[layoutIndex])
-	// 	this.setState({
-	// 		layouts: resizeLayout
-	// 	})
-	// 	console.log(this.state.layouts[layoutIndex])
-
-	// }
+	}
+	getChartData = async () => {
+		let tmp = this.state.charts
+		const scheduleData = await getschedule(2017)
+		const scheduleData2 = await getschedule(2017)
+		const scheduleData3 = await getschedule(2017)
+		this.state.charts.map((obj,index)=>{
+	    	switch(obj.id){
+	    		case 1:
+	    			tmp[index].data = imageMonthlyUsed
+	    			break
+	    		case 2:
+	    			break
+	    		case 3:
+	    			tmp[index].data = imageTotalUsed
+	    			break
+	    		case 4:
+	    			tmp[index].data = scheduleData
+	    			break
+	    		case 5:
+	    			break
+	    		case 6:
+	    			tmp[index].data = scheduleData2
+	    			break
+	    		case 7:
+	    			tmp[index].data = scheduleData3
+	    			break
+	    		case 8:
+	    			tmp[index].data = instanceUsing
+	    			break
+	    		case 9:
+	    			break
+	    	}
+	    	// console.log(tmp[index])
+	    })
+		console.log('getChartData')
+		console.log(this.state.charts)
+		// return tmp
+		// if(!Object.is(this.state.charts, tmp) & this.state.){
+		
+		this.setState({
+			charts:tmp,
+			count: 1
+		})
+		// }
+		
+		console.log(this.state.charts)
+	}
 	chartsRender(key){
 		const layoutIndex = this.state.layouts.findIndex(obj => obj.i === key.type)
 		// console.log(this.state.layouts0[layoutIndex])
@@ -243,11 +280,25 @@ class ChartContainer extends Component {
 			renderCharts.push(this.chartsRender(key))
 		})		
 		return renderCharts
+	}	
+	componentWillMount(){
+		console.log('componentWillMount')
+		// this.getChartData()
+		// const chartData = this.getChartData()
+		// this.setState({
+		// 	charts: chartData
+		// })
+	}
+	shouldComponentUpdate(nextProps, nextState){
+		return true
+	}
+	componentDidMount(){	
+		// this.getChartData()	
+		console.log('componentDidMount')
 	}
 	render(){
 		const layouts = {}
 		layouts.lg = this.state.layouts
-		
 		return (
 			<div>
 				<div>
@@ -273,7 +324,6 @@ class ChartContainer extends Component {
 				<div>
 					<ResponsiveReactGridLayout 
 					  className="layout"
-
 					  onLayoutChange={this.onLayoutChange}
 					  onBreakpointChange={this.onBreakpointChange}
 					  breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
