@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Card, CardTitle } from 'material-ui/Card';
 import RC2 from 'react-chartjs2';
 import {hexToRGB, randomColors} from '../../utils/ColorHandler'
-
+import CircularProgress from 'material-ui/CircularProgress';
 let Orgdata = {
   labels: [],
   datasets: []
@@ -82,11 +82,14 @@ class Bar extends Component {
     // console.log(data.datasets[0].data)
   }
   render() {
+    console.log(this.props.data)
+    let r = new randomColors()
+    const color = r.get()+''
     
     return (
       <Card style={{height:'100%'}}>
         <CardTitle style={{padding:'10px'}} title={this.props.title} />        
-        <RC2 data={this.props.data} type='bar' />
+        {this.props.data.datasets.length === 0 ? <div style={{textAlign:'center','marginTop':'15%'}}><CircularProgress size={250} thickness={7} color={color}/></div> : <RC2 data={this.props.data} type='bar'/>}
       </Card>
     );
   }

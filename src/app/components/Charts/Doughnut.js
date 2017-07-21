@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import RC2 from 'react-chartjs2';
 import { Card, CardTitle } from 'material-ui/Card';
-
+import {randomColors} from '../../utils/ColorHandler'
+import CircularProgress from 'material-ui/CircularProgress'
 let data = {
   labels: [
     'Red',
@@ -37,10 +38,12 @@ class Doughnut extends Component {
     // console.log(chartlabels,chartData)
     data.labels = chartlabels
     data.datasets[0].data = chartData
+    let r = new randomColors()
+    const color = r.get()+''
     return (
       <Card style={{height:'100%'}}>
-        <CardTitle style={{padding:'10px'}} title={this.props.title} />
-        <RC2 data={this.props.data} type='doughnut' />
+        <CardTitle style={{padding:'10px'}} title={this.props.title} />        
+        {this.props.data.labels.length === 0 ? <div style={{textAlign:'center','marginTop':'15%'}}><CircularProgress size={250} thickness={7} color={color}/></div> : <RC2 data={this.props.data} type='doughnut'/>}
       </Card>
     );
   }
