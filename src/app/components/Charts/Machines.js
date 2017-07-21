@@ -6,7 +6,7 @@ import {Responsive, WidthProvider, ReactGridLayout } from 'react-grid-layout';
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
-import {machineToInstance} from '../../resource'
+
 // i18n
 import { translate, Interpolate } from 'react-i18next'
 // API call
@@ -21,22 +21,13 @@ class Machines extends Component {
 	    this.state = {
 	      loading: true,
 	      data:{machines:[]},
-	      machineData:{},
-	      instanceData:[]
 	    }
 	}
-
-	getData = () => {
-		console.log(API_GetMachine)
-	    axios.get(
-	      API_GetMachine,
-	      {}
-	    )
-	    .then((result)=>{
-	      let current = moment()
-	      let addYears = current
-	      // console.log(current.format('YYYY-MM-DD'),current.add(1,'years').format('YYYY-MM-DD'))
-	      axios.get(
+	getData = async () => {
+	  let current = moment()
+	  let addYears = current
+	  const a = await axios.get(API_GetMachine,{}).then((res)=>(res)).catch((err)=>(err))
+	  const b = await axios.get(
 		      API_GetAll,
 		      {
 		      	params: {
@@ -44,27 +35,15 @@ class Machines extends Component {
 		          end: current.add(1,'years').format('YYYY-MM-DD')
 		        }
 		      }
-		  )
-		  .then((resultAll)=>{
-		  	const machineToInstance = this.toMachineData(result.data, resultAll.data)
-		  	console.log(machineToInstance)
-		  	this.setState({
-		  	  machineData: result.data,
-	      	  instanceData: resultAll.data,
-			  data: machineToInstance
-			})
-		  })
-	  //     this.dummyAsync(()=>
-	  //     	this.setState({
-			//   loading: false,
-			//   data: result.data.schedules
-			// })
-	  //     )
-	    }).catch((err)=>{
-	      console.log(err)
-	      // this.props.notify('ERROR : Machines')
-	    })
-	}
+		  	).then((res)=>(res)).catch((err)=>(err))
+	  console.log(a)
+	  console.log(b)
+	  const machineToInstance = toMachineData(a.data, b.data)
+
+	  this.setState({		  
+		  data: machineToInstance
+	  })
+	}	
 	toMachineData (machines, instances){
 		let data = machines
 		
@@ -82,7 +61,7 @@ class Machines extends Component {
 			instanceObj.port = obj.instance.port
 			instanceObj.statusId = obj.instance.statusId
 			instanceObj.imageId = obj.instance.imageId
-			console.log(instanceObj.id)
+			// console.log(instanceObj.id)
 			machines.machines.filter((objs, index)=>{
 				if(objs.id === obj.instance.machine.id){
 					data.machines[index].instances.push(instanceObj)
@@ -97,10 +76,7 @@ class Machines extends Component {
 		this.getData()
 	}
 	render(){
-		const {machineData, instanceData, data} = this.state		
-		// const machineToInstance = this.toMachineData(machineData, instanceData)
-		// console.log(data.machines)
-		
+		const {data} = this.state
 		return (
 			<div>
 			{ data.machines.length > 0 &&
