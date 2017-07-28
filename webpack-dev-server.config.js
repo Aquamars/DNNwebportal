@@ -9,16 +9,18 @@ const config = {
   entry:{
     //'webpack/hot/dev-server',
     //'webpack/hot/only-dev-server',
-    'app':['babel-polyfill',
-        path.join(__dirname, '/src/app/app.js'),
-	  'webpack/hot/only-dev-server',
+    'app':[
+        'react-hot-loader/patch',
+        'babel-polyfill',
+         path.join(__dirname, '/src/app/app.js'),
+	      'webpack/hot/only-dev-server',
     
     ]
   },
   // Server Configuration options
   devServer: {
     contentBase: 'src/www', // Relative directory for base of server
-    devtool: 'eval',
+  
     hot: true, // Live-reload
     inline: true,
     port: 3000, // Port Number
@@ -44,7 +46,7 @@ const config = {
       minimize: true
     }),
     // Enables Hot Modules Replacement
-    new webpack.HotModuleReplacementPlugin(),
+    // new webpack.HotModuleReplacementPlugin(),
     // prints more readable module names in the browser console on HMR updates
     new webpack.NamedModulesPlugin(),
     // Allows error warnings but does not stop compiling.
