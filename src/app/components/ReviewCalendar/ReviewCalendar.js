@@ -67,6 +67,8 @@ class ReviewCalendar extends React.Component {
               break
             case 3:
               avil3.push(moment(data.date).format('YYYY-MM-DD'))
+            default:
+              avil3.push(moment(data.date).format('YYYY-MM-DD'))
               break
           }
       })
