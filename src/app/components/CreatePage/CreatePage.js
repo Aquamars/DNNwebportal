@@ -136,7 +136,8 @@ class CreatePage extends React.Component {
     })
     .then((data)=>{
       console.log(data)
-      if(data.code === '401'){
+      console.log(data.code)
+      if(data.code === '401' || data.code === 401){
         this.props.notify('ERROR : '+data.message)
         this.props.notify('Please, pick another date.')
         this.setState({
@@ -147,8 +148,7 @@ class CreatePage extends React.Component {
         this.setState({
           createdRespData: data, 
         })
-      }
-              
+      }              
     }).catch((err)=>{
       console.log('err:'+err)
       this.props.notify('ERROR : Create Schedule')
@@ -254,7 +254,7 @@ class CreatePage extends React.Component {
     })
   }
   handleChangeProjectNum = (event, value) => this.setState({projectNum: value})
-  disableStartDate = (date) => (moment(date).isBefore(moment()))
+  disableStartDate = (date) => (moment(date).isBefore(moment().add(-1, 'days')))
   disableEndDate = (date) => (moment(date).isBefore(moment(this.state.startDate)) || moment(date).isAfter(moment(this.state.startDate).add(1, 'month')))
   imageSelect = (instance, index, image) => {
     console.log( instance, index, image)
@@ -320,7 +320,7 @@ class CreatePage extends React.Component {
       case 1:
         return (
           <div>
-            <ProjectCode 
+            <ProjectCode
               ProjectNum = {this.ChangeProjectNum}
               selectprojectNum = {this.state.selectprojectNum}
             />           
