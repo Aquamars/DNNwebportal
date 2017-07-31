@@ -14,6 +14,8 @@ import HoverDiv from './HoverDiv'
 import DetailModal from './DetailModal'
 import ExpandTransition from 'material-ui/internal/ExpandTransition'
 import moment from 'moment'
+import StatusHandler from './StatusHandler'
+
 // API call
 import {getInfo} from '../resource'
 // ICON
@@ -80,29 +82,13 @@ class ReviewTable extends Component {
 	    event.preventDefault()
 	    this.getData()
 	    // setTimeout(()=>this.setState({loading: false,}), 1000)
-	}	
-
-	setStatus = (status) => {
-		let obj;
-		switch(status){
-			case 0:
-				obj = <font color ={orangeA700}><b>{'initial'}</b></font>
-				break
-			case 1:				
-				obj = <font color ={greenA700}><b>{'running'}</b></font>
-				break
-			case 2:
-				obj = <font color ={redA700}><b>{'stop'}</b></font>
-				break
-			default:
-				obj = <font color ={'#000'}><b>{'??????'}</b></font>
-		}
-		return (obj)
 	}
+
 	dummyAsync = (cb) => {
 		console.log('dummyAsync')
 	    this.asyncTimer = setTimeout(cb, 400)
 	}
+	
 	getData = async () => {
 		try{
 			this.setState({
@@ -136,8 +122,21 @@ class ReviewTable extends Component {
 			<div>
 			{ !switchCreatePage ?
 			<Card>		
-			  <CardActions style={styles.actions}>
+			  <CardActions style={styles.actions}>			  	
 				<FlatButton
+		          label={t('common:create')}
+		          style = {this.state.data.length === 3 ? {color:'grey'} : {color:muiStyle.palette.primary1Color}}
+		          icon={<ContentAdd />}
+		          disabled={this.state.data.length === 3}
+		          onTouchTap={this.SwitchCreatePage}		          		          
+		        />
+				<FlatButton 
+		          label={t('common:refresh')}
+		          style = {{color:muiStyle.palette.primary1Color}}
+		          icon={<NavigationRefresh />}
+		          onTouchTap={this.refresh}
+		        />
+		        <FlatButton
 			      label={t('common:openStorage')}
 			      style = {{color:muiStyle.palette.remind1Color}}
 			      icon={<DeviceStorage />}
@@ -147,19 +146,6 @@ class ReviewTable extends Component {
 			    <ReactTooltip id='storage' place="bottom" effect='solid'>
 		          <span>{t('common:storage')}</span>
 		        </ReactTooltip>
-				<FlatButton 
-		          label={t('common:refresh')}
-		          style = {{color:muiStyle.palette.primary1Color}}
-		          icon={<NavigationRefresh />}
-		          onTouchTap={this.refresh}
-		        />
-		        <FlatButton
-		          label={t('common:create')}
-		          style = {this.state.data.length === 3 ? {color:'grey'} : {color:muiStyle.palette.primary1Color}}
-		          icon={<ContentAdd />}
-		          disabled={this.state.data.length === 3}
-		          onTouchTap={this.SwitchCreatePage}		          		          
-		        />
 			  </CardActions>
 			  <CardTitle title={t('common:reviewTitle')}/>
 			  <ExpandTransition loading={loading} open={true}>
@@ -178,7 +164,7 @@ class ReviewTable extends Component {
 				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:status.status')}</b></TableHeaderColumn>
 				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:image')}</b></TableHeaderColumn>
 				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:account')}</b></TableHeaderColumn>
-				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:project')}</b></TableHeaderColumn>			        
+				        <TableHeaderColumn style={{display:'none'}}><b>{t('common:project')}</b></TableHeaderColumn>			        
 				        <TableHeaderColumn style={{width: '8%'}}></TableHeaderColumn>
 				      </TableRow>
 				    </TableHeader>
@@ -192,13 +178,13 @@ class ReviewTable extends Component {
 				      <TableRowColumn style = {styles.textCenter}>{moment(data.startedAt).format('YYYY-MM-DD')}</TableRowColumn>
 				      <TableRowColumn style = {styles.textCenter}><EditModal notify = {this.props.notify} id={data.id} token={this.props.token} data = {data} refresh={this.getData}/></TableRowColumn>
 				      <TableRowColumn style = {styles.textCenter}>{data.instance.id}</TableRowColumn>
-				      <TableRowColumn style = {styles.textCenter}>{this.setStatus(data.instance.statusId)}</TableRowColumn>
+				      <TableRowColumn style = {styles.textCenter}>{<StatusHandler statusId={data.instance.statusId} />}</TableRowColumn>
 				      <TableRowColumn style = {styles.textCenter}>{data.instance.image.name}</TableRowColumn>			      
 				      <TableRowColumn style = {styles.textCenter}>
 				      	<HoverDiv account={data.instance.username} password={data.instance.password}/>
 		              </TableRowColumn>
-		              <TableRowColumn style = {styles.textCenter}>{data.projectCode}</TableRowColumn>
-				      <TableRowColumn style={{width: '8%'}}><DeleteModal data = {data} id={data.id} refresh={this.getData} token={this.props.token}/></TableRowColumn>
+		              <TableRowColumn style={{display:'none'}}>{data.projectCode}</TableRowColumn>
+				      <TableRowColumn style={{width: '8%'}}><DeleteModal data = {data} id={data.id} notify = {this.props.notify} refresh={this.getData} token={this.props.token}/></TableRowColumn>
 				    </TableRow>
 				  	))}
 				  	</TableBody>
