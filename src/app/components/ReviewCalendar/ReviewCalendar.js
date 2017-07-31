@@ -14,7 +14,7 @@ import { translate, Interpolate } from 'react-i18next'
 import i18n from '../../utils/i18n'
 // API call
 import axios from 'axios'
-import {API_URL, API_GetCalendar} from '../../resource'
+import {API_GetCalendar} from '../../resource'
 class ReviewCalendar extends React.Component {
   static propTypes = {
     defualtLoading: React.PropTypes.bool,    
@@ -94,6 +94,7 @@ class ReviewCalendar extends React.Component {
       const startDate = this.props.startDate
       const endDate = this.props.endDate
       // let dateStart = moment(this.props.startDate)
+      console.log(currentDate,startDate,endDate)
       if(moment(currentDate).isBetween(startDate,endDate)){
         let dateStart = moment(startDate)
         while (moment(currentDate) > dateStart) {
@@ -115,6 +116,12 @@ class ReviewCalendar extends React.Component {
         let dateStart = moment(startDate)
         while (moment(endDate) >= dateStart) {
           executed.push(dateStart.format('YYYY-MM-DD'))
+          dateStart.add(1,'days')
+        }
+      }else if(moment(currentDate).isSame(startDate)){
+        let dateStart = moment(startDate).add(1,'days')
+        while (moment(endDate) >= dateStart) {
+          avil1.push(dateStart.format('YYYY-MM-DD'))
           dateStart.add(1,'days')
         }
       }
