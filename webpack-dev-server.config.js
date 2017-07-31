@@ -29,6 +29,7 @@ const config = {
     inline: true,
     port: 8080, // Port Number
     host: '140.96.29.153', // Change to '0.0.0.0' for external facing server
+    // host: '0.0.0.0',
   },
   devtool: 'eval',
   output: {
