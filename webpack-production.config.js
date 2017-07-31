@@ -3,6 +3,10 @@ const path = require('path');
 const buildPath = path.resolve(__dirname, 'build');
 const nodeModulesPath = path.resolve(__dirname, 'node_modules');
 const TransferWebpackPlugin = require('transfer-webpack-plugin');
+const CompressionPlugin = require("compression-webpack-plugin");
+const HappyPack = require('happypack');
+const os = require('os');
+const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length })
 
 const config = {
   entry: ['babel-polyfill',path.join(__dirname, '/src/app/app.js')],
@@ -43,6 +47,40 @@ const config = {
     ], path.resolve(__dirname, 'src')),
     // Ingnore /moment/locale 
     new webpack.IgnorePlugin(/\.\/locale$/),
+    // using gzip
+    new CompressionPlugin({
+        asset: "[path].gz[query]",
+        algorithm: "gzip",
+        test: /\.(js|html)$/,
+        threshold: 10240,
+        minRatio: 0.8
+    }),
+    // transform multiple files in parallel
+    new HappyPack({
+      id: 'jsHappy',
+      threadPool: happyThreadPool,
+      loaders: [{
+        path: 'babel-loader',
+        query: {
+          cacheDirectory: '.webpack_cache',
+          presets: [
+            'es2015',
+            'react',
+            'stage-0'
+          ],
+          plugins: ["transform-async-to-generator"]
+        }
+      }]
+    }),
+    new HappyPack({
+      id: 'styleHappy',
+      threadPool: happyThreadPool,
+      loaders: ["style-loader","css-loader","less-loader","url-loader"]
+    }),
+    new webpack.DllReferencePlugin({
+      context: '.',
+      manifest: buildPath+"/bundle.manifest.json",
+    }),
   ],
   module: {
     rules: [
