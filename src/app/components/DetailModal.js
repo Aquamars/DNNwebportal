@@ -74,7 +74,7 @@ class DetailModal extends React.Component {
 	  const optionsStyle = {
 	      marginRight: 'auto',
 	  }
-	  const textCenter = { textAlign:'center'}
+	  const textCenter = { textAlign:'center'}	  
 	  return (
 	  	<div>
         <FlatButton
@@ -87,7 +87,7 @@ class DetailModal extends React.Component {
           <span>{t('common:detail')}</span>
         </ReactTooltip>
         <Dialog
-          title={<p><b>{this.props.data.instance.id}</b>{showStatus &&<span> - {<StatusHandler statusId={this.props.data.instance.statusId} />}</span>}</p>}
+          title={<div><b>{this.props.data.instance.id}</b>{showStatus &&<span>{<StatusHandler statusId={this.props.data.instance.statusId} />}</span>}</div>}
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
