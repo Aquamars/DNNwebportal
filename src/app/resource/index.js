@@ -2,23 +2,23 @@
 import axios from 'axios'
 
 // export const DOMAIN = 'http://tarsanad.ddns.net'
-// export const PORT = '9527'
+export const PORT = ':80'
 // export const PATH = 'web'
 // export const API_URL = DOMAIN+':'+PORT+'/'+PATH+'/'
 export const DOMAIN = 'http://54.249.32.121'
-export const API_SIGNIN = DOMAIN + '/user/signin'
-export const PATH = 'user/signin'
-export const API_URL = DOMAIN + '/'+PATH
-export const API_CreateSchedule = DOMAIN + '/user/schedule/'
-export const API_CheckInstance = DOMAIN + '/machine/remain'
-export const API_GetCalendar = DOMAIN + '/machine/calendar/'
-export const API_GetInfo = DOMAIN + '/user/schedule'
-export const API_DeleteSchedule = DOMAIN + '/user/schedule/'
-export const API_GetExtDate = DOMAIN + '/user/schedule/'
-export const API_PutExtDate = DOMAIN + '/user/schedule/'
-export const API_GetImage = DOMAIN + '/image/'
-export const API_GetAll = DOMAIN + '/schedule'
-export const API_GetMachine = DOMAIN + '/machine/'
+// export const PATH = 'user/signin'
+export const API_URL = DOMAIN + PORT
+export const API_SIGNIN = API_URL + '/user/signin'
+export const API_CreateSchedule = API_URL + '/user/schedule/'
+export const API_CheckInstance = API_URL + '/machine/remain'
+export const API_GetCalendar = API_URL + '/machine/calendar/'
+export const API_GetInfo = API_URL + '/user/schedule'
+export const API_DeleteSchedule = API_URL + '/user/schedule/'
+export const API_GetExtDate = API_URL + '/user/schedule/'
+export const API_PutExtDate = API_URL + '/user/schedule/'
+export const API_GetImage = API_URL + '/image/'
+export const API_GetAll = API_URL + '/schedule'
+export const API_GetMachine = API_URL + '/machine/'
 // fake data
 export const DATA = [
 {startTime:'2017-01-02',endTime:'2017-05-02', instance:'eeny', status:'running', image:'c2c3152907b5', project:'G352BQ2100', account:'information', password:'research', dataSet:false, dataSetPath:'', dataSetId:'', dataSetPass:''},
@@ -160,11 +160,12 @@ function readFile (orgProject){
       header: true,
       complete: function(results) {
         data = results.data
-        let projectAryAll = []
+        let projectAryAll = []        
         orgProject.map((project, index)=>{
           const dep = project.unit.split('-')
           let temp = filterProject(data, dep[0])
-          let projectAry = []          
+          let projectAry = []
+          // console.log(temp)
           temp.map(function(obj){
             let saveObj = {}
             saveObj.label = obj.pjCode +" "+ obj.host +" "+ obj.pjName
@@ -1075,6 +1076,6 @@ export const getschedule = async (years) => {
       data[key] = sheduleData.data.length
     }        
   }
-  console.log(data)
+  // console.log(data)
   return data
 }
