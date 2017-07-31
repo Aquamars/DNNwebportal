@@ -77,10 +77,10 @@ const config = {
       threadPool: happyThreadPool,
       loaders: ["style-loader","css-loader","less-loader","url-loader"]
     }),
-    new webpack.DllReferencePlugin({
-      context: '.',
-      manifest: buildPath+"/bundle.manifest.json",
-    }),
+    // new webpack.DllReferencePlugin({
+    //   context: '.',
+    //   manifest: buildPath+"/bundle.manifest.json",
+    // }),
   ],
   module: {
     rules: [
