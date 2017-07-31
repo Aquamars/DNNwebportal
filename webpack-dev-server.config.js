@@ -7,7 +7,7 @@ const CompressionPlugin = require("compression-webpack-plugin");
 const HappyPack = require('happypack');
 const os = require('os');
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length })
-
+console.log('buildPath:' + buildPath)
 const config = {
   // context: path.join(__dirname, '/src/app/app.js'),
   // Entry points to the project
@@ -28,7 +28,7 @@ const config = {
     hot: true, // Live-reload
     inline: true,
     port: 3000, // Port Number
-    host: '0.0.0.0', // Change to '0.0.0.0' for external facing server
+    host: '140.96.29.153', // Change to '0.0.0.0' for external facing server
   },
   devtool: 'eval',
   output: {
