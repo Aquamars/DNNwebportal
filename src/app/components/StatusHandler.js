@@ -16,31 +16,33 @@ import i18n from '../utils/i18n'
 class StatusHandler extends Component {
 
 	setIncetanceStatus = (status) => {
+		const {t} = this.props
 		let obj;
+		console.log('StatusHandler:'+status)
 		switch(status){
 			case 0:
-				obj = <font color ={yellow900}><b>{'initial'}</b></font>
+				obj = <font color ={yellow900}><b>{t('common:status.initial')}</b></font>
 				break
 			case 1:				
-				obj = <font color ={amber900}><b>{'waiting'}</b></font>
+				obj = <font color ={amber900}><b>{t('common:status.waiting')}</b></font>
 				break
 			case 2:
-				obj = <font color ={green700}><b>{'loading'}</b></font>
+				obj = <font color ={green700}><b>{t('common:status.loading')}</b></font>
 				break
 			case 3:
-				obj = <font color ={greenA700}><b>{'running'}</b></font>
+				obj = <font color ={greenA700}><b>{t('common:status.running')}</b></font>
 				break
 			case 4:
-				obj = <font color ={deepOrangeA400}><b>{'deleting'}</b></font>
+				obj = <font color ={deepOrangeA400}><b>{t('common:status.deleting')}</b></font>
 				break
 			case 5:
-				obj = <font color ={deepOrangeA700}><b>{'deleted'}</b></font>
+				obj = <font color ={deepOrangeA700}><b>{t('common:status.deleted')}</b></font>
 				break
 			case 6:
-				obj = <font color ={blue800}><b>{'canceled'}</b></font>
+				obj = <font color ={blue800}><b>{t('common:status.canceled')}</b></font>
 				break
 			case 7:
-				obj = <font color ={redA700}><b>{'error'}</b></font>
+				obj = <font color ={redA700}><b>{t('common:status.error')}</b></font>
 				break
 			default:
 				obj = <font color ={'#000'}><b>{'??????'}</b></font>
