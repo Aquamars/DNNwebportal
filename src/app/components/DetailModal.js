@@ -7,6 +7,7 @@ import {List, ListItem} from 'material-ui/List'
 import {Tab, Tabs} from 'material-ui'
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table'
 import moment from 'moment'
+import StatusHandler from './StatusHandler'
 import HoverDiv from './HoverDiv'
 import ReviewCalendar from './ReviewCalendar/ReviewCalendar'
 // theme
@@ -86,7 +87,7 @@ class DetailModal extends React.Component {
           <span>{t('common:detail')}</span>
         </ReactTooltip>
         <Dialog
-          title={<p><b>{this.props.data.instance.id}</b>{showStatus &&<span> - {this.setStatus(this.props.data.instance.statusId)}</span>}</p>}
+          title={<p><b>{this.props.data.instance.id}</b>{showStatus &&<span> - {<StatusHandler statusId={this.props.data.instance.statusId} />}</span>}</p>}
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
