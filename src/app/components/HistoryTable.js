@@ -59,6 +59,7 @@ class HistoryTable extends Component {
 	      switchCreatePage: false,
 	      singleInfo:{},
 	      expanded: false,
+	      messages : []
 	    }
 	}
 
@@ -112,11 +113,12 @@ class HistoryTable extends Component {
 		this.switchPage()
 	}
 
+
 	render(){
 		const {t} = this.props
 		const {switchPage, loading} = this.state		
 		return (
-		  <div>	        
+		  <div>		  	
 		    <IconButton 
 		      tooltip={t('common:history.history')}
 		      onTouchTap={this.switchPage}
@@ -142,7 +144,7 @@ class HistoryTable extends Component {
 			        <TableHeaderColumn style = {styles.textCenter}>{t('common:instanceID')}</TableHeaderColumn>			        
 			        <TableHeaderColumn style = {styles.textCenter}>{t('common:image')}</TableHeaderColumn>
 			        <TableHeaderColumn style = {styles.textCenter}>{t('common:account')}</TableHeaderColumn>
-			        <TableHeaderColumn style = {styles.textCenter}>{t('common:project')}</TableHeaderColumn>			        
+			        <TableHeaderColumn style={{display:'none'}}>{t('common:project')}</TableHeaderColumn>			        
 			      </TableRow>
 			    </TableHeader>
 			    <TableBody
@@ -159,7 +161,7 @@ class HistoryTable extends Component {
 			      <TableRowColumn style = {styles.textCenter}>
 			      	<HoverDiv account={data.instance.username} password={data.instance.password}/>
 	              </TableRowColumn>
-	              <TableRowColumn style = {styles.textCenter}>{data.projectCode}</TableRowColumn>			      
+	              <TableRowColumn style={{display:'none'}}>{data.projectCode}</TableRowColumn>			      
 			    </TableRow>
 			  	))}
 			  	</TableBody>
