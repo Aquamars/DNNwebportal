@@ -65,12 +65,14 @@ class DeleteModal extends React.Component {
           }))
         }
         return response.json()
-      })
-      .then((data)=>{
+      }).then((data)=>{
         console.log('data:'+data)       
       }).catch((err)=>{
         console.log('err:'+err)
         this.props.notify('ERROR : Delete Schedule')
+        
+        this.setState({open: false, comfirm: false})
+        this.props.refresh()
       })
     }else{
       console.log('refresh')
