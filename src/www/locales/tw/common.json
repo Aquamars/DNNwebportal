@@ -17,7 +17,13 @@
         "status": "狀態",
         "initial": "初始化",
         "running": "運作中",
-        "stop": "停止"
+        "stop": "停止",
+        "waiting":"等待中",
+        "loading":"載入中",
+        "deleting":"刪除中",
+        "deleted":"已刪除",
+        "canceled":"已取消",
+        "error":"錯誤"
     },
     "image": "Image",
     "imageDesc": "Image 內容描述",

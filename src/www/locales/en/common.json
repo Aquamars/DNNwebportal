@@ -17,7 +17,13 @@
         "status": "Status",
         "initial": "Initial",
         "running": "Running",
-        "stop": "Stop"
+        "stop": "Stop",
+        "waiting":"Waiting",
+        "loading":"Loading",
+        "deleting":"Deleting",
+        "deleted":"Deleted",
+        "canceled":"Canceled",
+        "error":"Error"
     },
     "image": "Image",
     "imageDesc": "Image description",
