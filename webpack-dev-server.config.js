@@ -27,7 +27,7 @@ const config = {
   
     hot: true, // Live-reload
     inline: true,
-    port: 3000, // Port Number
+    port: 8080, // Port Number
     host: '140.96.29.153', // Change to '0.0.0.0' for external facing server
   },
   devtool: 'eval',
