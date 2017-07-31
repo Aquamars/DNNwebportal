@@ -26,11 +26,11 @@ class FinishPage extends React.Component {
             nestedItems={[
               <ListItem
                 primaryText={<span><b>{t('common:ip')}</b></span>}
-                secondaryText={this.props.data.instance.ip}
+                secondaryText={t('common:afterRunning')}
                />,
               <ListItem
                 primaryText={<span><b>{t('common:port')}</b></span>}
-                secondaryText={this.props.data.instance.port}
+                secondaryText={t('common:afterRunning')}
               />,
               <ListItem
                 primaryText={<span><b>{t('common:account')}</b></span>}
@@ -44,6 +44,7 @@ class FinishPage extends React.Component {
             initiallyOpen={true}            
           />
           <ListItem
+            style={{display:'none'}}
             primaryText={<span><b>{t('common:project')} </b></span>}
             secondaryText={<p><b>{this.props.data.projectCode}</b></p>}
           />

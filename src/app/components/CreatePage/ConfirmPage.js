@@ -49,6 +49,7 @@ class ConfirmPage extends React.Component {
           />
           <Divider />
           <ListItem
+            style={{display:'none'}}
             primaryText={<b>{t('common:project')}</b>}
             secondaryText={projectNum}
           />

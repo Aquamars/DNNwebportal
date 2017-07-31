@@ -73,9 +73,9 @@ class ProjectCode extends React.Component {
   }
 	render(){
 		const { value, suggestions } = this.state
-    const {t} = this.props 
+    const {t} = this.props    
 		return (
-		  <div>
+		  <div style={{display:'none'}}>
         <div style={{display:'inline-block'}}>
         <SelectField
           floatingLabelText={t('common:department')}
