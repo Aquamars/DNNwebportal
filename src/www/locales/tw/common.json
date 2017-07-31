@@ -86,6 +86,7 @@
     "deletedSuccess":"移除成功 !",
     "ip":"網際協定位址",
     "port":"通訊埠",
+    "afterRunning":"機器啟動後將會提供",
     "reviewTitle": "Instance 資訊",
     "department":"單位",
     "instanceEmpty":"或許該試試十字的按鈕 ?",

@@ -86,6 +86,7 @@
     "deletedSuccess":"Deleted Success !",
     "ip":"Internet Protocol Address",
     "port":"Port",
+    "afterRunning":"Will offer after machine running.",
     "reviewTitle": "Instance information",
     "department":"Department",
     "instanceEmpty":"Mybe try the cross button ?",
