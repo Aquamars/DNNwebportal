@@ -13,6 +13,7 @@
     "endDate": "結束日期",
     "instance": "Instance",
     "instanceID": "Instance ID",
+    "scheduleID": "Schedule ID",
     "status": {
         "status": "狀態",
         "initial": "初始化",
@@ -27,6 +28,7 @@
     },
     "image": "Image",
     "imageDesc": "Image 內容描述",
+    "machineDesc": "Machine 內容描述",
     "account": "帳密",
     "project": "計畫代號",
     "createStep": {
@@ -62,6 +64,7 @@
     "backReview": "返回列表",
     "InstanceNum": "Instance數量",
     "instanceImage": "使用的 Image",
+    "instanceMachine": "使用的 Machine",
     "interval": "區間",
     "days": "天",
     "dateRange": "日期範圍",

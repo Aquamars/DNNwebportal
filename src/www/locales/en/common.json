@@ -13,6 +13,7 @@
     "endDate": "EndDate",
     "instance": "Instance",
     "instanceID": "Instance ID",
+    "scheduleID": "Schedule ID",
     "status": {
         "status": "Status",
         "initial": "Initial",
@@ -27,6 +28,7 @@
     },
     "image": "Image",
     "imageDesc": "Image description",
+    "machineDesc": "Machine description",
     "account": "Account",
     "project": "Project Number",
     "createStep": {
@@ -62,6 +64,7 @@
     "backReview": "Back Review",
     "InstanceNum": "Number of Instance",
     "instanceImage": "'s Image",
+    "instanceMachine": "'s Machine",
     "interval": "Interval",
     "days": "days",
     "dateRange": "Date Range",
