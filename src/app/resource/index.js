@@ -1048,7 +1048,7 @@ export const getInfo = async (token, mode) => {
   return await axios.get(
     API_GetInfo,
     {
-      headers: {'X-Access-Token': token, 'Accept': 'application/json'},
+      headers: {'X-Access-Token': token, 'Accepts': 'application/json'},
       params: { mode: mode }
     }
   ).then((res)=>(res)).catch((err)=>(err))
@@ -1063,7 +1063,7 @@ export const getschedule = async (years) => {
       const sheduleData = await axios.get(
         API_GetAll,
         {
-          headers: {'Accept': 'application/json'},
+          headers: {'Accepts': 'application/json'},
           params: { start:key+'-1', end:key+'-31'  }
         }
       ).then((res)=>(res)).catch((err)=>(err))
@@ -1072,7 +1072,7 @@ export const getschedule = async (years) => {
       const sheduleData = await axios.get(
         API_GetAll,
         {
-          headers: {'Accept': 'application/json'},
+          headers: {'Accepts': 'application/json'},
           params: { start:key, end:years+'-'+(i+1)  }
         }
       ).then((res)=>(res)).catch((err)=>(err))

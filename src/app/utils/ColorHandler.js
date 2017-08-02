@@ -14,8 +14,6 @@ const colors = [
       '#673AB7',
       '#E91E63'
 
-
-
       // deepOrangeA700,orangeA700,amberA700,yellowA700,limeA700,lightGreenA700,greenA700,tealA700,cyanA700,lightBlueA700,indigoA700,deepPurpleA700,purpleA700,pinkA700,redA700,blueGrey900,brown900
       ]
 
