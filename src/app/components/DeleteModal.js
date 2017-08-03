@@ -30,6 +30,8 @@ class DeleteModal extends React.Component {
         loading: false,
         comfirm: false
       }
+      console.log(this.props.data)
+      console.log(this.props.id)
   }
   handleOpen = () => {
     this.setState({open: true})
@@ -54,6 +56,7 @@ class DeleteModal extends React.Component {
         headers: {
           'x-access-token': this.props.token,
           'Content-Type': 'application/json',
+          'Accepts': 'application/json'
         },       
         // body:data
       }).then((response)=>{
