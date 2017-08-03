@@ -40,8 +40,11 @@ class FinishPage extends React.Component {
           />
           <ListItem
             primaryText={<span><b>{t('common:image')} </b></span>}
-            secondaryText={<p><b>{this.props.data.instance.image.name}</b></p>}
-            initiallyOpen={true}            
+            secondaryText={<p><b>{this.props.data.instance.image.name}</b></p>}            
+          />
+          <ListItem                    
+            primaryText={<b>{t('common:gpuType')}</b>}
+            secondaryText={<p><b>{this.props.data.instance.machine.gpuType}</b></p>}
           />
           <ListItem
             style={{display:'none'}}
