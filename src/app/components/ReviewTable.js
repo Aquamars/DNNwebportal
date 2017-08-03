@@ -118,6 +118,8 @@ class ReviewTable extends Component {
 	render(){
 		const {t} = this.props
 		const {switchCreatePage, loading} = this.state
+		// console.log('ReviewTable')
+		// console.log(this.state.data.map((data, index)=>(data.statusId)))
 		return (
 			<div>
 			{ !switchCreatePage ?
@@ -135,17 +137,7 @@ class ReviewTable extends Component {
 		          style = {{color:muiStyle.palette.primary1Color}}
 		          icon={<NavigationRefresh />}
 		          onTouchTap={this.refresh}
-		        />
-		        <FlatButton
-			      label={t('common:openStorage')}
-			      style = {{color:muiStyle.palette.remind1Color}}
-			      icon={<DeviceStorage />}
-			      href='http://demo.wftpserver.com' target="_blank"
-			      data-tip data-for='storage'
-			    />
-			    <ReactTooltip id='storage' place="bottom" effect='solid'>
-		          <span>{t('common:storage')}</span>
-		        </ReactTooltip>
+		        />		        
 			  </CardActions>
 			  <CardTitle title={t('common:reviewTitle')}/>
 			  <ExpandTransition loading={loading} open={true}>
@@ -160,8 +152,9 @@ class ReviewTable extends Component {
 	    			    <TableHeaderColumn style={{width: '8%'}}></TableHeaderColumn>
 				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:startDate')}</b></TableHeaderColumn>
 				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:endDate')}</b></TableHeaderColumn>
-				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:instanceID')}</b></TableHeaderColumn>
+				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:scheduleID')}</b></TableHeaderColumn>
 				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:status.status')}</b></TableHeaderColumn>
+				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:gpuType')}</b></TableHeaderColumn>
 				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:image')}</b></TableHeaderColumn>
 				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:account')}</b></TableHeaderColumn>
 				        <TableHeaderColumn style={{display:'none'}}><b>{t('common:project')}</b></TableHeaderColumn>			        
@@ -177,8 +170,9 @@ class ReviewTable extends Component {
 				  	  <TableRowColumn style={{width: '8%'}}><DetailModal data = {data}/></TableRowColumn>
 				      <TableRowColumn style = {styles.textCenter}>{moment(data.startedAt).format('YYYY-MM-DD')}</TableRowColumn>
 				      <TableRowColumn style = {styles.textCenter}><EditModal notify = {this.props.notify} id={data.id} token={this.props.token} data = {data} refresh={this.getData}/></TableRowColumn>
-				      <TableRowColumn style = {styles.textCenter}>{data.instance.id}</TableRowColumn>
-				      <TableRowColumn style = {styles.textCenter}>{<StatusHandler statusId={data.instance.statusId} />}</TableRowColumn>
+				      <TableRowColumn style = {styles.textCenter}>{data.id}</TableRowColumn>
+				      <TableRowColumn style = {styles.textCenter}>{<StatusHandler statusId={data.statusId} />}</TableRowColumn>
+				      <TableRowColumn style = {styles.textCenter}>{data.instance.machine.gpuType}</TableRowColumn>			      
 				      <TableRowColumn style = {styles.textCenter}>{data.instance.image.name}</TableRowColumn>			      
 				      <TableRowColumn style = {styles.textCenter}>
 				      	<HoverDiv account={data.instance.username} password={data.instance.password}/>
