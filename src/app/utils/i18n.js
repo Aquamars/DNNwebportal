@@ -16,7 +16,10 @@ i18n
     defaultNS: 'common',
 
     debug: true,
-
+    backend: {      
+      loadPath: './locales/{{lng}}/{{ns}}.json',
+      crossDomain: true
+    },
     // cache: {
     //   enabled: true
     // },
