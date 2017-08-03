@@ -116,7 +116,11 @@ class HistoryTable extends Component {
 
 	render(){
 		const {t} = this.props
-		const {switchPage, loading} = this.state		
+		const {switchPage, loading} = this.state
+		// this.state.data.map((data) => {
+		// 	const date = moment.utc(data.startedAt).format('YYYY-MM-DD')
+		// 	console.log(data.startedAt,date)
+		// })
 		return (
 		  <div>		  	
 		    <IconButton 
@@ -141,7 +145,7 @@ class HistoryTable extends Component {
     			    <TableHeaderColumn style={{width: '8%'}}></TableHeaderColumn>
 			        <TableHeaderColumn style = {styles.textCenter}>{t('common:startDate')}</TableHeaderColumn>
 			        <TableHeaderColumn style = {styles.textCenter}>{t('common:endDate')}</TableHeaderColumn>
-			        <TableHeaderColumn style = {styles.textCenter}>{t('common:instanceID')}</TableHeaderColumn>			        
+			        <TableHeaderColumn style = {styles.textCenter}>{t('common:scheduleID')}</TableHeaderColumn>			        
 			        <TableHeaderColumn style = {styles.textCenter}>{t('common:image')}</TableHeaderColumn>
 			        <TableHeaderColumn style = {styles.textCenter}>{t('common:account')}</TableHeaderColumn>
 			        <TableHeaderColumn style={{display:'none'}}>{t('common:project')}</TableHeaderColumn>			        
@@ -156,7 +160,7 @@ class HistoryTable extends Component {
 			  	  <TableRowColumn style={{width: '8%'}}><DetailModal data = {data} iconColor = {grey500} showStatus={false}/></TableRowColumn>
 			      <TableRowColumn style = {styles.textCenter}>{moment(data.startedAt).format('YYYY-MM-DD')}</TableRowColumn>
 			      <TableRowColumn style = {styles.textCenter}>{moment(data.endedAt).format('YYYY-MM-DD')}</TableRowColumn>
-			      <TableRowColumn style = {styles.textCenter}>{data.instance.id}</TableRowColumn>			      
+			      <TableRowColumn style = {styles.textCenter}>{data.id}</TableRowColumn>			      
 			      <TableRowColumn style = {styles.textCenter}>{data.instance.image.name}</TableRowColumn>			      
 			      <TableRowColumn style = {styles.textCenter}>
 			      	<HoverDiv account={data.instance.username} password={data.instance.password}/>
