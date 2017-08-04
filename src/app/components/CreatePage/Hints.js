@@ -22,8 +22,8 @@ class Hints extends React.Component {
   			    {(this.props.increaseDay > 0 && this.props.increaseDay <= 31) && <span>{'\u00A0'}<TiTick color={greenA700} /> {t('common:interval')} : <font color={green500}>{this.props.increaseDay} {t('common:days')}</font></span>}
             {(this.props.increaseDay <= 0 || this.props.increaseDay > 31) && <span>{'\u00A0'}<TiTimes color={redA700} /> {t('common:interval')} : <font color={redA700}>{this.props.increaseDay} {t('common:days')}</font></span>}
             <br/>
-            {this.props.avalableNumber != 0 && <span>{'\u00A0'}<TiTick color={greenA700} /> {t('common:createStep.avalableInstance')} : <font color={greenA700}><b>{this.props.avalableNumber}</b></font></span>}
-            {this.props.avalableNumber === 0 && <span>{'\u00A0'}<TiTimes color={redA700} /> {t('common:createStep.avalableInstance')} : <font color={redA700}><b>{this.props.avalableNumber} </b>{t('common:noInstance')}</font></span>}
+            {this.props.availableNumber != 0 && <span>{'\u00A0'}<TiTick color={greenA700} /> {t('common:createStep.avalableInstance')} : <font color={greenA700}><b>{this.props.availableNumber}</b></font></span>}
+            {this.props.availableNumber === 0 && <span>{'\u00A0'}<TiTimes color={redA700} /> {t('common:createStep.avalableInstance')} : <font color={redA700}><b>{this.props.availableNumber} </b>{t('common:noInstance')}</font></span>}
             <br/>
             {'\u00A0'}{this.props.currentInstanceNum != 0 && <span><TiInfoLarge color={orangeA700} /> {t('common:createStep.currentInstance')} : <font color={greenA700}><b>{this.props.currentInstanceNum}</b></font></span>}            
           </font>
