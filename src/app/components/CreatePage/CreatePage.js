@@ -1,6 +1,7 @@
 import React from 'react'
 import { Step, Stepper, StepLabel} from 'material-ui/Stepper'
 import { Card, CardHeader,CardMedia, CardTitle, CardText, CardActions } from 'material-ui/Card'
+import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table'
 import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
 import ExpandTransition from 'material-ui/internal/ExpandTransition'
@@ -22,7 +23,7 @@ import FinishPage from './FinishPage'
 import ProjectCode from './ProjectCode'
 // API
 import axios from 'axios'
-import {API_CreateSchedule, API_CheckInstance, API_GetImage} from '../../resource'
+import {API_GetMachine, API_CreateSchedule, API_CheckInstance, API_GetImage} from '../../resource'
 //ICON
 import ImageViewComfy from 'material-ui/svg-icons/image/view-comfy'
 import ContentAddCircleOutline from 'material-ui/svg-icons/content/add-circle-outline'
@@ -69,10 +70,11 @@ class CreatePage extends React.Component {
       endDate: null,
       increaseDay: 0,
       instanceNum: 1,
-      queryNumber: 0,
+      queryNumber: 0,           // number of avilable machines
       loadingCreate:false,
       createdRespData: {},
-      avalableNumber: [],
+      availableNumber: [],      // arrary of avilable instances
+      availableMachines:[],     // arrary of avilable machines
       instanceArr: [{ instance: 0, image: 0, imageDesc:''}],
       imageArr: ['Cowboy Bebop','Trigun','Baccano','Chobits','Lupin the third'],
     }
@@ -121,7 +123,8 @@ class CreatePage extends React.Component {
         body:JSON.stringify({
           start: moment(this.state.startDate).format('YYYY-MM-DD'),
           end:moment(this.state.endDate).format('YYYY-MM-DD'),
-          image_id: this.state.imageArr[this.state.instanceArr[0].image].id
+          image_id: this.state.imageArr[this.state.instanceArr[0].image].id,
+          machineId: this.state.instanceArr[0].machineObj.id
         })
         // body:data
     }).then((response)=>{
@@ -181,9 +184,12 @@ class CreatePage extends React.Component {
     let arr = []
     for(let i = 0; i < value; i++){
       const obj = { 
-        instance: this.state.avalableNumber[i].instance, 
+        instance: this.state.availableNumber[i].instance, 
         image: 0, 
-        imageDesc:this.state.imageArr[0].description}
+        imageDesc:this.state.imageArr[0].description,
+        machine: 0,
+        machineObj:this.state.availableMachines[0]
+      }
       arr.push(obj)
     } 
     this.setState({
@@ -211,10 +217,23 @@ class CreatePage extends React.Component {
     })
     this.checkInstanceRemain()
   }
-  checkInstanceRemain = () => {
+  checkInstanceRemain = async () => {
     console.log('checkInstanceRemain')
     const {startDate, endDate} = this.state
-    axios.get(
+
+    const machines = await axios.get(
+      API_GetMachine,
+      {
+        headers: {'Accept': 'application/json'},
+      }
+    ).then((result) => (result.data.machines)
+    ).catch((err)=>{
+      console.log(err)
+      console.log(err.response.data.message)      
+      this.props.notify(err.response.data.message)
+    })
+
+    const avilMachine = await axios.get(
       API_CheckInstance,
       {
         headers: {'Accept': 'application/json'},
@@ -223,13 +242,12 @@ class CreatePage extends React.Component {
           start: moment(startDate).format('YYYY-MM-DD')
         }
       }
-    )
-    .then((result)=>{ 
+    ).then((result)=>{ 
       let avalableNum = []
       let number
       console.log(result.data)
-      if(result.data.avalableNumber <= (3 - this.props.currentInstanceNum)){
-        number = result.data.avalableNumber
+      if(result.data.availableNumber <= (3 - this.props.currentInstanceNum)){
+        number = result.data.availableNumber
       }else{
         number = 3 - this.props.currentInstanceNum
       }
@@ -238,19 +256,37 @@ class CreatePage extends React.Component {
         avalableNum.push(obj)
       }
       this.setState({
-        queryNumber: result.data.avalableNumber,
+        queryNumber: result.data.availableNumber,
         submitting: false,
-        avalableNumber: avalableNum,
-        instanceArr:[{ instance: result.data.machines[0], image: 0, imageDesc: this.state.imageArr[0].description}]
+        availableNumber: avalableNum,
+        instanceArr:[{ 
+          instance: result.data.machines[0],
+          image: 0, 
+          imageDesc: this.state.imageArr[0].description,
+          machine: 0,
+          machineObj: machines[0]
+        }]
       })
       console.log(
-        'queryNumber',result.data.avalableNumber, 
-        'avalableNumber',avalableNum.length,
+        'queryNumber',result.data.availableNumber, 
+        'availableNumber',avalableNum.length,
         'currentInstanceNum',this.props.currentInstanceNum)
+      return result.data.machines
     }).catch((err)=>{
       console.log(err)
       console.log(err.response.data.message)      
       this.props.notify(err.response.data.message)
+    })
+
+    
+    // console.log(avilMachine)
+    // console.log(machines)
+    const availableMachines = machines.filter((obj)=>{
+      return (avilMachine.find((res) => res === obj.id))
+    })
+    console.log(availableMachines)
+    this.setState({
+      availableMachines : availableMachines
     })
   }
   handleChangeProjectNum = (event, value) => this.setState({projectNum: value})
@@ -268,12 +304,99 @@ class CreatePage extends React.Component {
         instanceArr: instanceArr
     }) 
   }
+  machineSelect = (instanceIndex, index, machineIndex) => {
+    console.log( instanceIndex, index, machineIndex)
+    console.log(this.state.instanceArr)
+    const availableMachines = this.state.availableMachines
+    let instanceArr = this.state.instanceArr
+    console.log(instanceArr)
+    
+    instanceArr[instanceIndex].machine = machineIndex
+    instanceArr[instanceIndex].machineObj = availableMachines[machineIndex]
+    this.setState({
+        instanceArr: instanceArr
+    }) 
+  }
   ChangeProjectNum = (value, selectValue) => {
     this.setState({
       projectNum: value,
       selectprojectNum: selectValue
     })
   }
+  renderSelectImage = (instance, index) => {
+    const {t} = this.props
+    return (
+      <div>                
+        <SelectField
+          key = {instance.instance}
+          floatingLabelText={"Instance "+index+" "+t('common:instanceImage')}
+          onChange={this.imageSelect.bind(null, index)}
+          value={instance.image}
+        >
+          {this.state.imageArr.map((image,index)=>(
+            <MenuItem key={image.id} value={index} primaryText={image.name} />
+          ))}
+        </SelectField>
+        <br/>
+        <div>
+          <Card>
+            <CardHeader
+              subtitle={<p>{this.state.imageArr[instance.image].name} - {t('common:imageDesc')}</p>}
+            />
+            <CardText>
+              {instance.imageDesc}
+            </CardText>
+          </Card>
+        </div>                  
+      </div>
+    )
+  }
+  renderSelectMachines = (instance, index) => {
+    const {t} = this.props
+    const textCenter = { textAlign:'center'}
+    console.log(instance.machine)
+    return(
+      <div>                
+        <SelectField
+          key = {instance.instance}
+          floatingLabelText={"Instance "+index+" "+t('common:instanceMachine')}
+          onChange={this.machineSelect.bind(null, index)}
+          value={instance.machine}
+        >
+          {this.state.availableMachines.map((machine,index)=>(
+            <MenuItem key={machine.id} value={index} primaryText={machine.name} />
+          ))}
+        </SelectField>
+        <br/>
+        <div>
+          <Card>
+            <CardText>
+              <Table>
+                <TableHeader
+                  displaySelectAll={false}
+                  adjustForCheckbox={false}
+                >
+                  <TableRow>
+                    <TableHeaderColumn style={textCenter}>{<font color='#000'><b>{'ID'}</b></font>}</TableHeaderColumn>
+                    <TableHeaderColumn style={textCenter}>{<font color='#000'><b>{'GPUType'}</b></font>}</TableHeaderColumn>
+                    <TableHeaderColumn style={textCenter}>{<font color='#000'><b>{'Name'}</b></font>}</TableHeaderColumn>                    
+                  </TableRow>
+                </TableHeader>
+                <TableBody displayRowCheckbox={false}>
+                  <TableRow>
+                    <TableRowColumn style={textCenter}>{<p><b>{instance.machineObj.id}</b></p>}</TableRowColumn>
+                    <TableRowColumn style={textCenter}>{<p><b>{instance.machineObj.gpuType}</b></p>}</TableRowColumn>
+                    <TableRowColumn style={textCenter}>{<p><b>{instance.machineObj.name}</b></p>}</TableRowColumn>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </CardText>
+          </Card>
+        </div>
+      </div> 
+    )
+  }
+
   getStepContent(stepIndex) {
     const {t} = this.props
     const {submitting, loadingCreate} = this.state
@@ -309,7 +432,7 @@ class CreatePage extends React.Component {
               <div style={{display: 'inline-block'}}>
                 <Hints 
                   increaseDay = {this.state.increaseDay}
-                  avalableNumber = {this.state.avalableNumber.length}
+                  availableNumber = {this.state.availableNumber.length}
                   currentInstanceNum = {this.props.currentInstanceNum}
                 />
               </div>
@@ -330,7 +453,7 @@ class CreatePage extends React.Component {
               value={this.state.instanceNum}
               onChange={this.handleInstanceNumChange}
             >
-              {false && this.state.avalableNumber.map((data) => (
+              {false && this.state.availableNumber.map((data) => (
                 <MenuItem key={data.num+1} value={data.num+1} primaryText={data.num+1} />
               ))}
               <MenuItem key={1} value={1} primaryText={1} />
@@ -345,30 +468,10 @@ class CreatePage extends React.Component {
                 />
                 <Divider />
                 <CardText expandable={true}>
-                <div>                
-                  <SelectField
-                    key = {instance.instance}
-                    floatingLabelText={"Instance "+index+" "+t('common:instanceImage')}
-                    onChange={this.imageSelect.bind(null, index)}
-                    value={instance.image}
-                  >
-                    {this.state.imageArr.map((image,index)=>(
-                      <MenuItem key={image.id} value={index} primaryText={image.name} />
-                    ))}
-                  </SelectField>
-                  <br/>
-                  <div>
-                    <Card>
-                      <CardHeader
-                        subtitle={<p>{this.state.imageArr[instance.image].name} - {t('common:imageDesc')}</p>}
-                      />
-                      <CardText>
-                        {instance.imageDesc}
-                      </CardText>
-                    </Card>
-                  </div>
-                </div>                
+                  {this.renderSelectMachines(instance, index)}
+                  {this.renderSelectImage(instance, index)}                                
                 </CardText>
+                }
               </Card>)
             )}
           </div>
@@ -421,7 +524,7 @@ class CreatePage extends React.Component {
     let nextBtnDisable = false
     switch (stepIndex){
       case 0:
-        nextBtnDisable = (this.state.increaseDay <= 0 || this.state.increaseDay > 31 || this.state.endDate === null || this.state.avalableNumber.length === 0)
+        nextBtnDisable = (this.state.increaseDay <= 0 || this.state.increaseDay > 31 || this.state.endDate === null || this.state.availableNumber.length === 0)
         break
       // case 1:
       //   this.state.instanceArr.map((instance)=>{
