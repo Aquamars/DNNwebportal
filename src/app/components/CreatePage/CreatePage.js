@@ -468,7 +468,7 @@ class CreatePage extends React.Component {
                 />
                 <Divider />
                 <CardText expandable={true}>
-                  {this.renderSelectMachines(instance, index)}
+                  {''}
                   {this.renderSelectImage(instance, index)}                                
                 </CardText>
                 }
