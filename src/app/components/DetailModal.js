@@ -22,6 +22,8 @@ import ActionToc from 'material-ui/svg-icons/action/toc'
 import { green500, orange500, greenA700, redA700, orangeA700 } from 'material-ui/styles/colors'
 import {muiStyle, muiTheme} from '../myTheme'
 
+const textCenter = { textAlign:'center'}
+
 class DetailModal extends React.Component {
 	static propTypes = {
         iconColor: React.PropTypes.string,
@@ -52,12 +54,113 @@ class DetailModal extends React.Component {
 	handleClose = () => {
 	  this.setState({open: false});
 	}
+
+	renderTabOne = () => {
+		const {t} = this.props
+		return(
+			<div>
+			    <List>
+		          <ListItem
+		            primaryText={<b>{t('common:instanceID')}</b>}
+		            secondaryText={<p><b>{this.props.data.instance.id}</b></p>}
+		            initiallyOpen={true}
+		            nestedItems={[
+		             <CopyToClipboard text={this.props.data.instance.ip}>
+			         	<ListItem 
+			            	primaryText={<span><b>{t('common:ip')}</b></span>}
+			            	secondaryText={this.props.data.instance.ip}
+			         	/>
+			         </CopyToClipboard>,
+			         <CopyToClipboard text={this.props.data.instance.port}>
+			          	<ListItem
+			           		primaryText={<span><b>{t('common:port')}</b></span>}
+			            	secondaryText={this.props.data.instance.port}
+			          	/>
+			         </CopyToClipboard>,
+		            	<ListItem
+			           		primaryText={<span><b>{t('common:account')}</b></span>}
+			           		secondaryText={<HoverDiv account={this.props.data.instance.username} password={this.props.data.instance.password}/>}
+			         	/>
+		            ]}
+		          />
+		          <ListItem
+		            primaryText={<span><b>{t('common:image')} </b></span>}
+		            secondaryText={<p><b>{this.props.data.instance.image.name}</b></p>}
+		            initiallyOpen={true}
+		            nestedItems={(this.props.data.instance.datasetPath!=null) && [
+		                    <ListItem
+		                   primaryText={<b>{t('common:createStep.dataSetPath')}</b>}
+		                   secondaryText={<p><b>{this.props.data.instance.datasetPath}</b></p>}
+		                />,
+		                <ListItem
+		                   primaryText={<b>{t('common:createStep.id')}/{t('common:createStep.password')}</b>}
+		                   secondaryText={<HoverDiv account={this.props.data.instance.datasetUsername} password={this.props.data.instance.datasetPassword}/>}
+		                />                        
+		            ]}
+		          />
+		          <ListItem
+		            primaryText={<span><b>{t('common:gpuType')} </b></span>}
+		            secondaryText={<p><b>{this.props.data.instance.machine.gpuType}</b></p>}
+		          />
+		          <ListItem
+		          	style={{display:'none'}}
+		            primaryText={<span><b>{t('common:project')} </b></span>}
+		            secondaryText={<p><b>{this.props.data.projectCode}</b></p>}
+		          />
+		          <Divider style={{color:green500}}/>
+		        </List>
+		    </div>
+		)
+	}
+
+	renderTabTwo = () => {
+		const {t} = this.props
+		return(
+			<div>
+		       <List>
+		    	    <ListItem
+			            primaryText={<span><b>{t('common:dateRange')} </b></span>}
+			            secondaryText={<p>{moment(this.props.data.startedAt).format('YYYY-MM-DD')} ~ {moment(this.props.data.endedAt).format('YYYY-MM-DD')}</p>}
+			            initiallyOpen={true}			              
+		        	/>
+		        </List>
+		        <Divider />
+		        <Table>
+				    <TableHeader
+				    	displaySelectAll={false}
+		    	 		adjustForCheckbox={false}
+				    >
+			      	<TableRow>
+				        <TableHeaderColumn style={textCenter}>{<font color='#000'><b>{t('common:interval')}</b></font>}</TableHeaderColumn>
+				        <TableHeaderColumn style={textCenter}>{<font color='#000'><b>{t('common:excuteDay')}</b></font>}</TableHeaderColumn>
+				        {this.state.leftDay>0 && <TableHeaderColumn style={textCenter}>{<font color='#000'><b>{t('common:leftDay')} </b></font>}</TableHeaderColumn>}
+			      	</TableRow>
+			    	</TableHeader>
+			    	<TableBody displayRowCheckbox={false}>
+				      <TableRow>
+				        <TableRowColumn style={textCenter}>{<p><b><font>{this.state.increaseDay} {t('common:days')}</font></b></p>}</TableRowColumn>
+				        <TableRowColumn style={textCenter}>{<p><b><font color={green500}>{this.state.excuteDay} {t('common:days')}</font></b></p>}</TableRowColumn>
+				        {this.state.leftDay>0 && <TableRowColumn style={textCenter}> <p><b><font color={green500}>{this.state.leftDay} {t('common:days')}</font></b></p></TableRowColumn>}
+				      </TableRow>
+				    </TableBody>
+				</Table>
+				<Divider />
+		        <ReviewCalendar 
+		        	defualtLoading={false}
+	                startDate = {moment(this.props.data.startedAt).format('YYYY-MM-DD')}
+	                endDate = {moment(this.props.data.endedAt).format('YYYY-MM-DD')}
+	                showDetail = {true}
+		         />
+		    </div>		
+		)
+	}
+
 	render(){
 	  const {t, iconColor, showStatus } = this.props
 	  const optionsStyle = {
 	      marginRight: 'auto',
 	  }
-	  const textCenter = { textAlign:'center'}
+	  
 	  // console.log('Detail:')
 	  // console.log(this.props.data)
 	  return (
@@ -83,97 +186,11 @@ class DetailModal extends React.Component {
           <MuiThemeProvider muiTheme={muiTheme}>
           <Tabs>
 	          <Tab  label={<b>{t('common:instance')} & {t('common:image')}</b>} value="a">
-		        <div>
-			        <List>
-		              <ListItem
-		                primaryText={<b>{t('common:instanceID')}</b>}
-		                secondaryText={<p><b>{this.props.data.instance.id}</b></p>}
-		                initiallyOpen={true}
-		                nestedItems={[
-		                	<CopyToClipboard text={this.props.data.instance.ip}>
-			                	<ListItem 
-					              primaryText={<span><b>{t('common:ip')}</b></span>}
-					              secondaryText={this.props.data.instance.ip}
-					            />
-				            </CopyToClipboard>,
-				            <CopyToClipboard text={this.props.data.instance.port}>
-					            <ListItem
-					              primaryText={<span><b>{t('common:port')}</b></span>}
-					              secondaryText={this.props.data.instance.port}
-					            />
-				            </CopyToClipboard>,
-		                	<ListItem
-				              primaryText={<span><b>{t('common:account')}</b></span>}
-				              secondaryText={<HoverDiv account={this.props.data.instance.username} password={this.props.data.instance.password}/>}
-				            />
-		                ]}
-		              />
-		              <ListItem
-		                primaryText={<span><b>{t('common:image')} </b></span>}
-		                secondaryText={<p><b>{this.props.data.instance.image.name}</b></p>}
-		                initiallyOpen={true}
-		                nestedItems={(this.props.data.instance.datasetPath!=null) && [
-		                    <ListItem
-		                       primaryText={<b>{t('common:createStep.dataSetPath')}</b>}
-		                       secondaryText={<p><b>{this.props.data.instance.datasetPath}</b></p>}
-		                    />,
-		                    <ListItem
-		                       primaryText={<b>{t('common:createStep.id')}/{t('common:createStep.password')}</b>}
-		                       secondaryText={<HoverDiv account={this.props.data.instance.datasetUsername} password={this.props.data.instance.datasetPassword}/>}
-		                    />                        
-		                ]}
-		              />
-		              <ListItem
-		                primaryText={<span><b>{t('common:gpuType')} </b></span>}
-		                secondaryText={<p><b>{this.props.data.instance.machine.gpuType}</b></p>}
-		              />
-		              <ListItem
-		              	style={{display:'none'}}
-		                primaryText={<span><b>{t('common:project')} </b></span>}
-		                secondaryText={<p><b>{this.props.data.projectCode}</b></p>}
-		              />
-		              <Divider style={{color:green500}}/>
-		            </List>
-		        </div>
+		        {this.renderTabOne()}
 		      </Tab>
 		      <Tab label={<b>{t('common:dateRange')}</b>} value="b">
-		        <div>
-			        <List>
-				        <ListItem
-			              primaryText={<span><b>{t('common:dateRange')} </b></span>}
-			              secondaryText={<p>{moment(this.props.data.startedAt).format('YYYY-MM-DD')} ~ {moment(this.props.data.endedAt).format('YYYY-MM-DD')}</p>}
-			              initiallyOpen={true}			              
-			            />
-		            </List>
-		            <Divider />
-		            <Table>
-					    <TableHeader
-					    	displaySelectAll={false}
-	    			 		adjustForCheckbox={false}
-					    >
-					      <TableRow>
-					        <TableHeaderColumn style={textCenter}>{<font color='#000'><b>{t('common:interval')}</b></font>}</TableHeaderColumn>
-					        <TableHeaderColumn style={textCenter}>{<font color='#000'><b>{t('common:excuteDay')}</b></font>}</TableHeaderColumn>
-					        {this.state.leftDay>0 && <TableHeaderColumn style={textCenter}>{<font color='#000'><b>{t('common:leftDay')} </b></font>}</TableHeaderColumn>}
-					      </TableRow>
-					    </TableHeader>
-					    <TableBody displayRowCheckbox={false}>
-					      <TableRow>
-					        <TableRowColumn style={textCenter}>{<p><b><font>{this.state.increaseDay} {t('common:days')}</font></b></p>}</TableRowColumn>
-					        <TableRowColumn style={textCenter}>{<p><b><font color={green500}>{this.state.excuteDay} {t('common:days')}</font></b></p>}</TableRowColumn>
-					        {this.state.leftDay>0 && <TableRowColumn style={textCenter}> <p><b><font color={green500}>{this.state.leftDay} {t('common:days')}</font></b></p></TableRowColumn>}
-					      </TableRow>
-					    </TableBody>
-					</Table>
-					<Divider />
-		            <ReviewCalendar 
-			           defualtLoading={false}
-	                   startDate = {moment(this.props.data.startedAt).format('YYYY-MM-DD')}
-	                   endDate = {moment(this.props.data.endedAt).format('YYYY-MM-DD')}
-	                   showDetail = {true}
-		            />
-		        </div>
-		       </Tab>
+		        {this.renderTabTwo()}
+		      </Tab>
 	      </Tabs>  
 	      </MuiThemeProvider>        
         </div>
