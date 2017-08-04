@@ -24,12 +24,12 @@ const config = {
   // Server Configuration options
   devServer: {
     contentBase: 'src/www', // Relative directory for base of server
-  
+    disableHostCheck: true,
     hot: true, // Live-reload
     inline: true,
     port: 8080, // Port Number
-    host: '140.96.29.153', // Change to '0.0.0.0' for external facing server
-    // host: '0.0.0.0',
+    // host: '140.96.29.77', // Change to '0.0.0.0' for external facing server
+    host: '0.0.0.0',
   },
   devtool: 'eval',
   output: {
@@ -37,6 +37,13 @@ const config = {
     filename: 'app.js',
   },
   plugins: [
+    // new webpack.DllReferencePlugin({
+    //   // An absolute path of your application source code
+    //   context: buildPath,
+    //   // The path to the generated vendor-manifest file
+    //   manifest: require('./build/bundle.manifest.json'),
+    //   // name: './build/bundle.js'
+    // }),
     new webpack.optimize.UglifyJsPlugin({
       beautify: false,
       comments: false,
@@ -92,10 +99,7 @@ const config = {
       threadPool: happyThreadPool,
       loaders: ["style-loader","css-loader","less-loader","url-loader"]
     }),
-    // new webpack.DllReferencePlugin({
-    //   context: '.',
-    //   manifest: buildPath+"/bundle.manifest.json",
-    // }),
+    
   ],
   module: {
     rules: [
