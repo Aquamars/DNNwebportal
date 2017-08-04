@@ -280,16 +280,6 @@ class MainContainer extends Component {
                                primaryText={t('common:menu.create')}
                                onTouchTap={() => this.handleMenuTap(3)}
                               />
-                              <MenuItem
-                               leftIcon={<DeviceStorage />}
-                               primaryText={t('common:menu.storage')}
-                               href='http://140.96.29.153/ABC/index.php' 
-                               target="_blank"
-                               data-tip data-for='storage'
-                              />
-                              <ReactTooltip id='storage' place="bottom" effect='solid'>
-                                <span>{t('common:storage')}</span>
-                              </ReactTooltip>
                             { 
                               localStorage.getItem('itriUser') === 'itri' &&
                               <div>
