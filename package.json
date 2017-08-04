@@ -9,7 +9,8 @@
   "scripts": {
     "start": "webpack-dev-server --config webpack-dev-server.config.js --progress --inline --colors --hot",
     "build": "webpack --config webpack-production.config.js --progress --colors",
-    "test": "jest"
+    "test": "jest",
+    "dll": "webpack -p --progress --config webpack.dll.config.js --colors"
   },
   "jest": {
     "moduleFileExtensions": [
@@ -61,22 +62,24 @@
   "dependencies": {
     "axios": "^0.16.1",
     "chart.js": "^2.6.0",
+    "firebase": "^4.2.0",
     "i18next": "^8.4.2",
     "i18next-browser-languagedetector": "^2.0.0",
     "i18next-xhr-backend": "^1.4.2",
     "image-webpack-loader": "^3.3.1",
     "interact.js": "^1.2.8",
     "material-ui": "^0.17.4",
-    "moment-timezone": "^0.5.13",
     "papaparse": "^4.3.2",
     "postcss": "^5.2.17",
     "rc-progress": "^2.2.1",
-    "react": "^15.4.1",
+    "react": "^15.6.1",
     "react-addons-css-transition-group": "^15.5.2",
     "react-chartjs-2": "^2.1.0",
     "react-chartjs2": "^1.1.2",
+    "react-copy-to-clipboard": "^5.0.0",
     "react-day-picker": "^5.3.0",
     "react-dom": "^15.4.1",
+    "react-ga": "^2.2.0",
     "react-grid-layout": "^0.14.6",
     "react-i18next": "^4.6.1",
     "react-icons": "^2.2.3",
