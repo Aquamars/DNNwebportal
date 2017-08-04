@@ -7,6 +7,7 @@ import {List, ListItem} from 'material-ui/List'
 import {Tab, Tabs} from 'material-ui'
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table'
 import moment from 'moment'
+import CopyToClipboard from 'react-copy-to-clipboard'
 import StatusHandler from './StatusHandler'
 import HoverDiv from './HoverDiv'
 import ReviewCalendar from './ReviewCalendar/ReviewCalendar'
@@ -41,8 +42,7 @@ class DetailModal extends React.Component {
 	      increaseDay: increaseDay,
 	      excuteDay: excuteDay,
 	      leftDay: leftDay
-	    }
-	    console.log('this.props.iconColor',this.props.iconColor)
+	    }	    
 	}
 	
 	handleOpen = () => {
@@ -52,29 +52,14 @@ class DetailModal extends React.Component {
 	handleClose = () => {
 	  this.setState({open: false});
 	}
-	setStatus = (status) => {
-		let obj;
-		switch(status){
-			case 0:
-				obj = <font color ={orangeA700}><b>{'initial'}</b></font>
-				break
-			case 1:				
-				obj = <font color ={greenA700}><b>{'running'}</b></font>
-				break
-			case 2:
-				obj = <font color ={redA700}><b>{'stop'}</b></font>
-				break
-			default:
-				obj = <font color ={'#000'}><b>{'??????'}</b></font>
-		}
-		return (obj)
-	}
 	render(){
 	  const {t, iconColor, showStatus } = this.props
 	  const optionsStyle = {
 	      marginRight: 'auto',
 	  }
-	  const textCenter = { textAlign:'center'}	  
+	  const textCenter = { textAlign:'center'}
+	  // console.log('Detail:')
+	  // console.log(this.props.data)
 	  return (
 	  	<div>
         <FlatButton
@@ -87,7 +72,7 @@ class DetailModal extends React.Component {
           <span>{t('common:detail')}</span>
         </ReactTooltip>
         <Dialog
-          title={<div><b>{this.props.data.instance.id}</b>{showStatus &&<span>{<StatusHandler statusId={this.props.data.instance.statusId} />}</span>}</div>}
+          title={<div><b>{this.props.data.instance.id}</b>{showStatus &&<span>{<StatusHandler statusId={this.props.data.statusId} />}</span>}</div>}
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
@@ -105,14 +90,18 @@ class DetailModal extends React.Component {
 		                secondaryText={<p><b>{this.props.data.instance.id}</b></p>}
 		                initiallyOpen={true}
 		                nestedItems={[
-		                	<ListItem
-				              primaryText={<span><b>{t('common:ip')}</b></span>}
-				              secondaryText={this.props.data.instance.ip}
-				            />,
-				            <ListItem
-				              primaryText={<span><b>{t('common:port')}</b></span>}
-				              secondaryText={this.props.data.instance.port}
-				            />,
+		                	<CopyToClipboard text={this.props.data.instance.ip}>
+			                	<ListItem 
+					              primaryText={<span><b>{t('common:ip')}</b></span>}
+					              secondaryText={this.props.data.instance.ip}
+					            />
+				            </CopyToClipboard>,
+				            <CopyToClipboard text={this.props.data.instance.port}>
+					            <ListItem
+					              primaryText={<span><b>{t('common:port')}</b></span>}
+					              secondaryText={this.props.data.instance.port}
+					            />
+				            </CopyToClipboard>,
 		                	<ListItem
 				              primaryText={<span><b>{t('common:account')}</b></span>}
 				              secondaryText={<HoverDiv account={this.props.data.instance.username} password={this.props.data.instance.password}/>}
@@ -135,6 +124,11 @@ class DetailModal extends React.Component {
 		                ]}
 		              />
 		              <ListItem
+		                primaryText={<span><b>{t('common:gpuType')} </b></span>}
+		                secondaryText={<p><b>{this.props.data.instance.machine.gpuType}</b></p>}
+		              />
+		              <ListItem
+		              	style={{display:'none'}}
 		                primaryText={<span><b>{t('common:project')} </b></span>}
 		                secondaryText={<p><b>{this.props.data.projectCode}</b></p>}
 		              />
