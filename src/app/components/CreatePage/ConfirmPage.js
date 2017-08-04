@@ -43,7 +43,17 @@ class ConfirmPage extends React.Component {
               <ListItem
                 key = {index}
                 primaryText={<b>Instance - {index}</b>}
-                secondaryText={<p>Image - <b>{imageArr[instance.image].name}</b></p>}
+                initiallyOpen={true}
+                nestedItems={[
+                  <ListItem                    
+                    primaryText={<b>Image</b>}
+                    secondaryText={<p><b>{imageArr[instance.image].name}</b></p>}
+                  />,
+                  <ListItem                    
+                    primaryText={<b>{t('common:gpuType')}</b>}
+                    secondaryText={<p><b>{instance.machineObj.gpuType}</b></p>}
+                  />
+                ]}
               />
             ))}
           />
