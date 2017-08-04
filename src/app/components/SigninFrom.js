@@ -14,6 +14,8 @@ import {muiStyle} from '../myTheme'
 
 // ICON
 import LockIcon from 'material-ui/svg-icons/action/lock-outline'
+import itriLogoCHT_W from '../image/itri_CEL_A_W.png'
+import itriLogoENG_W from '../image/itri_EL_A_W.png'
 
 import axios from 'axios'
 import {API_SIGNIN} from '../resource'
@@ -161,7 +163,7 @@ class SigninFrom extends Component {
                 </form>
             </Card>
             <div style={{marginTop:'0.5em'}}>
-              <img src = {t('common:wlogoSrc')} width='200px' />
+              <img src = {itriLogoENG_W} width='200px' />
             </div>
         </div>        
       </div>

@@ -7,16 +7,20 @@ import Drawer from 'material-ui/Drawer'
 import { translate, Interpolate } from 'react-i18next'
 import i18n from '../utils/i18n'
 import EasterEgg from '../image/op.jpg'
+import itriLogoCHT from '../image/itri_CEL_A.png'
+import itriLogoENG from '../image/itri_EL_A.png'
 class Footer extends Component {
-    constructor(props, context) {
-      super(props, context)
-      this.state = {
-        open: false,
-      }
+  constructor(props, context) {
+    super(props, context)
+    this.state = {
+      open: false,
     }
-    handleToggle = () => this.setState({open: this.state.open})
+  }
+
+  handleToggle = () => this.setState({open: this.state.open})
+
 	render(){
-		const {t} = this.props 
+		const {t} = this.props   
 		return (
 			<Paper zDepth={1}>
         <Drawer
@@ -31,11 +35,11 @@ class Footer extends Component {
         </Drawer>
         <BottomNavigation>        
           <BottomNavigationItem
-            icon={<img src={t('common:logoSrc')} />}
-            onTouchTap={this.handleToggle}                              
+            icon={<img src={itriLogoENG} />}
+            onTouchTap={this.handleToggle}
           />
           <LanguageBtn/>          
-        </BottomNavigation>        
+        </BottomNavigation>
       </Paper>
 		)
 	}
