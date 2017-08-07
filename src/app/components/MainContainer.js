@@ -95,7 +95,10 @@ const MenuStyles = {
         transition: 'margin 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms',
     },
 }
-const styleSnackbar = {backgroundColor: '#ff405c'}
+const styleSnackbar = {
+  notifyError:{backgroundColor: '#ff405c'},
+  notifyCopy:{backgroundColor: lightBlue900, textAlign:'center'}
+}
 const prefixedStyles = {}
 const muiTheme = getMuiTheme({userAgent: 'all'})
 
@@ -118,6 +121,7 @@ class MainContainer extends Component {
       content: '',
       notifyOpen: false,
       notifyMsg:'',
+      notifyCopy:false,
       data:''
     }
   }  
@@ -140,10 +144,11 @@ class MainContainer extends Component {
       open: true,
     })
   }
-  handleNotify = (msg) => {
+  handleNotify = (msg, notifyCopy = false) => {
     this.setState({
       notifyOpen: true,
-      notifyMsg: msg
+      notifyMsg: msg,
+      notifyCopy: notifyCopy
     })
     // setTimeout(console.log('handleNotify'), 5400)
   }
@@ -251,11 +256,11 @@ class MainContainer extends Component {
                               }
                               <Snackbar
                                 open = {this.state.notifyOpen}
-                                autoHideDuration = {2500}
+                                autoHideDuration = {this.state.notifyCopy ? 800 : 2500}
                                 message={this.state.notifyMsg}
                                 onRequestClose = {this.closeNotify}
-                                bodyStyle={styleSnackbar}
-                                action={<FlatButton href={'mailto:eNgiNEer@No.oNe.cARe'} style={{color:'white'}}>Tell us</FlatButton>}
+                                bodyStyle={this.state.notifyCopy ? styleSnackbar.notifyCopy : styleSnackbar.notifyError}
+                                action={!this.state.notifyCopy && <FlatButton href={'mailto:eNgiNEer@No.oNe.cARe'} style={{color:'white'}}>Tell us</FlatButton>}
                               />
                             </div>
                             <Paper
