@@ -167,7 +167,7 @@ class ReviewTable extends Component {
 				    	displayRowCheckbox={false}>
 				  	{ this.state.data.map((data, index)=>(
 				  	<TableRow key = {index}>
-				  	  <TableRowColumn style={{width: '8%'}}><DetailModal data = {data}/></TableRowColumn>
+				  	  <TableRowColumn style={{width: '8%'}}><DetailModal data = {data} notify = {this.props.notify}/></TableRowColumn>
 				      <TableRowColumn style = {styles.textCenter}>{moment(data.startedAt).format('YYYY-MM-DD')}</TableRowColumn>
 				      <TableRowColumn style = {styles.textCenter}><EditModal notify = {this.props.notify} id={data.id} token={this.props.token} data = {data} refresh={this.getData}/></TableRowColumn>
 				      <TableRowColumn style = {styles.textCenter}>{data.id}</TableRowColumn>
@@ -175,7 +175,7 @@ class ReviewTable extends Component {
 				      <TableRowColumn style = {styles.textCenter}>{data.instance.machine.gpuType}</TableRowColumn>			      
 				      <TableRowColumn style = {styles.textCenter}>{data.instance.image.name}</TableRowColumn>			      
 				      <TableRowColumn style = {styles.textCenter}>
-				      	<HoverDiv account={data.instance.username} password={data.instance.password}/>
+				      	<HoverDiv account={data.instance.username} password={data.instance.password} notify = {this.props.notify}/>
 		              </TableRowColumn>
 		              <TableRowColumn style={{display:'none'}}>{data.projectCode}</TableRowColumn>
 				      <TableRowColumn style={{width: '8%'}}><DeleteModal data = {data} id={data.id} notify = {this.props.notify} refresh={this.getData} token={this.props.token}/></TableRowColumn>

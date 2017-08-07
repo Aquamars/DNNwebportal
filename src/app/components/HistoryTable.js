@@ -163,7 +163,7 @@ class HistoryTable extends Component {
 			      <TableRowColumn style = {styles.textCenter}>{data.id}</TableRowColumn>			      
 			      <TableRowColumn style = {styles.textCenter}>{data.instance.image.name}</TableRowColumn>			      
 			      <TableRowColumn style = {styles.textCenter}>
-			      	<HoverDiv account={data.instance.username} password={data.instance.password}/>
+			      	<HoverDiv account={data.instance.username} password={data.instance.password} notify = {this.props.notify}/>
 	              </TableRowColumn>
 	              <TableRowColumn style={{display:'none'}}>{data.projectCode}</TableRowColumn>			      
 			    </TableRow>

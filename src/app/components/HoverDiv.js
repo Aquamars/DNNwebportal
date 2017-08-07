@@ -4,6 +4,7 @@ import CopyToClipboard from 'react-copy-to-clipboard'
 // i18n
 import { translate, Interpolate } from 'react-i18next'
 import i18n from '../utils/i18n'
+
 class HoverDiv extends Component {
 	constructor(props) {
 	    super(props)
@@ -22,8 +23,12 @@ class HoverDiv extends Component {
 		})
 	}
 	render(){
+		const {t} = this.props
 		return(
-			<CopyToClipboard text={this.state.hover && this.props.password}>
+			<CopyToClipboard 
+				text={this.state.hover && this.props.password}
+				onCopy = {()=> this.props.notify(t('common:alreadyCopy'),true)}
+			>
 				<div 
 		        onMouseEnter={this.onMouseEnterHandler}
 		        onMouseLeave={this.onMouseLeaveHandler} >

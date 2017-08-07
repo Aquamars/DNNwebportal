@@ -65,13 +65,19 @@ class DetailModal extends React.Component {
 		            secondaryText={<p><b>{this.props.data.instance.id}</b></p>}
 		            initiallyOpen={true}
 		            nestedItems={[
-		             <CopyToClipboard text={this.props.data.instance.ip}>
+		             <CopyToClipboard 
+		             	text={this.props.data.instance.ip}
+		             	onCopy = {()=> this.props.notify(t('common:alreadyCopy'),true)}
+		             >
 			         	<ListItem 
 			            	primaryText={<span><b>{t('common:ip')}</b></span>}
 			            	secondaryText={this.props.data.instance.ip}
 			         	/>
 			         </CopyToClipboard>,
-			         <CopyToClipboard text={this.props.data.instance.port}>
+			         <CopyToClipboard 
+			         	text={this.props.data.instance.port}
+			         	onCopy = {()=> this.props.notify(t('common:alreadyCopy'),true)}
+			         >
 			          	<ListItem
 			           		primaryText={<span><b>{t('common:port')}</b></span>}
 			            	secondaryText={this.props.data.instance.port}
@@ -79,7 +85,13 @@ class DetailModal extends React.Component {
 			         </CopyToClipboard>,
 		            	<ListItem
 			           		primaryText={<span><b>{t('common:account')}</b></span>}
-			           		secondaryText={<HoverDiv account={this.props.data.instance.username} password={this.props.data.instance.password}/>}
+			           		secondaryText={
+			           			<HoverDiv 
+			           				account={this.props.data.instance.username} 
+			           				password={this.props.data.instance.password} 
+			           				notify = {this.props.notify}
+			           			/>
+			           		}
 			         	/>
 		            ]}
 		          />
