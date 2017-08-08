@@ -8,9 +8,10 @@
   },
   "scripts": {
     "start": "webpack-dev-server --config webpack-dev-server.config.js --progress --inline --colors --hot",
-    "build": "webpack --config webpack-production.config.js --progress --colors",
+    "app": "webpack --config webpack-production.config.js --progress --colors",
     "test": "jest",
-    "dll": "webpack -p --progress --config webpack.dll.config.js --colors"
+    "dll": "webpack -p --progress --config webpack.dll.config.js --colors",
+    "build": "npm run dll & npm run app"
   },
   "jest": {
     "moduleFileExtensions": [
