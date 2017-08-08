@@ -77,6 +77,13 @@ const config = {
       threadPool: happyThreadPool,
       loaders: ["style-loader","css-loader","less-loader","url-loader"]
     }),
+    new webpack.DllReferencePlugin({
+      // An absolute path of your application source code
+      context: buildPath,
+      // The path to the generated vendor-manifest file
+      manifest: require(path.join(__dirname, './build/bundle.manifest.json')),
+      // name: './build/bundle.js'
+    }),
     // new webpack.DllReferencePlugin({
     //   context: '.',
     //   manifest: buildPath+"/bundle.manifest.json",
