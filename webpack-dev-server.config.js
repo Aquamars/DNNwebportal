@@ -23,7 +23,8 @@ const config = {
   },
   // Server Configuration options
   devServer: {
-    contentBase: 'src/www', // Relative directory for base of server
+    // contentBase: 'src/www',
+    contentBase: 'build', // Relative directory for base of server
     disableHostCheck: true,
     hot: true, // Live-reload
     inline: true,
@@ -35,15 +36,17 @@ const config = {
   output: {
     path: buildPath, // Path of output file
     filename: 'app.js',
+    library: 'bundle_dll'
   },
   plugins: [
-    // new webpack.DllReferencePlugin({
-    //   // An absolute path of your application source code
-    //   context: buildPath,
-    //   // The path to the generated vendor-manifest file
-    //   manifest: require('./build/bundle.manifest.json'),
-    //   // name: './build/bundle.js'
-    // }),
+
+    new webpack.DllReferencePlugin({
+      // An absolute path of your application source code
+      context: buildPath,
+      // The path to the generated vendor-manifest file
+      manifest: require(path.join(__dirname, './build/bundle.manifest.json')),
+      // name: './build/bundle.js'
+    }),
     new webpack.optimize.UglifyJsPlugin({
       beautify: false,
       comments: false,
