@@ -109,5 +109,6 @@
         "charts":"Charts",
         "machine":"Machines",
         "signOut":"SignOut"
-    }
+    },
+    "alreadyCopy":"Copy to clipboard !"
 }
