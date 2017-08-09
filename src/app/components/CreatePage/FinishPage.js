@@ -35,7 +35,11 @@ class FinishPage extends React.Component {
               />,
               <ListItem
                 primaryText={<span><b>{t('common:account')}</b></span>}
-                secondaryText={<HoverDiv account={this.props.data.instance.username} password={this.props.data.instance.password}/>}
+                secondaryText={this.props.data.instance.username}
+              />,
+              <ListItem
+                primaryText={<span><b>{t('common:password')}</b></span>}
+                secondaryText={this.props.data.instance.password}
               />
             ]}
           />
