@@ -17,6 +17,7 @@ import { Card, CardHeader,CardMedia, CardTitle, CardText, CardActions } from 'ma
 import IconButton from 'material-ui/IconButton'
 import ReviewTable from './ReviewTable'
 import HistoryTable from './HistoryTable'
+import FtpInfoModal from './FtpInfoModal'
 import ChartContainer from './Charts/ChartContainer'
 import Footer from './Footer'
 import CreatePage from './CreatePage/CreatePage'
@@ -234,14 +235,21 @@ class MainContainer extends Component {
         				          onLeftIconButtonTouchTap={this.handleToggle}
                           iconElementRight={
                             <div>
+                              <span style={{display: 'inline-block',verticalAlign: 'super'}}>
+                              <FtpInfoModal notify = {this.handleNotify}/>
+                              </span>
+                              <span style={{display: 'inline-block',verticalAlign: 'sub'}}>
                               <SocialPerson color='white'/>
-                              <span style={{verticalAlign:'super'}}><b><font color='#FDD100'> {this.props.user}</font></b></span>
+                              </span>
+                              <span style={{verticalAlign:'text-bottom'}}><b><font size={3} color='#FDD100'> {this.props.user}</font></b></span>
+                              <span style={{verticalAlign:'sub'}}>
                               <IconButton 
                                 tooltip={t('common:signOut')} 
                                 onTouchTap={() => this.props.SignOut()}>                           
                               >
                                 <ExitIcon color='white'/>
                               </IconButton>
+                              </span>
                             </div>
                           }
         				        />
