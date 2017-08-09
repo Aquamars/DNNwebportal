@@ -63,8 +63,7 @@ class ConfirmPage extends React.Component {
             primaryText={<b>{t('common:project')}</b>}
             secondaryText={projectNum}
           />
-          <Divider />
-        </List>
+        </List>        
       </div>
     )
   }
