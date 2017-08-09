@@ -22,7 +22,8 @@ module.exports = {
           'i18next',
           'i18next-browser-languagedetector',
           'i18next-xhr-backend',
-          'react-virtualized-select'
+          'react-virtualized-select',
+          'crypto-js'
 
         ],
     },
