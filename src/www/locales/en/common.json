@@ -81,7 +81,7 @@
     "excuteDay": "Executed Day",
     "leftDay": "Left Day",
     "openStorage":"Open Storage",
-    "storage":"Open FTP webportal uploading dataset or you can using client FTP such as FileZilla",
+    "storage":"Using client FTP uploading dataset",
     "noInstance":",No Continuously Instance !",
     "history":{
         "history":"History",
@@ -110,5 +110,9 @@
         "machine":"Machines",
         "signOut":"SignOut"
     },
-    "alreadyCopy":"Copy to clipboard !"
+    "alreadyCopy":"Copy to clipboard !",
+    "ftpInfo":"FTP Information",
+    "ftpHost":"Host",
+    "ftpPort":"Port",
+    "ftpProtocol":"Protocol"
 }
