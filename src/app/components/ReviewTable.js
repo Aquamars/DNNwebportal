@@ -15,6 +15,7 @@ import DetailModal from './DetailModal'
 import ExpandTransition from 'material-ui/internal/ExpandTransition'
 import moment from 'moment'
 import StatusHandler from './StatusHandler'
+import CopyToClipboard from 'react-copy-to-clipboard'
 
 // API call
 import {getInfo} from '../resource'
@@ -51,7 +52,8 @@ const styles = {
 		zIndex: 2, 
 		display: 'inline-block', 
 		float: 'right',
-		right: '10px'
+		right: '10px',
+		margin: '0px auto'
 	},
 	textCenter: {
 		textAlign:'center'
@@ -125,19 +127,19 @@ class ReviewTable extends Component {
 			{ !switchCreatePage ?
 			<Card>		
 			  <CardActions style={styles.actions}>			  	
-				<FlatButton
-		          label={t('common:create')}
-		          style = {this.state.data.length === 3 ? {color:'grey'} : {color:muiStyle.palette.primary1Color}}
-		          icon={<ContentAdd />}
-		          disabled={this.state.data.length === 3}
-		          onTouchTap={this.SwitchCreatePage}		          		          
-		        />
-				<FlatButton 
-		          label={t('common:refresh')}
-		          style = {{color:muiStyle.palette.primary1Color}}
-		          icon={<NavigationRefresh />}
-		          onTouchTap={this.refresh}
-		        />		        
+					<FlatButton
+			          label={t('common:create')}
+			          style = {this.state.data.length === 3 ? {color:'grey'} : {color:muiStyle.palette.primary1Color}}
+			          icon={<ContentAdd />}
+			          disabled={this.state.data.length === 3}
+			          onTouchTap={this.SwitchCreatePage}		          		          
+			        />
+					<FlatButton 
+			          label={t('common:refresh')}
+			          style = {{color:muiStyle.palette.primary1Color}}
+			          icon={<NavigationRefresh />}
+			          onTouchTap={this.refresh}
+			        />
 			  </CardActions>
 			  <CardTitle title={t('common:reviewTitle')}/>
 			  <ExpandTransition loading={loading} open={true}>
@@ -156,7 +158,7 @@ class ReviewTable extends Component {
 				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:status.status')}</b></TableHeaderColumn>
 				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:gpuType')}</b></TableHeaderColumn>
 				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:image')}</b></TableHeaderColumn>
-				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:account')}</b></TableHeaderColumn>
+				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:password')}</b></TableHeaderColumn>
 				        <TableHeaderColumn style={{display:'none'}}><b>{t('common:project')}</b></TableHeaderColumn>			        
 				        <TableHeaderColumn style={{width: '8%'}}></TableHeaderColumn>
 				      </TableRow>
@@ -175,7 +177,12 @@ class ReviewTable extends Component {
 				      <TableRowColumn style = {styles.textCenter}>{data.instance.machine.gpuType}</TableRowColumn>			      
 				      <TableRowColumn style = {styles.textCenter}>{data.instance.image.name}</TableRowColumn>			      
 				      <TableRowColumn style = {styles.textCenter}>
-				      	<HoverDiv account={data.instance.username} password={data.instance.password} notify = {this.props.notify}/>
+				      	<CopyToClipboard 
+							text={data.instance.password}
+							onCopy = {()=> this.props.notify(t('common:alreadyCopy'),true)}
+						>
+							<div>{data.instance.password}</div>
+	    				</CopyToClipboard>
 		              </TableRowColumn>
 		              <TableRowColumn style={{display:'none'}}>{data.projectCode}</TableRowColumn>
 				      <TableRowColumn style={{width: '8%'}}><DeleteModal data = {data} id={data.id} notify = {this.props.notify} refresh={this.getData} token={this.props.token}/></TableRowColumn>
