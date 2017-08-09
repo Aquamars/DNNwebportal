@@ -83,16 +83,24 @@ class DetailModal extends React.Component {
 			            	secondaryText={this.props.data.instance.port}
 			          	/>
 			         </CopyToClipboard>,
+			         <CopyToClipboard 
+			         	text={this.props.data.instance.username}
+			         	onCopy = {()=> this.props.notify(t('common:alreadyCopy'),true)}
+			         >
 		            	<ListItem
 			           		primaryText={<span><b>{t('common:account')}</b></span>}
-			           		secondaryText={
-			           			<HoverDiv 
-			           				account={this.props.data.instance.username} 
-			           				password={this.props.data.instance.password} 
-			           				notify = {this.props.notify}
-			           			/>
-			           		}
+			           		secondaryText={this.props.data.instance.username}
 			         	/>
+			         </CopyToClipboard>,
+			         <CopyToClipboard 
+			         	text={this.props.data.instance.password}
+			         	onCopy = {()=> this.props.notify(t('common:alreadyCopy'),true)}
+			         >
+			         	<ListItem
+			           		primaryText={<span><b>{t('common:password')}</b></span>}
+			           		secondaryText={this.props.data.instance.password}
+			         	/>
+			         </CopyToClipboard>
 		            ]}
 		          />
 		          <ListItem
@@ -100,7 +108,7 @@ class DetailModal extends React.Component {
 		            secondaryText={<p><b>{this.props.data.instance.image.name}</b></p>}
 		            initiallyOpen={true}
 		            nestedItems={(this.props.data.instance.datasetPath!=null) && [
-		                    <ListItem
+		                <ListItem
 		                   primaryText={<b>{t('common:createStep.dataSetPath')}</b>}
 		                   secondaryText={<p><b>{this.props.data.instance.datasetPath}</b></p>}
 		                />,
@@ -187,7 +195,7 @@ class DetailModal extends React.Component {
           <span>{t('common:detail')}</span>
         </ReactTooltip>
         <Dialog
-          title={<div><b>{this.props.data.instance.id}</b>{showStatus &&<span>{<StatusHandler statusId={this.props.data.statusId} />}</span>}</div>}
+          title={<div><b>{t('common:scheduleID')}-{this.props.data.id}</b>{showStatus &&<span>{<StatusHandler statusId={this.props.data.statusId} />}</span>}</div>}
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
