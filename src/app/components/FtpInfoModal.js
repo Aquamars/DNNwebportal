@@ -67,7 +67,7 @@ class FtpInfoModal extends React.Component {
 					>
 		            <ListItem
 			            primaryText={<b>{t('common:ftpProtocol')}</b>}
-			            secondaryText={<p><b>{'ftpProtocol'}</b></p>}
+			            secondaryText={<p><b>{'FTP'}</b></p>}
 			            initiallyOpen={true}
 		            />
 		            </CopyToClipboard>
@@ -101,7 +101,7 @@ class FtpInfoModal extends React.Component {
 			<div>
 		        <FlatButton
 		          style = {{color:this.props.iconColor}}
-		          label ={<b>FTP</b>}
+		          label ={<b>Dataset - FTP</b>}
 		          data-tip data-for='storage'
 		          labelPosition="before"
 		          icon={<DeviceStorage />}
