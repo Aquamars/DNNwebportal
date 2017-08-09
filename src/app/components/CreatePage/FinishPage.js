@@ -3,6 +3,7 @@ import Divider from 'material-ui/Divider'
 import {List, ListItem} from 'material-ui/List'
 import moment from 'moment'
 import HoverDiv from '../HoverDiv'
+import FtpInfoModal from '../FtpInfoModal'
 // i18n
 import { translate, Interpolate } from 'react-i18next'
 import i18n from '../../utils/i18n'
@@ -51,7 +52,7 @@ class FinishPage extends React.Component {
             primaryText={<span><b>{t('common:project')} </b></span>}
             secondaryText={<p><b>{this.props.data.projectCode}</b></p>}
           />
-          <Divider />
+          <FtpInfoModal iconColor={'#E65100'}/>
           </List>
       </div>
     )
