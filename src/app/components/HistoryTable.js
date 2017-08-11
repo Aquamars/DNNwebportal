@@ -1,4 +1,9 @@
 import React, { Component, PropTypes } from 'react'
+// redux
+import {bindActionCreators} from 'redux'
+import {connect} from 'react-redux'
+import {errorNotify} from './Notify/actionNotify'
+
 import { Card, CardHeader,CardMedia, CardTitle, CardText, CardActions } from 'material-ui/Card'
 import FlatButton from 'material-ui/FlatButton'
 import IconButton from 'material-ui/IconButton'
@@ -105,7 +110,7 @@ class HistoryTable extends Component {
 			})
 	  		// )
 		}catch(err){
-	  		this.props.notify('ERROR : HistoryTable')
+	  		this.props.errorNotify('ERROR : HistoryTable')
 	    }
 	}
 	componentDidMount(){
@@ -163,7 +168,7 @@ class HistoryTable extends Component {
 			      <TableRowColumn style = {styles.textCenter}>{data.id}</TableRowColumn>			      
 			      <TableRowColumn style = {styles.textCenter}>{data.instance.image.name}</TableRowColumn>			      
 			      <TableRowColumn style = {styles.textCenter}>
-			      	<HoverDiv account={data.instance.username} password={data.instance.password} notify = {this.props.notify}/>
+			      	<HoverDiv account={data.instance.username} password={data.instance.password}/>
 	              </TableRowColumn>
 	              <TableRowColumn style={{display:'none'}}>{data.projectCode}</TableRowColumn>			      
 			    </TableRow>
@@ -178,4 +183,9 @@ class HistoryTable extends Component {
 		)
 	}
 }
-export default translate('')(HistoryTable)
+function matchDispatchToProps(dispatch){
+    return bindActionCreators({
+    	errorNotify:errorNotify
+    }, dispatch);
+}
+export default connect(null, matchDispatchToProps)(translate('')(HistoryTable))
