@@ -1,4 +1,9 @@
 import React from 'react'
+// redux
+import {bindActionCreators} from 'redux'
+import {connect} from 'react-redux'
+import {errorNotify, copyNotify} from '../Notify/actionNotify'
+
 import { Step, Stepper, StepLabel} from 'material-ui/Stepper'
 import { Card, CardHeader,CardMedia, CardTitle, CardText, CardActions } from 'material-ui/Card'
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table'
@@ -141,8 +146,8 @@ class CreatePage extends React.Component {
       console.log(data)
       console.log(data.code)
       if(data.code === '401' || data.code === 401){
-        this.props.notify('ERROR : '+data.message)
-        this.props.notify('Please, pick another date.')
+        this.props.errorNotify('ERROR : '+data.message)
+        this.props.errorNotify('Please, pick another date.')
         this.setState({
           stepIndex: 0, 
           loadingCreate: false
@@ -154,7 +159,7 @@ class CreatePage extends React.Component {
       }              
     }).catch((err)=>{
       console.log('err:'+err)
-      this.props.notify('ERROR : Create Schedule')
+      this.props.errorNotify('ERROR : Create Schedule')
     })
   }
   getImageApi = () => {
@@ -168,7 +173,7 @@ class CreatePage extends React.Component {
       })
     }).catch((err)=>{
       console.log(err)
-      this.props.notify('ERROR : Image')
+      this.props.errorNotify('ERROR : Image')
     })
   }
   handlePrev = () => {
@@ -230,7 +235,7 @@ class CreatePage extends React.Component {
     ).catch((err)=>{
       console.log(err)
       console.log(err.response.data.message)      
-      this.props.notify(err.response.data.message)
+      this.props.errorNotify(err.response.data.message)
     })
 
     const avilMachine = await axios.get(
@@ -275,7 +280,7 @@ class CreatePage extends React.Component {
     }).catch((err)=>{
       console.log(err)
       console.log(err.response.data.message)      
-      this.props.notify(err.response.data.message)
+      this.props.errorNotify(err.response.data.message)
     })
 
     
@@ -609,4 +614,10 @@ class CreatePage extends React.Component {
     )
   }
 }
-export default translate('')(CreatePage)
+function matchDispatchToProps(dispatch){
+    return bindActionCreators({
+      errorNotify:errorNotify,
+      copyNotify:copyNotify
+    }, dispatch);
+}
+export default connect(null,matchDispatchToProps)(translate('')(CreatePage))
