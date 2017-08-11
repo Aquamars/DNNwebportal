@@ -1,4 +1,8 @@
 import React, { Component, PropTypes } from 'react'
+//redux
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import {closeNotify} from './Notify/actionNotify'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import MenuItem from 'material-ui/MenuItem'
@@ -98,7 +102,8 @@ const MenuStyles = {
 }
 const styleSnackbar = {
   notifyError:{backgroundColor: '#ff405c'},
-  notifyCopy:{backgroundColor: lightBlue900, textAlign:'center'}
+  notifyCopy:{backgroundColor: lightBlue900, textAlign:'center'},
+  notifyClose:{backgroundColor: '#ffffff', opacity: .01} // make when close is transparent
 }
 const prefixedStyles = {}
 const muiTheme = getMuiTheme({userAgent: 'all'})
@@ -223,8 +228,11 @@ class MainContainer extends Component {
                  )
       }
   }
+
   render(){ 
-      const {t} = this.props 	    
+      const {t} = this.props
+      console.log('this.props.notify:',this.props.notify)
+      
   		return(
 	   		<MuiThemeProvider muiTheme={muiTheme}>		   		
 	            <div style={prefixedStyles.wrapper}>
@@ -236,7 +244,7 @@ class MainContainer extends Component {
                           iconElementRight={
                             <div>
                               <span style={{display: 'inline-block',verticalAlign: 'super'}}>
-                              <FtpInfoModal notify = {this.handleNotify}/>
+                              <FtpInfoModal />
                               </span>
                               <span style={{display: 'inline-block',verticalAlign: 'sub'}}>
                               <SocialPerson color='white'/>
@@ -262,6 +270,19 @@ class MainContainer extends Component {
                                   <HistoryTable token = {this.props.token} notify = {this.handleNotify}/>
                                 </div>
                               }
+                              <Snackbar
+                                open = {this.props.notify.isOpen}
+                                autoHideDuration = {this.props.notify.error ? 2500 : 800}
+                                message={this.props.notify.msg}
+                                onRequestClose = {this.props.closeNotify}
+                                bodyStyle={
+                                  (!this.props.notify.error && this.props.notify.error!=null) ? 
+                                  styleSnackbar.notifyCopy : 
+                                  ((this.props.notify.error && this.props.notify.error!=null) ? 
+                                  styleSnackbar.notifyError : styleSnackbar.notifyClose)
+                                }
+                                action={ this.props.notify.error && <FlatButton href={'mailto:eNgiNEer@No.oNe.cARe'} style={{color:'white'}}>Tell us</FlatButton>}
+                              />
                               <Snackbar
                                 open = {this.state.notifyOpen}
                                 autoHideDuration = {this.state.notifyCopy ? 800 : 2500}
@@ -322,4 +343,12 @@ class MainContainer extends Component {
         )
   }
 }
-export default translate('')(MainContainer)
+function mapStateToProps(state) {
+    return {
+        notify: state.notify
+    };
+}
+function matchDispatchToProps(dispatch){
+    return bindActionCreators({closeNotify: closeNotify}, dispatch);
+}
+export default connect(mapStateToProps, matchDispatchToProps)(translate('')(MainContainer))
