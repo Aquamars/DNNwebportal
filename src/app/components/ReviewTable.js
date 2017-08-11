@@ -1,4 +1,9 @@
 import React, { Component, PropTypes } from 'react'
+// redux
+import {bindActionCreators} from 'redux'
+import {connect} from 'react-redux'
+import {errorNotify, copyNotify} from './Notify/actionNotify'
+
 import { Card, CardHeader,CardMedia, CardTitle, CardText, CardActions } from 'material-ui/Card'
 import FlatButton from 'material-ui/FlatButton'
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table'
@@ -108,9 +113,9 @@ class ReviewTable extends Component {
 		    	})
 		    }		    
 		}catch(err){
-			this.props.notify('ERROR : ReviewTable')
-		}
-	    	    
+			this.props.errorNotify('ERROR : ReviewTable')
+			// this.props.notify('ERROR : ReviewTable')
+		}	    	    
 	}
 
 	componentDidMount(){
@@ -171,7 +176,7 @@ class ReviewTable extends Component {
 				  	<TableRow key = {index}>
 				  	  <TableRowColumn style={{width: '8%'}}><DetailModal data = {data} notify = {this.props.notify}/></TableRowColumn>
 				      <TableRowColumn style = {styles.textCenter}>{moment(data.startedAt).format('YYYY-MM-DD')}</TableRowColumn>
-				      <TableRowColumn style = {styles.textCenter}><EditModal notify = {this.props.notify} id={data.id} token={this.props.token} data = {data} refresh={this.getData}/></TableRowColumn>
+				      <TableRowColumn style = {styles.textCenter}><EditModal id={data.id} token={this.props.token} data = {data} refresh={this.getData} {...this.props}/></TableRowColumn>
 				      <TableRowColumn style = {styles.textCenter}>{data.id}</TableRowColumn>
 				      <TableRowColumn style = {styles.textCenter}>{<StatusHandler statusId={data.statusId} />}</TableRowColumn>
 				      <TableRowColumn style = {styles.textCenter}>{data.instance.machine.gpuType}</TableRowColumn>			      
@@ -179,7 +184,7 @@ class ReviewTable extends Component {
 				      <TableRowColumn style = {styles.textCenter}>
 				      	<CopyToClipboard 
 							text={data.instance.password}
-							onCopy = {()=> this.props.notify(t('common:alreadyCopy'),true)}
+							onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),true)}
 						>
 							<div>{data.instance.password}</div>
 	    				</CopyToClipboard>
@@ -209,4 +214,11 @@ class ReviewTable extends Component {
 		)
 	}
 }
-export default translate('')(ReviewTable)
+function matchDispatchToProps(dispatch){
+    return bindActionCreators({
+    	errorNotify:errorNotify,
+    	copyNotify:copyNotify
+    }, dispatch);
+}
+
+export default connect(null,matchDispatchToProps)(translate('')(ReviewTable))
