@@ -174,7 +174,7 @@ class ReviewTable extends Component {
 				    	displayRowCheckbox={false}>
 				  	{ this.state.data.map((data, index)=>(
 				  	<TableRow key = {index}>
-				  	  <TableRowColumn style={{width: '8%'}}><DetailModal data = {data} notify = {this.props.notify}/></TableRowColumn>
+				  	  <TableRowColumn style={{width: '8%'}}><DetailModal data = {data} /></TableRowColumn>
 				      <TableRowColumn style = {styles.textCenter}>{moment(data.startedAt).format('YYYY-MM-DD')}</TableRowColumn>
 				      <TableRowColumn style = {styles.textCenter}><EditModal id={data.id} token={this.props.token} data = {data} refresh={this.getData} {...this.props}/></TableRowColumn>
 				      <TableRowColumn style = {styles.textCenter}>{data.id}</TableRowColumn>
@@ -190,7 +190,7 @@ class ReviewTable extends Component {
 	    				</CopyToClipboard>
 		              </TableRowColumn>
 		              <TableRowColumn style={{display:'none'}}>{data.projectCode}</TableRowColumn>
-				      <TableRowColumn style={{width: '8%'}}><DeleteModal data = {data} id={data.id} notify = {this.props.notify} refresh={this.getData} token={this.props.token}/></TableRowColumn>
+				      <TableRowColumn style={{width: '8%'}}><DeleteModal data = {data} id={data.id} refresh={this.getData} token={this.props.token}/></TableRowColumn>
 				    </TableRow>
 				  	))}
 				  	</TableBody>
@@ -207,7 +207,6 @@ class ReviewTable extends Component {
 				switchReview={this.switchReview}
 				refresh = {this.getData}
 				currentInstanceNum={this.state.data.length}
-				notify = {this.props.notify}
 				token={this.props.token}
 			  />}
 			</div>
