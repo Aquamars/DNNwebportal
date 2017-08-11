@@ -1,4 +1,9 @@
 import React from 'react'
+// redux
+import {bindActionCreators} from 'redux'
+import {connect} from 'react-redux'
+import {errorNotify} from './Notify/actionNotify'
+
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton'
@@ -72,7 +77,7 @@ class DeleteModal extends React.Component {
         console.log('data:'+data)       
       }).catch((err)=>{
         console.log('err:'+err)
-        this.props.notify('ERROR : Delete Schedule')
+        this.props.errorNotify('ERROR : Delete Schedule')
         
         this.setState({open: false, comfirm: false})
         this.props.refresh()
@@ -159,4 +164,9 @@ class DeleteModal extends React.Component {
     )
   }
 }
-export default translate('')(DeleteModal)
+function matchDispatchToProps(dispatch){
+    return bindActionCreators({
+      errorNotify:errorNotify,
+    }, dispatch);
+}
+export default connect(null,matchDispatchToProps)(translate('')(DeleteModal))
