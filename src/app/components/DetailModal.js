@@ -1,4 +1,9 @@
 import React from 'react'
+// redux
+import {bindActionCreators} from 'redux'
+import {connect} from 'react-redux'
+import {copyNotify} from './Notify/actionNotify'
+
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import ReactTooltip from 'react-tooltip'
@@ -67,7 +72,7 @@ class DetailModal extends React.Component {
 		            nestedItems={[
 		             <CopyToClipboard 
 		             	text={this.props.data.instance.ip}
-		             	onCopy = {()=> this.props.notify(t('common:alreadyCopy'),true)}
+		             	onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),true)}
 		             >
 			         	<ListItem 
 			            	primaryText={<span><b>{t('common:ip')}</b></span>}
@@ -76,7 +81,7 @@ class DetailModal extends React.Component {
 			         </CopyToClipboard>,
 			         <CopyToClipboard 
 			         	text={this.props.data.instance.port}
-			         	onCopy = {()=> this.props.notify(t('common:alreadyCopy'),true)}
+			         	onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),true)}
 			         >
 			          	<ListItem
 			           		primaryText={<span><b>{t('common:port')}</b></span>}
@@ -85,7 +90,7 @@ class DetailModal extends React.Component {
 			         </CopyToClipboard>,
 			         <CopyToClipboard 
 			         	text={this.props.data.instance.username}
-			         	onCopy = {()=> this.props.notify(t('common:alreadyCopy'),true)}
+			         	onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),true)}
 			         >
 		            	<ListItem
 			           		primaryText={<span><b>{t('common:account')}</b></span>}
@@ -94,7 +99,7 @@ class DetailModal extends React.Component {
 			         </CopyToClipboard>,
 			         <CopyToClipboard 
 			         	text={this.props.data.instance.password}
-			         	onCopy = {()=> this.props.notify(t('common:alreadyCopy'),true)}
+			         	onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),true)}
 			         >
 			         	<ListItem
 			           		primaryText={<span><b>{t('common:password')}</b></span>}
@@ -219,4 +224,9 @@ class DetailModal extends React.Component {
 	  )
 	}
 }
-export default translate('')(DetailModal)
+function matchDispatchToProps(dispatch){
+    return bindActionCreators({
+    	copyNotify:copyNotify
+    }, dispatch);
+}
+export default connect(null,matchDispatchToProps)(translate('')(DetailModal))
