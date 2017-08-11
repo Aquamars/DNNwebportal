@@ -1,4 +1,9 @@
 import React from 'react'
+// redux
+import {bindActionCreators} from 'redux'
+import {connect} from 'react-redux'
+import {copyNotify} from './Notify/actionNotify'
+
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import ReactTooltip from 'react-tooltip'
@@ -43,7 +48,7 @@ class FtpInfoModal extends React.Component {
 				<List>
 					<CopyToClipboard 
 						text={''}
-						onCopy = {()=> this.props.notify(t('common:alreadyCopy'),true)}
+						onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),true)}
 					>
 					<ListItem
 			            primaryText={<b>{t('common:ftpHost')}</b>}
@@ -53,7 +58,7 @@ class FtpInfoModal extends React.Component {
 		            </CopyToClipboard>
 		            <CopyToClipboard 
 						text={''}
-						onCopy = {()=> this.props.notify(t('common:alreadyCopy'),true)}
+						onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),true)}
 					>
 		            <ListItem
 			            primaryText={<b>{t('common:ftpPort')}</b>}
@@ -63,7 +68,7 @@ class FtpInfoModal extends React.Component {
 		            </CopyToClipboard>
 		            <CopyToClipboard 
 						text={''}
-						onCopy = {()=> this.props.notify(t('common:alreadyCopy'),true)}
+						onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),true)}
 					>
 		            <ListItem
 			            primaryText={<b>{t('common:ftpProtocol')}</b>}
@@ -73,7 +78,7 @@ class FtpInfoModal extends React.Component {
 		            </CopyToClipboard>
 		            <CopyToClipboard 
 						text={username}
-						onCopy = {()=> this.props.notify(t('common:alreadyCopy'),true)}
+						onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),true)}
 					>
 		            <ListItem
 			            primaryText={<b>{t('common:account')}</b>}
@@ -83,7 +88,7 @@ class FtpInfoModal extends React.Component {
 		            </CopyToClipboard>
 		            <CopyToClipboard 
 						text={pass}
-						onCopy = {()=> this.props.notify(t('common:alreadyCopy'),true)}
+						onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),true)}
 					>
 		            <ListItem
 			            primaryText={<b>{t('common:password')}</b>}
@@ -122,4 +127,9 @@ class FtpInfoModal extends React.Component {
 		)
 	}
 }
-export default translate('')(FtpInfoModal)
+function matchDispatchToProps(dispatch){
+    return bindActionCreators({
+    	copyNotify:copyNotify
+    }, dispatch);
+}
+export default connect(null,matchDispatchToProps)(translate('')(FtpInfoModal))
