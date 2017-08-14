@@ -36,7 +36,7 @@ npm run build
 ## Package Analysis ##
 ------
 * report.app.html
-![alt text](.build/images/dnnIcon.png "app.js")
+![alt text](https://bitbucket.org/a40503/dnnwebportal/build/image/dnnIcon.png "app.js")
 
 
 ## Contribution guidelines ##
