@@ -62,8 +62,8 @@ npm run build
 
 ### other Analysis tools
 * put JSON file( `stats.dev.json` , `stats.app.json` , `stats.dll.json` ) on these website
-*analyse - https://github.com/webpack/analyse
-*webpack-visualizer - https://chrisbateman.github.io/webpack-visualizer/
+* analyse - https://github.com/webpack/analyse
+* webpack-visualizer - https://chrisbateman.github.io/webpack-visualizer/
 
 ## Contribution guidelines ##
 ------
