@@ -36,10 +36,10 @@ npm run build
 ## Package Analysis ##
 ------
 * report.app.html
-*![alt text](/build/image/app.png "app.js")
+*![alt text](/build/image/app.PNG "app.js")
 
 * report.dll.html
-*![alt text](/build/image/dll.png "dll.js")
+*![alt text](/build/image/dll.PNG "dll.js")
 
 
 ## Contribution guidelines ##
