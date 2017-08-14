@@ -23,9 +23,9 @@ npm run app
 
 |#|command|generate|
 | - |:---------:| ----------- |
-| 1 |npm run dll|bundle.js<br>bundle.js.gz<br>bundle.manifest.json<br>report.dll.html<br>stats.dll.json<br>|
-| 2 |npm run app|app.js<br>app.js.gz<br>report.app.html<br>stats.app.json<br>index.html<br>main.css<br>/image<br>/locales<br>/res<|
-| 3 |npm start  |stats.dev.json<|
+| 1 |npm run dll|bundle.js<br>bundle.js.gz<br>bundle.manifest.json<br>report.dll.html<br>stats.dll.json|
+| 2 |npm run app|app.js<br>app.js.gz<br>report.app.html<br>stats.app.json<br>index.html<br>main.css<br>/image<br>/locales<br>/res|
+| 3 |npm start  |stats.dev.json|
 
 ```
 npm run build
