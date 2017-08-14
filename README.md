@@ -3,15 +3,17 @@
 
 
 ### What is this repository for? ###
-
+------
 * This portal for create instance to run DNN.
 * Version 0.1.5
 
 ### How do I get set up? ###
+------
 ```
 npm start
 ```
-* for development
+* for development, run dev-server
+
 ```
 npm run dll
 npm run app
@@ -24,18 +26,22 @@ npm run app
 |2|npm run app|<ul><li>app.js</li><li>app.js.gz</li><li>report.app.html</li><li>stats.app.json</li><li>index.html</li><li>main.css</li><li>/image</li><li>/locales</li><li>/res</li></ul>|
 |2|npm start|<ul><li>stats.dev.json</li></ul>|
 
-
 ```
 npm run build
 ```
 * package all (dll and app)
-* the file will generate in build folder
+* the files will generate in build folder
+
+### Package Analysis ###
+------
+
+
 
 ### Contribution guidelines ###
-
+------
 * A40503
 * Kevin Huang
 
 ### Who do I talk to? ###
-
+------
 * me or my boss, perhaps.
