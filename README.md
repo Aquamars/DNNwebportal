@@ -36,7 +36,10 @@ npm run build
 ## Package Analysis ##
 ------
 * report.app.html
-![alt text](/build/image/dnnIcon.png "app.js")
+*![alt text](/build/image/app.png "app.js")
+
+* report.dll.html
+*![alt text](/build/image/dll.png "dll.js")
 
 
 ## Contribution guidelines ##
