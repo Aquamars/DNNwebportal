@@ -21,10 +21,10 @@ npm run app
 * package dll(bundle.js) and app(app.js)
 * the files will generate in build folder
 |#|command|generate|
-| - |:-------:| -----------:|
-|1|npm run dll|<ul><li>bundle.js</li><li>bundle.js.gz</li><li>bundle.manifest.json</li><li>report.dll.html</li><li>stats.dll.json</li></ul>|
-|2|npm run app|<ul><li>app.js</li><li>app.js.gz</li><li>report.app.html</li><li>stats.app.json</li><li>index.html</li><li>main.css</li><li>/image</li><li>/locales</li><li>/res</li></ul>|
-|2|npm start|<ul><li>stats.dev.json</li></ul>|
+| - |:---------:| ----------- |
+| 1 |npm run dll|<ul><li>bundle.js</li><li>bundle.js.gz</li><li>bundle.manifest.json</li><li>report.dll.html</li><li>stats.dll.json</li></ul>|
+| 2 |npm run app|<ul><li>app.js</li><li>app.js.gz</li><li>report.app.html</li><li>stats.app.json</li><li>index.html</li><li>main.css</li><li>/image</li><li>/locales</li><li>/res</li></ul>|
+| 3 |npm start  |<ul><li>stats.dev.json</li></ul>|
 
 ```
 npm run build
