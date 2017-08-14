@@ -40,8 +40,9 @@ npm run build
 * the files will generate in build folder
 
 ## Built With
-* ![alt text](https://worldvectorlogo.com/logos/babel-10.svg "babel"){:height="36px" width="36px"}
-* ![alt text](https://camo.githubusercontent.com/d18f4a7a64244f703efcb322bf298dcb4ca38856/68747470733a2f2f7765627061636b2e6a732e6f72672f6173736574732f69636f6e2d7371756172652d6269672e737667 "webpack"){:height="36px" width="36px"}
+
+* ![](https://worldvectorlogo.com/logos/babel-10.svg =48x48)
+* ![](https://camo.githubusercontent.com/d18f4a7a64244f703efcb322bf298dcb4ca38856/68747470733a2f2f7765627061636b2e6a732e6f72672f6173736574732f69636f6e2d7371756172652d6269672e737667 =48x48)
 * [Webpack](https://github.com/webpack/webpack) - module bundler
 	* [UglifyJS](https://github.com/webpack-contrib/uglifyjs-webpack-plugin) - minify JavaScript
 	* [Compression](https://github.com/webpack-contrib/compression-webpack-plugin) - compressed static assets
