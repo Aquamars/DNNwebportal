@@ -44,7 +44,7 @@ npm run build
 * [Babel](https://babeljs.io/)
 * [Redux](https://github.com/reactjs/redux)
 * [material-ui](http://www.material-ui.com/)
-![](https://worldvectorlogo.com/logos/babel-10.svg =250x250)
+
 ## Built With
 
 * [Webpack](https://github.com/webpack/webpack) - module bundler
