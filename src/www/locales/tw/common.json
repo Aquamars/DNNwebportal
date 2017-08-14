@@ -29,7 +29,7 @@
     "image": "Image",
     "imageDesc": "Image 內容描述",
     "machineDesc": "Machine 內容描述",
-    "account": "帳密",
+    "account": "帳號",
     "project": "計畫代號",
     "createStep": {
         "step1": "選擇日期範圍",
@@ -81,7 +81,7 @@
     "excuteDay": "已執行天數",
     "leftDay": "剩餘天數",
     "openStorage":"開啟儲存空間",
-    "storage":"開啟FTP頁面上傳資料，或是使用其他的FTP client，例如 FileZilla",
+    "storage":"使用FTP client上傳資料",
     "noInstance":",無連續可用的Instance!",    
     "history":{
         "history":"瀏覽歷史紀錄",
@@ -109,5 +109,10 @@
         "charts":"圖表分析",
         "machine":"機器",
         "signOut":"登出"
-    }
+    },
+    "alreadyCopy":"已複製到剪貼簿 !",
+    "ftpInfo":"FTP 資訊",
+    "ftpHost":"主機",
+    "ftpPort":"連接埠",
+    "ftpProtocol":"通訊協定"
 }

@@ -1,12 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import {render} from 'react-dom';
+import {Provider} from 'react-redux';
+import {createStore, applyMiddleware} from 'redux';
+import thunk from 'redux-thunk';
+import promise from 'redux-promise';
+import { createLogger } from 'redux-logger';
 import { AppContainer } from 'react-hot-loader';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { I18nextProvider } from 'react-i18next';
 import i18n from './utils/i18n';
 import Main from './Main'; // Our custom react component
-
+import reducer from './components/reducers';
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
@@ -21,14 +25,22 @@ injectTapEventPlugin();
 // 	</AppContainer>,
 // 	document.getElementById('app')
 // );
+const logger = createLogger();
+const store = createStore(
+    reducer,
+    applyMiddleware(thunk, promise, logger),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() //for redux dev tool
+);
 
 const render = Component => {
   ReactDOM.render(
-    <AppContainer>
-    	<I18nextProvider i18n={ i18n }>
-			<Component  />
-		</I18nextProvider>
-	</AppContainer>,
+    <Provider store={store}>
+      <AppContainer>
+      	<I18nextProvider i18n={ i18n }>
+    			<Component  />
+    		</I18nextProvider>
+    	</AppContainer>
+    </Provider>,
     document.getElementById('app')
   )
 }

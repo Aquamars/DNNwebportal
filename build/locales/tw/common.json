@@ -109,5 +109,6 @@
         "charts":"圖表分析",
         "machine":"機器",
         "signOut":"登出"
-    }
+    },
+    "alreadyCopy":"已複製到剪貼簿 !"
 }

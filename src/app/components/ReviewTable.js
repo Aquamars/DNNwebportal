@@ -1,4 +1,9 @@
 import React, { Component, PropTypes } from 'react'
+// redux
+import {bindActionCreators} from 'redux'
+import {connect} from 'react-redux'
+import {errorNotify, copyNotify} from './Notify/actionNotify'
+
 import { Card, CardHeader,CardMedia, CardTitle, CardText, CardActions } from 'material-ui/Card'
 import FlatButton from 'material-ui/FlatButton'
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table'
@@ -15,6 +20,7 @@ import DetailModal from './DetailModal'
 import ExpandTransition from 'material-ui/internal/ExpandTransition'
 import moment from 'moment'
 import StatusHandler from './StatusHandler'
+import CopyToClipboard from 'react-copy-to-clipboard'
 
 // API call
 import {getInfo} from '../resource'
@@ -51,7 +57,8 @@ const styles = {
 		zIndex: 2, 
 		display: 'inline-block', 
 		float: 'right',
-		right: '10px'
+		right: '10px',
+		margin: '0px auto'
 	},
 	textCenter: {
 		textAlign:'center'
@@ -106,9 +113,9 @@ class ReviewTable extends Component {
 		    	})
 		    }		    
 		}catch(err){
-			this.props.notify('ERROR : ReviewTable')
-		}
-	    	    
+			this.props.errorNotify('ERROR : ReviewTable')
+			// this.props.notify('ERROR : ReviewTable')
+		}	    	    
 	}
 
 	componentDidMount(){
@@ -125,19 +132,19 @@ class ReviewTable extends Component {
 			{ !switchCreatePage ?
 			<Card>		
 			  <CardActions style={styles.actions}>			  	
-				<FlatButton
-		          label={t('common:create')}
-		          style = {this.state.data.length === 3 ? {color:'grey'} : {color:muiStyle.palette.primary1Color}}
-		          icon={<ContentAdd />}
-		          disabled={this.state.data.length === 3}
-		          onTouchTap={this.SwitchCreatePage}		          		          
-		        />
-				<FlatButton 
-		          label={t('common:refresh')}
-		          style = {{color:muiStyle.palette.primary1Color}}
-		          icon={<NavigationRefresh />}
-		          onTouchTap={this.refresh}
-		        />		        
+					<FlatButton
+			          label={t('common:create')}
+			          style = {this.state.data.length === 3 ? {color:'grey'} : {color:muiStyle.palette.primary1Color}}
+			          icon={<ContentAdd />}
+			          disabled={this.state.data.length === 3}
+			          onTouchTap={this.SwitchCreatePage}		          		          
+			        />
+					<FlatButton 
+			          label={t('common:refresh')}
+			          style = {{color:muiStyle.palette.primary1Color}}
+			          icon={<NavigationRefresh />}
+			          onTouchTap={this.refresh}
+			        />
 			  </CardActions>
 			  <CardTitle title={t('common:reviewTitle')}/>
 			  <ExpandTransition loading={loading} open={true}>
@@ -156,7 +163,7 @@ class ReviewTable extends Component {
 				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:status.status')}</b></TableHeaderColumn>
 				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:gpuType')}</b></TableHeaderColumn>
 				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:image')}</b></TableHeaderColumn>
-				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:account')}</b></TableHeaderColumn>
+				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:password')}</b></TableHeaderColumn>
 				        <TableHeaderColumn style={{display:'none'}}><b>{t('common:project')}</b></TableHeaderColumn>			        
 				        <TableHeaderColumn style={{width: '8%'}}></TableHeaderColumn>
 				      </TableRow>
@@ -167,18 +174,23 @@ class ReviewTable extends Component {
 				    	displayRowCheckbox={false}>
 				  	{ this.state.data.map((data, index)=>(
 				  	<TableRow key = {index}>
-				  	  <TableRowColumn style={{width: '8%'}}><DetailModal data = {data}/></TableRowColumn>
+				  	  <TableRowColumn style={{width: '8%'}}><DetailModal data = {data} /></TableRowColumn>
 				      <TableRowColumn style = {styles.textCenter}>{moment(data.startedAt).format('YYYY-MM-DD')}</TableRowColumn>
-				      <TableRowColumn style = {styles.textCenter}><EditModal notify = {this.props.notify} id={data.id} token={this.props.token} data = {data} refresh={this.getData}/></TableRowColumn>
+				      <TableRowColumn style = {styles.textCenter}><EditModal id={data.id} token={this.props.token} data = {data} refresh={this.getData} {...this.props}/></TableRowColumn>
 				      <TableRowColumn style = {styles.textCenter}>{data.id}</TableRowColumn>
 				      <TableRowColumn style = {styles.textCenter}>{<StatusHandler statusId={data.statusId} />}</TableRowColumn>
 				      <TableRowColumn style = {styles.textCenter}>{data.instance.machine.gpuType}</TableRowColumn>			      
 				      <TableRowColumn style = {styles.textCenter}>{data.instance.image.name}</TableRowColumn>			      
 				      <TableRowColumn style = {styles.textCenter}>
-				      	<HoverDiv account={data.instance.username} password={data.instance.password}/>
+				      	<CopyToClipboard 
+							text={data.instance.password}
+							onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),true)}
+						>
+							<div>{data.instance.password}</div>
+	    				</CopyToClipboard>
 		              </TableRowColumn>
 		              <TableRowColumn style={{display:'none'}}>{data.projectCode}</TableRowColumn>
-				      <TableRowColumn style={{width: '8%'}}><DeleteModal data = {data} id={data.id} notify = {this.props.notify} refresh={this.getData} token={this.props.token}/></TableRowColumn>
+				      <TableRowColumn style={{width: '8%'}}><DeleteModal data = {data} id={data.id} refresh={this.getData} token={this.props.token}/></TableRowColumn>
 				    </TableRow>
 				  	))}
 				  	</TableBody>
@@ -195,11 +207,17 @@ class ReviewTable extends Component {
 				switchReview={this.switchReview}
 				refresh = {this.getData}
 				currentInstanceNum={this.state.data.length}
-				notify = {this.props.notify}
 				token={this.props.token}
 			  />}
 			</div>
 		)
 	}
 }
-export default translate('')(ReviewTable)
+function matchDispatchToProps(dispatch){
+    return bindActionCreators({
+    	errorNotify:errorNotify,
+    	copyNotify:copyNotify
+    }, dispatch);
+}
+
+export default connect(null,matchDispatchToProps)(translate('')(ReviewTable))

@@ -1,4 +1,9 @@
 import React, { Component, PropTypes } from 'react'
+// redux
+import {bindActionCreators} from 'redux'
+import {connect} from 'react-redux'
+import {errorNotify} from './Notify/actionNotify'
+
 import { Card, CardHeader,CardMedia, CardTitle, CardText, CardActions } from 'material-ui/Card'
 import FlatButton from 'material-ui/FlatButton'
 import IconButton from 'material-ui/IconButton'
@@ -105,7 +110,7 @@ class HistoryTable extends Component {
 			})
 	  		// )
 		}catch(err){
-	  		this.props.notify('ERROR : HistoryTable')
+	  		this.props.errorNotify('ERROR : HistoryTable')
 	    }
 	}
 	componentDidMount(){
@@ -178,4 +183,9 @@ class HistoryTable extends Component {
 		)
 	}
 }
-export default translate('')(HistoryTable)
+function matchDispatchToProps(dispatch){
+    return bindActionCreators({
+    	errorNotify:errorNotify
+    }, dispatch);
+}
+export default connect(null, matchDispatchToProps)(translate('')(HistoryTable))

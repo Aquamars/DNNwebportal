@@ -93,7 +93,7 @@ class EditModal extends React.Component {
         // })        
       }).catch((err)=>{
         // console.log('err:'+err)
-        this.props.notify('ERROR : Edit Date')
+        this.props.errorNotify('ERROR : Edit Date')
       })
   }
   handleChangeMaxDate = (event, date) => {
@@ -122,7 +122,7 @@ class EditModal extends React.Component {
       // console.log('latestDate', this.state.latestDate)
     }).catch((err)=>{
         console.log(err)
-        this.props.notify('ERROR : Extend Date')
+        this.props.errorNotify('ERROR : Extend Date')
     })
   }
   disableDate = (date) => {    
@@ -159,7 +159,8 @@ class EditModal extends React.Component {
             label={moment(this.props.data.endedAt).format('YYYY-MM-DD')}
             labelPosition="before"
             icon={<EditorModeEdit />}
-            onTouchTap={this.handleOpen} />
+            onTouchTap={this.handleOpen} 
+          />
           <ReactTooltip id='edit' place="bottom" effect='solid'>
             <span>{t('common:editDate')}</span>
           </ReactTooltip>

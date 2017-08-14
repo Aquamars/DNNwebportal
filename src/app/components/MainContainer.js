@@ -1,4 +1,8 @@
 import React, { Component, PropTypes } from 'react'
+//redux
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import {closeNotify} from './Notify/actionNotify'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import MenuItem from 'material-ui/MenuItem'
@@ -17,6 +21,7 @@ import { Card, CardHeader,CardMedia, CardTitle, CardText, CardActions } from 'ma
 import IconButton from 'material-ui/IconButton'
 import ReviewTable from './ReviewTable'
 import HistoryTable from './HistoryTable'
+import FtpInfoModal from './FtpInfoModal'
 import ChartContainer from './Charts/ChartContainer'
 import Footer from './Footer'
 import CreatePage from './CreatePage/CreatePage'
@@ -95,7 +100,11 @@ const MenuStyles = {
         transition: 'margin 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms',
     },
 }
-const styleSnackbar = {backgroundColor: '#ff405c'}
+const styleSnackbar = {
+  notifyError:{backgroundColor: '#ff405c'},
+  notifyCopy:{backgroundColor: lightBlue900, textAlign:'center'},
+  notifyClose:{backgroundColor: '#ffffff', opacity: .01} // make when close is transparent
+}
 const prefixedStyles = {}
 const muiTheme = getMuiTheme({userAgent: 'all'})
 
@@ -118,6 +127,7 @@ class MainContainer extends Component {
       content: '',
       notifyOpen: false,
       notifyMsg:'',
+      notifyCopy:false,
       data:''
     }
   }  
@@ -140,10 +150,11 @@ class MainContainer extends Component {
       open: true,
     })
   }
-  handleNotify = (msg) => {
+  handleNotify = (msg, notifyCopy = false) => {
     this.setState({
       notifyOpen: true,
-      notifyMsg: msg
+      notifyMsg: msg,
+      notifyCopy: notifyCopy
     })
     // setTimeout(console.log('handleNotify'), 5400)
   }
@@ -217,8 +228,11 @@ class MainContainer extends Component {
                  )
       }
   }
+
   render(){ 
-      const {t} = this.props 	    
+      const {t} = this.props
+      console.log('this.props.notify:',this.props.notify)
+      
   		return(
 	   		<MuiThemeProvider muiTheme={muiTheme}>		   		
 	            <div style={prefixedStyles.wrapper}>
@@ -229,14 +243,21 @@ class MainContainer extends Component {
         				          onLeftIconButtonTouchTap={this.handleToggle}
                           iconElementRight={
                             <div>
+                              <span style={{display: 'inline-block',verticalAlign: 'super'}}>
+                              <FtpInfoModal />
+                              </span>
+                              <span style={{display: 'inline-block',verticalAlign: 'sub'}}>
                               <SocialPerson color='white'/>
-                              <span style={{verticalAlign:'super'}}><b><font color='#FDD100'> {this.props.user}</font></b></span>
+                              </span>
+                              <span style={{verticalAlign:'text-bottom'}}><b><font size={3} color='#FDD100'> {this.props.user}</font></b></span>
+                              <span style={{verticalAlign:'sub'}}>
                               <IconButton 
                                 tooltip={t('common:signOut')} 
                                 onTouchTap={() => this.props.SignOut()}>                           
                               >
                                 <ExitIcon color='white'/>
                               </IconButton>
+                              </span>
                             </div>
                           }
         				        />
@@ -250,12 +271,25 @@ class MainContainer extends Component {
                                 </div>
                               }
                               <Snackbar
+                                open = {this.props.notify.isOpen}
+                                autoHideDuration = {this.props.notify.error ? 2500 : 800}
+                                message={this.props.notify.msg}
+                                onRequestClose = {this.props.closeNotify}
+                                bodyStyle={
+                                  (!this.props.notify.error && this.props.notify.error!=null) ? 
+                                  styleSnackbar.notifyCopy : 
+                                  ((this.props.notify.error && this.props.notify.error!=null) ? 
+                                  styleSnackbar.notifyError : styleSnackbar.notifyClose)
+                                }
+                                action={ this.props.notify.error && <FlatButton href={'mailto:eNgiNEer@No.oNe.cARe'} style={{color:'white'}}>Tell us</FlatButton>}
+                              />
+                              <Snackbar
                                 open = {this.state.notifyOpen}
-                                autoHideDuration = {2500}
+                                autoHideDuration = {this.state.notifyCopy ? 800 : 2500}
                                 message={this.state.notifyMsg}
                                 onRequestClose = {this.closeNotify}
-                                bodyStyle={styleSnackbar}
-                                action={<FlatButton href={'mailto:eNgiNEer@No.oNe.cARe'} style={{color:'white'}}>Tell us</FlatButton>}
+                                bodyStyle={this.state.notifyCopy ? styleSnackbar.notifyCopy : styleSnackbar.notifyError}
+                                action={!this.state.notifyCopy && <FlatButton href={'mailto:eNgiNEer@No.oNe.cARe'} style={{color:'white'}}>Tell us</FlatButton>}
                               />
                             </div>
                             <Paper
@@ -309,4 +343,12 @@ class MainContainer extends Component {
         )
   }
 }
-export default translate('')(MainContainer)
+function mapStateToProps(state) {
+    return {
+        notify: state.notify
+    };
+}
+function matchDispatchToProps(dispatch){
+    return bindActionCreators({closeNotify: closeNotify}, dispatch);
+}
+export default connect(mapStateToProps, matchDispatchToProps)(translate('')(MainContainer))

@@ -8,9 +8,10 @@
   },
   "scripts": {
     "start": "webpack-dev-server --config webpack-dev-server.config.js --progress --inline --colors --hot",
-    "build": "webpack --config webpack-production.config.js --progress --colors",
+    "app": "webpack --config webpack-production.config.js --progress --colors",
     "test": "jest",
-    "dll": "webpack -p --progress --config webpack.dll.config.js --colors"
+    "dll": "webpack -p --progress --config webpack.dll.config.js --colors",
+    "build": "npm run dll & npm run app"
   },
   "jest": {
     "moduleFileExtensions": [
@@ -57,11 +58,13 @@
     "uglifyjs-webpack-plugin": "^0.4.3",
     "url-loader": "^0.5.8",
     "webpack": "^2.5.1",
+    "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-server": "^2.6.1"
   },
   "dependencies": {
     "axios": "^0.16.1",
     "chart.js": "^2.6.0",
+    "crypto-js": "^3.1.9-1",
     "firebase": "^4.2.0",
     "i18next": "^8.4.2",
     "i18next-browser-languagedetector": "^2.0.0",
@@ -84,9 +87,16 @@
     "react-i18next": "^4.6.1",
     "react-icons": "^2.2.3",
     "react-notification-system": "^0.2.13",
+    "react-redux": "^5.0.6",
     "react-tap-event-plugin": "^2.0.1",
     "react-tooltip": "^3.3.0",
     "react-virtualized-select": "^3.0.1",
+    "redux": "^3.7.2",
+    "redux-logger": "^3.0.6",
+    "redux-promise": "^0.5.3",
+    "redux-thunk": "^2.2.0",
+    "semantic-ui-css": "^2.2.12",
+    "semantic-ui-react": "^0.71.3",
     "url-loader": "^0.5.8"
   }
 }
