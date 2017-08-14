@@ -18,7 +18,7 @@ npm install
 npm start
 ```
 * for development, run dev-server
-* open localhost:8080
+* open 'localhost:8080' on browser
 
 ```
 npm run dll
