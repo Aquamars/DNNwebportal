@@ -4,15 +4,21 @@
 
 ## What is this repository for? ##
 ------
-* This portal for create instance to run DNN.
+* This webportal for create instance to run DNN.
 * Version 0.1.5
 
 ## How do I get set up? ##
 ------
 ```
+npm install
+```
+* for install modules
+
+```
 npm start
 ```
 * for development, run dev-server
+* open localhost:8080
 
 ```
 npm run dll
@@ -33,12 +39,25 @@ npm run build
 * package all (dll and app)
 * the files will generate in build folder
 
+## Built With
+* [Webpack](https://github.com/webpack/webpack) - module bundler
+	* [UglifyJS](https://github.com/webpack-contrib/uglifyjs-webpack-plugin) - minify JavaScript
+	* [Compression](https://github.com/webpack-contrib/compression-webpack-plugin) - compressed static assets
+	* [HappyPack](https://github.com/amireh/happypack) - allowing you to transform multiple files in parallel
+	* [DllPlugin](https://webpack.js.org/plugins/dll-plugin/) - split bundles
+
 ## Package Analysis ##
 ------
-* report.app.html
+#report.app.html
+* State size: 601.18KB
+* Parse size: 294.85KB
+* Gzipped size: 92.8KB
 *![alt text](/build/image/app.PNG "app.js")
 
-* report.dll.html
+#report.dll.html
+* State size: 5.19MB
+* Parse size: 2.17MB
+* Gzipped size: 532.58KB
 *![alt text](/build/image/dll.PNG "dll.js")
 
 
