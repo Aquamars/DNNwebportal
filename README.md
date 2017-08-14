@@ -48,23 +48,28 @@ npm run build
 
 ## Package Analysis ##
 ------
-#report.app.html
+###report.app.html
 * State size: 601.18KB
 * Parse size: 294.85KB
 * Gzipped size: 92.8KB
-*![alt text](/build/image/app.PNG "app.js")
+![alt text](/build/image/app.PNG "app.js")
 
-#report.dll.html
+###report.dll.html
 * State size: 5.19MB
 * Parse size: 2.17MB
 * Gzipped size: 532.58KB
-*![alt text](/build/image/dll.PNG "dll.js")
+![alt text](/build/image/dll.PNG "dll.js")
 
+### other Analysis tools
+put JSON file(`stats.dev.json` , `stats.app.json` , `stats.dll.json`) on these website
+*analyse - https://github.com/webpack/analyse
+*webpack-visualizer - https://chrisbateman.github.io/webpack-visualizer/
 
 ## Contribution guidelines ##
 ------
 * A40503
 * Kevin Huang
+* Yenhsuan
 
 ### Who do I talk to? ###
 ------
