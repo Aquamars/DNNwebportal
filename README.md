@@ -2,12 +2,12 @@
 
 
 
-### What is this repository for? ###
+## What is this repository for? ##
 ------
 * This portal for create instance to run DNN.
 * Version 0.1.5
 
-### How do I get set up? ###
+## How do I get set up? ##
 ------
 ```
 npm start
@@ -33,12 +33,13 @@ npm run build
 * package all (dll and app)
 * the files will generate in build folder
 
-### Package Analysis ###
+## Package Analysis ##
 ------
+* report.app.html
+![alt text](.build/images/dnnIcon.png "app.js")
 
 
-
-### Contribution guidelines ###
+## Contribution guidelines ##
 ------
 * A40503
 * Kevin Huang
