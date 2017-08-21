@@ -71,9 +71,9 @@ class SigninFrom extends Component {
     axios.get(
       API_SIGNIN, 
       {
-        params: {
-          username: this.state.username,
-          password: this.state.password
+        headers: {
+          'x-username': this.state.username,
+          'x-password': this.state.password
         }
       }
     )
