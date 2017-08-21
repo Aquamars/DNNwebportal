@@ -40,8 +40,7 @@ import { lightBlue500, lightBlue900 } from 'material-ui/styles/colors'
 // i18n
 import { translate, Interpolate } from 'react-i18next'
 import i18n from '../utils/i18n'
-import DnnLogo from '../image/DNN Web logo_yellow.png'
-import EasterEgg from '../image/2013060723055881547495.jpg'
+import {DnnLogo} from '../image'
 // API call
 import axios from 'axios'
 import {API_GetInfo} from '../resource'
