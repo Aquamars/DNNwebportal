@@ -26,17 +26,27 @@ module.exports = {
           'axios', 
           'material-ui',
           'moment',
-          'chart.js',          
+          'chart.js',
           'papaparse',
           'rc-progress',
           'i18next',
           'i18next-browser-languagedetector',
           'i18next-xhr-backend',          
           'crypto-js',
-          'semantic-ui-css/semantic.min.css',
-          'semantic-ui-react'
+          'semantic-ui-css/components/label.min.css',
+          'semantic-ui-react',          
 
         ],
+        // pdf
+        bundle2:[
+          'jspdf',
+          'pdfmake/build/pdfmake.js',
+          'pdfmake/build/vfs_fonts',          
+        ],
+        // image
+        bundle3:[
+          './src/app/image'
+        ]
     },
     output: {
         path: buildPath,
@@ -51,7 +61,7 @@ module.exports = {
         }),
         new webpack.DllPlugin({
           // The manifest we will use to reference the libraries
-            path: './build/bundle.manifest.json',
+            path: './build/[name].manifest.json',
             name: '[name]',
             context: buildPath,
         }),
@@ -124,8 +134,7 @@ module.exports = {
           
             "style-loader",
             "css-loader",
-            "less-loader"
-          
+            "less-loader"          
         ],
         exclude: /node_modules/ 
       },
