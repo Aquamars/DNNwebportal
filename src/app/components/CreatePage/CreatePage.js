@@ -36,6 +36,7 @@ import ContentRemoveCircleOutline  from 'material-ui/svg-icons/content/remove-ci
 import ActionCheckCircle  from 'material-ui/svg-icons/action/check-circle'
 import DeviceStorage from 'material-ui/svg-icons/device/storage'
 import CommunicationContactMail from 'material-ui/svg-icons/communication/contact-mail'
+import ActionLabel from 'material-ui/svg-icons/action/label'
 // COLOR
 import { white, blueA400, blue500, green500, orange500, orangeA700, redA700, greenA700 } from 'material-ui/styles/colors'
 import {muiStyle, muiTheme} from '../../myTheme'
@@ -411,28 +412,48 @@ class CreatePage extends React.Component {
           <div>
             <div style={{margin: '0px auto'}}>
               <div style={{display: 'inline-block'}}>
-                <DatePicker
-                  autoOk={true}
-                  floatingLabelText={t('common:startDate')}
-                  shouldDisableDate={this.disableStartDate}
-                  onChange={this.handleChangeStartDate}
-                  value =  {this.state.startDate}    
-                  data-tip data-for='click'
-                />
-                <ReactTooltip id='click' place="left" effect='solid'>
-                  <span>{t('common:clickEdit')}</span>
-                </ReactTooltip>
-                <DatePicker
-                  autoOk={true}
-                  floatingLabelText={t('common:endDate')}
-                  onChange = {this.handleChangeEndDate}
-                  value =  {this.state.endDate}    
-                  shouldDisableDate={this.disableEndDate}
-                  data-tip data-for='click'
-                />
-                <ReactTooltip id='click' place="left" effect='solid'>
-                  <span>{t('common:clickEdit')}</span>
-                </ReactTooltip>
+                <div>
+                  <div style={{margin: '0px auto'}}>
+                    <div style={{display: 'inline-block'}}>
+                      <ActionLabel 
+                        color = {muiStyle.palette.primary1Color}
+                      />
+                    </div>
+                    <div style={{display: 'inline-block', marginLeft:'3px'}}>
+                      <DatePicker
+                        autoOk={true}
+                        floatingLabelText={t('common:startDate')}
+                        shouldDisableDate={this.disableStartDate}
+                        onChange={this.handleChangeStartDate}
+                        value =  {this.state.startDate}    
+                        data-tip data-for='click'
+                      />
+                      <ReactTooltip id='click' place="left" effect='solid'>
+                        <span>{t('common:clickEdit')}</span>
+                      </ReactTooltip>
+                    </div>
+                  </div>
+                  <div style={{margin: '0px auto'}}>
+                    <div style={{display: 'inline-block'}}>
+                      <ActionLabel 
+                        color = {muiStyle.palette.primary1Color}
+                      />
+                    </div>
+                    <div style={{display: 'inline-block', marginLeft:'3px'}}>
+                      <DatePicker
+                        autoOk={true}
+                        floatingLabelText={t('common:endDate')}
+                        onChange = {this.handleChangeEndDate}
+                        value =  {this.state.endDate}    
+                        shouldDisableDate={this.disableEndDate}
+                        data-tip data-for='click'
+                      />
+                      <ReactTooltip id='click' place="left" effect='solid'>
+                        <span>{t('common:clickEdit')}</span>
+                      </ReactTooltip>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div style={{display: 'inline-block'}}>
                 <Hints 
@@ -593,7 +614,7 @@ class CreatePage extends React.Component {
             />
           </CardActions>
           <CardTitle title={t('common:create')}/>
-          <div style={{width: '100%', maxWidth: 700, margin: 'auto'}}>          
+          <div style={{width: '100%', maxWidth: '50%', margin: 'auto'}}>          
             <Stepper activeStep={stepIndex}>
               <Step>
                 <StepLabel>{t('common:createStep.step1')}</StepLabel>

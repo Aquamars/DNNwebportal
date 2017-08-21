@@ -14,6 +14,7 @@ import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColu
 import moment from 'moment'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import StatusHandler from './StatusHandler'
+import GpuHandler from './GpuHandler'
 import HoverDiv from './HoverDiv'
 import ReviewCalendar from './ReviewCalendar/ReviewCalendar'
 // theme
@@ -24,7 +25,7 @@ import i18n from '../utils/i18n'
 // ICON
 import ActionToc from 'material-ui/svg-icons/action/toc'
 // COLOR
-import { green500, orange500, greenA700, redA700, orangeA700 } from 'material-ui/styles/colors'
+import { green500, orange500, greenA700, redA700, orangeA700, indigo900 } from 'material-ui/styles/colors'
 import {muiStyle, muiTheme} from '../myTheme'
 
 const textCenter = { textAlign:'center'}
@@ -62,7 +63,8 @@ class DetailModal extends React.Component {
 
 	renderTabOne = () => {
 		const {t} = this.props
-		return(
+		const sshCMD = 'ssh ' + this.props.data.instance.username + '@' + this.props.data.instance.ip + ' -p ' + this.props.data.instance.port
+		return( 
 			<div>
 			    <List>
 		          <ListItem
@@ -104,7 +106,16 @@ class DetailModal extends React.Component {
 			         	<ListItem
 			           		primaryText={<span><b>{t('common:password')}</b></span>}
 			           		secondaryText={this.props.data.instance.password}
-			         	/>
+			         	/>			         	
+			         </CopyToClipboard>,
+			         <CopyToClipboard 
+			         	text={sshCMD}
+			         	onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),true)}
+			         >
+			         	<ListItem
+			           		primaryText={<span><font color={indigo900}><b>{t('common:copySshCmd')}</b></font></span>}
+			           		secondaryText={sshCMD}			           		
+			         	/>			         	
 			         </CopyToClipboard>
 		            ]}
 		          />
@@ -122,10 +133,6 @@ class DetailModal extends React.Component {
 		                   secondaryText={<HoverDiv account={this.props.data.instance.datasetUsername} password={this.props.data.instance.datasetPassword}/>}
 		                />                        
 		            ]}
-		          />
-		          <ListItem
-		            primaryText={<span><b>{t('common:gpuType')} </b></span>}
-		            secondaryText={<p><b>{this.props.data.instance.machine.gpuType}</b></p>}
 		          />
 		          <ListItem
 		          	style={{display:'none'}}
@@ -200,7 +207,18 @@ class DetailModal extends React.Component {
           <span>{t('common:detail')}</span>
         </ReactTooltip>
         <Dialog
-          title={<div><b>{t('common:scheduleID')}-{this.props.data.id}</b>{showStatus &&<span>{<StatusHandler statusId={this.props.data.statusId} />}</span>}</div>}
+          title={
+          	<div>
+          		<b>{t('common:scheduleID')}-{this.props.data.id}</b>
+          		{
+          			showStatus && 
+          			<div style = {{margin: '0px auto'}}>
+	          			<div style = {{display: 'inline-block'}}><span> {<StatusHandler statusId={this.props.data.statusId} />} </span></div>
+	          			<div style = {{display: 'inline-block', marginLeft:'1%'}}><span> {<GpuHandler gpu = {this.props.data.instance.machine.gpuType} />} </span></div>
+          			</div>
+          		}
+          	</div>
+          }
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}

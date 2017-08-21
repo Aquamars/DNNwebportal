@@ -11,7 +11,7 @@ import Divider from 'material-ui/Divider'
 import {List, ListItem} from 'material-ui/List'
 import DeviceStorage from 'material-ui/svg-icons/device/storage'
 import CopyToClipboard from 'react-copy-to-clipboard'
-import CryptoJS from 'crypto-js'
+import {ftpPass} from '../utils/FtpPass'
 // i18n
 import { translate, Interpolate } from 'react-i18next'
 import i18n from '../utils/i18n'
@@ -41,13 +41,12 @@ class FtpInfoModal extends React.Component {
 	renderContent = () => {
 		const {t} = this.props
 		const username = localStorage.getItem('itriUser')
-		const md5Text = CryptoJS.MD5(username+'ITRIDNN').toString()
-		const pass = md5Text.slice(0,6)
+		const pass = ftpPass(username)
 		return (
 			<div>
 				<List>
 					<CopyToClipboard 
-						text={''}
+						text={'ftpHost'}
 						onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),true)}
 					>
 					<ListItem
@@ -57,7 +56,7 @@ class FtpInfoModal extends React.Component {
 		            />
 		            </CopyToClipboard>
 		            <CopyToClipboard 
-						text={''}
+						text={'ftpPort'}
 						onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),true)}
 					>
 		            <ListItem
@@ -67,7 +66,7 @@ class FtpInfoModal extends React.Component {
 		            />
 		            </CopyToClipboard>
 		            <CopyToClipboard 
-						text={''}
+						text={'FTP'}
 						onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),true)}
 					>
 		            <ListItem

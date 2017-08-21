@@ -20,7 +20,9 @@ import DetailModal from './DetailModal'
 import ExpandTransition from 'material-ui/internal/ExpandTransition'
 import moment from 'moment'
 import StatusHandler from './StatusHandler'
+import GpuHandler from './GpuHandler'
 import CopyToClipboard from 'react-copy-to-clipboard'
+import {displayPDF} from '../utils/MakeTutorialFile'
 
 // API call
 import {getInfo} from '../resource'
@@ -28,6 +30,7 @@ import {getInfo} from '../resource'
 import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh'
 import ContentAdd from 'material-ui/svg-icons/content/add'
 import DeviceStorage from 'material-ui/svg-icons/device/storage'
+import ImagePictureAsPdf from 'material-ui/svg-icons/image/picture-as-pdf'
 import GoDatabase from 'react-icons/lib/go/database'
 // style
 import {muiStyle} from '../myTheme'
@@ -39,7 +42,7 @@ import {DATA} from '../resource'
 import { translate, Interpolate } from 'react-i18next'
 import i18n from '../utils/i18n'
 
-import empty from '../image/think.png'
+import {empty} from '../image'
 
 const styles = {
 	root: {
@@ -64,6 +67,7 @@ const styles = {
 		textAlign:'center'
 	}
 }
+
 
 class ReviewTable extends Component {
 	constructor(props) {
@@ -125,6 +129,7 @@ class ReviewTable extends Component {
 	render(){
 		const {t} = this.props
 		const {switchCreatePage, loading} = this.state
+		
 		// console.log('ReviewTable')
 		// console.log(this.state.data.map((data, index)=>(data.statusId)))
 		return (
@@ -144,6 +149,12 @@ class ReviewTable extends Component {
 			          style = {{color:muiStyle.palette.primary1Color}}
 			          icon={<NavigationRefresh />}
 			          onTouchTap={this.refresh}
+			        />			        
+			        <FlatButton 
+			          label={'Tutorial'}
+			          style = {{color:greenA700}}
+			          icon={<ImagePictureAsPdf />}
+			          onTouchTap={()=>displayPDF(localStorage.getItem('itriUser'))}
 			        />
 			  </CardActions>
 			  <CardTitle title={t('common:reviewTitle')}/>
@@ -179,7 +190,7 @@ class ReviewTable extends Component {
 				      <TableRowColumn style = {styles.textCenter}><EditModal id={data.id} token={this.props.token} data = {data} refresh={this.getData} {...this.props}/></TableRowColumn>
 				      <TableRowColumn style = {styles.textCenter}>{data.id}</TableRowColumn>
 				      <TableRowColumn style = {styles.textCenter}>{<StatusHandler statusId={data.statusId} />}</TableRowColumn>
-				      <TableRowColumn style = {styles.textCenter}>{data.instance.machine.gpuType}</TableRowColumn>			      
+				      <TableRowColumn style = {styles.textCenter}>{<GpuHandler gpu={data.instance.machine.gpuType} />}</TableRowColumn>			      
 				      <TableRowColumn style = {styles.textCenter}>{data.instance.image.name}</TableRowColumn>			      
 				      <TableRowColumn style = {styles.textCenter}>
 				      	<CopyToClipboard 
