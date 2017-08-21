@@ -104,6 +104,9 @@ class HistoryTable extends Component {
 			const api = await getInfo(this.props.token, 'history')
 			console.log(api)
 			// this.dummyAsync(()=>
+			
+			if(api.data.historySchedules.length === 0)this.setState({switchPage: false})
+
 			this.setState({
 			  // loading: false,
 			  data: api.data.historySchedules
