@@ -98,7 +98,7 @@ export function displayPDF(username){
 			{
 				ol: [
 					{ 
-						text:"Monkey how to use FTP\n", 
+						text:"How to use FTP\n", 
 						linkToPage: 3,
 						style: 'outline'
 					},
@@ -163,7 +163,7 @@ export function displayPDF(username){
 			},
 ////////////// page 3
 			{ 
-				text:"Monkey how to use FTP", 
+				text:"How to use FTP", 
 				style: 'title',
 			},
 			{
@@ -234,7 +234,7 @@ export function displayPDF(username){
 				text:'\n\n'
 			},
 			{ 
-				text:"* The most 3 instance you can create.", 
+				text:"*Up to three instances are used.", 
 				color:"red",
 				fontSize: 20,
 			},
