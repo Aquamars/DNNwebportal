@@ -5,7 +5,7 @@
 ## What is this repository for? ##
 ------
 * This webportal for create instance to run DNN.
-* Version 0.1.5
+* Version 0.1.6
 
 ## How do I get set up? ##
 ------
@@ -94,4 +94,8 @@ npm run build
 ------
 * Me or my boss, perhaps.
 
+### Change log ###
+------
 last update 2017-08-22
+`0.1.6` add PDF tutorial
+`0.1.5` prototype
