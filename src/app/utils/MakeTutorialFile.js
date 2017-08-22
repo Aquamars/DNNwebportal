@@ -208,9 +208,6 @@ export function displayPDF(username){
 				}
 			},
 			{
-				text:'\n\n'
-			},
-			{
 				image: ftp,
 				width: 550,
 				alignment: 'center',
@@ -329,7 +326,7 @@ export function displayPDF(username){
 				text:'\n\n'
 			},
 			{ 
-				text:"1. Using putty access instance.", 
+				text:"1. Using putty access instance on your PC.", 
 				fontSize: 18,
 				bold: true,
 			},
