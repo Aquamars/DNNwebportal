@@ -98,7 +98,7 @@ export function displayPDF(username){
 			{
 				ol: [
 					{ 
-						text:"Monkey how to use FTP\n", 
+						text:"How to use FTP\n", 
 						linkToPage: 3,
 						style: 'outline'
 					},
@@ -163,7 +163,7 @@ export function displayPDF(username){
 			},
 ////////////// page 3
 			{ 
-				text:"Monkey how to use FTP", 
+				text:"How to use FTP", 
 				style: 'title',
 			},
 			{
@@ -208,9 +208,6 @@ export function displayPDF(username){
 				}
 			},
 			{
-				text:'\n\n'
-			},
-			{
 				image: ftp,
 				width: 550,
 				alignment: 'center',
@@ -237,7 +234,7 @@ export function displayPDF(username){
 				text:'\n\n'
 			},
 			{ 
-				text:"* The most 3 instance you can create.", 
+				text:"*Up to three instances are used.", 
 				color:"red",
 				fontSize: 20,
 			},
@@ -329,7 +326,7 @@ export function displayPDF(username){
 				text:'\n\n'
 			},
 			{ 
-				text:"1. Using putty access instance.", 
+				text:"1. Using putty access instance on your PC.", 
 				fontSize: 18,
 				bold: true,
 			},
