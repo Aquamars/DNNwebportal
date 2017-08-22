@@ -58,8 +58,9 @@ npm run build
 ------
 ###report.app.html
 |js|State size|Parse size|Gzipped size|
-| ---------| --------- | --------- | --------- |
+| --- | --------- | --------- | --------- |
 |app.js|661.46KB|291.49KB|74.51KB|
+
 * app.js: kernal code of web
 ![alt text](/build/image/app.PNG "app.js")
 
@@ -70,6 +71,7 @@ npm run build
 |bundle2.js|3.74 MB|1.99 MB|958.52 KB|
 |bundle3.js|347.56 KB|348.05 KB|252.71 KB|
 |All|8.76 MB|3.99 MB|1.62 MB|
+
 * bundle.js: 3rd party modules
 * bundle2.js: PDF modules
 * bundle3.js: images
