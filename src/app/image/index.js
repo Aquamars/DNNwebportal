@@ -1,6 +1,6 @@
 import _monkey from './rawImage.jpg'
 import _logo from './itri_EL_A.png'
-import _ftp from './tutorial/ftp.png'
+import _ftp from './tutorial/ftp1-2.png'
 import _ftp2 from './tutorial/ftp2-2.png'
 import _webCreate1 from './tutorial/webCreate1-1.png'
 import _webCreate2 from './tutorial/webCreate2-1.png'
