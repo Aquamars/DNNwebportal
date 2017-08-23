@@ -16,7 +16,8 @@ import _tensorflow from './tutorial/tensorflow.png'
 import _header from './tutorial/header2.png'
 import _think from './think.png'
 import _easterEgg from './op.jpg'
-import _DnnLogo from '../image/DNN Web logo_yellow.png'
+import _DnnLogo_yellow from '../image/DNN Web logo_yellow.png'
+import _DnnLogo from '../image/dnnIcon.png'
 
 export const monkey = _monkey
 export const logo = _logo
@@ -36,4 +37,5 @@ export const tensorflow = _tensorflow
 export const header = _header
 export const empty = _think
 export const easterEgg = _easterEgg
+export const DnnLogo_yellow = _DnnLogo_yellow
 export const DnnLogo = _DnnLogo
