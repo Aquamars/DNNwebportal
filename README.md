@@ -59,24 +59,24 @@ npm run build
 ###report.app.html
 |js|State size|Parse size|Gzipped size|
 | --- | --------- | --------- | --------- |
-|app.js|661.46KB|291.49KB|74.51KB|
+|app.js|664.63KB|294.34KB|75.9KB|
 
 * app.js: kernal code of web
-![alt text](/build/image/app.PNG "app.js")
+![alt text](/src/app/image/readme/app.PNG "app.js")
 
 ###report.dll.html
 |js|State size|Parse size|Gzipped size|
 | ---------| --------- | --------- | --------- |
 |bundle.js|4.67 MB|1.66 MB|443.5 KB|
 |bundle2.js|3.74 MB|1.99 MB|958.52 KB|
-|bundle3.js|347.56 KB|348.05 KB|252.71 KB|
-|All|8.76 MB|3.99 MB|1.62 MB|
+|bundle3.js|351.15 KB|351.63 KB|255.35 KB|
+|All|8.76 MB|4 MB|1.62 MB|
 
 * bundle.js: 3rd party modules
 * bundle2.js: PDF modules
 * bundle3.js: images
 
-![alt text](/build/image/dll.PNG "dll.js")
+![alt text](/src/app/image/readme/dll.PNG "dll.js")
 
 ### other Analysis tools
 * put JSON file( `stats.dev.json` , `stats.app.json` , `stats.dll.json` ) on these website
@@ -96,6 +96,6 @@ npm run build
 
 ### Change log ###
 ------
-last update 2017-08-22
+last update 2017-08-23
 `0.1.6` add PDF tutorial
 `0.1.5` prototype
