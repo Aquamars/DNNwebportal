@@ -115,5 +115,6 @@
     "ftpHost":"Host",
     "ftpPort":"Port",
     "ftpProtocol":"Protocol",
-    "copySshCmd":"Click to Copy SSH command"
+    "copySshCmd":"Click to Copy SSH command",
+    "tutorial":"Tutorial"
 }
