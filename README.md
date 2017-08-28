@@ -97,5 +97,6 @@ npm run build
 ### Change log ###
 ------
 last update 2017-08-23
+`0.1.7` change history table
 `0.1.6` add PDF tutorial
 `0.1.5` prototype
