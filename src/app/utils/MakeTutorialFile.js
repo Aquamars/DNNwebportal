@@ -118,8 +118,8 @@ export function displayPDF(username){
 						style: 'outline'
 					},
 					{ 
-						text:"...\n", 
-						linkToPage: 2,
+						text:"TensorAPM\n", 
+						linkToPage: 12,
 						style: 'outline'
 					},
 					// { 
@@ -405,6 +405,17 @@ export function displayPDF(username){
 				fontSize: 18,
 			},
 			{
+				text:[
+					'Use command: “ ',
+					{
+						text:'python /demo.py', 
+						color:'green'
+					},
+					' ” to run this sample code.'
+				],
+				fontSize: 18,
+			},
+			{
 				text:'\n'
 			},
 			{
@@ -489,7 +500,105 @@ export function displayPDF(username){
 				alignment: 'justify',
 				pageBreak: 'after'			
 			},
+////////////// page 12
+			{
+				text:"TensorAPM", 
+				style: 'title',
+			},
+			{
+				text:'\n\n'
+			},
+			{
+				text:"Guide",
+				fontSize: 24,
+				bold: true,
+			},
+			{
+				text:'\n'
+			},
+			{
+				text:'Step-1 : Check items before running script',
+				fontSize: 20,
+			},
+			{
+				type: 'none',
+				ol: [
+					'check ftp command',
+					{
+						type: 'none',
+						ol: [
+							'$ which ftp',
+							'/usr/bin/ftp',
+							'/tmp mode is 777'
+						]
+					},
+				]
+			},
+			{
+				text:'\n'
+			},
+			{
+				text:'Step-2 : Run script and obtain URL',
+				fontSize: 20,
+			},
+			{
+				type: 'none',
+				ol: [
+					'$ /utils/uptf.sh <eventlog-path>',
+					'for example:',
+					{
+						type: 'none',
+						ol: [
+							'A50562@m4:~$ /utils/uptf.sh /tmp/tensorflow_logs/',
+							'--- TensorAPM ---',
+							' INFO[TensorAPM]: Valid User Name: A50562, IP: 100.86.2.10',
+							'INFO[TensorAPM]: confirm upload',
+							'INFO[TensorAPM]: APM is running at :',
+							'http://140.96.27.123:8080/ITRIOpenAPM/index.jsp?apiProvider=1&dnnID=12345'
+						]
+					},
+				]
+			},
+			{
+				text:'\n'
+			},
+			{
+				text:'Step-3 : Browse to TensorAPM',
+				fontSize: 20,
+			},
+			{
+				type: 'none',
+				ol: [
+					'for example:',
+					{
+						type: 'none',
+						ol: [
+							'http://140.96.27.123:8080/ITRIOpenAPM/index.jsp?apiProvider=1&dnnID=12345',							
+						]
+					},
+				]
+			},
+			{
+				text:'\n\n'
+			},
+			{
+				text:"Specifications",
+				fontSize: 24,
+				bold: true,
+			},
+			{
+				text:'\n'
+			},
+			{
+				ul: [
+					'Users run script to upload event logs and obtain an URL to browse to TensorAPM. (details described in User Guide)',
+					'Every user will obtain a dedicated instance of TensorAPM, all instances will be isolated by IP port.',
+					'All graphs for same user+container IP address are grouped as drop-down items in same TensorAPM.',
+					'Once user changes relative to a given container IP address, the TensorAPM instance created for the previous user will be flushed.'
+				]
+			}
 		],
+
 		footer: 
 			function(currentPage, pageCount) { 
 				return (

@@ -151,7 +151,7 @@ class ReviewTable extends Component {
 			          onTouchTap={this.refresh}
 			        />			        
 			        <FlatButton 
-			          label={'Tutorial'}
+			          label={t('common:tutorial')}
 			          style = {{color:greenA700}}
 			          icon={<ImagePictureAsPdf />}
 			          onTouchTap={()=>displayPDF(localStorage.getItem('itriUser'))}
@@ -167,7 +167,7 @@ class ReviewTable extends Component {
 	    			 displaySelectAll={false}
 	    			 adjustForCheckbox={false}>
 	    			  <TableRow>
-	    			    <TableHeaderColumn style={{width: '8%'}}></TableHeaderColumn>
+	    			    <TableHeaderColumn style={{width: '8%'}}></TableHeaderColumn>	    			    
 				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:startDate')}</b></TableHeaderColumn>
 				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:endDate')}</b></TableHeaderColumn>
 				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:scheduleID')}</b></TableHeaderColumn>
@@ -185,7 +185,7 @@ class ReviewTable extends Component {
 				    	displayRowCheckbox={false}>
 				  	{ this.state.data.map((data, index)=>(
 				  	<TableRow key = {index}>
-				  	  <TableRowColumn style={{width: '8%'}}><DetailModal data = {data} /></TableRowColumn>
+				  	  <TableRowColumn style={{width: '8%'}}><DetailModal data = {data} /></TableRowColumn>				  	  
 				      <TableRowColumn style = {styles.textCenter}>{moment(data.startedAt).format('YYYY-MM-DD')}</TableRowColumn>
 				      <TableRowColumn style = {styles.textCenter}><EditModal id={data.id} token={this.props.token} data = {data} refresh={this.getData} {...this.props}/></TableRowColumn>
 				      <TableRowColumn style = {styles.textCenter}>{data.id}</TableRowColumn>

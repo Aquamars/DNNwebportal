@@ -1,6 +1,6 @@
 {
   "name": "DNNwebportal",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "ITRI DNN web portal",
   "repository": {
     "type": "git",
@@ -92,6 +92,7 @@
     "react-icons": "^2.2.3",
     "react-notification-system": "^0.2.13",
     "react-redux": "^5.0.6",
+    "react-table": "^6.5.3",
     "react-tap-event-plugin": "^2.0.1",
     "react-tooltip": "^3.3.0",
     "react-virtualized-select": "^3.0.1",

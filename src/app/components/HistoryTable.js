@@ -17,6 +17,9 @@ import HoverDiv from './HoverDiv'
 import DetailModal from './DetailModal'
 import moment from 'moment'
 import ExpandTransition from 'material-ui/internal/ExpandTransition'
+// Import React Table
+import ReactTable from "react-table"
+import "react-table/react-table.css"
 // API call
 import {getInfo} from '../resource'
 // ICON
@@ -64,7 +67,13 @@ class HistoryTable extends Component {
 	      switchCreatePage: false,
 	      singleInfo:{},
 	      expanded: false,
-	      messages : []
+	      messages : [],
+	      sorted: [],
+		  page: 0,
+		  pageSize: 5,
+		  tableExpanded: {},
+		  resized: [],
+		  filtered: []
 	    }
 	}
 
@@ -102,23 +111,93 @@ class HistoryTable extends Component {
 			  loading: true,
 			})
 			const api = await getInfo(this.props.token, 'history')
-			console.log(api)
+			// console.log(api)
 			// this.dummyAsync(()=>
 			
 			if(api.data.historySchedules.length === 0)this.setState({switchPage: false})
 
 			this.setState({
 			  // loading: false,
-			  data: api.data.historySchedules
+			  data: api.data.historySchedules,
 			})
 	  		// )
 		}catch(err){
+			console.log(err)
 	  		this.props.errorNotify('ERROR : HistoryTable')
 	    }
 	}
 	componentDidMount(){
 		// this.getData()
 		this.switchPage()
+	}
+	renderTable = () => {
+		const {t} = this.props
+		let orgData = this.state.data
+		let tableData = []
+		orgData.map((obj)=>{
+			obj.startedAt = moment(obj.startedAt).format('YYYY-MM-DD')
+			obj.endedAt = moment(obj.endedAt).format('YYYY-MM-DD')
+			tableData.push(obj)			
+		})
+		return(
+			<ReactTable
+	          data={tableData}
+	          columns={[	            
+	            {
+	              Header: '',
+	              columns: [
+	              	{
+	                  Header: t('common:detail'),
+	                  id:'detail',
+	                  width:80,
+	                  Cell: data => (<div><DetailModal  data = {data.original} iconColor = {grey500} showStatus={false}/></div>)
+	                },
+	                {
+	                  Header: t('common:startDate'),
+	                  accessor: 'startedAt'
+	                },
+	                {
+	                  Header: t('common:endDate'),	   
+	                  accessor: 'endedAt',	                  
+	                },
+	                {
+	                  Header: t('common:scheduleID'),
+	                  accessor: "id"
+	                },
+	                {
+	                  Header: t('common:image'),
+	                  id:'image',
+	                  accessor: d => d.instance.image.name
+	                },
+	                {
+	                  Header: t('common:gpuType'),
+	                  id:'gpuType',
+	                  accessor: d => d.instance.machine.gpuType
+	                },            
+	              ]
+	            },	            
+	          ]}
+	          // pivotBy={["startedAt"]}
+	          filterable
+	          defaultPageSize={5}
+	          className="-striped -highlight"
+	          // Controlled props
+	          sorted={this.state.sorted}
+	          page={this.state.page}
+	          pageSize={this.state.pageSize}
+	          expanded={this.state.tableExpanded}
+	          resized={this.state.resized}
+	          filtered={this.state.filtered}
+	          // Callbacks
+	          onSortedChange={sorted => this.setState({ sorted })}
+	          onPageChange={page => this.setState({ page })}
+	          onPageSizeChange={(pageSize, page) =>
+	            this.setState({ page, pageSize })}
+	          onExpandedChange={expanded => this.setState({ tableExpanded: expanded })}
+	          onResizedChange={resized => this.setState({ resized })}
+	          onFilteredChange={filtered => this.setState({ filtered })}
+	        />
+        )
 	}
 
 
@@ -145,43 +224,13 @@ class HistoryTable extends Component {
 			  <ExpandTransition loading={loading} open={switchPage}> 
 			  <Paper>
 			  {loading && <div style = {{textAlign:'center'}}><CircularProgress size={80} thickness={5} /></div>}
-			  <Table>
-    			<TableHeader
-    			 displaySelectAll={false}
-    			 adjustForCheckbox={false}>
-    			  <TableRow>
-    			    <TableHeaderColumn style={{width: '8%'}}></TableHeaderColumn>
-			        <TableHeaderColumn style = {styles.textCenter}>{t('common:startDate')}</TableHeaderColumn>
-			        <TableHeaderColumn style = {styles.textCenter}>{t('common:endDate')}</TableHeaderColumn>
-			        <TableHeaderColumn style = {styles.textCenter}>{t('common:scheduleID')}</TableHeaderColumn>			        
-			        <TableHeaderColumn style = {styles.textCenter}>{t('common:image')}</TableHeaderColumn>
-			        <TableHeaderColumn style = {styles.textCenter}>{t('common:account')}</TableHeaderColumn>
-			        <TableHeaderColumn style={{display:'none'}}>{t('common:project')}</TableHeaderColumn>			        
-			      </TableRow>
-			    </TableHeader>
-			    <TableBody
-			    	style = {{textAlign:'center'}} 
-			    	showRowHover={true} 
-			    	displayRowCheckbox={false}>
-			  	{ this.state.data.map((data, index)=>(
-			  	<TableRow key = {index}>
-			  	  <TableRowColumn style={{width: '8%'}}><DetailModal data = {data} iconColor = {grey500} showStatus={false}/></TableRowColumn>
-			      <TableRowColumn style = {styles.textCenter}>{moment(data.startedAt).format('YYYY-MM-DD')}</TableRowColumn>
-			      <TableRowColumn style = {styles.textCenter}>{moment(data.endedAt).format('YYYY-MM-DD')}</TableRowColumn>
-			      <TableRowColumn style = {styles.textCenter}>{data.id}</TableRowColumn>			      
-			      <TableRowColumn style = {styles.textCenter}>{data.instance.image.name}</TableRowColumn>			      
-			      <TableRowColumn style = {styles.textCenter}>
-			      	<HoverDiv account={data.instance.username} password={data.instance.password}/>
-	              </TableRowColumn>
-	              <TableRowColumn style={{display:'none'}}>{data.projectCode}</TableRowColumn>			      
-			    </TableRow>
-			  	))}
-			  	</TableBody>
-			  </Table>
+			  
+			  <div style={{margin:'auto', textAlign:'center'}}>{this.state.data.length !== 0 && this.renderTable()}</div>
 			  </Paper>
+			  
 			  </ExpandTransition>
 			</Card>
-			}
+			}			
 		  </div>
 		)
 	}
