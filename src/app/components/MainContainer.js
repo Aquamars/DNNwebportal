@@ -26,6 +26,7 @@ import ChartContainer from './Charts/ChartContainer'
 import Footer from './Footer'
 import CreatePage from './CreatePage/CreatePage'
 import Machines from './Charts/Machines'
+import {displayPDF} from '../utils/MakeTutorialFile'
 //ICON
 import ExitIcon from 'material-ui/svg-icons/action/power-settings-new'
 import SocialPerson  from 'material-ui/svg-icons/social/person'
@@ -35,6 +36,7 @@ import DeviceStorage from 'material-ui/svg-icons/device/storage'
 import ContentAdd from 'material-ui/svg-icons/content/add'
 import ActionHistory from 'material-ui/svg-icons/action/history'
 import MachineIcon from 'material-ui/svg-icons/action/dns'
+import ImagePictureAsPdf from 'material-ui/svg-icons/image/picture-as-pdf'
 // COLOR
 import { lightBlue500, lightBlue900 } from 'material-ui/styles/colors'
 // i18n
@@ -122,7 +124,7 @@ class MainContainer extends Component {
   constructor(props, context) {
     super(props, context)
     this.state = {
-      open: (localStorage.getItem('itriUser')=== 'itri'),
+      open: (localStorage.getItem('itriUser')=== 'A40503' && (this.props.admin > 6)),
       content: '',
       notifyOpen: false,
       notifyMsg:'',
@@ -131,7 +133,7 @@ class MainContainer extends Component {
     }
   }  
   handleToggle = () => {
-    if(localStorage.getItem('itriUser')=== 'itri'){
+    if(localStorage.getItem('itriUser')=== 'A40503' && (this.props.admin > 6)){
       this.setState({
         open: !this.state.open,
       })
@@ -187,16 +189,16 @@ class MainContainer extends Component {
         case 0:
           return (
                   <div>
-                    <ReviewTable token = {this.props.token} notify = {this.handleNotify} />
-                    <HistoryTable token = {this.props.token} notify = {this.handleNotify}/>
+                    <ReviewTable token = {this.props.token} />
+                    <HistoryTable token = {this.props.token} />
                   </div>
                  )
           break
         case 1:
-          return (<ReviewTable token = {this.props.token} notify = {this.handleNotify} />)
+          return (<ReviewTable token = {this.props.token} />)
           break
         case 2:
-          return (<HistoryTable token = {this.props.token} notify = {this.handleNotify}/>)
+          return (<HistoryTable token = {this.props.token} />)
           break
         case 3:
           return (
@@ -221,8 +223,8 @@ class MainContainer extends Component {
         default:
           return (
                   <div>
-                    <ReviewTable token = {this.props.token} notify = {this.handleNotify} />
-                    <HistoryTable token = {this.props.token} notify = {this.handleNotify}/>
+                    <ReviewTable token = {this.props.token} />
+                    <HistoryTable token = {this.props.token} />
                   </div>
                  )
       }
@@ -265,8 +267,8 @@ class MainContainer extends Component {
                               {this.selectItem(this.state.content)}
                               {false &&
                                 <div>
-                                  <ReviewTable token = {this.props.token} notify = {this.handleNotify} />
-                                  <HistoryTable token = {this.props.token} notify = {this.handleNotify}/>
+                                  <ReviewTable token = {this.props.token} />
+                                  <HistoryTable token = {this.props.token} />
                                 </div>
                               }
                               <Snackbar
@@ -313,8 +315,13 @@ class MainContainer extends Component {
                                primaryText={t('common:menu.create')}
                                onTouchTap={() => this.handleMenuTap(3)}
                               />
+                              <MenuItem
+                               leftIcon={<ImagePictureAsPdf />}
+                               primaryText={t('common:tutorial')}
+                               onTouchTap={()=>displayPDF(localStorage.getItem('itriUser'))}
+                              />                             
                             { 
-                              localStorage.getItem('itriUser') === 'itri' &&
+                              (localStorage.getItem('itriUser') === 'A40503' && (this.props.admin > 6)) &&
                               <div>
                               <MenuItem
                                leftIcon={<AnalysisIcon />}
@@ -342,11 +349,14 @@ class MainContainer extends Component {
         )
   }
 }
+
 function mapStateToProps(state) {
     return {
-        notify: state.notify
+        notify: state.notify,
+        admin: state.admin
     };
 }
+
 function matchDispatchToProps(dispatch){
     return bindActionCreators({closeNotify: closeNotify}, dispatch);
 }
