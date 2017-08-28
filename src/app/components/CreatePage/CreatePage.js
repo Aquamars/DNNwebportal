@@ -167,7 +167,7 @@ class CreatePage extends React.Component {
   getImageApi = () => {
     axios.get(
       API_GetImage,
-      {}
+      { headers: {'Accept': 'application/json'}}
     )
     .then((result)=>{      
       this.setState({

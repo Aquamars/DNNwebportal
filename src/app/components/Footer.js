@@ -1,4 +1,8 @@
 import React, { Component, PropTypes } from 'react'
+// Redux
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import {AdminAdd} from './Admin/actionAdmin'
 
 import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation'
 import Avatar from 'material-ui/Avatar'
@@ -31,10 +35,11 @@ class Footer extends Component {
           containerStyle={{overflow:'hidden'}}
         >
           <img width='100%'
-            src = {easterEgg}                    
+            src = {easterEgg} 
+            onClick={this.props.AdminAdd}                   
           />
           <div style={{textAlign:'center'}}>
-            <Avatar src={DnnLogo} size={100}/>
+            <Avatar src={DnnLogo} size={100} />
             <br/>
             {'v '+pjson.version}
             <br/>
@@ -46,11 +51,15 @@ class Footer extends Component {
             icon={<img src={window.location.href+t('common:logoSrc')} />}
             onTouchTap={this.handleToggle}
           />
-          <LanguageBtn/>          
+          <LanguageBtn/>
         </BottomNavigation>
       </Paper>
 		)
 	}
 }
 
-export default translate('')(Footer)
+function matchDispatchToProps(dispatch){
+    return bindActionCreators({AdminAdd: AdminAdd}, dispatch);
+}
+
+export default connect(null, matchDispatchToProps)(translate('')(Footer))

@@ -115,5 +115,6 @@
     "ftpHost":"主機",
     "ftpPort":"連接埠",
     "ftpProtocol":"通訊協定",
-    "copySshCmd":"點擊複製ssh指令"
+    "copySshCmd":"點擊複製ssh指令",
+    "tutorial":"教學文件"
 }

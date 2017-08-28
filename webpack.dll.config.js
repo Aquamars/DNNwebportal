@@ -18,6 +18,8 @@ module.exports = {
           'react-notification-system',
           'react-copy-to-clipboard',
           'react-virtualized-select',
+          'react-table',
+          'react-table/react-table.css',
           "react-redux",
           "redux",
           "redux-logger",
@@ -34,8 +36,7 @@ module.exports = {
           'i18next-xhr-backend',          
           'crypto-js',
           'semantic-ui-css/components/label.min.css',
-          'semantic-ui-react',          
-
+          'semantic-ui-react',
         ],
         // pdf
         bundle2:[
