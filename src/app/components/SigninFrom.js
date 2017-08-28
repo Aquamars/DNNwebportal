@@ -72,6 +72,7 @@ class SigninFrom extends Component {
       API_SIGNIN, 
       {
         headers: {
+          'Accept': 'application/json',
           'x-username': this.state.username,
           'x-password': this.state.password
         }
