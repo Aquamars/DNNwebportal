@@ -165,7 +165,7 @@ class EditModal extends React.Component {
             <span>{t('common:editDate')}</span>
           </ReactTooltip>
           <Dialog
-            title={this.props.data.instance.id+'-'+t('common:editDate')}
+            title={this.props.data.id+'-'+t('common:editDate')}
             actions={actions}
             modal={true}
             open={this.state.open}
