@@ -95,6 +95,7 @@ class ReviewCalendar extends React.Component {
       const endDate = this.props.endDate
       // let dateStart = moment(this.props.startDate)
       console.log(currentDate,startDate,endDate)
+
       if(moment(currentDate).isBetween(startDate,endDate)){
         let dateStart = moment(startDate)
         while (moment(currentDate) > dateStart) {
@@ -122,6 +123,12 @@ class ReviewCalendar extends React.Component {
         let dateStart = moment(startDate).add(1,'days')
         while (moment(endDate) >= dateStart) {
           avil1.push(dateStart.format('YYYY-MM-DD'))
+          dateStart.add(1,'days')
+        }
+      }else if(moment(currentDate).isSame(endDate)){
+        let dateStart = moment(startDate).add(1,'days')
+        while (moment(endDate) > dateStart) {
+          executed.push(dateStart.format('YYYY-MM-DD'))
           dateStart.add(1,'days')
         }
       }
@@ -221,7 +228,7 @@ class ReviewCalendar extends React.Component {
           onDayClick={this.handleDayClick}
           initialMonth={new Date()}
           fromMonth={!this.props.showDetail && new Date()}
-          toMonth={new Date(2077, 12, 30, 23, 59)}                                    
+          toMonth={new Date(2077, 12, 31, 23, 59)}                                    
         />
         <CalendarHint hints = {hints}/>
       </div>
