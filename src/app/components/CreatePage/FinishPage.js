@@ -21,27 +21,20 @@ class FinishPage extends React.Component {
         <h2 style={{textAlign: 'center'}}><b><font color = {muiStyle.palette.primary1Color}>{t('common:createStep.success')}</font></b></h2>
         <List>
           <ListItem
-            primaryText={<b>Instance</b>}
-            secondaryText={<p><b>ID : {this.props.data.instance.id}</b></p>}
-            initiallyOpen={true}
-            nestedItems={[
-              <ListItem
-                primaryText={<span><b>{t('common:ip')}</b></span>}
-                secondaryText={t('common:afterRunning')}
-               />,
-              <ListItem
-                primaryText={<span><b>{t('common:port')}</b></span>}
-                secondaryText={t('common:afterRunning')}
-              />,
-              <ListItem
-                primaryText={<span><b>{t('common:account')}</b></span>}
-                secondaryText={this.props.data.instance.username}
-              />,
-              <ListItem
-                primaryText={<span><b>{t('common:password')}</b></span>}
-                secondaryText={this.props.data.instance.password}
-              />
-            ]}
+            primaryText={<span><b>{t('common:ip')}</b></span>}
+            secondaryText={t('common:afterRunning')}
+          />
+          <ListItem
+            primaryText={<span><b>{t('common:port')}</b></span>}
+            secondaryText={t('common:afterRunning')}
+          />,
+          <ListItem
+            primaryText={<span><b>{t('common:account')}</b></span>}
+            secondaryText={this.props.data.instance.username}
+          />
+          <ListItem
+            primaryText={<span><b>{t('common:password')}</b></span>}
+            secondaryText={this.props.data.instance.password}
           />
           <ListItem
             primaryText={<span><b>{t('common:image')} </b></span>}
