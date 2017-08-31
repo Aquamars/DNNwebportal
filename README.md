@@ -97,6 +97,8 @@ npm run build
 ### Change log ###
 ------
 last update 2017-08-23
-`0.1.7` change history table
-`0.1.6` add PDF tutorial
-`0.1.5` prototype
+ `0.1.9` loading status counting, auto refresh after loading 10s
+ `0.1.8` add traditional chinese PDF 
+ `0.1.7` change history table
+ `0.1.6` add PDF tutorial
+ `0.1.5` prototype
