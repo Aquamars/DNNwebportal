@@ -45,21 +45,24 @@ const config = {
       context: buildPath,
       // The path to the generated vendor-manifest file
       manifest: require(path.join(__dirname, './build/bundle.manifest.json')),
-      // name: './build/bundle.js'
     }),
     new webpack.DllReferencePlugin({
       // An absolute path of your application source code
       context: buildPath,
       // The path to the generated vendor-manifest file
       manifest: require(path.join(__dirname, './build/bundle2.manifest.json')),
-      // name: './build/bundle.js'
     }),
     new webpack.DllReferencePlugin({
       // An absolute path of your application source code
       context: buildPath,
       // The path to the generated vendor-manifest file
       manifest: require(path.join(__dirname, './build/bundle3.manifest.json')),
-      // name: './build/bundle.js'
+    }),
+    new webpack.DllReferencePlugin({
+      // An absolute path of your application source code
+      context: buildPath,
+      // The path to the generated vendor-manifest file
+      manifest: require(path.join(__dirname, './build/bundle4.manifest.json')),
     }),     
     new webpack.optimize.UglifyJsPlugin({
       beautify: false,
@@ -191,7 +194,10 @@ const config = {
           },
           'image-webpack-loader'
         ]
-      }
+      },
+      // { test: /\.ttf$/i,
+      //   loader: 'null-loader',
+      // },
     ],
   },
 };

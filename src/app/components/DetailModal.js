@@ -17,6 +17,7 @@ import StatusHandler from './StatusHandler'
 import GpuHandler from './GpuHandler'
 import HoverDiv from './HoverDiv'
 import ReviewCalendar from './ReviewCalendar/ReviewCalendar'
+import FtpInfoModal from './FtpInfoModal'
 // theme
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 // i18n
@@ -63,24 +64,21 @@ class DetailModal extends React.Component {
 
 	renderTabOne = () => {
 		const {t} = this.props
+		// console.log(this.props.data)
 		const sshCMD = 'ssh ' + this.props.data.instance.username + '@' + this.props.data.instance.ip + ' -p ' + this.props.data.instance.port
 		return( 
-			<div>
+			<div>				
 			    <List>
-		          <ListItem
-		            primaryText={<b>{t('common:instanceID')}</b>}
-		            secondaryText={<p><b>{this.props.data.instance.id}</b></p>}
-		            initiallyOpen={true}
-		            nestedItems={[
-		             <CopyToClipboard 
+			    	<FtpInfoModal iconColor={'#FF3D00'}/>
+		          	<CopyToClipboard 
 		             	text={this.props.data.instance.ip}
 		             	onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),true)}
-		             >
+		            >
 			         	<ListItem 
 			            	primaryText={<span><b>{t('common:ip')}</b></span>}
 			            	secondaryText={this.props.data.instance.ip}
 			         	/>
-			         </CopyToClipboard>,
+			         </CopyToClipboard>
 			         <CopyToClipboard 
 			         	text={this.props.data.instance.port}
 			         	onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),true)}
@@ -89,7 +87,7 @@ class DetailModal extends React.Component {
 			           		primaryText={<span><b>{t('common:port')}</b></span>}
 			            	secondaryText={this.props.data.instance.port}
 			          	/>
-			         </CopyToClipboard>,
+			         </CopyToClipboard>
 			         <CopyToClipboard 
 			         	text={this.props.data.instance.username}
 			         	onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),true)}
@@ -98,7 +96,7 @@ class DetailModal extends React.Component {
 			           		primaryText={<span><b>{t('common:account')}</b></span>}
 			           		secondaryText={this.props.data.instance.username}
 			         	/>
-			         </CopyToClipboard>,
+			         </CopyToClipboard>
 			         <CopyToClipboard 
 			         	text={this.props.data.instance.password}
 			         	onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),true)}
@@ -107,7 +105,7 @@ class DetailModal extends React.Component {
 			           		primaryText={<span><b>{t('common:password')}</b></span>}
 			           		secondaryText={this.props.data.instance.password}
 			         	/>			         	
-			         </CopyToClipboard>,
+			         </CopyToClipboard>
 			         <CopyToClipboard 
 			         	text={sshCMD}
 			         	onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),true)}
@@ -117,28 +115,26 @@ class DetailModal extends React.Component {
 			           		secondaryText={sshCMD}			           		
 			         	/>			         	
 			         </CopyToClipboard>
-		            ]}
-		          />
-		          <ListItem
-		            primaryText={<span><b>{t('common:image')} </b></span>}
-		            secondaryText={<p><b>{this.props.data.instance.image.name}</b></p>}
-		            initiallyOpen={true}
-		            nestedItems={(this.props.data.instance.datasetPath!=null) && [
-		                <ListItem
-		                   primaryText={<b>{t('common:createStep.dataSetPath')}</b>}
-		                   secondaryText={<p><b>{this.props.data.instance.datasetPath}</b></p>}
-		                />,
-		                <ListItem
-		                   primaryText={<b>{t('common:createStep.id')}/{t('common:createStep.password')}</b>}
-		                   secondaryText={<HoverDiv account={this.props.data.instance.datasetUsername} password={this.props.data.instance.datasetPassword}/>}
-		                />                        
-		            ]}
-		          />
-		          <ListItem
-		          	style={{display:'none'}}
-		            primaryText={<span><b>{t('common:project')} </b></span>}
-		            secondaryText={<p><b>{this.props.data.projectCode}</b></p>}
-		          />
+		          	<ListItem
+			            primaryText={<span><b>{t('common:image')} </b></span>}
+			            secondaryText={<p><b>{this.props.data.instance.image.name}</b></p>}
+			            initiallyOpen={true}
+			            nestedItems={(this.props.data.instance.datasetPath!=null) && [
+			                <ListItem
+			                   primaryText={<b>{t('common:createStep.dataSetPath')}</b>}
+			                   secondaryText={<p><b>{this.props.data.instance.datasetPath}</b></p>}
+			                />,
+			                <ListItem
+			                   primaryText={<b>{t('common:createStep.id')}/{t('common:createStep.password')}</b>}
+			                   secondaryText={<HoverDiv account={this.props.data.instance.datasetUsername} password={this.props.data.instance.datasetPassword}/>}
+			                />                        
+		            	]}
+		          	/>
+		         	 <ListItem
+		          		style={{display:'none'}}
+		            	primaryText={<span><b>{t('common:project')} </b></span>}
+		            	secondaryText={<p><b>{this.props.data.projectCode}</b></p>}
+		          	/>
 		          <Divider style={{color:green500}}/>
 		        </List>
 		    </div>

@@ -14,7 +14,6 @@ import AppBar from 'material-ui/AppBar'
 import Drawer from 'material-ui/Drawer'
 import Snackbar from 'material-ui/Snackbar'
 import FontIcon from 'material-ui/FontIcon'
-import ReactTooltip from 'react-tooltip'
 import Paper from 'material-ui/Paper'
 import autoprefixer from 'material-ui/utils/autoprefixer'
 import { Card, CardHeader,CardMedia, CardTitle, CardText, CardActions } from 'material-ui/Card'
@@ -26,7 +25,7 @@ import ChartContainer from './Charts/ChartContainer'
 import Footer from './Footer'
 import CreatePage from './CreatePage/CreatePage'
 import Machines from './Charts/Machines'
-import {displayPDF} from '../utils/MakeTutorialFile'
+import TutorialBtn from './TutorialBtn'
 //ICON
 import ExitIcon from 'material-ui/svg-icons/action/power-settings-new'
 import SocialPerson  from 'material-ui/svg-icons/social/person'
@@ -38,7 +37,7 @@ import ActionHistory from 'material-ui/svg-icons/action/history'
 import MachineIcon from 'material-ui/svg-icons/action/dns'
 import ImagePictureAsPdf from 'material-ui/svg-icons/image/picture-as-pdf'
 // COLOR
-import { lightBlue500, lightBlue900 } from 'material-ui/styles/colors'
+import { greenA700, lightBlue500, lightBlue900 } from 'material-ui/styles/colors'
 // i18n
 import { translate, Interpolate } from 'react-i18next'
 import i18n from '../utils/i18n'
@@ -231,9 +230,7 @@ class MainContainer extends Component {
   }
 
   render(){ 
-      const {t} = this.props
-      console.log('this.props.notify:',this.props.notify)
-      
+      const {t} = this.props      
   		return(
 	   		<MuiThemeProvider muiTheme={muiTheme}>		   		
 	            <div style={prefixedStyles.wrapper}>
@@ -245,7 +242,12 @@ class MainContainer extends Component {
                           iconElementRight={
                             <div>
                               <span style={{display: 'inline-block',verticalAlign: 'super'}}>
-                              <FtpInfoModal />
+                              <div>
+                              <TutorialBtn />
+                              </div>        
+                              </span>
+                              <span style={{display: 'inline-block',verticalAlign: 'super'}}>
+                              <FtpInfoModal iconColor={'#FF3D00'}/>
                               </span>
                               <span style={{display: 'inline-block',verticalAlign: 'sub'}}>
                               <SocialPerson color='white'/>
@@ -258,7 +260,7 @@ class MainContainer extends Component {
                               >
                                 <ExitIcon color='white'/>
                               </IconButton>
-                              </span>
+                              </span>                              
                             </div>
                           }
         				        />

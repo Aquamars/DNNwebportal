@@ -24,7 +24,9 @@
         "deleting":"刪除中",
         "deleted":"已刪除",
         "canceled":"已取消",
-        "error":"錯誤"
+        "error":"錯誤",
+        "help":"試試右上的重新整理 或者 聯絡我們",
+        "count":"10秒後將會自動重新整理"
     },
     "image": "Image",
     "imageDesc": "Image 內容描述",
@@ -38,10 +40,10 @@
         "step4": "確認頁面",
         "back": "上一步",
         "next": "下一步",
-        "confirm":"請確認您的設定 !",
+        "confirm":"請確認您的schedule設定 !",
         "finish": "完成",
-        "create": "創建Instance",
-        "success":"成功創建Instance !",
+        "create": "創建Schedule",
+        "success":"成功創建Schedule !",
         "id": "帳號",
         "password": "密碼",
         "dataSetPath": "資料集路徑",
@@ -116,5 +118,7 @@
     "ftpPort":"連接埠",
     "ftpProtocol":"通訊協定",
     "copySshCmd":"點擊複製ssh指令",
-    "tutorial":"教學文件"
+    "tutorial":"教學文件",
+    "contactUs":"聯絡我們",
+    "pdfLang":"tc"
 }

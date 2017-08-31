@@ -24,7 +24,9 @@
         "deleting":"Deleting",
         "deleted":"Deleted",
         "canceled":"Canceled",
-        "error":"Error"
+        "error":"Error",
+        "help":"Try refresh (on top-right) or contact us.",
+        "count":"Will refresh after 10 seconds."
     },
     "image": "Image",
     "imageDesc": "Image description",
@@ -38,10 +40,10 @@
         "step4": "Confirm Page",
         "back": "Back",
         "next": "Next",
-        "confirm":"Confirm your setting !",
+        "confirm":"Confirm your schedule setting !",
         "finish": "Finish",
-        "create": "Create Instance",
-        "success":"Create instance success !",
+        "create": "Create Schedule",
+        "success":"Create Schedule success !",
         "id": "ID",
         "password": "Password",
         "dataSetPath": "DataSetPath",
@@ -116,5 +118,7 @@
     "ftpPort":"Port",
     "ftpProtocol":"Protocol",
     "copySshCmd":"Click to Copy SSH command",
-    "tutorial":"Tutorial"
+    "tutorial":"Tutorial",
+    "contactUs":"Contact",
+    "pdfLang":"eng"
 }

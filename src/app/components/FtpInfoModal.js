@@ -12,6 +12,7 @@ import {List, ListItem} from 'material-ui/List'
 import DeviceStorage from 'material-ui/svg-icons/device/storage'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import {ftpPass} from '../utils/FtpPass'
+import {FTPHost, FTPPort} from '../resource'
 // i18n
 import { translate, Interpolate } from 'react-i18next'
 import i18n from '../utils/i18n'
@@ -51,7 +52,7 @@ class FtpInfoModal extends React.Component {
 					>
 					<ListItem
 			            primaryText={<b>{t('common:ftpHost')}</b>}
-			            secondaryText={<p><b>{'ftpHost'}</b></p>}
+			            secondaryText={<p><b>{FTPHost}</b></p>}
 			            initiallyOpen={true}
 		            />
 		            </CopyToClipboard>
@@ -61,7 +62,7 @@ class FtpInfoModal extends React.Component {
 					>
 		            <ListItem
 			            primaryText={<b>{t('common:ftpPort')}</b>}
-			            secondaryText={<p><b>{'ftpPort'}</b></p>}
+			            secondaryText={<p><b>{FTPPort}</b></p>}
 			            initiallyOpen={true}
 		            />
 		            </CopyToClipboard>
@@ -106,8 +107,7 @@ class FtpInfoModal extends React.Component {
 		        <FlatButton
 		          style = {{color:this.props.iconColor}}
 		          label ={<b>Dataset - FTP</b>}
-		          data-tip data-for='storage'
-		          labelPosition="before"
+		          data-tip data-for='storage'		          
 		          icon={<DeviceStorage />}
 		          onTouchTap={this.handleOpen} />
 		        <ReactTooltip id='storage' place="bottom" effect='solid'>

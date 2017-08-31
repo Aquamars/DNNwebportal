@@ -16,6 +16,7 @@ import moment from 'moment'
 import {muiStyle} from '../myTheme'
 // ICON
 import MdDelete from 'react-icons/lib/md/delete'
+import ActionDeleteForever from 'material-ui/svg-icons/action/delete-forever'
 // COLOR
 import { redA700 } from 'material-ui/styles/colors'
 // i18n
@@ -35,8 +36,8 @@ class DeleteModal extends React.Component {
         loading: false,
         comfirm: false
       }
-      console.log(this.props.data)
-      console.log(this.props.id)
+      // console.log(this.props.data)
+      // console.log(this.props.id)
   }
   handleOpen = () => {
     this.setState({open: true})
@@ -105,6 +106,7 @@ class DeleteModal extends React.Component {
         onTouchTap={this.handleSubmit}
       />,
     ]
+    console.log(this.props.data)
     return (
       <div>
         <FlatButton 
@@ -113,7 +115,7 @@ class DeleteModal extends React.Component {
           fullWidth = {true}
           data-tip data-for='remove'
           onTouchTap={this.handleOpen}
-          icon={<MdDelete/>} 
+          icon={<ActionDeleteForever/>} 
         />
         <ReactTooltip id='remove' place="bottom" effect='solid'>
           <span>{t('common:remove.remove')}</span>
@@ -137,8 +139,8 @@ class DeleteModal extends React.Component {
                     secondaryText={<p>{moment(this.props.data.startedAt).format('YYYY-MM-DD')} ~ {moment(this.props.data.endedAt).format('YYYY-MM-DD')}</p>}
                   />
                   <ListItem
-                    primaryText={<b>{t('common:instanceID')}</b>}
-                    secondaryText={this.props.data.instance.id}
+                    primaryText={<b>{t('common:scheduleID')}</b>}
+                    secondaryText={this.props.data.id}
                   />
                   <ListItem
                     primaryText={<b>{t('common:image')}</b>}
