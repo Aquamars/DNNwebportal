@@ -333,7 +333,14 @@ class CreatePage extends React.Component {
   renderSelectImage = (instance, index) => {
     const {t} = this.props
     return (
-      <div>                
+      <div>
+        <div style={{margin: '0px auto'}}>
+        <div style={{display: 'inline-block',verticalAlign: 'super'}}>
+          <ActionLabel 
+            color = {muiStyle.palette.primary1Color}
+          />
+        </div>
+        <div style={{display: 'inline-block'}}>
         <SelectField
           key = {instance.instance}
           floatingLabelText={"Instance "+index+" "+t('common:instanceImage')}
@@ -344,6 +351,8 @@ class CreatePage extends React.Component {
             <MenuItem key={image.id} value={index} primaryText={image.name} />
           ))}
         </SelectField>
+        </div>
+        </div>
         <br/>
         <div>
           <Card>
@@ -584,7 +593,7 @@ class CreatePage extends React.Component {
     this.getImageApi()       
   }
   render() {
-    const {loading, stepIndex, finished} = this.state
+    const {loading, loadingCreate, stepIndex, finished} = this.state
     const {t} = this.props
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
@@ -608,14 +617,21 @@ class CreatePage extends React.Component {
             </ReactTooltip>
             <FlatButton 
               label={t('common:backReview')}
-              style = {finished ? {color:'white'} : {color:muiStyle.palette.primary1Color}}
+              style = {loadingCreate ? {color:'white'} : {color:muiStyle.palette.primary1Color}}
               icon={<ImageViewComfy />}
-              disabled = {finished}
+              disabled = {loadingCreate}
               onTouchTap={this.props.switchReview}
+            />
+            <FlatButton 
+              label={t('common:backReview')}
+              style = {!finished ? {display:'none'} : {color:muiStyle.palette.primary1Color}}
+              icon={<ImageViewComfy />}
+              disabled = {!finished}
+              onTouchTap={this.CreateDone}
             />
           </CardActions>
           <CardTitle title={t('common:create')}/>
-          <div style={{width: '100%', maxWidth: '50%', margin: 'auto'}}>          
+          <div style={{width: '100%', maxWidth: '55%', margin: 'auto'}}>          
             <Stepper activeStep={stepIndex}>
               <Step>
                 <StepLabel>{t('common:createStep.step1')}</StepLabel>
