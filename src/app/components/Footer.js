@@ -11,7 +11,7 @@ import Paper from 'material-ui/Paper'
 import Drawer from 'material-ui/Drawer'
 import { translate, Interpolate } from 'react-i18next'
 import i18n from '../utils/i18n'
-import {easterEgg, DnnLogo} from '../image'
+import {lineCode, lineCode2, easterEgg, DnnLogo} from '../image'
 import pjson from '../../../package.json'
 class Footer extends Component {
   constructor(props, context) {
@@ -32,10 +32,10 @@ class Footer extends Component {
           width={300}
           openSecondary={true} 
           open={this.state.open} 
-          containerStyle={{overflow:'hidden'}}
+          containerStyle={{overflow:'hidden'}}          
         >
           <img width='100%'
-            src = {easterEgg} 
+            src = {lineCode2} 
             onClick={this.props.AdminAdd}                   
           />
           <div style={{textAlign:'center'}}>
