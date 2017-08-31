@@ -41,12 +41,15 @@ module.exports = {
         // pdf
         bundle2:[
           'jspdf',
-          'pdfmake/build/pdfmake.js',
-          'pdfmake/build/vfs_fonts',          
+          'pdfmake/build/pdfmake.js',        
         ],
         // image
         bundle3:[
           './src/app/image'
+        ],
+        // fonts
+        bundle4:[
+          './src/app/plugin/font/vfs_fonts.js'
         ]
     },
     output: {

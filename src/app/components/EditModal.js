@@ -13,6 +13,7 @@ import CircularProgress from 'material-ui/CircularProgress'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 // ICON
 import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit'
+import ActionLabel from 'material-ui/svg-icons/action/label'
 // theme
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import {muiStyle, muiTheme} from '../myTheme'
@@ -165,7 +166,7 @@ class EditModal extends React.Component {
             <span>{t('common:editDate')}</span>
           </ReactTooltip>
           <Dialog
-            title={this.props.data.instance.id+'-'+t('common:editDate')}
+            title={this.props.data.id+'-'+t('common:editDate')}
             actions={actions}
             modal={true}
             open={this.state.open}
@@ -177,20 +178,38 @@ class EditModal extends React.Component {
                 <div style = {{textAlign:'center'}}><CircularProgress size={80} color={muiStyle.palette.primary1Color} thickness={5} /></div> :
                 <div>
                   <Divider />
-                  <TextField
-                    disabled={true}
-                    defaultValue={moment(this.props.data.startedAt).format('YYYY-MM-DD')}
-                    floatingLabelText={t('common:startDate')}
-                  />
+                  <div style={{margin: '0px auto'}}>
+                    <div style={{display: 'inline-block'}}>
+                      <ActionLabel 
+                        color = {'white'}
+                      />
+                    </div>
+                    <div style={{display: 'inline-block'}}>
+                      <TextField
+                        disabled={true}
+                        defaultValue={moment(this.props.data.startedAt).format('YYYY-MM-DD')}
+                        floatingLabelText={t('common:startDate')}
+                      />
+                    </div>
+                  </div>
                   <br/>
-                  <DatePicker
-                    onChange={this.handleChangeMaxDate}
-                    autoOk={true}
-                    floatingLabelText={t('common:endDate')}
-                    shouldDisableDate={this.disableDate}
-                    defaultDate={new Date(this.props.data.endedAt)}
-                    data-tip data-for='click'
-                  />
+                  <div style={{margin: '0px auto'}}>
+                    <div style={{display: 'inline-block'}}>
+                      <ActionLabel 
+                        color = {muiStyle.palette.primary1Color}
+                      />
+                    </div>
+                    <div style={{display: 'inline-block'}}>
+                      <DatePicker
+                        onChange={this.handleChangeMaxDate}
+                        autoOk={true}
+                        floatingLabelText={t('common:endDate')}
+                        shouldDisableDate={this.disableDate}
+                        defaultDate={new Date(this.props.data.endedAt)}
+                        data-tip data-for='click'
+                      />
+                    </div>
+                  </div>
                   <ReactTooltip id='click' place="right" effect='solid'>
                     <span>{t('common:clickEdit')}</span>
                   </ReactTooltip>

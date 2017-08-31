@@ -1,11 +1,13 @@
 // import pdfConverter from 'jspdf'
 import pdfMake from 'pdfmake/build/pdfmake.js'
-import vfsFonts from 'pdfmake/build/vfs_fonts'
+import vfsFonts from '../plugin/font/vfs_fonts'
 import {ftpPass} from './FtpPass'
+import {FTPHost, FTPPort} from '../resource'
 // image
 import { 
 	monkey,
 	logo,
+	logoTc,
 	ftp,
 	ftp2,
 	webCreate1,
@@ -19,32 +21,14 @@ import {
 	accessInstance2,
 	accessInstance3,
 	tensorflow,
+	tensorflow2,
+	tensorflow3,
 	header,
 } from '../image'
-// const pdf = new pdfConverter('p', 'pt')
-// // let doc = converter.jsPDF('p', 'pt')
-// pdf.setFontSize(40)
-// pdf.text(35, 25, "Octonyan loves jsPDF")
-// const pdf = new pdfConverter('p', 'mm', 'a4')
-// pdf.setFontSize(40) 
-// pdf.text(35, 25, "Monkey can do DNN")
-// pdf.addImage(monkey, 'JPEG', 15, 40, 180, 120)
-// pdf.addPage('p', 'mm', 'a4');
-// pdf.text(35, 25, "Monkey can do DNN")
-// pdf.addImage(monkey, 'JPEG', 15, 40, 180, 100)
-// pdf.fromHTML(window.document.getElementById('divToPDF'), 10, 10,{'width': 180});
-// pdf.save('test.pdf')
-// export function makeFile() {
-//   // do some calculations
-//   return {
-//     mime: 'application/pdf',
-//       filename: 'generated.pdf',
-//       contents: pdf.output()
-//   }
-// }
+
 
 import '../plugin/html2Canvas'
-export function displayPDF(username){
+export function displayPDF(username, language){
 	
 
 	const ftpPassword = ftpPass(username)
@@ -119,7 +103,7 @@ export function displayPDF(username){
 					},
 					{ 
 						text:"TensorAPM\n", 
-						linkToPage: 12,
+						linkToPage: 13,
 						style: 'outline'
 					},
 					// { 
@@ -188,7 +172,7 @@ export function displayPDF(username){
 						['ftpHost', 'ftpUser', 'ftpPass','ftpPort'],
 						[
 							{ 
-								text:"0.0.0.0", 
+								text:FTPHost, 
 								bold: true,
 							}, 
 							{ 
@@ -200,7 +184,7 @@ export function displayPDF(username){
 								bold: true,
 							},
 							{ 
-								text:'9527', 
+								text:FTPPort, 
 								bold: true,
 							},
 						]
@@ -498,9 +482,39 @@ export function displayPDF(username){
 				},
 				fontSize: 14,	
 				alignment: 'justify',
-				pageBreak: 'after'			
+						
 			},
-////////////// page 12
+			{
+				text:'\n'
+			},
+			{
+				text:'Correct output should look like this:\n',
+				fontSize: 18,
+			},
+			{
+				image: tensorflow2,
+				width: 250,
+				alignment: 'center',
+				pageBreak: 'after'
+			},
+			{
+				text: 'If Tensorflow is configured to run on gpu and has access to gpu it will tell what gpus were found:',
+				fontSize: 18,				
+			},
+			{
+				image: tensorflow3,
+				width: 500,
+			},
+			{
+				text:'\n'
+			},
+			{
+				text:'This code can run on both cpu and gpu depending on what type of Tensorflow was installed and what devices are visible. If gpu version of Tensorflow installed and gpu is visible for this code by default training will run on gpu.',
+				fontSize: 18,
+				alignment: 'justify',
+				pageBreak: 'after'
+			},
+////////////// page 13
 			{
 				text:"TensorAPM", 
 				style: 'title',
@@ -529,7 +543,19 @@ export function displayPDF(username){
 						ol: [
 							'$ which ftp',
 							'/usr/bin/ftp',
-							'/tmp mode is 777'
+						]
+					},
+				]
+			},
+			{
+				type: 'none',
+				ol: [
+					'check /tmp mode is 777',
+					{
+						type: 'none',
+						ol: [
+							'$ ls -ld /tmp',
+							'drwxrwxrwt 13 root root 4096 Aug 31 07:58 /tmp',							
 						]
 					},
 				]
@@ -595,10 +621,11 @@ export function displayPDF(username){
 					'Every user will obtain a dedicated instance of TensorAPM, all instances will be isolated by IP port.',
 					'All graphs for same user+container IP address are grouped as drop-down items in same TensorAPM.',
 					'Once user changes relative to a given container IP address, the TensorAPM instance created for the previous user will be flushed.'
-				]
+				],
+				alignment: 'justify'
 			}
 		],
-
+////////////// PDF footer
 		footer: 
 			function(currentPage, pageCount) { 
 				return (
@@ -622,6 +649,7 @@ export function displayPDF(username){
 					}
 				) 
 			},
+////////////// PDF header
 		header:
 			function(currentPage, pageCount) { 
 				return (
@@ -632,11 +660,12 @@ export function displayPDF(username){
 					}
 				)
 			},
+////////////// PDF styles		
 		styles: {
 			title: {
 				fontSize: 30,
 				bold: true,
-				alignment: 'center'
+				alignment: 'center',
 			},
 			outline: {
 				fontSize: 24,
@@ -648,9 +677,719 @@ export function displayPDF(username){
 			},
 		}
 	}
+	const docDefinitionTC = { 
+		content:[
+////////////// page 1
+			{ 
+				text: '猴子也會用的 DNN', 
+				style: 'title',
+				fontSize: 36,
+				 
+			},
+			{
+				text:'\n\n\n\n\n\n\n'
+			},
+			{
+				image: monkey,
+				width: 450
+			},
+			{
+				text:'\n\n\n\n\n\n\n'
+			},
+			{
+				text: '作者:\n Professional Monkey',
+				alignment: 'center',
+				fontSize: 24,
+				font: 'tc'
+			},
+			{
+				text: '\nmOnkEyuSEr@itri.org.tw',
+				alignment: 'center',
+				fontSize: 20,
+			},
+			{
+				text:'\n\n\n\n\n'
+			},			
+			{
+				image: logoTc,
+				width: 200,
+				alignment: 'center',
+				pageBreak: 'after'				
+			},
+////////////// page 2
+			{ 
+				text:"使用者指南", 
+				style: 'title',
+				fontSize: 36,
+			},
+			{
+				text:'\n'
+			},
+			{
+				ol: [
+					{ 
+						text:"如何使用FTP\n", 
+						linkToPage: 3,
+						style: 'outline'
+					},
+					{ 
+						text:"透過Web啟用Instance\n", 
+						linkToPage: 4,
+						style: 'outline'
+					},
+					{ 
+						text:"連接Instance\n", 
+						linkToPage: 8,
+						style: 'outline'
+					},
+					{ 
+						text:"Tensorflow測試範例\n", 
+						linkToPage: 10,
+						style: 'outline'
+					},
+					{ 
+						text:"TensorAPM用戶指南\n", 
+						linkToPage: 13,
+						style: 'outline'
+					},
+					// { 
+					// 	text:"...\n", 
+					// 	linkToPage: 2,
+					// 	style: 'outline'
+					// },
+					// { 
+					// 	text:"...\n", 
+					// 	linkToPage: 2,
+					// 	style: 'outline'
+					// },
+					// { 
+					// 	text:"...\n", 
+					// 	linkToPage: 2,
+					// 	style: 'outline'
+					// },
+					// { 
+					// 	text:"...\n", 
+					// 	linkToPage: 2,
+					// 	style: 'outline'
+					// },
+					// { 
+					// 	text:"...\n", 
+					// 	linkToPage: 2,
+					// 	style: 'outline'
+					// },
+					// { 
+					// 	text:"...\n", 
+					// 	linkToPage: 2,
+					// 	style: 'outline'
+					// },
+					// { 
+					// 	text:"...\n", 
+					// 	linkToPage: 2,
+					// 	style: 'outline'
+					// },
+				],
+				fontSize: 24,
+				pageBreak: 'after'	
+			},
+////////////// page 3
+			{ 
+				text:"如何使用FTP", 
+				style: 'title',
+			},
+			{
+				text:'\n\n'
+			},
+			{ 
+				text:"您可以利用 ftp上傳您的 dataset 或是 image。", 
+				fontSize: 20,
+				font: 'tc'
+			},
+			{
+				text:'\n\n'
+			},
+			{ 
+				text:"這些是您的FPT連線資訊。", 
+				fontSize: 18,
+				font: 'tc'
+			},
+			{
+				style: 'tableExample',
+				table: {
+					widths: [200, '*', 100, '*'],
+					body: [
+						['ftpHost', 'ftpUser', 'ftpPass','ftpPort'],
+						[
+							{ 
+								text:FTPHost, 
+								bold: true,
+							}, 
+							{ 
+								text:username, 
+								bold: true,
+							},
+							{ 
+								text:ftpPassword, 
+								bold: true,
+							},
+							{ 
+								text:FTPPort, 
+								bold: true,
+							},
+						]
+					]
+				}
+			},
+			{
+				image: ftp,
+				width: 550,
+				alignment: 'center',
+			},
+			{
+				text:'\n\n'
+			},
+			{ 
+				text:"您也可以從Web上找到FTP連線資訊喔~吱吱", 
+				fontSize: 18,
+				font: 'tc'
+			},
+			{
+				image: ftp2,
+				width: 550,
+				alignment: 'center',
+				pageBreak: 'after'
+			},
+////////////// page 4
+			{ 
+				text:"透過Web啟用Instance", 
+				style: 'title',
+			},
+			{
+				text:'\n\n'
+			},
+			{ 
+				text:"*每人最多只能預約3個instance。", 
+				color:"red",
+				fontSize: 20,
+				font:"tc"
+			},
+			{
+				text:'\n\n'
+			},
+			{ 
+				text:"1. 點擊 創建 按鈕。", 
+				fontSize: 16,
+				font:"tc"
+			},			
+			{
+				image: webCreate1,
+				width: 500,
+				alignment: 'center',
+			},
+			{
+				text:'\n\n'
+			},
+			{ 
+				text:"2. 選擇日期的範圍。", 
+				fontSize: 16,
+				font:"tc"
+			},			
+			{
+				image: webCreate2,
+				width: 500,
+				alignment: 'center',
+				pageBreak: 'after'
+			},
+			{ 
+				text:"3. 日期區間需要大於0，即可進入下一個步驟。", 
+				fontSize: 16,
+				font:"tc"
+			},			
+			{
+				image: webCreate3,
+				width: 500,
+				alignment: 'center',
+			},
+			{
+				text:'\n\n'
+			},
+			{ 
+				text:"4. 您可以選擇各種的Iamge來使用。", 
+				fontSize: 16,
+				font:"tc"
+			},			
+			{
+				image: webCreate4,
+				width: 500,
+				alignment: 'center',
+				pageBreak: 'after'
+			},
+			{ 
+				text:"5. 選擇完後請確認您的設定。", 
+				fontSize: 16,
+				font:"tc"
+			},			
+			{
+				image: webCreate5,
+				width: 500,
+				alignment: 'center',
+			},
+			{
+				text:'\n\n'
+			},
+			{ 
+				text:"6. 在創建完Schedule之後，即可得到登入帳號與密碼。", 
+				fontSize: 16,
+				font:"tc"
+			},			
+			{
+				image: webCreate6,
+				width: 500,
+				alignment: 'center',
+				pageBreak: 'after'
+			},
+			{ 
+				text:"7. 在Instance運作之後，即可得到登入IP及port。", 
+				fontSize: 16,
+				font:"tc"
+			},			
+			{
+				image: webCreate7,
+				width: 500,
+				alignment: 'center',
+				pageBreak: 'after'
+			},
+////////////// page 8
+			{ 
+				text:"連接instance", 
+				style: 'title',
+			},
+			{
+				text:'\n\n'
+			},
+			{ 
+				text:"1. 使用 putty 連接 instance。", 
+				fontSize: 18,
+				bold: true,
+				font: "tc"
+			},
+			{ 
+				text:"輸入Instance的IP和port，選擇SSH.(您可以直接點擊來複製資訊)", 
+				fontSize: 16,
+				font: "tc"
+			},
+			{
+				image: accessInstance1,
+				width: 500,
+				alignment: 'center',
+			},
+			{ 
+				text:"輸入您的帳號與密碼來連接您的Instance。", 
+				fontSize: 16,
+				font: "tc"
+			},
+			{
+				image: accessInstance2,
+				width: 260,
+				alignment: 'center',
+			},
+			{
+				text:'\n\n'
+			},
+			{ 
+				text:"2. 使用 linux 系統連接Instance。", 
+				fontSize: 18,
+				bold: true,
+				font: "tc"
+			},
+			{ 
+				text:"只需要點擊即可複製指令，然後貼上指令執行。", 
+				fontSize: 16,
+				font:"tc"
+			},
+			{
+				image: accessInstance3,
+				width: 500,
+				alignment: 'center',
+				pageBreak: 'after'
+			},
+////////////// page 10
+			{ 
+				text:"Tensorflow測試範例", 
+				style: 'title',
+			},
+			{
+				text:'\n\n'
+			},
+			{
+				text:'測試程式與數據都在tensorflow:201707這個image裡。',
+				fontSize: 18,
+				alignment: 'justify',
+				font: "tc"
+			},
+			{
+				text:'\n'
+			},
+			{
+				text:[
+					'測試程式為',
+					{
+						text:'demo.py', 
+						color:'blue'
+					},
+					'，位於',
+					{
+						text:'“/”資料夾', 
+						color:'blue'
+					},
+					// '.\n',
+					'裡，數據則位於',
+					{
+						text:'“/tmp/data”', 
+						color:'blue'
+					},
+					'。',
+				],
+				fontSize: 18,
+				font: "tc"
+			},
+			{
+				text:[
+					'輸入指令“ ',
+					{
+						text:'python /demo.py', 
+						color:'green'
+					},
+					' ”開始測試。'
+				],
+				fontSize: 18,
+				font: "tc"
+			},
+			{
+				text:'\n'
+			},
+			{
+				table: {
+					widths: [150, 300],
+					body: [
+						['測試程式', '數據'],
+						[
+							{
+								ul: [
+										'demo.py',
+									]
+							},
+							{
+								ul: [
+										't10k-labels-idx1-ubyte.gz',
+										't10k-images-idx3-ubyte.gz', 
+										'train-images-idx3-ubyte.gz', 
+										'train-labels-idx1-ubyte.gz'
+									]
+							},
+						]
+					]
+				},
+				fontSize: 16,
+				font: "tc"				
+			},
+			{
+				text:'\n'
+			},
+			{
+				text:[
+						'這個測試主要的目的是藉由訓練一個簡單的模型，來確定image能否正常運作Tensorflow。\n\n' ,
+						'測試程式處理的是MNIST數據，我們可以從文字介面或者透過Tensorboard看到結果。文字介面會顯示訓練時目標函數的變化，Tensorboard的結果會存在測試程式裡設定的資料夾內。\n'
+				],
+				fontSize: 18,
+				alignment: 'justify',
+				font: "tc"
+			},
+			{
+				text:'\n'
+			},
+			{
+				text:'參數設定：\n',
+				fontSize: 18,
+				font: "tc"
+			},
+			{
+				image: tensorflow,
+				width: 500,
+				pageBreak: 'after'
+			},
+			{
+				table: {
+					widths: [150, 350],
+					body: [
+						['參數', '描述'],
+						[
+							'mnist',
+						    '數據的位置，預設值為“/tmp/data”，也可以改為其他位置，如果程式找不到檔案則會自動從網路下載'
+						],
+						[
+							'learning_rate',
+							'初始的學習速率'
+						],
+						[
+							'training_epochs',
+							'訓練的迴圈數目，一個迴圈表示模型已經跑過完整一次數據'
+						],
+						[
+							'batch_size',
+							'表示模型一步跑幾筆數據'
+						],
+						[
+							'display_step',
+							'模型每跑幾步才顯示訓練過程'
+						],
+						[
+							'logs_path',
+							'Tensorboard的結果存放位置'
+						]
+					]
+				},
+				fontSize: 14,	
+				alignment: 'justify',
+				font: "tc"
+						
+			},
+			{
+				text:'\n'
+			},
+			{
+				text:'正確的輸出如下：\n',
+				fontSize: 18,
+				font: "tc"
+			},
+			{
+				image: tensorflow2,
+				width: 250,
+				alignment: 'center',
+				pageBreak: 'after'
+			},
+			{
+				text: '若使用gpu版本的Tensorflow，會顯示出可用的gpu。',
+				fontSize: 18,
+				font: "tc"				
+			},
+			{
+				image: tensorflow3,
+				width: 500,
+			},
+			{
+				text:'\n'
+			},
+			{
+				text:'這個測試程式可以在cpu及gpu上執行，若是使用gpu版本的Tensorflow並且機器上有gpu可用，則預設是使用gpu計算。',
+				fontSize: 18,
+				font: "tc",
+				alignment: 'justify',
+				pageBreak: 'after'
+			},
+////////////// page 13
+			{
+				text:"TensorAPM用戶指南", 
+				style: 'title',
+			},
+			{
+				text:'\n\n'
+			},
+			{
+				text:"版本 : 0.1.0",
+				fontSize: 24,
+				font: "tc",
+				bold: true,
+			},
+			{
+				text:'\n'
+			},
+			{
+				text:'步驟一 : 事先檢查項目',
+				fontSize: 20,
+				font: "tc",
+			},
+			{
+				type: 'none',
+				ol: [
+					'檢查ftp 指令',
+					{
+						type: 'none',
+						ol: [
+							'$ which ftp',
+							'/usr/bin/ftp',
+						]
+					},
+				],
+				font: "tc",
+			},
+			{
+				type: 'none',
+				ol: [
+					'檢查/tmp目錄mode值為777',
+					{
+						type: 'none',
+						ol: [
+							'$ ls -ld /tmp',
+							'drwxrwxrwt 13 root root 4096 Aug 31 07:58 /tmp',							
+						]
+					},
+				],
+				font: "tc",
+			},
+			{
+				text:'\n'
+			},
+			{
+				text:'步驟二 : 執行指令並取得URL',
+				fontSize: 20,
+				font: "tc",
+			},
+			{
+				type: 'none',
+				ol: [
+					'$ /utils/uptf.sh <eventlog-path>',
+					'例如:',
+					{
+						type: 'none',
+						ol: [
+							'A50562@m4:~$ /utils/uptf.sh /tmp/tensorflow_logs/',
+							'--- TensorAPM ---',
+							'INFO[TensorAPM]: Valid User Name: A50562, IP: 100.86.2.10',
+							'INFO[TensorAPM]: confirm upload',
+							'INFO[TensorAPM]: APM is running at :',
+							'http://140.96.27.123:8080/ITRIOpenAPM/index.jsp?apiProvider=1&dnnID=12345'
+						]
+					},
+				],
+				font: "tc",
+			},
+			{
+				text:'\n'
+			},
+			{
+				text:'步驟三 : 以URL瀏覽TensorAPM',
+				fontSize: 20,
+				font: "tc",
+			},
+			{
+				type: 'none',
+				ol: [
+					'例如:',
+					{
+						type: 'none',
+						ol: [
+							'http://140.96.27.123:8080/ITRIOpenAPM/index.jsp?apiProvider=1&dnnID=12345',							
+						]
+					},
+				],
+				font: "tc",
+			},
+			{
+				text:'\n\n'
+			},
+			{
+				text:"Specifications",
+				fontSize: 24,
+				bold: true,
+			},
+			{
+				text:'\n'
+			},
+			{
+				ul: [
+					'Users run script to upload event logs and obtain an URL to browse to TensorAPM. (details described in User Guide)',
+					'Every user will obtain a dedicated instance of TensorAPM, all instances will be isolated by IP port.',
+					'All graphs for same user+container IP address are grouped as drop-down items in same TensorAPM.',
+					'Once user changes relative to a given container IP address, the TensorAPM instance created for the previous user will be flushed.'
+				],
+				alignment: 'justify'
+			}
+		],
+////////////// PDF footer
+		footer: 
+			function(currentPage, pageCount) { 
+				return (
+					currentPage!==1 ?
+					{ 
+						stack: [ 
+							{text:currentPage , alignment: 'center', fontSize:8},
+							{text:'© 2017 工業技術研究院                                                                                                                回到使用者指南', alignment: 'right', fontSize:8, font:"tc", linkToPage: 2, margin: 2},
+							// {text:'BackToGuideline', alignment: 'right',fontSize:8, linkToPage: 2, margin: 2,},
+							{image: header,	width: 600, alignment: 'center'}
+						],						
+					} :
+					{ 
+						stack: [ 
+							// {text:'\n' , alignment: 'center', fontSize:10},
+							{text:'\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n' , alignment: 'center', fontSize:1},
+							// {text:'© 2017 Industrial Technology Research Institute.                                                                          BackToGuideline', alignment: 'right', fontSize:8 ,linkToPage: 2, margin: 2},
+							// {text:'BackToGuideline', alignment: 'right',fontSize:8, linkToPage: 2, margin: 2,},
+							{image: header,	height:15, width: 600, alignment: 'center'}
+						],						
+					}
+				) 
+			},
+////////////// PDF header
+		header:
+			function(currentPage, pageCount) { 
+				return (
+					{
+						image: header,
+						width: 600,						
+						alignment: 'center',
+					}
+				)
+			},
+////////////// PDF styles
+		styles: {
+			title: {
+				fontSize: 30,
+				bold: true,
+				alignment: 'center',
+				font: 'tc'
+			},
+			outline: {
+				fontSize: 24,
+				margin: [0, 15],
+				font: 'tc'
+			},
+				tableExample: {
+				margin: [0, 5, 0, 15],
+				alignment: 'center'
+			},
+		}
+	}
 	const {vfs} = vfsFonts.pdfMake;
 	pdfMake.vfs = vfs;
-	const genPDF = pdfMake.createPdf(docDefinition)
+	pdfMake.fonts = {
+		Roboto: {
+                normal: 'Roboto-Regular.ttf',
+                bold: 'Roboto-Medium.ttf',
+                italics: 'Roboto-Italic.ttf',
+                bolditalics: 'Roboto-MediumItalic.ttf'
+        },
+        tc: {
+                normal: 'NotoSansTC-Medium.ttf',
+                bold: 'NotoSansTC-Bold.ttf',
+                italics: 'NotoSansTC-Medium.ttf',
+                bolditalics: 'NotoSansTC-Bold.ttf'
+        }
+	};
+
+	let docContent;
+	switch(language){
+		case 'eng':
+			docContent = docDefinition
+			break;
+		case 'tc':
+			docContent = docDefinitionTC
+			break;
+		default:
+			docContent = docDefinition
+			break;
+	}
+
+	const genPDF = pdfMake.createPdf(docContent)
 
 	genPDF.getDataUrl((dataUrl) => {
 		let a = window.open("about:blank", "Tutorial");

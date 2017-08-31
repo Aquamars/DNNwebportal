@@ -22,8 +22,7 @@ import moment from 'moment'
 import StatusHandler from './StatusHandler'
 import GpuHandler from './GpuHandler'
 import CopyToClipboard from 'react-copy-to-clipboard'
-import {displayPDF} from '../utils/MakeTutorialFile'
-
+import TutorialBtn from './TutorialBtn'
 // API call
 import {getInfo} from '../resource'
 // ICON
@@ -31,6 +30,7 @@ import NavigationRefresh from 'material-ui/svg-icons/navigation/refresh'
 import ContentAdd from 'material-ui/svg-icons/content/add'
 import DeviceStorage from 'material-ui/svg-icons/device/storage'
 import ImagePictureAsPdf from 'material-ui/svg-icons/image/picture-as-pdf'
+import CommunicationContactMail from 'material-ui/svg-icons/communication/contact-mail'
 import GoDatabase from 'react-icons/lib/go/database'
 // style
 import {muiStyle} from '../myTheme'
@@ -149,13 +149,14 @@ class ReviewTable extends Component {
 			          style = {{color:muiStyle.palette.primary1Color}}
 			          icon={<NavigationRefresh />}
 			          onTouchTap={this.refresh}
-			        />			        
-			        <FlatButton 
-			          label={t('common:tutorial')}
-			          style = {{color:greenA700}}
-			          icon={<ImagePictureAsPdf />}
-			          onTouchTap={()=>displayPDF(localStorage.getItem('itriUser'))}
 			        />
+			        <TutorialBtn />
+			        <FlatButton 
+		              label={t('common:contactUs')}
+		              style = {{color:muiStyle.palette.primary1Color}}
+		              icon={<CommunicationContactMail />}
+		              href = {'mailto:eNgiNEer@No.oNe.cARe'}		              
+		            />
 			  </CardActions>
 			  <CardTitle title={t('common:reviewTitle')}/>
 			  <ExpandTransition loading={loading} open={true}>
@@ -163,11 +164,11 @@ class ReviewTable extends Component {
 				  {loading && <div style = {{textAlign:'center'}}><CircularProgress size={80} thickness={5} /></div>}
 				  { this.state.data.length > 0 ?
 				  <Table>
-	    			<TableHeader    			 
+	    			<TableHeader
 	    			 displaySelectAll={false}
 	    			 adjustForCheckbox={false}>
 	    			  <TableRow>
-	    			    <TableHeaderColumn style={{width: '8%'}}></TableHeaderColumn>	    			    
+	    			    <TableHeaderColumn style={styles.textCenter}><b>{t('common:detail')}</b></TableHeaderColumn>	    			    
 				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:startDate')}</b></TableHeaderColumn>
 				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:endDate')}</b></TableHeaderColumn>
 				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:scheduleID')}</b></TableHeaderColumn>
@@ -176,7 +177,7 @@ class ReviewTable extends Component {
 				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:image')}</b></TableHeaderColumn>
 				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:password')}</b></TableHeaderColumn>
 				        <TableHeaderColumn style={{display:'none'}}><b>{t('common:project')}</b></TableHeaderColumn>			        
-				        <TableHeaderColumn style={{width: '8%'}}></TableHeaderColumn>
+				        <TableHeaderColumn style={styles.textCenter}><b>{t('common:remove.remove')}</b></TableHeaderColumn>
 				      </TableRow>
 				    </TableHeader>
 				    <TableBody
@@ -185,11 +186,11 @@ class ReviewTable extends Component {
 				    	displayRowCheckbox={false}>
 				  	{ this.state.data.map((data, index)=>(
 				  	<TableRow key = {index}>
-				  	  <TableRowColumn style={{width: '8%'}}><DetailModal data = {data} /></TableRowColumn>				  	  
+				  	  <TableRowColumn style={styles.textCenter}><DetailModal data = {data} /></TableRowColumn>				  	  
 				      <TableRowColumn style = {styles.textCenter}>{moment(data.startedAt).format('YYYY-MM-DD')}</TableRowColumn>
 				      <TableRowColumn style = {styles.textCenter}><EditModal id={data.id} token={this.props.token} data = {data} refresh={this.getData} {...this.props}/></TableRowColumn>
 				      <TableRowColumn style = {styles.textCenter}>{data.id}</TableRowColumn>
-				      <TableRowColumn style = {styles.textCenter}>{<StatusHandler statusId={data.statusId} />}</TableRowColumn>
+				      <TableRowColumn style = {styles.textCenter}>{<StatusHandler start={new Date()} refresh={this.getData} statusId={data.statusId} />}</TableRowColumn>
 				      <TableRowColumn style = {styles.textCenter}>{<GpuHandler gpu={data.instance.machine.gpuType} />}</TableRowColumn>			      
 				      <TableRowColumn style = {styles.textCenter}>{data.instance.image.name}</TableRowColumn>			      
 				      <TableRowColumn style = {styles.textCenter}>
@@ -201,7 +202,7 @@ class ReviewTable extends Component {
 	    				</CopyToClipboard>
 		              </TableRowColumn>
 		              <TableRowColumn style={{display:'none'}}>{data.projectCode}</TableRowColumn>
-				      <TableRowColumn style={{width: '8%'}}><DeleteModal data = {data} id={data.id} refresh={this.getData} token={this.props.token}/></TableRowColumn>
+				      <TableRowColumn style={styles.textCenter}><DeleteModal data = {data} id={data.id} refresh={this.getData} token={this.props.token}/></TableRowColumn>
 				    </TableRow>
 				  	))}
 				  	</TableBody>
