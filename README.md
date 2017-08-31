@@ -5,7 +5,7 @@
 ## What is this repository for? ##
 ------
 * This webportal for create instance to run DNN.
-* Version 0.1.6
+* Version 0.1.9
 
 ## How do I get set up? ##
 ------
@@ -98,7 +98,8 @@ npm run build
 
 ### Change log ###
 ------
-last update 2017-08-23
+last update 2017-08-31
+
 * `0.1.9` loading status counting, auto refresh after loading 10s
 * `0.1.8` add traditional chinese PDF 
 * `0.1.7` change history table
