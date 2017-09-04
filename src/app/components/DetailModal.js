@@ -117,7 +117,7 @@ class DetailModal extends React.Component {
 			         	/>			         	
 			        </CopyToClipboard>
 			        <a href={sshWeb} target='_blank'><ListItem
-			        	primaryText={<span><font color={indigo900}><b>{'sshFromWeb (not stable)'}</b></font></span>}
+			        	primaryText={<span><font color={indigo900}><b>{'sshFromWeb (unstable)'}</b></font></span>}
 			        	secondaryText={sshWeb}			           		
 			        /></a>
 		          	<ListItem

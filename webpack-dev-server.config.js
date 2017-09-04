@@ -28,6 +28,7 @@ const config = {
     disableHostCheck: true,
     hot: true, // Live-reload
     inline: true,
+    compress: true, // enable gzip
     port: 8080, // Port Number
     // host: '140.96.29.77', // Change to '0.0.0.0' for external facing server
     host: '0.0.0.0',
