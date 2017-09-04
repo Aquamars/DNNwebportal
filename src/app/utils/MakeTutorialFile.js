@@ -27,7 +27,7 @@ import {
 } from '../image'
 
 
-import '../plugin/html2Canvas'
+//import '../plugin/html2Canvas.js'
 export function displayPDF(username, language){
 	
 
