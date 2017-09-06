@@ -24,12 +24,11 @@ import {
 	tensorflow2,
 	tensorflow3,
 	header,
-} from '../image'
+} from '../image/imageBase64'
 
 
-//import '../plugin/html2Canvas.js'
+// import '../plugin/html2Canvas'
 export function displayPDF(username, language){
-	
 
 	const ftpPassword = ftpPass(username)
 	const docDefinition = { 
@@ -1390,7 +1389,7 @@ export function displayPDF(username, language){
 	}
 
 	const genPDF = pdfMake.createPdf(docContent)
-
+	// console.log(JSON.stringify(docDefinition))
 	genPDF.getDataUrl((dataUrl) => {
 		let a = window.open("about:blank", "Tutorial");
 		let html = '<html>' +
