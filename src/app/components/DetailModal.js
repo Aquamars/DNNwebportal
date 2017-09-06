@@ -18,6 +18,7 @@ import GpuHandler from './GpuHandler'
 import HoverDiv from './HoverDiv'
 import ReviewCalendar from './ReviewCalendar/ReviewCalendar'
 import FtpInfoModal from './FtpInfoModal'
+import SshWebBtn from './SshWebBtn'
 // theme
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 // i18n
@@ -65,12 +66,15 @@ class DetailModal extends React.Component {
 	renderTabOne = () => {
 		const {t} = this.props
 		// console.log(this.props.data)
-		const sshCMD = 'ssh ' + this.props.data.instance.username + '@' + this.props.data.instance.ip + ' -p ' + this.props.data.instance.port
-		const sshWeb = 'http://140.96.29.86:10443/?ssh=ssh://' + this.props.data.instance.username + '@' + this.props.data.instance.ip + ':' + this.props.data.instance.port
+		const sshCMD = 'ssh ' + this.props.data.instance.username + '@' + this.props.data.instance.ip + ' -p ' + this.props.data.instance.port		
 		return( 
 			<div>				
 			    <List>
-			    	<FtpInfoModal iconColor={'#FF3D00'}/>
+			    	<div style = {{margin: '0px auto'}}>
+	          			<div style = {{display: 'inline-block'}}><span><FtpInfoModal iconColor={'#FF3D00'}/></span></div>
+	          			<div style = {{display: 'inline-block'}}><span><SshWebBtn {...this.props}/></span></div>
+          			</div>
+			    	
 		          	<CopyToClipboard 
 		             	text={this.props.data.instance.ip}
 		             	onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),true)}
@@ -115,11 +119,7 @@ class DetailModal extends React.Component {
 			           		primaryText={<span><font color={indigo900}><b>{t('common:copySshCmd')}</b></font></span>}
 			           		secondaryText={sshCMD}			           		
 			         	/>			         	
-			        </CopyToClipboard>
-			        <a href={sshWeb} target='_blank'><ListItem
-			        	primaryText={<span><font color={indigo900}><b>{'sshFromWeb (unstable)'}</b></font></span>}
-			        	secondaryText={sshWeb}			           		
-			        /></a>
+			        </CopyToClipboard>			        			        
 		          	<ListItem
 			            primaryText={<span><b>{t('common:image')} </b></span>}
 			            secondaryText={<p><b>{this.props.data.instance.image.name}</b></p>}
