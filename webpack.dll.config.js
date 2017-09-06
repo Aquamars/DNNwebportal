@@ -3,6 +3,9 @@ const path = require('path');
 const buildPath = path.resolve(__dirname, 'build');
 const CompressionPlugin = require("compression-webpack-plugin");
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const HappyPack = require('happypack');
+const os = require('os');
+const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 module.exports = {
     entry: {
         bundle: [
@@ -45,7 +48,8 @@ module.exports = {
         ],
         // image
         bundle3:[
-          './src/app/image'
+          './src/app/image',
+          './src/app/image/imageBase64'
         ],
         // fonts
         bundle4:[
@@ -88,6 +92,28 @@ module.exports = {
             test: /\.(js|html)$/,
             threshold: 10240,
             minRatio: 0.8
+        }),
+        // transform multiple files in parallel
+        new HappyPack({
+          id: 'jsHappy',
+          threadPool: happyThreadPool,
+          loaders: [{
+            path: 'babel-loader',
+            query: {
+              cacheDirectory: '.webpack_cache',
+              presets: [
+                'es2015',
+                'react',
+                'stage-0'
+              ],
+              plugins: ["transform-async-to-generator"]
+            }
+          }]
+        }),
+        new HappyPack({
+          id: 'styleHappy',
+          threadPool: happyThreadPool,
+          loaders: ["style-loader","css-loader","less-loader","url-loader"]
         }),
         new BundleAnalyzerPlugin({
           // Can be `server`, `static` or `disabled`.
