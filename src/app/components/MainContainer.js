@@ -41,7 +41,7 @@ import { greenA700, lightBlue500, lightBlue900 } from 'material-ui/styles/colors
 // i18n
 import { translate, Interpolate } from 'react-i18next'
 import i18n from '../utils/i18n'
-import {DnnLogo_yellow} from '../image'
+import {DnnLogo_yellow} from '../image/imageBase64'
 // API call
 import axios from 'axios'
 import {API_GetInfo} from '../resource'
@@ -236,7 +236,12 @@ class MainContainer extends Component {
 	            <div style={prefixedStyles.wrapper}>
                     <div style={prefixedStyles.main}>
                         <AppBar 
-                          title={<span><img style={{height:32, width:64, verticalAlign:'middle'}} src={DnnLogo_yellow}/><b> DNN Web portal</b></span>}
+                          title={
+                            <span>
+                              <img style={{height:32, width:64, verticalAlign:'middle'}} src={DnnLogo_yellow}/>
+                                <b> DNN Web portal</b>
+                            </span>
+                          }
                           style={{ backgroundColor: lightBlue900 }}
         				          onLeftIconButtonTouchTap={this.handleToggle}
                           iconElementRight={
