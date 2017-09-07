@@ -11,6 +11,7 @@ module.exports = {
         bundle: [
           'react',
           'react-dom',
+          'react-ga',
           'react-chartjs2',
           'react-chartjs-2',
           'react-i18next',
