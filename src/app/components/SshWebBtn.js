@@ -11,19 +11,18 @@ import i18n from '../utils/i18n'
 class SshWebBtn extends Component {
 	render(){
 		const {t} = this.props
+		console.log('SshWebBtn')
 		return (
 			<div>
 				{this.props.data !== undefined ? 
-					<a href={SshWebURL + this.props.data.instance.username + '@' + this.props.data.instance.ip + ':' + this.props.data.instance.port} 
-					   target='_blank'
-					>
 						<div>
 							<FlatButton
 								icon={<Terminal size={28} color='black'/>}
 								label={<span><font color={indigo900}><b>{'ssh From Web (unstable)'}</b></font></span>}
+								href={SshWebURL + this.props.data.instance.username + '@' + this.props.data.instance.ip + ':' + this.props.data.instance.port} 
+					   			target='_blank'
 							/>
 			    		</div>
-	    			</a>
 	    			: <div></div>
 				}
 				
