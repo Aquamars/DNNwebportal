@@ -48,7 +48,7 @@ class FtpInfoModal extends React.Component {
 				<List>
 					<CopyToClipboard 
 						text={'ftpHost'}
-						onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),true)}
+						onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),'ftpHost')}
 					>
 					<ListItem
 			            primaryText={<b>{t('common:ftpHost')}</b>}
@@ -58,7 +58,7 @@ class FtpInfoModal extends React.Component {
 		            </CopyToClipboard>
 		            <CopyToClipboard 
 						text={'ftpPort'}
-						onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),true)}
+						onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),'ftpPort')}
 					>
 		            <ListItem
 			            primaryText={<b>{t('common:ftpPort')}</b>}
@@ -68,7 +68,7 @@ class FtpInfoModal extends React.Component {
 		            </CopyToClipboard>
 		            <CopyToClipboard 
 						text={'FTP'}
-						onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),true)}
+						onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),'ftpProtocol')}
 					>
 		            <ListItem
 			            primaryText={<b>{t('common:ftpProtocol')}</b>}
@@ -78,7 +78,7 @@ class FtpInfoModal extends React.Component {
 		            </CopyToClipboard>
 		            <CopyToClipboard 
 						text={username}
-						onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),true)}
+						onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),'ftpAccount')}
 					>
 		            <ListItem
 			            primaryText={<b>{t('common:account')}</b>}
@@ -88,7 +88,7 @@ class FtpInfoModal extends React.Component {
 		            </CopyToClipboard>
 		            <CopyToClipboard 
 						text={pass}
-						onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),true)}
+						onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),'ftpPassword')}
 					>
 		            <ListItem
 			            primaryText={<b>{t('common:password')}</b>}
