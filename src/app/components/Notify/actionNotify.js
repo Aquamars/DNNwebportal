@@ -1,4 +1,12 @@
-export const errorNotify = (msg) => {	
+// GA
+import ReactGA from 'react-ga'
+
+export const errorNotify = (msg) => {
+	ReactGA.event({
+    	category: 'Notify',
+    	action: 'error',
+	    label:msg
+    })	
 	return {
 		type: 'ERROR_NOTIFY',
 		notify: {
@@ -20,7 +28,12 @@ export const closeNotify = () => {
 	}
 }
 
-export const copyNotify = (msg) => {	
+export const copyNotify = (msg, label) => {
+	ReactGA.event({
+    	category: 'Notify',
+    	action: 'copy',
+	    label:label
+    })
 	return {
 		type: 'COPY_NOTIFY',
 		notify: {
