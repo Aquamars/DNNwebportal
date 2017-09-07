@@ -13,6 +13,9 @@ import { translate, Interpolate } from 'react-i18next'
 import i18n from '../utils/i18n'
 import {lineCode, lineCode2, easterEgg, DnnLogo} from '../image'
 import pjson from '../../../package.json'
+// GA
+import ReactGA from 'react-ga'
+
 class Footer extends Component {
   constructor(props, context) {
     super(props, context)
@@ -21,7 +24,14 @@ class Footer extends Component {
     }
   }
 
-  handleToggle = () => this.setState({open: !this.state.open})
+  handleToggle = () => {
+    this.setState({open: !this.state.open})
+    // GA
+    ReactGA.event({
+      category: 'Information',
+      action: !this.state.open ? 'open': 'close',      
+    })
+  }
 
 	render(){
 		const {t} = this.props   

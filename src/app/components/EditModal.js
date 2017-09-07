@@ -25,6 +25,8 @@ import i18n from '../utils/i18n'
 // API call
 import axios from 'axios'
 import {API_PutExtDate, API_GetExtDate} from '../resource'
+// GA
+import ReactGA from 'react-ga'
 /**
  * A modal dialog can only be closed by selecting one of the actions.
  */
@@ -47,9 +49,21 @@ class EditModal extends React.Component {
   }
   handleOpen = () => {
     this.setState({open: true})
+    // GA
+    ReactGA.event({
+      category: 'EditModal',
+      action: 'open',
+      label:this.props.data.id
+    })
   }
   handleClose = () => {
     this.setState({open: false});
+    // GA
+    ReactGA.event({
+      category: 'EditModal',
+      action: 'close',
+      label:this.props.data.id
+    })
   }
   handleSubmit = () => {
     // console.log(moment(this.state.endTime).format('YYYY-MM-DD'))
@@ -62,6 +76,12 @@ class EditModal extends React.Component {
       // console.log('refresh')
       this.setState({open: false, increaseDay:0, loading: false, comfirm: false})
       this.props.refresh()
+      // GA
+      ReactGA.event({
+        category: 'EditModal',
+        action: 'edited',
+        label:this.props.data.id
+      })
     }
   }
   editDateApi = () => {
@@ -102,6 +122,12 @@ class EditModal extends React.Component {
     this.setState({
       endTime: date,
       increaseDay: moment(date).diff(moment(this.props.data.endedAt), 'days')
+    })
+    // GA
+    ReactGA.event({
+      category: 'EditModal',
+      action: 'Select date',
+      label:this.props.data.id
     })
   }
   getExtandDate = () => {

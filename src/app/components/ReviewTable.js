@@ -41,6 +41,8 @@ import {DATA} from '../resource'
 // i18n
 import { translate, Interpolate } from 'react-i18next'
 import i18n from '../utils/i18n'
+// GA
+import ReactGA from 'react-ga'
 
 import {empty} from '../image'
 
@@ -84,14 +86,31 @@ class ReviewTable extends Component {
     SwitchCreatePage = () => {
     	this.setState({
 		   switchCreatePage: true
-		})    	
+		})
+		//GA
+	  	ReactGA.event({
+		  category: 'CreatePage',
+		  action: 'open',		  
+		})
     }
 
-    switchReview = () => this.setState({switchCreatePage: false})
+    switchReview = () => {
+    	this.setState({switchCreatePage: false})
+    	//GA
+	  	ReactGA.event({
+		  category: 'CreatePage',
+		  action: 'close',		  
+		})
+    }
 
 	refresh = (event) => {
 	    event.preventDefault()
 	    this.getData()
+	    //GA
+	  	ReactGA.event({
+		  category: 'ReviewTable',
+		  action: 'refresh',		  
+		})
 	    // setTimeout(()=>this.setState({loading: false,}), 1000)
 	}
 
@@ -129,8 +148,6 @@ class ReviewTable extends Component {
 	render(){
 		const {t} = this.props
 		const {switchCreatePage, loading} = this.state
-		
-		// console.log('ReviewTable')
 		// console.log(this.state.data.map((data, index)=>(data.statusId)))
 		return (
 			<div>
@@ -151,7 +168,7 @@ class ReviewTable extends Component {
 			          onTouchTap={this.refresh}
 			        />
 			        <TutorialBtn />
-			        <FlatButton 
+			        <FlatButton
 		              label={t('common:contactUs')}
 		              style = {{color:muiStyle.palette.primary1Color}}
 		              icon={<CommunicationContactMail />}
@@ -196,7 +213,7 @@ class ReviewTable extends Component {
 				      <TableRowColumn style = {styles.textCenter}>
 				      	<CopyToClipboard 
 							text={data.instance.password}
-							onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),true)}
+							onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),'password')}
 						>
 							<div>{data.instance.password}</div>
 	    				</CopyToClipboard>

@@ -44,6 +44,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 // i18n
 import { translate, Interpolate } from 'react-i18next'
 import i18n from '../../utils/i18n'
+// GA
+import ReactGA from 'react-ga'
 
 const styles = {
   errorStyle: {
@@ -154,14 +156,32 @@ class CreatePage extends React.Component {
           stepIndex: 0, 
           loadingCreate: false
         })
+        // GA
+        ReactGA.event({
+          category: 'CreatePage',
+          action: 'createSchedule',
+          label: 'Failed'
+        })
       }else{
         this.setState({
           createdRespData: data, 
         })
+        // GA
+        ReactGA.event({
+          category: 'CreatePage',
+          action: 'createSchedule',
+          label: 'Success'
+        }) 
       }              
     }).catch((err)=>{
       console.log('err:'+err)
       this.props.errorNotify('ERROR : Create Schedule')
+      // GA
+      ReactGA.event({
+        category: 'CreatePage',
+        action: 'createSchedule',
+        label: 'Failed'
+      })
     })
   }
   getImageApi = () => {
@@ -210,6 +230,13 @@ class CreatePage extends React.Component {
       increaseDay: moment(this.state.endDate).diff(moment(date), 'days')
     })
     if(this.state.endDate != null)this.checkInstanceRemain()
+
+    //GA
+    ReactGA.event({
+      category: 'CreatePage',
+      action: 'selectStartDate',
+      label: moment(date).format('YYYY-MM-DD')
+    })
   }
   handleChangeEndDate = (event, date) => {  
     const startDate = moment(this.state.startDate).format('YYYY-MM-DD')
@@ -223,6 +250,13 @@ class CreatePage extends React.Component {
       increaseDay: moment(endDate).diff(moment(startDate), 'days')
     })
     this.checkInstanceRemain()
+
+    //GA
+    ReactGA.event({
+      category: 'CreatePage',
+      action: 'selectEndDate',
+      label: endDate
+    })
   }
   checkInstanceRemain = async () => {
     console.log('checkInstanceRemain')
@@ -309,6 +343,12 @@ class CreatePage extends React.Component {
     instanceArr[instance].imageDesc = this.state.imageArr[image].description
     this.setState({
         instanceArr: instanceArr
+    })
+    // GA
+    ReactGA.event({
+      category: 'CreatePage',
+      action: 'selectImage',
+      label: this.state.imageArr[image].name
     }) 
   }
   machineSelect = (instanceIndex, index, machineIndex) => {
@@ -412,7 +452,6 @@ class CreatePage extends React.Component {
       </div> 
     )
   }
-
   getStepContent(stepIndex) {
     const {t} = this.props
     const {submitting, loadingCreate} = this.state

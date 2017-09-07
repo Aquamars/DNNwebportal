@@ -33,6 +33,8 @@ import { orangeA700, redA700, greenA700, grey500 } from 'material-ui/styles/colo
 // i18n
 import { translate, Interpolate } from 'react-i18next'
 import i18n from '../utils/i18n'
+// GA
+import ReactGA from 'react-ga'
 
 const styles = {
 	root: {
@@ -88,11 +90,20 @@ class HistoryTable extends Component {
     	if(!this.state.switchPage){
     		this.getData()
     		setTimeout(()=>this.setState({loading: false,}), 300)
-    		
+    		// GA
+		    ReactGA.event({
+		      category: 'HistoryTable',
+		      action: 'open',
+		    })
     	}else{
     		this.setState({
 			  data: []
 			})
+			// GA
+		    ReactGA.event({
+		      category: 'HistoryTable',
+		      action: 'close',
+		    })
     	}    	
     }
 

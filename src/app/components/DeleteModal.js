@@ -25,6 +25,9 @@ import i18n from '../utils/i18n'
 // API call
 import axios from 'axios'
 import {API_DeleteSchedule} from '../resource'
+// GA
+import ReactGA from 'react-ga'
+
 /**
  * A modal dialog can only be closed by selecting one of the actions.
  */
@@ -41,9 +44,21 @@ class DeleteModal extends React.Component {
   }
   handleOpen = () => {
     this.setState({open: true})
+    // GA
+    ReactGA.event({
+      category: 'DeleteModal',
+      action: 'open',
+      label:this.props.data.id
+    })
   }
   handleClose = () => {
     this.setState({open: false})
+    // GA
+    ReactGA.event({
+      category: 'DeleteModal',
+      action: 'close',
+      label:this.props.data.id
+    })
   }
   dummyAsync = (cb) => {
       this.setState({loading: true}, () => {
@@ -82,11 +97,23 @@ class DeleteModal extends React.Component {
         
         this.setState({open: false, comfirm: false})
         this.props.refresh()
+        // GA
+        ReactGA.event({
+          category: 'DeleteModal',
+          action: 'delete false',
+          label:this.props.data.id
+        })
       })
     }else{
       console.log('refresh')
       this.setState({open: false, comfirm: false})
       this.props.refresh()
+      // GA
+      ReactGA.event({
+        category: 'DeleteModal',
+        action: 'deleted',
+        label:this.props.data.id
+      })
     }
   }
 

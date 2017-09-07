@@ -3,6 +3,8 @@ import React from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {copyNotify} from './Notify/actionNotify'
+// GA
+import ReactGA from 'react-ga'
 
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
@@ -57,10 +59,20 @@ class DetailModal extends React.Component {
 	
 	handleOpen = () => {
 	  this.setState({open: true})
+	  ReactGA.event({
+	  	category: 'Detail',
+		action: 'open',
+		label:this.props.data.id
+	  })
     }
 
 	handleClose = () => {
 	  this.setState({open: false});
+	  ReactGA.event({
+	  	category: 'DetailModal',
+		action: 'close',
+		label:this.props.data.id
+	  })
 	}
 
 	renderTabOne = () => {
@@ -77,7 +89,7 @@ class DetailModal extends React.Component {
 			    	
 		          	<CopyToClipboard 
 		             	text={this.props.data.instance.ip}
-		             	onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),true)}
+		             	onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),'ip')}
 		            >
 			         	<ListItem 
 			            	primaryText={<span><b>{t('common:ip')}</b></span>}
@@ -86,7 +98,7 @@ class DetailModal extends React.Component {
 			        </CopyToClipboard>
 			        <CopyToClipboard 
 			         	text={this.props.data.instance.port}
-			         	onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),true)}
+			         	onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),'port')}
 			        >
 			          	<ListItem
 			           		primaryText={<span><b>{t('common:port')}</b></span>}
@@ -95,7 +107,7 @@ class DetailModal extends React.Component {
 			        </CopyToClipboard>
 			        <CopyToClipboard 
 			         	text={this.props.data.instance.username}
-			         	onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),true)}
+			         	onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),'account')}
 			        >
 		            	<ListItem
 			           		primaryText={<span><b>{t('common:account')}</b></span>}
@@ -104,7 +116,7 @@ class DetailModal extends React.Component {
 			        </CopyToClipboard>
 			        <CopyToClipboard 
 			         	text={this.props.data.instance.password}
-			         	onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),true)}
+			         	onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),'password')}
 			        >
 			         	<ListItem
 			           		primaryText={<span><b>{t('common:password')}</b></span>}
@@ -113,7 +125,7 @@ class DetailModal extends React.Component {
 			        </CopyToClipboard>
 			        <CopyToClipboard 
 			        	text={sshCMD}
-			         	onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),true)}
+			         	onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),'sshCMD')}
 			        >
 			         	<ListItem
 			           		primaryText={<span><font color={indigo900}><b>{t('common:copySshCmd')}</b></font></span>}
