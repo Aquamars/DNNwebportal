@@ -60,7 +60,7 @@ class DetailModal extends React.Component {
 	handleOpen = () => {
 	  this.setState({open: true})
 	  ReactGA.event({
-	  	category: 'Detail',
+	  	category: 'DetailModal',
 		action: 'open',
 		label:this.props.data.id
 	  })
