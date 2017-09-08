@@ -17,7 +17,13 @@ import { greenA700, lightBlue500, lightBlue900 } from 'material-ui/styles/colors
 import { translate, Interpolate } from 'react-i18next'
 import i18n from '../utils/i18n'
 const toggle = lng => i18n.changeLanguage(lng)
-
+/**
+  Tutorial Button
+  Example:
+  ```
+  <TutorialBtn />
+  ```
+ */
 class TutorialBtn extends Component {
 	constructor(props) {
 	    super(props);

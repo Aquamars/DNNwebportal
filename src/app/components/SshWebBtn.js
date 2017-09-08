@@ -7,8 +7,23 @@ import { SshWebURL } from '../resource'
 import Terminal from 'react-icons/lib/go/terminal'
 import { translate, Interpolate } from 'react-i18next'
 import i18n from '../utils/i18n'
-
+/**
+  ssh web of button
+  Example:
+  ```
+  <SshWebBtn
+  	data = {data} 
+    {...this.props}
+  />
+  ```
+ */
 class SshWebBtn extends Component {
+	static propTypes = {
+	  /**
+        the instance information 
+      */
+      data: React.PropTypes.object.isRequired,
+	}
 	render(){
 		const {t} = this.props
 		console.log('SshWebBtn')

@@ -118,7 +118,17 @@ if (!prefixedStyles.main) {
     prefixedStyles.content = prefix(styles.content)
     prefixedStyles.contentSmall = prefix(styles.contentSmall)
 }
-
+/**
+  MainContainer
+  Example:
+  ```
+  <MainContainer 
+    user={localStorage.getItem('itriUser')} 
+    token={localStorage.getItem('token')} 
+    SignOut={this.handleSignOut}
+  />
+  ```
+ */
 class MainContainer extends Component {
   constructor(props, context) {
     super(props, context)
@@ -130,7 +140,20 @@ class MainContainer extends Component {
       notifyCopy:false,
       data:''
     }
-
+  }
+  static propTypes = {
+    /**
+      The username 
+    */
+    user: React.PropTypes.string.isRequired,
+    /**
+      The user token for call api
+    */
+    token: React.PropTypes.string.isRequired,    
+    /**
+      the SignOut function
+    */
+    SignOut: React.PropTypes.func.isRequired,
   }  
   handleToggle = () => {
     if(localStorage.getItem('itriUser')=== 'A40503' && (this.props.admin > 6)){

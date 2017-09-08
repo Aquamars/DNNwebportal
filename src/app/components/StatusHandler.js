@@ -17,7 +17,17 @@ import ActionHelpOutline from 'material-ui/svg-icons/action/help-outline'
 // i18n
 import { translate, Interpolate } from 'react-i18next'
 import i18n from '../utils/i18n'
-
+/**
+  Show Status
+  Example:
+  ```
+  <StatusHandler 
+  	start={new Date()} 
+  	refresh={this.getData} 
+  	statusId={data.statusId} 
+  />
+  ```
+ */
 class StatusHandler extends Component {
 	// static propTypes = {	    
 	//     statusId: React.PropTypes.number,
@@ -29,6 +39,20 @@ class StatusHandler extends Component {
       	refreshTimes: 0
       }
     }
+    static propTypes = {
+	  /**
+	    The start count time
+	  */
+	  start: React.PropTypes.string.isRequired,
+	  /**
+	    Will refresh reviewTable after count 
+	  */
+	  refresh: React.PropTypes.func.isRequired,
+	  /**
+	    the statusId of the instance
+	  */
+	  statusId: React.PropTypes.string.isRequired,
+	}
 	setIncetanceStatus = (status) => {
 		const {t} = this.props
 		let obj;
@@ -112,11 +136,11 @@ class StatusHandler extends Component {
 	render(){
 		let elapsed = Math.round(this.state.elapsed / 100)
 		let seconds = (elapsed / 10).toFixed(1)
-		if(seconds < 0){
-			console.log(this.props.start)
-			console.log(new Date())
-			console.log(new Date(this.props.start))
-		}
+		// if(seconds < 0){
+		// 	console.log(this.props.start)
+		// 	console.log(new Date())
+		// 	console.log(new Date(this.props.start))
+		// }
 		const {statusId, t} = this.props
 		return(
 			<div>

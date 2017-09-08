@@ -70,7 +70,15 @@ const styles = {
 	}
 }
 
-
+/**
+  Review Table
+  Example:
+  ```
+  <ReviewTable 
+    token={this.props.token}
+  />
+  ```
+ */
 class ReviewTable extends Component {
 	constructor(props) {
 	    super(props)
@@ -82,7 +90,12 @@ class ReviewTable extends Component {
 	      singleInfo:{},
 	    }
 	}
-
+    static propTypes = {
+      /**
+        The user token for call api
+      */
+      token: React.PropTypes.string.isRequired,
+    }
     SwitchCreatePage = () => {
     	this.setState({
 		   switchCreatePage: true
@@ -205,7 +218,7 @@ class ReviewTable extends Component {
 				  	<TableRow key = {index}>
 				  	  <TableRowColumn style={styles.textCenter}><DetailModal data = {data} /></TableRowColumn>				  	  
 				      <TableRowColumn style = {styles.textCenter}>{moment(data.startedAt).format('YYYY-MM-DD')}</TableRowColumn>
-				      <TableRowColumn style = {styles.textCenter}><EditModal id={data.id} token={this.props.token} data = {data} refresh={this.getData} {...this.props}/></TableRowColumn>
+				      <TableRowColumn style = {styles.textCenter}><EditModal token={this.props.token} data = {data} refresh={this.getData} {...this.props}/></TableRowColumn>
 				      <TableRowColumn style = {styles.textCenter}>{data.id}</TableRowColumn>
 				      <TableRowColumn style = {styles.textCenter}>{<StatusHandler start={new Date()} refresh={this.getData} statusId={data.statusId} />}</TableRowColumn>
 				      <TableRowColumn style = {styles.textCenter}>{<GpuHandler gpu={data.instance.machine.gpuType} />}</TableRowColumn>			      
@@ -219,7 +232,7 @@ class ReviewTable extends Component {
 	    				</CopyToClipboard>
 		              </TableRowColumn>
 		              <TableRowColumn style={{display:'none'}}>{data.projectCode}</TableRowColumn>
-				      <TableRowColumn style={styles.textCenter}><DeleteModal data = {data} id={data.id} refresh={this.getData} token={this.props.token}/></TableRowColumn>
+				      <TableRowColumn style={styles.textCenter}><DeleteModal data = {data} refresh={this.getData} token={this.props.token}/></TableRowColumn>
 				    </TableRow>
 				  	))}
 				  	</TableBody>

@@ -58,7 +58,13 @@ const styles = {
 		textAlign:'center'
 	}
 }
-
+/**
+  History Table
+  Example:
+  ```
+  <HistoryTable token = {this.props.token} />
+  ```
+ */
 class HistoryTable extends Component {
 	constructor(props) {
 	    super(props)
@@ -78,7 +84,12 @@ class HistoryTable extends Component {
 		  filtered: []
 	    }
 	}
-
+    static propTypes = {
+      /**
+        The user token for call api
+      */
+      token: React.PropTypes.string.isRequired,
+    }
     SwitchPage = () => {
     	this.setState({
 		   switchPage: true

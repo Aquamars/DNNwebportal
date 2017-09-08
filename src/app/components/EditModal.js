@@ -28,7 +28,16 @@ import {API_PutExtDate, API_GetExtDate} from '../resource'
 // GA
 import ReactGA from 'react-ga'
 /**
- * A modal dialog can only be closed by selecting one of the actions.
+  Edit endDate of the instance
+  Example:
+  ```
+  <EditModal 
+    token={this.props.token}
+    data = {data}
+    refresh={this.getData}
+    {...this.props}
+  />
+  ```
  */
 class EditModal extends React.Component {
 
@@ -41,6 +50,20 @@ class EditModal extends React.Component {
         comfirm: false,
         latestDate:''
       }
+  }
+  static propTypes = {
+    /**
+      The user token for call api
+    */
+    token: React.PropTypes.string.isRequired,
+    /**
+      Will refresh reviewTable after edit 
+    */
+    refresh: React.PropTypes.func.isRequired,
+    /**
+      the instance information 
+    */
+    data: React.PropTypes.object.isRequired,
   }
   dummyAsync = (cb) => {
       this.setState({loading: true}, () => {
@@ -85,7 +108,7 @@ class EditModal extends React.Component {
     }
   }
   editDateApi = () => {
-    const api = API_PutExtDate+this.props.id
+    const api = API_PutExtDate+this.props.data.id
     // console.log(moment(this.state.endTime).format('YYYY-MM-DD'))
     fetch(api, 
         { 
@@ -133,7 +156,7 @@ class EditModal extends React.Component {
   getExtandDate = () => {
     // console.log(this.props.id)
     // console.log(this.props.token)
-    const api = API_GetExtDate+this.props.id+"/extendable"
+    const api = API_GetExtDate+this.props.data.id+"/extendable"
     axios.get(api,
       {
         headers: {

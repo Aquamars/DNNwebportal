@@ -33,11 +33,31 @@ import { green500, orange500, greenA700, redA700, orangeA700, indigo900 } from '
 import {muiStyle, muiTheme} from '../myTheme'
 
 const textCenter = { textAlign:'center'}
-
+/**
+  Show more infomation of the instance
+  Example:
+  ```
+  <DetailModal 
+  	data = {data} 
+  	iconColor = {grey500} 
+  	showStatus={false} 
+  />
+  ```
+*/
 class DetailModal extends React.Component {
 	static propTypes = {
+		/**
+		  Setting the button color
+		*/
         iconColor: React.PropTypes.string,
-        showStatus: React.PropTypes.bool
+        /**
+		  enable show status
+		*/
+        showStatus: React.PropTypes.bool,
+        /**
+		  the instance information
+		*/
+		data: React.PropTypes.object.isRequired,
     }
 
 	static defaultProps = {

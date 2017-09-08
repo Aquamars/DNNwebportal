@@ -15,7 +15,13 @@ import {lineCode, lineCode2, easterEgg, DnnLogo} from '../image'
 import pjson from '../../../package.json'
 // GA
 import ReactGA from 'react-ga'
-
+/**
+  Footer
+  Example:
+  ```
+  <Footer />
+  ```
+ */
 class Footer extends Component {
   constructor(props, context) {
     super(props, context)

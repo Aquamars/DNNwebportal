@@ -11,7 +11,13 @@ import ReactGA from 'react-ga'
 import { translate, Interpolate } from 'react-i18next'
 import i18n from '../utils/i18n'
 const toggle = lng => i18n.changeLanguage(lng)
-
+/**
+  Switch Language Button
+  Example:
+  ```
+  <LanguageBtn />
+  ```
+ */
 class LanguageBtn extends Component {
 	state = {
 	  valueSingle: '3',	  

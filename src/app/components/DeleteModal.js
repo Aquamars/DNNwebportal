@@ -29,7 +29,15 @@ import {API_DeleteSchedule} from '../resource'
 import ReactGA from 'react-ga'
 
 /**
- * A modal dialog can only be closed by selecting one of the actions.
+  Delete the instance
+  Example:
+  ```
+  <DeleteModal 
+    data = {data} 
+    refresh={this.getData} 
+    token={this.props.token}
+  />
+  ```
  */
 class DeleteModal extends React.Component {
   constructor(props) {
@@ -42,6 +50,21 @@ class DeleteModal extends React.Component {
       // console.log(this.props.data)
       // console.log(this.props.id)
   }
+  static propTypes = {
+    /**
+      The user token for call api
+    */
+    token: React.PropTypes.string.isRequired,
+    /**
+      Will refresh reviewTable after delete 
+    */
+    refresh: React.PropTypes.func.isRequired,
+    /**
+      the instance information 
+    */
+    data: React.PropTypes.object.isRequired,
+  }
+
   handleOpen = () => {
     this.setState({open: true})
     // GA
@@ -70,7 +93,7 @@ class DeleteModal extends React.Component {
       this.setState({
         loading: true,
       })
-      const api = API_DeleteSchedule + this.props.id
+      const api = API_DeleteSchedule + this.props.data.id
       fetch(api, 
       { 
         method: 'delete', 

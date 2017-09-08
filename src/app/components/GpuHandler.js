@@ -4,14 +4,24 @@ import 'semantic-ui-css/components/label.min.css'
 // i18n
 import { translate, Interpolate } from 'react-i18next'
 import i18n from '../utils/i18n'
-
+/**
+  Show GPU Type
+  Example:
+  ```
+  <GpuHandler gpu={data.instance.machine.gpuType} />
+  ```
+ */
 class GpuHandler extends Component {
-	// static propTypes = {	    
-	//     statusId: React.PropTypes.number,
-	// }
+	
 	constructor(props) {
       super(props)
-    }	
+    }
+    static propTypes = {
+	  /**
+	    GPUType of the instance 
+	  */
+	  gpu: React.PropTypes.string.isRequired,
+	}	
 	render(){
 		const {statusId} = this.props
 		return(

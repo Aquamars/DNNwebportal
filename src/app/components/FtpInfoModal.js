@@ -18,8 +18,18 @@ import ReactGA from 'react-ga'
 // i18n
 import { translate, Interpolate } from 'react-i18next'
 import i18n from '../utils/i18n'
+/**
+  Show FTP infomation
+  Example:
+  ```
+  <FtpInfoModal iconColor={#000} />
+  ```
+*/
 class FtpInfoModal extends React.Component {
 	static propTypes = {
+		/**
+		  Setting the button color
+		*/
         iconColor: React.PropTypes.string,        
     }
 
