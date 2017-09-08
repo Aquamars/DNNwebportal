@@ -13,6 +13,8 @@ import DeviceStorage from 'material-ui/svg-icons/device/storage'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import {ftpPass} from '../utils/FtpPass'
 import {FTPHost, FTPPort} from '../resource'
+// GA
+import ReactGA from 'react-ga'
 // i18n
 import { translate, Interpolate } from 'react-i18next'
 import i18n from '../utils/i18n'
@@ -33,10 +35,20 @@ class FtpInfoModal extends React.Component {
 
 	handleOpen = () => {
 	  this.setState({open: true})
+	  //GA
+	  ReactGA.event({
+	    category: 'FtpInfoModal',
+	    action: 'open',		  
+	  })
     }
 
 	handleClose = () => {
 	  this.setState({open: false});
+	  //GA
+   	  ReactGA.event({
+	    category: 'FtpInfoModal',
+	    action: 'close',		  
+	  })
 	}
 
 	renderContent = () => {
