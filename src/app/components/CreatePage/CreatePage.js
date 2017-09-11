@@ -303,7 +303,8 @@ class CreatePage extends React.Component {
         instanceArr:[{ 
           instance: result.data.machines[0],
           image: 0, 
-          imageDesc: this.state.imageArr[0].description,
+          // imageDesc: this.state.imageArr[0].description,
+          imageDesc: this.state.imageArr[0].name + '-' + this.state.imageArr[0].label,
           machine: 0,
           machineObj: machines[0]
         }]
@@ -340,7 +341,8 @@ class CreatePage extends React.Component {
     console.log(instanceArr)
     console.log(this.state.imageArr[image].description)
     instanceArr[instance].image = image
-    instanceArr[instance].imageDesc = this.state.imageArr[image].description
+    // instanceArr[instance].imageDesc = this.state.imageArr[image].description
+    instanceArr[instance].imageDesc = this.state.imageArr[image].name + '-' + this.state.imageArr[image].label    
     this.setState({
         instanceArr: instanceArr
     })
