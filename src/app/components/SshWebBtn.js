@@ -38,7 +38,12 @@ class SshWebBtn extends Component {
 					   			target='_blank'
 							/>
 			    		</div>
-	    			: <div></div>
+	    			: <div>
+	    				<FlatButton
+							icon={<Terminal size={28} color='black'/>}
+							label={<span><font color={indigo900}><b>{'ssh From Web (unstable)'}</b></font></span>}						
+						/>
+	    			 </div>
 				}
 				
     		</div>
