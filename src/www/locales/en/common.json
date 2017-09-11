@@ -40,10 +40,10 @@
         "step4": "Confirm Page",
         "back": "Back",
         "next": "Next",
-        "confirm":"Confirm your schedule setting !",
+        "confirm":"Confirm your scheduled setting !",
         "finish": "Finish",
         "create": "Create Schedule",
-        "success":"Create Schedule success !",
+        "success":"Scheduled Created Successfully !",
         "id": "ID",
         "password": "Password",
         "dataSetPath": "DataSetPath",
@@ -52,7 +52,7 @@
         "withoutDataSet":"without DataSet",
         "option":"It's Option.",
         "check":"Check DataSet Path",
-        "avalableInstance":"Avalable Instance",
+        "availableInstance":"Available Instance",
         "currentInstance":"Subscribed Instance"
     },
     "calendar":{
@@ -61,7 +61,7 @@
         "noData":"No data",
         "today":"Today is",
         "executed":"Executed date",
-        "notyetExecute": "Not yet executed date"
+        "notyetExecute": "Dates yet to execute"
     },
     "backReview": "Back Review",
     "InstanceNum": "Number of Instance",
@@ -76,31 +76,31 @@
     "remove": {
         "remove": "Remove",
         "comfirmRemove": "Comfirm Remove",
-        "warning": "Are you sure remove this ?"
+        "warning": "Are you sure you want to remove this ?"
     },
     "signOut": "SignOut",
     "detail":"Detail",
-    "excuteDay": "Executed Day",
-    "leftDay": "Left Day",
+    "excuteDay": "Day Executed",
+    "leftDay": "Day Left",
     "openStorage":"Open Storage",
-    "storage":"Using client FTP uploading dataset",
-    "noInstance":",No Continuously Instance !",
+    "storage":"Using client FTP to upload dataset",
+    "noInstance":",No Continuous Instance !",
     "history":{
         "history":"History",
         "title":"History"
     },
     "specialOrder":"Special request",
-    "mailto":"Mail to us what you want.",
+    "mailto":"Mail us your comments.",
     "maxHint":"Each user have 3 instance limit.",
-    "editCalendarTitle":"The instance can extend dates",
-    "updatedSuccess":"Updated Success !",
-    "deletedSuccess":"Deleted Success !",
+    "editCalendarTitle":"The scheduled dates can be extended",
+    "updatedSuccess":"Updated Successfully !",
+    "deletedSuccess":"Deleted Successfully !",
     "ip":"Internet Protocol Address",
     "port":"Port",
-    "afterRunning":"Will offer after machine running.",
+    "afterRunning":"Will show after status become running.",
     "reviewTitle": "Instance information",
     "department":"Department",
-    "instanceEmpty":"Mybe try the cross button ?",
+    "instanceEmpty":"Click [+Create] on top right",
     "searchSelect":"You can input project Name, Host, Number to search",
     "gpuType":"GPU Type",
     "menu":{

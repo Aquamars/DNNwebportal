@@ -7,7 +7,9 @@ import MenuItem from 'material-ui/MenuItem';
 import ActionLanguage from 'material-ui/svg-icons/action/language'
 import LockIcon from 'material-ui/svg-icons/action/lock-outline'
 import ImagePictureAsPdf from 'material-ui/svg-icons/image/picture-as-pdf'
-
+// GA
+import ReactGA from 'react-ga'
+// PDF
 import {displayPDF} from '../utils/MakeTutorialFile'
 // COLOR
 import { greenA700, lightBlue500, lightBlue900 } from 'material-ui/styles/colors'
@@ -15,7 +17,13 @@ import { greenA700, lightBlue500, lightBlue900 } from 'material-ui/styles/colors
 import { translate, Interpolate } from 'react-i18next'
 import i18n from '../utils/i18n'
 const toggle = lng => i18n.changeLanguage(lng)
-
+/**
+  Tutorial Button
+  Example:
+  ```
+  <TutorialBtn />
+  ```
+ */
 class TutorialBtn extends Component {
 	constructor(props) {
 	    super(props);
@@ -43,6 +51,12 @@ class TutorialBtn extends Component {
 	      open: false,
 	    })
 	    displayPDF(localStorage.getItem('itriUser'), lang)
+	    //GA
+	  	ReactGA.event({
+	      category: 'PDF',
+	      action: 'open',
+	      label: lang
+	    })
 	}
 	render(){
 		const {t} = this.props

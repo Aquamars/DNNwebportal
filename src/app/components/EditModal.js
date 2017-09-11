@@ -25,8 +25,19 @@ import i18n from '../utils/i18n'
 // API call
 import axios from 'axios'
 import {API_PutExtDate, API_GetExtDate} from '../resource'
+// GA
+import ReactGA from 'react-ga'
 /**
- * A modal dialog can only be closed by selecting one of the actions.
+  Edit endDate of the instance
+  Example:
+  ```
+  <EditModal 
+    token={this.props.token}
+    data = {data}
+    refresh={this.getData}
+    {...this.props}
+  />
+  ```
  */
 class EditModal extends React.Component {
 
@@ -40,6 +51,59 @@ class EditModal extends React.Component {
         latestDate:''
       }
   }
+  static propTypes = {
+    /**
+      The user token for call api
+    */
+    token: React.PropTypes.string.isRequired,
+    /**
+      Will refresh reviewTable after edit 
+    */
+    refresh: React.PropTypes.func.isRequired,
+    /**
+      the instance information 
+    */
+    data: React.PropTypes.object.isRequired,
+  }
+  static defaultProps = {
+    data: {
+      "id": "331",
+      "statusId": "2",
+      "projectCode": null,
+      "startedAt": "2017-09-10T16:00:00.000Z",
+      "endedAt": "2017-09-12T15:59:59.000Z",
+      "createdAt": "2017-09-11T07:50:02.094Z",
+      "updatedAt": "2017-09-11T07:50:01.326Z",
+      "userId": "11",
+      "instance": {
+        "id": "332",
+        "ip": "",
+        "port": null,
+        "username": "A40503",
+        "password": "36bi1z1c",
+        "datasetPath": null,
+        "datasetUsername": null,
+        "datasetPassword": null,
+        "statusId": 1,
+        "image": {
+          "id": "32",
+          "label": "201706v001",
+          "name": "all_java",
+          "path": null,
+          "description": null
+        },
+        "machine": {
+          "id": "5",
+          "label": "m5",
+          "name": "Machine5",
+          "description": "JAPARIPARK",
+          "gpuAmount": 1,
+          "gpuType": "v100",
+          "statusId": 1
+        }
+      }
+    },        
+  }
   dummyAsync = (cb) => {
       this.setState({loading: true}, () => {
         this.asyncTimer = setTimeout(cb, 800);
@@ -47,9 +111,21 @@ class EditModal extends React.Component {
   }
   handleOpen = () => {
     this.setState({open: true})
+    // GA
+    ReactGA.event({
+      category: 'EditModal',
+      action: 'open',
+      label:this.props.data.id
+    })
   }
   handleClose = () => {
     this.setState({open: false});
+    // GA
+    ReactGA.event({
+      category: 'EditModal',
+      action: 'close',
+      label:this.props.data.id
+    })
   }
   handleSubmit = () => {
     // console.log(moment(this.state.endTime).format('YYYY-MM-DD'))
@@ -62,10 +138,16 @@ class EditModal extends React.Component {
       // console.log('refresh')
       this.setState({open: false, increaseDay:0, loading: false, comfirm: false})
       this.props.refresh()
+      // GA
+      ReactGA.event({
+        category: 'EditModal',
+        action: 'edited',
+        label:this.props.data.id
+      })
     }
   }
   editDateApi = () => {
-    const api = API_PutExtDate+this.props.id
+    const api = API_PutExtDate+this.props.data.id
     // console.log(moment(this.state.endTime).format('YYYY-MM-DD'))
     fetch(api, 
         { 
@@ -103,11 +185,17 @@ class EditModal extends React.Component {
       endTime: date,
       increaseDay: moment(date).diff(moment(this.props.data.endedAt), 'days')
     })
+    // GA
+    ReactGA.event({
+      category: 'EditModal',
+      action: 'Select date',
+      label:this.props.data.id
+    })
   }
   getExtandDate = () => {
     // console.log(this.props.id)
     // console.log(this.props.token)
-    const api = API_GetExtDate+this.props.id+"/extendable"
+    const api = API_GetExtDate+this.props.data.id+"/extendable"
     axios.get(api,
       {
         headers: {

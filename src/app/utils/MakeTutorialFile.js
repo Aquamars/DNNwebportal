@@ -29,13 +29,12 @@ import {
 
 // import '../plugin/html2Canvas'
 export function displayPDF(username, language){
-
 	const ftpPassword = ftpPass(username)
 	const docDefinition = { 
 		content:[
 ////////////// page 1
 			{ 
-				text: 'Monkey can using DNN', 
+				text: 'Even monkey can use DNN', 
 				style: 'title',
 				fontSize: 36,
 				 
@@ -91,7 +90,7 @@ export function displayPDF(username, language){
 						style: 'outline'
 					},
 					{ 
-						text:"Access instance\n", 
+						text:"Accessing your instance\n", 
 						linkToPage: 8,
 						style: 'outline'
 					},
@@ -153,7 +152,7 @@ export function displayPDF(username, language){
 				text:'\n\n'
 			},
 			{ 
-				text:"For upload your dataset or your image.\n You can using ftp uploading.", 
+				text:"You can use FTP to upload dataset or image(s). \n ", 
 				fontSize: 20,
 			},
 			{
@@ -199,7 +198,7 @@ export function displayPDF(username, language){
 				text:'\n\n'
 			},
 			{ 
-				text:"You can find ftp information on webportal", 
+				text:"You can find FTP information on webportal", 
 				fontSize: 18,
 			},
 			{
@@ -217,7 +216,7 @@ export function displayPDF(username, language){
 				text:'\n\n'
 			},
 			{ 
-				text:"*Up to three instances are used.", 
+				text:"You may create up to 3 instances.", 
 				color:"red",
 				fontSize: 20,
 			},
@@ -225,7 +224,7 @@ export function displayPDF(username, language){
 				text:'\n\n'
 			},
 			{ 
-				text:"1. Press the create button.", 
+				text:"1. Click +create button.", 
 				fontSize: 16,
 			},			
 			{
@@ -237,7 +236,7 @@ export function displayPDF(username, language){
 				text:'\n\n'
 			},
 			{ 
-				text:"2. Choose range of date.", 
+				text:"2. Choose the date range.", 
 				fontSize: 16,
 			},			
 			{
@@ -247,7 +246,7 @@ export function displayPDF(username, language){
 				pageBreak: 'after'
 			},
 			{ 
-				text:"3. Interval need bigger than 0 days, then you can into next step.", 
+				text:"3. Interval needs to be larger than 0 days to go to the next step.", 
 				fontSize: 16,
 			},			
 			{
@@ -259,7 +258,7 @@ export function displayPDF(username, language){
 				text:'\n\n'
 			},
 			{ 
-				text:"4. You can choose images what you want.", 
+				text:"4. You can choose the image(s) you want.", 
 				fontSize: 16,
 			},			
 			{
@@ -269,7 +268,7 @@ export function displayPDF(username, language){
 				pageBreak: 'after'
 			},
 			{ 
-				text:"5. Create instance after confirm your setting.", 
+				text:"5. Create instance after confirming your settings.", 
 				fontSize: 16,
 			},			
 			{
@@ -281,7 +280,7 @@ export function displayPDF(username, language){
 				text:'\n\n'
 			},
 			{ 
-				text:"6. You can get your account and password after create success.", 
+				text:"6. You will get your account and password after instance is created successfully.", 
 				fontSize: 16,
 			},			
 			{
@@ -291,7 +290,7 @@ export function displayPDF(username, language){
 				pageBreak: 'after'
 			},
 			{ 
-				text:"7. You can see the instance IP& port after instance is running.", 
+				text:"7. You can see the instance IP& port after instance status becomes running.", 
 				fontSize: 16,
 			},			
 			{
@@ -323,7 +322,7 @@ export function displayPDF(username, language){
 				alignment: 'center',
 			},
 			{ 
-				text:"Input your account and password to access instance.", 
+				text:"Input your account name and password to access instance.", 
 				fontSize: 16,
 			},
 			{
@@ -335,12 +334,12 @@ export function displayPDF(username, language){
 				text:'\n\n'
 			},
 			{ 
-				text:"2. Using linux access instance.", 
+				text:"2. Using linux to access instance.", 
 				fontSize: 18,
 				bold: true,
 			},
 			{ 
-				text:"Just click to copy and paste to the command line.", 
+				text:"Click to copy and paste the command lines.", 
 				fontSize: 16,
 			},
 			{
@@ -737,7 +736,7 @@ export function displayPDF(username, language){
 						style: 'outline'
 					},
 					{ 
-						text:"連接Instance\n", 
+						text:"登入Instance\n", 
 						linkToPage: 8,
 						style: 'outline'
 					},
@@ -799,7 +798,7 @@ export function displayPDF(username, language){
 				text:'\n\n'
 			},
 			{ 
-				text:"您可以利用 ftp上傳您的 dataset 或是 image。", 
+				text:"您可以利用 FTP上傳您的 dataset 或是 image。", 
 				fontSize: 20,
 				font: 'tc'
 			},
@@ -875,7 +874,7 @@ export function displayPDF(username, language){
 				text:'\n\n'
 			},
 			{ 
-				text:"1. 點擊 創建 按鈕。", 
+				text:"1. 點擊 建立 按鈕。", 
 				fontSize: 16,
 				font:"tc"
 			},			
@@ -899,7 +898,7 @@ export function displayPDF(username, language){
 				pageBreak: 'after'
 			},
 			{ 
-				text:"3. 日期區間需要大於0，即可進入下一個步驟。", 
+				text:"3. 日期區間需要大於0，方可進入下一個步驟。", 
 				fontSize: 16,
 				font:"tc"
 			},			
@@ -912,7 +911,7 @@ export function displayPDF(username, language){
 				text:'\n\n'
 			},
 			{ 
-				text:"4. 您可以選擇各種的Iamge來使用。", 
+				text:"4. 您可以選擇各種的image來使用。", 
 				fontSize: 16,
 				font:"tc"
 			},			
@@ -936,7 +935,7 @@ export function displayPDF(username, language){
 				text:'\n\n'
 			},
 			{ 
-				text:"6. 在創建完Schedule之後，即可得到登入帳號與密碼。", 
+				text:"6. 在建立完Schedule之後，即可得到登入帳號與密碼。", 
 				fontSize: 16,
 				font:"tc"
 			},			
@@ -947,7 +946,7 @@ export function displayPDF(username, language){
 				pageBreak: 'after'
 			},
 			{ 
-				text:"7. 在Instance運作之後，即可得到登入IP及port。", 
+				text:"7. 在Instance完成運作之後，即可得到登入IP及port。", 
 				fontSize: 16,
 				font:"tc"
 			},			
@@ -959,20 +958,20 @@ export function displayPDF(username, language){
 			},
 ////////////// page 8
 			{ 
-				text:"連接instance", 
+				text:"登入instance", 
 				style: 'title',
 			},
 			{
 				text:'\n\n'
 			},
 			{ 
-				text:"1. 使用 putty 連接 instance。", 
+				text:"1. 使用 putty 登入 instance。", 
 				fontSize: 18,
 				bold: true,
 				font: "tc"
 			},
 			{ 
-				text:"輸入Instance的IP和port，選擇SSH.(您可以直接點擊來複製資訊)", 
+				text:"輸入Instance的IP和port，選擇SSH. (您可以直接點擊來複製資訊)", 
 				fontSize: 16,
 				font: "tc"
 			},
@@ -982,7 +981,7 @@ export function displayPDF(username, language){
 				alignment: 'center',
 			},
 			{ 
-				text:"輸入您的帳號與密碼來連接您的Instance。", 
+				text:"輸入您的帳號與密碼來登入您的Instance。", 
 				fontSize: 16,
 				font: "tc"
 			},
@@ -995,7 +994,7 @@ export function displayPDF(username, language){
 				text:'\n\n'
 			},
 			{ 
-				text:"2. 使用 linux 系統連接Instance。", 
+				text:"2. 使用 linux 系統登入Instance。", 
 				fontSize: 18,
 				bold: true,
 				font: "tc"

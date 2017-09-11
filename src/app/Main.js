@@ -13,6 +13,10 @@ import autoprefixer from 'material-ui/utils/autoprefixer'
 // components
 import MainContainer from './components/MainContainer'
 import SigninFrom from './components/SigninFrom'
+
+import ReactGA from 'react-ga';
+
+
 const muiTheme = getMuiTheme({
   palette: {
     accent1Color: deepOrange500,
@@ -91,6 +95,14 @@ class Main extends Component {
   }
 
   handleSignOut = () => {
+
+    // GA
+    ReactGA.event({
+      category: 'SignOut',
+      action: 'Success',
+      label: localStorage.getItem('itriUser')
+    })
+
     localStorage.setItem('token', '')
     localStorage.setItem('itriUser', '')
     this.setState({
@@ -111,6 +123,12 @@ class Main extends Component {
         }, 2000)
       }, 1000)
     }
+    // GA
+    ReactGA.initialize('UA-99253812-1')
+    ReactGA.event({
+      category: 'pageView',
+      action: 'Access Web'
+    });
   }
 
   render() {

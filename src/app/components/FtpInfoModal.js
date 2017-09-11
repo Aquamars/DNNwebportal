@@ -13,17 +13,30 @@ import DeviceStorage from 'material-ui/svg-icons/device/storage'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import {ftpPass} from '../utils/FtpPass'
 import {FTPHost, FTPPort} from '../resource'
+// GA
+import ReactGA from 'react-ga'
 // i18n
 import { translate, Interpolate } from 'react-i18next'
 import i18n from '../utils/i18n'
+/**
+  Show FTP infomation
+  Example:
+  ```
+  <FtpInfoModal iconColor={#000} />
+  ```
+*/
 class FtpInfoModal extends React.Component {
 	static propTypes = {
+		/**
+		  Setting the button color
+		*/
         iconColor: React.PropTypes.string,        
     }
 
 	static defaultProps = {
-        iconColor: '#fff',        
+        iconColor: '#000',        
     }
+    
 	constructor(props){
 		super(props)
 	    this.state = {
@@ -33,10 +46,20 @@ class FtpInfoModal extends React.Component {
 
 	handleOpen = () => {
 	  this.setState({open: true})
+	  //GA
+	  ReactGA.event({
+	    category: 'FtpInfoModal',
+	    action: 'open',		  
+	  })
     }
 
 	handleClose = () => {
 	  this.setState({open: false});
+	  //GA
+   	  ReactGA.event({
+	    category: 'FtpInfoModal',
+	    action: 'close',		  
+	  })
 	}
 
 	renderContent = () => {
@@ -48,7 +71,7 @@ class FtpInfoModal extends React.Component {
 				<List>
 					<CopyToClipboard 
 						text={'ftpHost'}
-						onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),true)}
+						onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),'ftpHost')}
 					>
 					<ListItem
 			            primaryText={<b>{t('common:ftpHost')}</b>}
@@ -58,7 +81,7 @@ class FtpInfoModal extends React.Component {
 		            </CopyToClipboard>
 		            <CopyToClipboard 
 						text={'ftpPort'}
-						onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),true)}
+						onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),'ftpPort')}
 					>
 		            <ListItem
 			            primaryText={<b>{t('common:ftpPort')}</b>}
@@ -68,7 +91,7 @@ class FtpInfoModal extends React.Component {
 		            </CopyToClipboard>
 		            <CopyToClipboard 
 						text={'FTP'}
-						onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),true)}
+						onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),'ftpProtocol')}
 					>
 		            <ListItem
 			            primaryText={<b>{t('common:ftpProtocol')}</b>}
@@ -78,7 +101,7 @@ class FtpInfoModal extends React.Component {
 		            </CopyToClipboard>
 		            <CopyToClipboard 
 						text={username}
-						onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),true)}
+						onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),'ftpAccount')}
 					>
 		            <ListItem
 			            primaryText={<b>{t('common:account')}</b>}
@@ -88,7 +111,7 @@ class FtpInfoModal extends React.Component {
 		            </CopyToClipboard>
 		            <CopyToClipboard 
 						text={pass}
-						onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),true)}
+						onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),'ftpPassword')}
 					>
 		            <ListItem
 			            primaryText={<b>{t('common:password')}</b>}

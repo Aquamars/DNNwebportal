@@ -3,6 +3,8 @@ import React from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {copyNotify} from './Notify/actionNotify'
+// GA
+import ReactGA from 'react-ga'
 
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
@@ -31,16 +33,73 @@ import { green500, orange500, greenA700, redA700, orangeA700, indigo900 } from '
 import {muiStyle, muiTheme} from '../myTheme'
 
 const textCenter = { textAlign:'center'}
-
+/**
+  Show more infomation of the instance
+  Example:
+  ```
+  <DetailModal 
+  	data = {data} 
+  	iconColor = {grey500} 
+  	showStatus={false} 
+  />
+  ```
+*/
 class DetailModal extends React.Component {
 	static propTypes = {
+		/**
+		  Setting the button color
+		*/
         iconColor: React.PropTypes.string,
-        showStatus: React.PropTypes.bool
+        /**
+		  enable show status
+		*/
+        showStatus: React.PropTypes.bool,
+        /**
+		  the instance information
+		*/
+		data: React.PropTypes.object.isRequired,
     }
 
 	static defaultProps = {
         iconColor: muiStyle.palette.primary1Color,
-        showStatus: true
+        showStatus: true,
+        data: {
+	      "id": "331",
+	      "statusId": "2",
+	      "projectCode": null,
+	      "startedAt": "2017-09-10T16:00:00.000Z",
+	      "endedAt": "2017-09-12T15:59:59.000Z",
+	      "createdAt": "2017-09-11T07:50:02.094Z",
+	      "updatedAt": "2017-09-11T07:50:01.326Z",
+	      "userId": "11",
+	      "instance": {
+	        "id": "332",
+	        "ip": "",
+	        "port": null,
+	        "username": "A40503",
+	        "password": "36bi1z1c",
+	        "datasetPath": null,
+	        "datasetUsername": null,
+	        "datasetPassword": null,
+	        "statusId": 1,
+	        "image": {
+	          "id": "32",
+	          "label": "201706v001",
+	          "name": "all_java",
+	          "path": null,
+	          "description": null
+	        },
+	        "machine": {
+	          "id": "5",
+	          "label": "m5",
+	          "name": "Machine5",
+	          "description": "JAPARIPARK",
+	          "gpuAmount": 1,
+	          "gpuType": "v100",
+	          "statusId": 1
+	        }
+	      }
+	    },
     }
 	constructor(props) {
 	    super(props)
@@ -57,10 +116,20 @@ class DetailModal extends React.Component {
 	
 	handleOpen = () => {
 	  this.setState({open: true})
+	  ReactGA.event({
+	  	category: 'DetailModal',
+		action: 'open',
+		label:this.props.data.id
+	  })
     }
 
 	handleClose = () => {
 	  this.setState({open: false});
+	  ReactGA.event({
+	  	category: 'DetailModal',
+		action: 'close',
+		label:this.props.data.id
+	  })
 	}
 
 	renderTabOne = () => {
@@ -77,7 +146,7 @@ class DetailModal extends React.Component {
 			    	
 		          	<CopyToClipboard 
 		             	text={this.props.data.instance.ip}
-		             	onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),true)}
+		             	onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),'ip')}
 		            >
 			         	<ListItem 
 			            	primaryText={<span><b>{t('common:ip')}</b></span>}
@@ -86,7 +155,7 @@ class DetailModal extends React.Component {
 			        </CopyToClipboard>
 			        <CopyToClipboard 
 			         	text={this.props.data.instance.port}
-			         	onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),true)}
+			         	onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),'port')}
 			        >
 			          	<ListItem
 			           		primaryText={<span><b>{t('common:port')}</b></span>}
@@ -95,7 +164,7 @@ class DetailModal extends React.Component {
 			        </CopyToClipboard>
 			        <CopyToClipboard 
 			         	text={this.props.data.instance.username}
-			         	onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),true)}
+			         	onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),'account')}
 			        >
 		            	<ListItem
 			           		primaryText={<span><b>{t('common:account')}</b></span>}
@@ -104,7 +173,7 @@ class DetailModal extends React.Component {
 			        </CopyToClipboard>
 			        <CopyToClipboard 
 			         	text={this.props.data.instance.password}
-			         	onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),true)}
+			         	onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),'password')}
 			        >
 			         	<ListItem
 			           		primaryText={<span><b>{t('common:password')}</b></span>}
@@ -113,7 +182,7 @@ class DetailModal extends React.Component {
 			        </CopyToClipboard>
 			        <CopyToClipboard 
 			        	text={sshCMD}
-			         	onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),true)}
+			         	onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),'sshCMD')}
 			        >
 			         	<ListItem
 			           		primaryText={<span><font color={indigo900}><b>{t('common:copySshCmd')}</b></font></span>}

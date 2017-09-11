@@ -17,7 +17,17 @@ import ActionHelpOutline from 'material-ui/svg-icons/action/help-outline'
 // i18n
 import { translate, Interpolate } from 'react-i18next'
 import i18n from '../utils/i18n'
-
+/**
+  Show Status
+  Example:
+  ```
+  <StatusHandler 
+  	start={new Date()} 
+  	refresh={this.getData} 
+  	statusId={data.statusId} 
+  />
+  ```
+ */
 class StatusHandler extends Component {
 	// static propTypes = {	    
 	//     statusId: React.PropTypes.number,
@@ -26,9 +36,23 @@ class StatusHandler extends Component {
       super(props)
       this.state = {
       	elapsed: 0,
-      	refreshTimes: 0
+      	// refreshTimes: 0
       }
     }
+    static propTypes = {
+	  /**
+	    The start count time
+	  */
+	  start: React.PropTypes.string.isRequired,
+	  /**
+	    Will refresh reviewTable after count 
+	  */
+	  refresh: React.PropTypes.func.isRequired,
+	  /**
+	    the statusId of the instance
+	  */
+	  statusId: React.PropTypes.string.isRequired,
+	}
 	setIncetanceStatus = (status) => {
 		const {t} = this.props
 		let obj;
@@ -101,22 +125,22 @@ class StatusHandler extends Component {
 		})
 		let elapsed = Math.round(this.state.elapsed / 100)
 		let seconds = (elapsed / 10).toFixed(1)
-		if(seconds > 10 && this.state.refreshTimes === 0){
+		if(seconds > 10 && seconds < 11){
 			this.props.refresh()
 			this.setState({
 				elapsed: new Date() - new Date(this.props.start),
-				refreshTimes: 1
+				// refreshTimes: 1
 			})
 		}
 	}
 	render(){
 		let elapsed = Math.round(this.state.elapsed / 100)
 		let seconds = (elapsed / 10).toFixed(1)
-		if(seconds < 0){
-			console.log(this.props.start)
-			console.log(new Date())
-			console.log(new Date(this.props.start))
-		}
+		// if(seconds < 0){
+		// 	console.log(this.props.start)
+		// 	console.log(new Date())
+		// 	console.log(new Date(this.props.start))
+		// }
 		const {statusId, t} = this.props
 		return(
 			<div>
@@ -124,7 +148,7 @@ class StatusHandler extends Component {
 					<div style={{display: 'inline-block'}}>
 						{this.setIncetanceStatus(statusId)}
 					</div>
-				{(statusId === '2' && this.state.refreshTimes === 0 && seconds >0) &&
+				{(statusId === '2' &&  seconds < 10 && seconds >0) &&
 					<div style={{display: 'inline-block', verticalAlign:'middle'}}>
 						<div data-tip data-for='status'>
 							{seconds}s					
@@ -134,7 +158,7 @@ class StatusHandler extends Component {
 				        </ReactTooltip>
 			        </div>
 		    	}
-		        {(statusId === '2' && this.state.refreshTimes === 1 && seconds > 10) &&
+		        {(statusId === '2' && seconds > 10) &&
 			        <div style={{display: 'inline-block', verticalAlign:'middle'}}>
 				       <div data-tip data-for='status'>
 				       	{seconds}s <ActionHelpOutline Color={redA700}/>

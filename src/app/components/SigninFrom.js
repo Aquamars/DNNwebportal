@@ -11,10 +11,11 @@ import Avatar from 'material-ui/Avatar'
 import CircularProgress from 'material-ui/CircularProgress'
 import LanguageBtn from './LanguageBtn'
 import {muiStyle} from '../myTheme'
-
+// GA
+import ReactGA from 'react-ga'
 // ICON
 import LockIcon from 'material-ui/svg-icons/action/lock-outline'
-
+// API
 import axios from 'axios'
 import {API_SIGNIN} from '../resource'
 
@@ -85,8 +86,22 @@ class SigninFrom extends Component {
         data:result.data
       })
       this.props.SigninCheck(this.state.username,result.data.token)
+      // GA
+      ReactGA.event({
+        category: 'SignIn',
+        action: 'Success',
+        label: this.state.username
+      })
+
     }).catch((err)=>{
       console.log(err)
+      // GA
+      ReactGA.event({
+        category: 'SignIn',
+        action: 'Fail',
+        label: this.state.username
+      })
+
       this.setState({
         signInError: true,
         username: '',

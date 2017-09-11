@@ -5,25 +5,53 @@ import IconButton from 'material-ui/IconButton'
 // ICON
 import ActionLanguage from 'material-ui/svg-icons/action/language'
 import LockIcon from 'material-ui/svg-icons/action/lock-outline'
+// GA
+import ReactGA from 'react-ga'
+// i18n
 import { translate, Interpolate } from 'react-i18next'
 import i18n from '../utils/i18n'
 const toggle = lng => i18n.changeLanguage(lng)
-
+/**
+  Switch Language Button
+  Example:
+  ```
+  <LanguageBtn />
+  ```
+ */
 class LanguageBtn extends Component {
 	state = {
 	  valueSingle: '3',	  
 	}
 	handleChangeSingle = (event, value) => {
+
 	  // console.log(value)	
 	  switch(value){
 	  	case "0":
 	  		toggle('en')
+	  		//GA
+	  		ReactGA.event({
+		      category: 'Language',
+		      action: 'switch',
+		      label:'en'
+		    })
 	  		break
 	  	case "1":
 	  		toggle('tw')
+	  		//GA
+	  		ReactGA.event({
+		      category: 'Language',
+		      action: 'switch',
+		      label:'tw'
+		    })
 	  		break
 	  	default:
 	  		toggle('en')
+	  		//GA
+	  		ReactGA.event({
+		      category: 'Language',
+		      action: 'switch',
+		      label:'en'
+		    })
 	  		break
 	  }
 	}
