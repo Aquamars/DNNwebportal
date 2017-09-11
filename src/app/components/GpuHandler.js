@@ -21,7 +21,10 @@ class GpuHandler extends Component {
 	    GPUType of the instance 
 	  */
 	  gpu: React.PropTypes.string.isRequired,
-	}	
+	}
+	static defaultProps = {
+        gpu: '5850',        
+    }	
 	render(){
 		const {statusId} = this.props
 		return(

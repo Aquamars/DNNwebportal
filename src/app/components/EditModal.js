@@ -65,6 +65,45 @@ class EditModal extends React.Component {
     */
     data: React.PropTypes.object.isRequired,
   }
+  static defaultProps = {
+    data: {
+      "id": "331",
+      "statusId": "2",
+      "projectCode": null,
+      "startedAt": "2017-09-10T16:00:00.000Z",
+      "endedAt": "2017-09-12T15:59:59.000Z",
+      "createdAt": "2017-09-11T07:50:02.094Z",
+      "updatedAt": "2017-09-11T07:50:01.326Z",
+      "userId": "11",
+      "instance": {
+        "id": "332",
+        "ip": "",
+        "port": null,
+        "username": "A40503",
+        "password": "36bi1z1c",
+        "datasetPath": null,
+        "datasetUsername": null,
+        "datasetPassword": null,
+        "statusId": 1,
+        "image": {
+          "id": "32",
+          "label": "201706v001",
+          "name": "all_java",
+          "path": null,
+          "description": null
+        },
+        "machine": {
+          "id": "5",
+          "label": "m5",
+          "name": "Machine5",
+          "description": "JAPARIPARK",
+          "gpuAmount": 1,
+          "gpuType": "v100",
+          "statusId": 1
+        }
+      }
+    },        
+  }
   dummyAsync = (cb) => {
       this.setState({loading: true}, () => {
         this.asyncTimer = setTimeout(cb, 800);
