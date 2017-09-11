@@ -34,8 +34,9 @@ class FtpInfoModal extends React.Component {
     }
 
 	static defaultProps = {
-        iconColor: '#fff',        
+        iconColor: '#000',        
     }
+    
 	constructor(props){
 		super(props)
 	    this.state = {
