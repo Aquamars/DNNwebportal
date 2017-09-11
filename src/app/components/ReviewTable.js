@@ -153,7 +153,15 @@ class ReviewTable extends Component {
 			// this.props.notify('ERROR : ReviewTable')
 		}	    	    
 	}
-
+	setStatusClock = (createdAt) => {
+		if(!moment(createdAt).isBefore(new Date())){
+			console.log(new Date())
+			return ('now' + new Date())
+		}else{
+			console.log(createdAt)
+			return createdAt
+		}
+	}
 	componentDidMount(){
 		this.getData()		
 	}
@@ -220,7 +228,7 @@ class ReviewTable extends Component {
 				      <TableRowColumn style = {styles.textCenter}>{moment(data.startedAt).format('YYYY-MM-DD')}</TableRowColumn>
 				      <TableRowColumn style = {styles.textCenter}><EditModal token={this.props.token} data = {data} refresh={this.getData} {...this.props}/></TableRowColumn>
 				      <TableRowColumn style = {styles.textCenter}>{data.id}</TableRowColumn>
-				      <TableRowColumn style = {styles.textCenter}>{<StatusHandler start={new Date()} refresh={this.getData} statusId={data.statusId} />}</TableRowColumn>
+				      <TableRowColumn style = {styles.textCenter}>{<StatusHandler start={data.createdAt} refresh={this.getData} statusId={data.statusId} />}</TableRowColumn>
 				      <TableRowColumn style = {styles.textCenter}>{<GpuHandler gpu={data.instance.machine.gpuType} />}</TableRowColumn>			      
 				      <TableRowColumn style = {styles.textCenter}>{data.instance.image.name}</TableRowColumn>			      
 				      <TableRowColumn style = {styles.textCenter}>
