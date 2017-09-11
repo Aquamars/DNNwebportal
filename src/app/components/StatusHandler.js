@@ -36,7 +36,7 @@ class StatusHandler extends Component {
       super(props)
       this.state = {
       	elapsed: 0,
-      	refreshTimes: 0
+      	// refreshTimes: 0
       }
     }
     static propTypes = {
@@ -125,11 +125,11 @@ class StatusHandler extends Component {
 		})
 		let elapsed = Math.round(this.state.elapsed / 100)
 		let seconds = (elapsed / 10).toFixed(1)
-		if(seconds > 10 && this.state.refreshTimes === 0){
+		if(seconds > 10 && seconds < 11){
 			this.props.refresh()
 			this.setState({
 				elapsed: new Date() - new Date(this.props.start),
-				refreshTimes: 1
+				// refreshTimes: 1
 			})
 		}
 	}
@@ -148,7 +148,7 @@ class StatusHandler extends Component {
 					<div style={{display: 'inline-block'}}>
 						{this.setIncetanceStatus(statusId)}
 					</div>
-				{(statusId === '2' && this.state.refreshTimes === 0 && seconds >0) &&
+				{(statusId === '2' &&  seconds < 10 && seconds >0) &&
 					<div style={{display: 'inline-block', verticalAlign:'middle'}}>
 						<div data-tip data-for='status'>
 							{seconds}s					
@@ -158,7 +158,7 @@ class StatusHandler extends Component {
 				        </ReactTooltip>
 			        </div>
 		    	}
-		        {(statusId === '2' && this.state.refreshTimes === 1 && seconds > 10) &&
+		        {(statusId === '2' && seconds > 10) &&
 			        <div style={{display: 'inline-block', verticalAlign:'middle'}}>
 				       <div data-tip data-for='status'>
 				       	{seconds}s <ActionHelpOutline Color={redA700}/>
