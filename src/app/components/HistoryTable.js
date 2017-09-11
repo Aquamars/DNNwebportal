@@ -12,7 +12,7 @@ import Paper from 'material-ui/Paper'
 import CircularProgress from 'material-ui/CircularProgress'
 import Divider from 'material-ui/Divider'
 import EditModal from './EditModal'
-import DeleteModal from './DeleteModal'
+
 import HoverDiv from './HoverDiv'
 import DetailModal from './DetailModal'
 import moment from 'moment'
