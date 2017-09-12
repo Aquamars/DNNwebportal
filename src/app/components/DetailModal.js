@@ -135,7 +135,7 @@ class DetailModal extends React.Component {
 	renderTabOne = () => {
 		const {t} = this.props
 		// console.log(this.props.data)
-		const sshCMD = 'ssh ' + this.props.data.instance.username + '@' + this.props.data.instance.ip + ' -p ' + this.props.data.instance.port		
+		const sshCMD = 'ssh ' + this.props.data.username + '@' + this.props.data.container.serviceIp + ' -p ' + this.props.data.container.sshPort
 		return( 
 			<div>				
 			    <List>
@@ -145,39 +145,39 @@ class DetailModal extends React.Component {
           			</div>
 			    	
 		          	<CopyToClipboard 
-		             	text={this.props.data.instance.ip}
+		             	text={this.props.data.container.ip}
 		             	onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),'ip')}
 		            >
 			         	<ListItem 
 			            	primaryText={<span><b>{t('common:ip')}</b></span>}
-			            	secondaryText={this.props.data.instance.ip}
+			            	secondaryText={this.props.data.container.serviceIp}
 			         	/>
 			        </CopyToClipboard>
 			        <CopyToClipboard 
-			         	text={this.props.data.instance.port}
+			         	text={this.props.data.container.sshPort}
 			         	onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),'port')}
 			        >
 			          	<ListItem
 			           		primaryText={<span><b>{t('common:port')}</b></span>}
-			            	secondaryText={this.props.data.instance.port}
+			            	secondaryText={this.props.data.container.sshPort}
 			          	/>
 			        </CopyToClipboard>
 			        <CopyToClipboard 
-			         	text={this.props.data.instance.username}
+			         	text={this.props.data.username}
 			         	onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),'account')}
 			        >
 		            	<ListItem
 			           		primaryText={<span><b>{t('common:account')}</b></span>}
-			           		secondaryText={this.props.data.instance.username}
+			           		secondaryText={this.props.data.username}
 			         	/>
 			        </CopyToClipboard>
 			        <CopyToClipboard 
-			         	text={this.props.data.instance.password}
+			         	text={this.props.data.password}
 			         	onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),'password')}
 			        >
 			         	<ListItem
 			           		primaryText={<span><b>{t('common:password')}</b></span>}
-			           		secondaryText={this.props.data.instance.password}
+			           		secondaryText={this.props.data.password}
 			         	/>			         	
 			        </CopyToClipboard>
 			        <CopyToClipboard 
@@ -191,7 +191,7 @@ class DetailModal extends React.Component {
 			        </CopyToClipboard>			        			        
 		          	<ListItem
 			            primaryText={<span><b>{t('common:image')} </b></span>}
-			            secondaryText={<p><b>{this.props.data.instance.image.name}</b></p>}
+			            secondaryText={<p><b>{this.props.data.image.name}</b></p>}
 			            initiallyOpen={true}
 			            nestedItems={(this.props.data.instance.datasetPath!=null) && [
 			                <ListItem

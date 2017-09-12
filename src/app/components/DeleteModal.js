@@ -234,11 +234,11 @@ class DeleteModal extends React.Component {
                   />
                   <ListItem
                     primaryText={<b>{t('common:image')}</b>}
-                    secondaryText={this.props.data.instance.image.name}
+                    secondaryText={this.props.data.image.name}
                   />
                   <ListItem
                     primaryText={<span><b>{t('common:gpuType')} </b></span>}
-                    secondaryText={<p><b>{this.props.data.instance.machine.gpuType}</b></p>}
+                    secondaryText={<p><b>{this.props.data.machine.gpuType}</b></p>}
                   />
                   <ListItem
                     style={{display:'none'}}
