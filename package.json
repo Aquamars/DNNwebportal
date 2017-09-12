@@ -1,7 +1,8 @@
 {
   "name": "DNNwebportal",
-  "version": "0.1.9",
+  "version": "0.1.14",
   "description": "ITRI DNN web portal",
+  "author": "a40503",
   "repository": {
     "type": "git",
     "url": "https://a40503@bitbucket.org/a40503/dnnwebportal.git"
@@ -11,7 +12,9 @@
     "app": "webpack --config webpack-production.config.js --progress --colors",
     "test": "jest",
     "dll": "webpack -p --progress --config webpack.dll.config.js --colors",
-    "build": "npm run dll & npm run app"
+    "build": "npm run dll & npm run app",
+    "styleguide": "styleguidist server",
+    "styleguide:build": "styleguidist build"
   },
   "jest": {
     "moduleFileExtensions": [
@@ -52,7 +55,10 @@
     "less-loader": "^4.0.3",
     "postcss-loader": "^1.3.3",
     "react-addons-test-utils": "^15.5.1",
+    "react-doc-generator": "^1.2.5",
+    "react-docgen": "^2.18.0",
     "react-hot-loader": "^3.0.0-beta.7",
+    "react-styleguidist": "^6.0.24",
     "style-loader": "^0.16.1",
     "transfer-webpack-plugin": "^0.1.4",
     "uglifyjs-webpack-plugin": "^0.4.3",
@@ -71,7 +77,6 @@
     "i18next-xhr-backend": "^1.4.2",
     "image-webpack-loader": "^3.3.1",
     "interact.js": "^1.2.8",
-    "jquery": "^3.2.1",
     "jspdf": "^1.3.3",
     "material-ui": "^0.17.4",
     "papaparse": "^4.3.2",

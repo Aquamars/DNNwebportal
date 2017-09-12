@@ -22,9 +22,11 @@ export const API_PutExtDate = API_URL + '/user/schedule/'
 export const API_GetImage = API_URL + '/image/'
 export const API_GetAll = API_URL + '/schedule'
 export const API_GetMachine = API_URL + '/machine/'
-
+// FTP
 export const FTPHost = '100.86.2.4'
 export const FTPPort = '21'
+// SshWeb
+export const SshWebURL = 'http://140.96.29.86:10443/?ssh=ssh://'
 // fake data
 export const DATA = [
 {startTime:'2017-01-02',endTime:'2017-05-02', instance:'eeny', status:'running', image:'c2c3152907b5', project:'G352BQ2100', account:'information', password:'research', dataSet:false, dataSetPath:'', dataSetId:'', dataSetPass:''},

@@ -27,7 +27,7 @@ class FinishPage extends React.Component {
           <ListItem
             primaryText={<span><b>{t('common:port')}</b></span>}
             secondaryText={t('common:afterRunning')}
-          />,
+          />
           <ListItem
             primaryText={<span><b>{t('common:account')}</b></span>}
             secondaryText={this.props.data.instance.username}

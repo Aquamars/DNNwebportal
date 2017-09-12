@@ -12,7 +12,7 @@ import Paper from 'material-ui/Paper'
 import CircularProgress from 'material-ui/CircularProgress'
 import Divider from 'material-ui/Divider'
 import EditModal from './EditModal'
-import DeleteModal from './DeleteModal'
+
 import HoverDiv from './HoverDiv'
 import DetailModal from './DetailModal'
 import moment from 'moment'
@@ -33,6 +33,8 @@ import { orangeA700, redA700, greenA700, grey500 } from 'material-ui/styles/colo
 // i18n
 import { translate, Interpolate } from 'react-i18next'
 import i18n from '../utils/i18n'
+// GA
+import ReactGA from 'react-ga'
 
 const styles = {
 	root: {
@@ -56,7 +58,13 @@ const styles = {
 		textAlign:'center'
 	}
 }
-
+/**
+  History Table
+  Example:
+  ```
+  <HistoryTable token = {this.props.token} />
+  ```
+ */
 class HistoryTable extends Component {
 	constructor(props) {
 	    super(props)
@@ -76,7 +84,12 @@ class HistoryTable extends Component {
 		  filtered: []
 	    }
 	}
-
+    static propTypes = {
+      /**
+        The user token for call api
+      */
+      token: React.PropTypes.string.isRequired,
+    }
     SwitchPage = () => {
     	this.setState({
 		   switchPage: true
@@ -88,11 +101,20 @@ class HistoryTable extends Component {
     	if(!this.state.switchPage){
     		this.getData()
     		setTimeout(()=>this.setState({loading: false,}), 300)
-    		
+    		// GA
+		    ReactGA.event({
+		      category: 'HistoryTable',
+		      action: 'open',
+		    })
     	}else{
     		this.setState({
 			  data: []
 			})
+			// GA
+		    ReactGA.event({
+		      category: 'HistoryTable',
+		      action: 'close',
+		    })
     	}    	
     }
 

@@ -41,6 +41,8 @@ import {DATA} from '../resource'
 // i18n
 import { translate, Interpolate } from 'react-i18next'
 import i18n from '../utils/i18n'
+// GA
+import ReactGA from 'react-ga'
 
 import {empty} from '../image'
 
@@ -68,7 +70,15 @@ const styles = {
 	}
 }
 
-
+/**
+  Review Table
+  Example:
+  ```
+  <ReviewTable 
+    token={this.props.token}
+  />
+  ```
+ */
 class ReviewTable extends Component {
 	constructor(props) {
 	    super(props)
@@ -80,18 +90,40 @@ class ReviewTable extends Component {
 	      singleInfo:{},
 	    }
 	}
-
+    static propTypes = {
+      /**
+        The user token for call api
+      */
+      token: React.PropTypes.string.isRequired,
+    }
     SwitchCreatePage = () => {
     	this.setState({
 		   switchCreatePage: true
-		})    	
+		})
+		//GA
+	  	ReactGA.event({
+		  category: 'CreatePage',
+		  action: 'open',		  
+		})
     }
 
-    switchReview = () => this.setState({switchCreatePage: false})
+    switchReview = () => {
+    	this.setState({switchCreatePage: false})
+    	//GA
+	  	ReactGA.event({
+		  category: 'CreatePage',
+		  action: 'close',		  
+		})
+    }
 
 	refresh = (event) => {
 	    event.preventDefault()
 	    this.getData()
+	    //GA
+	  	ReactGA.event({
+		  category: 'ReviewTable',
+		  action: 'refresh',		  
+		})
 	    // setTimeout(()=>this.setState({loading: false,}), 1000)
 	}
 
@@ -121,7 +153,15 @@ class ReviewTable extends Component {
 			// this.props.notify('ERROR : ReviewTable')
 		}	    	    
 	}
-
+	setStatusClock = (createdAt) => {
+		if(!moment(createdAt).isBefore(new Date())){
+			console.log(new Date())
+			return ('now' + new Date())
+		}else{
+			console.log(createdAt)
+			return createdAt
+		}
+	}
 	componentDidMount(){
 		this.getData()		
 	}
@@ -129,8 +169,6 @@ class ReviewTable extends Component {
 	render(){
 		const {t} = this.props
 		const {switchCreatePage, loading} = this.state
-		
-		// console.log('ReviewTable')
 		// console.log(this.state.data.map((data, index)=>(data.statusId)))
 		return (
 			<div>
@@ -151,7 +189,7 @@ class ReviewTable extends Component {
 			          onTouchTap={this.refresh}
 			        />
 			        <TutorialBtn />
-			        <FlatButton 
+			        <FlatButton
 		              label={t('common:contactUs')}
 		              style = {{color:muiStyle.palette.primary1Color}}
 		              icon={<CommunicationContactMail />}
@@ -188,21 +226,21 @@ class ReviewTable extends Component {
 				  	<TableRow key = {index}>
 				  	  <TableRowColumn style={styles.textCenter}><DetailModal data = {data} /></TableRowColumn>				  	  
 				      <TableRowColumn style = {styles.textCenter}>{moment(data.startedAt).format('YYYY-MM-DD')}</TableRowColumn>
-				      <TableRowColumn style = {styles.textCenter}><EditModal id={data.id} token={this.props.token} data = {data} refresh={this.getData} {...this.props}/></TableRowColumn>
+				      <TableRowColumn style = {styles.textCenter}><EditModal token={this.props.token} data = {data} refresh={this.getData} {...this.props}/></TableRowColumn>
 				      <TableRowColumn style = {styles.textCenter}>{data.id}</TableRowColumn>
-				      <TableRowColumn style = {styles.textCenter}>{<StatusHandler start={new Date()} refresh={this.getData} statusId={data.statusId} />}</TableRowColumn>
+				      <TableRowColumn style = {styles.textCenter}>{<StatusHandler start={data.createdAt} refresh={this.getData} statusId={data.statusId} />}</TableRowColumn>
 				      <TableRowColumn style = {styles.textCenter}>{<GpuHandler gpu={data.instance.machine.gpuType} />}</TableRowColumn>			      
 				      <TableRowColumn style = {styles.textCenter}>{data.instance.image.name}</TableRowColumn>			      
 				      <TableRowColumn style = {styles.textCenter}>
 				      	<CopyToClipboard 
 							text={data.instance.password}
-							onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),true)}
+							onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),'password')}
 						>
 							<div>{data.instance.password}</div>
 	    				</CopyToClipboard>
 		              </TableRowColumn>
 		              <TableRowColumn style={{display:'none'}}>{data.projectCode}</TableRowColumn>
-				      <TableRowColumn style={styles.textCenter}><DeleteModal data = {data} id={data.id} refresh={this.getData} token={this.props.token}/></TableRowColumn>
+				      <TableRowColumn style={styles.textCenter}><DeleteModal data = {data} refresh={this.getData} token={this.props.token}/></TableRowColumn>
 				    </TableRow>
 				  	))}
 				  	</TableBody>

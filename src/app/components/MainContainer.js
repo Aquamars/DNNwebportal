@@ -41,7 +41,7 @@ import { greenA700, lightBlue500, lightBlue900 } from 'material-ui/styles/colors
 // i18n
 import { translate, Interpolate } from 'react-i18next'
 import i18n from '../utils/i18n'
-import {DnnLogo_yellow} from '../image'
+import {DnnLogo_yellow} from '../image/imageBase64'
 // API call
 import axios from 'axios'
 import {API_GetInfo} from '../resource'
@@ -118,7 +118,17 @@ if (!prefixedStyles.main) {
     prefixedStyles.content = prefix(styles.content)
     prefixedStyles.contentSmall = prefix(styles.contentSmall)
 }
-
+/**
+  MainContainer
+  Example:
+  ```
+  <MainContainer 
+    user={localStorage.getItem('itriUser')} 
+    token={localStorage.getItem('token')} 
+    SignOut={this.handleSignOut}
+  />
+  ```
+ */
 class MainContainer extends Component {
   constructor(props, context) {
     super(props, context)
@@ -130,6 +140,20 @@ class MainContainer extends Component {
       notifyCopy:false,
       data:''
     }
+  }
+  static propTypes = {
+    /**
+      The username 
+    */
+    user: React.PropTypes.string.isRequired,
+    /**
+      The user token for call api
+    */
+    token: React.PropTypes.string.isRequired,    
+    /**
+      the SignOut function
+    */
+    SignOut: React.PropTypes.func.isRequired,
   }  
   handleToggle = () => {
     if(localStorage.getItem('itriUser')=== 'A40503' && (this.props.admin > 6)){
@@ -150,20 +174,20 @@ class MainContainer extends Component {
       open: true,
     })
   }
-  handleNotify = (msg, notifyCopy = false) => {
-    this.setState({
-      notifyOpen: true,
-      notifyMsg: msg,
-      notifyCopy: notifyCopy
-    })
-    // setTimeout(console.log('handleNotify'), 5400)
-  }
-  closeNotify = () => {
-    console.log('closeNotify')
-    this.setState({
-      notifyOpen: false,      
-    })
-  }
+  // handleNotify = (msg, notifyCopy = false) => {
+  //   this.setState({
+  //     notifyOpen: true,
+  //     notifyMsg: msg,
+  //     notifyCopy: notifyCopy
+  //   })
+  //   // setTimeout(console.log('handleNotify'), 5400)
+  // }
+  // closeNotify = () => {
+  //   console.log('closeNotify')
+  //   this.setState({
+  //     notifyOpen: false,      
+  //   })
+  // }
   getData = () => {
     axios.get(
         API_GetInfo,
@@ -230,13 +254,19 @@ class MainContainer extends Component {
   }
 
   render(){ 
-      const {t} = this.props      
+      const {t} = this.props
+
   		return(
 	   		<MuiThemeProvider muiTheme={muiTheme}>		   		
 	            <div style={prefixedStyles.wrapper}>
                     <div style={prefixedStyles.main}>
                         <AppBar 
-                          title={<span><img style={{height:32, width:64, verticalAlign:'middle'}} src={DnnLogo_yellow}/><b> DNN Web portal</b></span>}
+                          title={
+                            <span>
+                              <img style={{height:32, width:64, verticalAlign:'middle'}} src={DnnLogo_yellow}/>
+                                <b> DNN Web portal</b>
+                            </span>
+                          }
                           style={{ backgroundColor: lightBlue900 }}
         				          onLeftIconButtonTouchTap={this.handleToggle}
                           iconElementRight={
@@ -267,12 +297,6 @@ class MainContainer extends Component {
                         <div className="body" style={prefixedStyles.body}>
                             <div style={prefixedStyles.content}>
                               {this.selectItem(this.state.content)}
-                              {false &&
-                                <div>
-                                  <ReviewTable token = {this.props.token} />
-                                  <HistoryTable token = {this.props.token} />
-                                </div>
-                              }
                               <Snackbar
                                 open = {this.props.notify.isOpen}
                                 autoHideDuration = {this.props.notify.error ? 2500 : 800}
@@ -285,14 +309,6 @@ class MainContainer extends Component {
                                   styleSnackbar.notifyError : styleSnackbar.notifyClose)
                                 }
                                 action={ this.props.notify.error && <FlatButton href={'mailto:eNgiNEer@No.oNe.cARe'} style={{color:'white'}}>Tell us</FlatButton>}
-                              />
-                              <Snackbar
-                                open = {this.state.notifyOpen}
-                                autoHideDuration = {this.state.notifyCopy ? 800 : 2500}
-                                message={this.state.notifyMsg}
-                                onRequestClose = {this.closeNotify}
-                                bodyStyle={this.state.notifyCopy ? styleSnackbar.notifyCopy : styleSnackbar.notifyError}
-                                action={!this.state.notifyCopy && <FlatButton href={'mailto:eNgiNEer@No.oNe.cARe'} style={{color:'white'}}>Tell us</FlatButton>}
                               />
                             </div>
                             <Paper
