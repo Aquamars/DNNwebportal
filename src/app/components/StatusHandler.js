@@ -108,7 +108,7 @@ class StatusHandler extends Component {
 				// obj = <font color ={redA700}><b>{t('common:status.error')}</b></font>
 				break
 			default:
-				obj = <font color ={'#000'}><b>{'??????'}</b></font>
+				obj = <Label color={'red'}>{t('common:status.error')}</Label>
 		}
 		return (obj)
 	}
