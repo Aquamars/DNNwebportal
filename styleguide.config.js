@@ -2,6 +2,7 @@ const path = require('path');
 module.exports = {
 	components: 'src/app/components/*.js',
 	defaultExample: true,
+	assetsDir: 'build/',
 	webpackConfig: {
 		module: {
 		    rules: [
@@ -56,7 +57,21 @@ module.exports = {
 	styleguideComponents: {
 	    Wrapper: path.join(__dirname, './styleguide/Wrapper')
 	},
-	showUsage: true
+	showUsage: true,
+	title: 'DNN webportal Doc',
+	// theme: {
+	//     color: {
+	//       sidebarBackground: '#2196F3',
+	//       base: '#000',
+	//       link: 'white',
+	//       linkHover:'grey'
+	//     },
+	//   },
+	// styles: {
+	//   	logo: {
+	//         color: 'yellow'
+	//     }
+	// }
 	// resolver: require('react-docgen').resolver.findAllComponentDefinitions,
 	// propsParser(filePath, source, resolver, handlers) {
 	// 	console.log(filePath)
