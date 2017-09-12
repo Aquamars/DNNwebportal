@@ -10,6 +10,8 @@ import { I18nextProvider } from 'react-i18next';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {deepOrange500} from 'material-ui/styles/colors';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
 const muiTheme = getMuiTheme({
   palette: {
     accent1Color: deepOrange500,
