@@ -26,6 +26,7 @@ export const API_GetMachine = API_URL + '/machine/'
 export const FTPHost = '100.86.2.4'
 export const FTPPort = '21'
 // SshWeb
+export const SshWebHost = 'http://140.96.29.86:10443/'
 export const SshWebURL = 'http://140.96.29.86:10443/?ssh=ssh://'
 // fake data
 export const DATA = [
