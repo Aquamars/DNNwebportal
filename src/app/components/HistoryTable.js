@@ -146,6 +146,9 @@ class HistoryTable extends Component {
 		}catch(err){
 			console.log(err)
 	  		this.props.errorNotify('ERROR : HistoryTable')
+	  		this.setState({			  
+			  data: []
+			})
 	    }
 	}
 	componentDidMount(){

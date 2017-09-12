@@ -150,6 +150,10 @@ class ReviewTable extends Component {
 		    }		    
 		}catch(err){
 			this.props.errorNotify('ERROR : ReviewTable')
+			this.setState({
+		       	loading: false,
+		        data: []
+		    })
 			// this.props.notify('ERROR : ReviewTable')
 		}	    	    
 	}
