@@ -233,14 +233,14 @@ class ReviewTable extends Component {
 				      <TableRowColumn style = {styles.textCenter}><EditModal token={this.props.token} data = {data} refresh={this.getData} {...this.props}/></TableRowColumn>
 				      <TableRowColumn style = {styles.textCenter}>{data.id}</TableRowColumn>
 				      <TableRowColumn style = {styles.textCenter}>{<StatusHandler start={data.createdAt} refresh={this.getData} statusId={data.statusId} />}</TableRowColumn>
-				      <TableRowColumn style = {styles.textCenter}>{<GpuHandler gpu={data.instance.machine.gpuType} />}</TableRowColumn>			      
-				      <TableRowColumn style = {styles.textCenter}>{data.instance.image.name}</TableRowColumn>			      
+				      <TableRowColumn style = {styles.textCenter}>{<GpuHandler gpu={data.machine.gpuType} />}</TableRowColumn>			      
+				      <TableRowColumn style = {styles.textCenter}>{data.image.name}</TableRowColumn>			      
 				      <TableRowColumn style = {styles.textCenter}>
 				      	<CopyToClipboard 
-							text={data.instance.password}
+							text={data.password}
 							onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),'password')}
 						>
-							<div>{data.instance.password}</div>
+							<div>{data.password}</div>
 	    				</CopyToClipboard>
 		              </TableRowColumn>
 		              <TableRowColumn style={{display:'none'}}>{data.projectCode}</TableRowColumn>

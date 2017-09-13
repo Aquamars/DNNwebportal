@@ -135,7 +135,7 @@ class DetailModal extends React.Component {
 	renderTabOne = () => {
 		const {t} = this.props
 		// console.log(this.props.data)
-		const sshCMD = 'ssh ' + this.props.data.instance.username + '@' + this.props.data.instance.ip + ' -p ' + this.props.data.instance.port		
+		const sshCMD = 'ssh ' + this.props.data.username + '@' + this.props.data.container.podIp + ' -p ' + this.props.data.container.sshPort		
 		return( 
 			<div>				
 			    <List>
@@ -145,39 +145,39 @@ class DetailModal extends React.Component {
           			</div>
 			    	
 		          	<CopyToClipboard 
-		             	text={this.props.data.instance.ip}
+		             	text={this.props.data.container.podIp}
 		             	onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),'ip')}
 		            >
 			         	<ListItem 
 			            	primaryText={<span><b>{t('common:ip')}</b></span>}
-			            	secondaryText={this.props.data.instance.ip}
+			            	secondaryText={this.props.data.container.podIp}
 			         	/>
 			        </CopyToClipboard>
 			        <CopyToClipboard 
-			         	text={this.props.data.instance.port}
+			         	text={this.props.data.container.sshPort}
 			         	onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),'port')}
 			        >
 			          	<ListItem
 			           		primaryText={<span><b>{t('common:port')}</b></span>}
-			            	secondaryText={this.props.data.instance.port}
+			            	secondaryText={this.props.data.container.sshPort}
 			          	/>
 			        </CopyToClipboard>
 			        <CopyToClipboard 
-			         	text={this.props.data.instance.username}
+			         	text={this.props.data.username}
 			         	onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),'account')}
 			        >
 		            	<ListItem
 			           		primaryText={<span><b>{t('common:account')}</b></span>}
-			           		secondaryText={this.props.data.instance.username}
+			           		secondaryText={this.props.data.username}
 			         	/>
 			        </CopyToClipboard>
 			        <CopyToClipboard 
-			         	text={this.props.data.instance.password}
+			         	text={this.props.data.password}
 			         	onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),'password')}
 			        >
 			         	<ListItem
 			           		primaryText={<span><b>{t('common:password')}</b></span>}
-			           		secondaryText={this.props.data.instance.password}
+			           		secondaryText={this.props.data.password}
 			         	/>			         	
 			        </CopyToClipboard>
 			        <CopyToClipboard 
@@ -191,16 +191,16 @@ class DetailModal extends React.Component {
 			        </CopyToClipboard>			        			        
 		          	<ListItem
 			            primaryText={<span><b>{t('common:image')} </b></span>}
-			            secondaryText={<p><b>{this.props.data.instance.image.name}</b></p>}
+			            secondaryText={<p><b>{this.props.data.image.name}</b></p>}
 			            initiallyOpen={true}
-			            nestedItems={(this.props.data.instance.datasetPath!=null) && [
+			            nestedItems={(this.props.data.image.datasetPath!=null) && [
 			                <ListItem
 			                   primaryText={<b>{t('common:createStep.dataSetPath')}</b>}
-			                   secondaryText={<p><b>{this.props.data.instance.datasetPath}</b></p>}
+			                   secondaryText={<p><b>{this.props.data.image.path}</b></p>}
 			                />,
 			                <ListItem
 			                   primaryText={<b>{t('common:createStep.id')}/{t('common:createStep.password')}</b>}
-			                   secondaryText={<HoverDiv account={this.props.data.instance.datasetUsername} password={this.props.data.instance.datasetPassword}/>}
+			                   secondaryText={<HoverDiv account={this.props.data.username} password={this.props.data.instance.datasetPassword}/>}
 			                />                        
 		            	]}
 		          	/>
@@ -284,7 +284,7 @@ class DetailModal extends React.Component {
           			showStatus && 
           			<div style = {{margin: '0px auto'}}>
 	          			<div style = {{display: 'inline-block'}}><span> {<StatusHandler statusId={this.props.data.statusId} />} </span></div>
-	          			<div style = {{display: 'inline-block', marginLeft:'1%'}}><span> {<GpuHandler gpu = {this.props.data.instance.machine.gpuType} />} </span></div>
+	          			<div style = {{display: 'inline-block', marginLeft:'1%'}}><span> {<GpuHandler gpu = {this.props.data.machine.gpuType} />} </span></div>
           			</div>
           		}
           	</div>
