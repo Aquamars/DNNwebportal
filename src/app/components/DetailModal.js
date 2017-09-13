@@ -85,9 +85,9 @@ class DetailModal extends React.Component {
 			},
 			container: {
 				id: '2', 
-				serviceIp: 5.5.6.6, 
-				podIp: 8.7.8.7, 
-				sshPort: 9527, 
+				serviceIp: '5.5.6.6', 
+				podIp: '8.7.8.7', 
+				sshPort: '9527', 
 				ports: [] 
 			},
 			image:	{ 
