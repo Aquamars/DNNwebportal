@@ -34,7 +34,7 @@ class SshWebBtn extends Component {
 							<FlatButton
 								icon={<Terminal size={28} color='black'/>}
 								label={<span><font color={indigo900}><b>{'ssh From Web (unstable)'}</b></font></span>}
-								href={SshWebURL + this.props.data.username + '@' + this.props.data.container.podIp + ':' + this.props.data.container.sshPort} 
+								href={SshWebURL + this.props.data.username + '@' + this.props.data.container.podIp + ':' + this.props.data.container.sshPort + '&ssh_once=true' + '&location=' + this.props.data.id} 
 					   			target='_blank'
 							/>
 			    		</div>
