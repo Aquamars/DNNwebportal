@@ -189,12 +189,12 @@ class HistoryTable extends Component {
 	                {
 	                  Header: t('common:image'),
 	                  id:'image',
-	                  accessor: d => d.instance.image.name
+	                  accessor: d => d.image.name
 	                },
 	                {
 	                  Header: t('common:gpuType'),
 	                  id:'gpuType',
-	                  accessor: d => d.instance.machine.gpuType
+	                  accessor: d => d.machine.gpuType
 	                },            
 	              ]
 	            },	            
