@@ -233,10 +233,10 @@ class ReviewTable extends Component {
 				      <TableRowColumn style = {styles.textCenter}>{data.image.name}</TableRowColumn>			      
 				      <TableRowColumn style = {styles.textCenter}>
 				      	<CopyToClipboard 
-							text={data.instance.password}
+							text={data.password}
 							onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),'password')}
 						>
-							<div>{data.instance.password}</div>
+							<div>{data.password}</div>
 	    				</CopyToClipboard>
 		              </TableRowColumn>
 		              <TableRowColumn style={{display:'none'}}>{data.projectCode}</TableRowColumn>

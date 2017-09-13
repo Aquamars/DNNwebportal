@@ -134,7 +134,7 @@ class DetailModal extends React.Component {
 
 	renderTabOne = () => {
 		const {t} = this.props
-		// console.log(this.props.data)
+		console.log(this.props.data)
 		const sshCMD = 'ssh ' + this.props.data.username + '@' + this.props.data.container.serviceIp + ' -p ' + this.props.data.container.sshPort
 		return( 
 			<div>				
@@ -193,14 +193,14 @@ class DetailModal extends React.Component {
 			            primaryText={<span><b>{t('common:image')} </b></span>}
 			            secondaryText={<p><b>{this.props.data.image.name}</b></p>}
 			            initiallyOpen={true}
-			            nestedItems={(this.props.data.instance.datasetPath!=null) && [
+			            nestedItems={(this.props.data.image.path!=null) && [
 			                <ListItem
 			                   primaryText={<b>{t('common:createStep.dataSetPath')}</b>}
-			                   secondaryText={<p><b>{this.props.data.instance.datasetPath}</b></p>}
+			                   secondaryText={<p><b>{this.props.data.image.path}</b></p>}
 			                />,
 			                <ListItem
 			                   primaryText={<b>{t('common:createStep.id')}/{t('common:createStep.password')}</b>}
-			                   secondaryText={<HoverDiv account={this.props.data.instance.datasetUsername} password={this.props.data.instance.datasetPassword}/>}
+			                   secondaryText={<HoverDiv account={this.props.data.username} password={this.props.data.password}/>}
 			                />                        
 		            	]}
 		          	/>
@@ -284,7 +284,7 @@ class DetailModal extends React.Component {
           			showStatus && 
           			<div style = {{margin: '0px auto'}}>
 	          			<div style = {{display: 'inline-block'}}><span> {<StatusHandler statusId={this.props.data.statusId} />} </span></div>
-	          			<div style = {{display: 'inline-block', marginLeft:'1%'}}><span> {<GpuHandler gpu = {this.props.data.instance.machine.gpuType} />} </span></div>
+	          			<div style = {{display: 'inline-block', marginLeft:'1%'}}><span> {<GpuHandler gpu = {this.props.data.machine.gpuType} />} </span></div>
           			</div>
           		}
           	</div>
