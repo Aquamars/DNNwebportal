@@ -175,7 +175,7 @@ class HistoryTable extends Component {
 	                  Header: t('common:detail'),
 	                  id:'detail',
 	                  width:80,
-	                  Cell: data => (<div><DetailModal  data = {data.original} iconColor = {grey500} showStatus={false}/></div>)
+	                  Cell: data => (<DetailModal  data = {data.original} iconColor = {grey500} showStatus={false}/>)
 	                },
 	                {
 	                  Header: t('common:startDate'),
@@ -221,6 +221,9 @@ class HistoryTable extends Component {
 	          onExpandedChange={expanded => this.setState({ tableExpanded: expanded })}
 	          onResizedChange={resized => this.setState({ resized })}
 	          onFilteredChange={filtered => this.setState({ filtered })}
+	          style={{
+	            verticalAlign: "middle",
+	          }}
 	        />
         )
 	}
