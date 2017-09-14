@@ -126,7 +126,7 @@ class ReviewCalendar extends React.Component {
           dateStart.add(1,'days')
         }
       }else if(moment(currentDate).isSame(endDate)){
-        let dateStart = moment(startDate).add(1,'days')
+        let dateStart = moment(startDate)
         while (moment(endDate) > dateStart) {
           executed.push(dateStart.format('YYYY-MM-DD'))
           dateStart.add(1,'days')

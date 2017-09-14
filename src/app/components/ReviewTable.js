@@ -23,6 +23,7 @@ import StatusHandler from './StatusHandler'
 import GpuHandler from './GpuHandler'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import TutorialBtn from './TutorialBtn'
+import SshWebBtn from './SshWebBtn'
 // API call
 import {getInfo} from '../resource'
 // ICON
@@ -150,6 +151,10 @@ class ReviewTable extends Component {
 		    }		    
 		}catch(err){
 			this.props.errorNotify('ERROR : ReviewTable')
+			this.setState({
+		       	loading: false,
+		        data: []
+		    })
 			// this.props.notify('ERROR : ReviewTable')
 		}	    	    
 	}
@@ -210,7 +215,8 @@ class ReviewTable extends Component {
 				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:startDate')}</b></TableHeaderColumn>
 				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:endDate')}</b></TableHeaderColumn>
 				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:scheduleID')}</b></TableHeaderColumn>
-				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:status.status')}</b></TableHeaderColumn>
+				        <TableHeaderColumn style = {styles.textCenter}><b>{'SSHweb'}</b></TableHeaderColumn>
+				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:status.status')}</b></TableHeaderColumn>				        
 				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:gpuType')}</b></TableHeaderColumn>
 				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:image')}</b></TableHeaderColumn>
 				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:password')}</b></TableHeaderColumn>
@@ -228,15 +234,16 @@ class ReviewTable extends Component {
 				      <TableRowColumn style = {styles.textCenter}>{moment(data.startedAt).format('YYYY-MM-DD')}</TableRowColumn>
 				      <TableRowColumn style = {styles.textCenter}><EditModal token={this.props.token} data = {data} refresh={this.getData} {...this.props}/></TableRowColumn>
 				      <TableRowColumn style = {styles.textCenter}>{data.id}</TableRowColumn>
-				      <TableRowColumn style = {styles.textCenter}>{<StatusHandler start={data.createdAt} refresh={this.getData} statusId={data.statusId} />}</TableRowColumn>
-				      <TableRowColumn style = {styles.textCenter}>{<GpuHandler gpu={data.instance.machine.gpuType} />}</TableRowColumn>			      
-				      <TableRowColumn style = {styles.textCenter}>{data.instance.image.name}</TableRowColumn>			      
+				      <TableRowColumn style = {styles.textCenter}>{<SshWebBtn data = {data} refresh={this.getData}/>}</TableRowColumn>
+				      <TableRowColumn style = {styles.textCenter}>{<StatusHandler statusId={data.statusId} />}</TableRowColumn>				      
+				      <TableRowColumn style = {styles.textCenter}>{<GpuHandler gpu={data.machine.gpuType} />}</TableRowColumn>			      
+				      <TableRowColumn style = {styles.textCenter}>{data.image.name}</TableRowColumn>			      
 				      <TableRowColumn style = {styles.textCenter}>
 				      	<CopyToClipboard 
-							text={data.instance.password}
+							text={data.password}
 							onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),'password')}
 						>
-							<div>{data.instance.password}</div>
+							<div>{data.password}</div>
 	    				</CopyToClipboard>
 		              </TableRowColumn>
 		              <TableRowColumn style={{display:'none'}}>{data.projectCode}</TableRowColumn>
