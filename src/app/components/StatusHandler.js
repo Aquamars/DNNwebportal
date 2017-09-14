@@ -40,14 +40,14 @@ class StatusHandler extends Component {
       }
     }
     static propTypes = {
-	  /**
-	    The start count time
-	  */
-	  start: React.PropTypes.string.isRequired,
-	  /**
-	    Will refresh reviewTable after count 
-	  */
-	  refresh: React.PropTypes.func.isRequired,
+	//  /**
+	//   The start count time
+	// */
+	  // start: React.PropTypes.string.isRequired,
+	//  /**
+	//   Will refresh reviewTable after count 
+	// */
+	  // refresh: React.PropTypes.func.isRequired,
 	  /**
 	    the statusId of the instance
 	  */
@@ -108,34 +108,34 @@ class StatusHandler extends Component {
 				// obj = <font color ={redA700}><b>{t('common:status.error')}</b></font>
 				break
 			default:
-				obj = <font color ={'#000'}><b>{'??????'}</b></font>
+				obj = <Label color={'red'}>{t('common:status.error')}</Label>
 		}
 		return (obj)
 	}
-	componentDidMount(){
-		if(this.props.statusId == '2')
-			this.timer = setInterval(this.tick,50)
-	}
-	componentWillUnmount(){
-		clearInterval(this.timer)
-	}
-	tick = () => {
-		this.setState({
-			elapsed: new Date() - new Date(this.props.start)
-		})
-		let elapsed = Math.round(this.state.elapsed / 100)
-		let seconds = (elapsed / 10).toFixed(1)
-		if(seconds > 10 && seconds < 11){
-			this.props.refresh()
-			this.setState({
-				elapsed: new Date() - new Date(this.props.start),
-				// refreshTimes: 1
-			})
-		}
-	}
+	// componentDidMount(){
+	// 	if(this.props.statusId == '2')
+	// 		this.timer = setInterval(this.tick,50)
+	// }
+	// componentWillUnmount(){
+	// 	clearInterval(this.timer)
+	// }
+	// tick = () => {
+	// 	this.setState({
+	// 		elapsed: new Date() - new Date(this.props.start)
+	// 	})
+	// 	let elapsed = Math.round(this.state.elapsed / 100)
+	// 	let seconds = (elapsed / 10).toFixed(1)
+	// 	if(seconds > 10 && seconds < 11){
+	// 		this.props.refresh()
+	// 		this.setState({
+	// 			elapsed: new Date() - new Date(this.props.start),
+	// 			// refreshTimes: 1
+	// 		})
+	// 	}
+	// }
 	render(){
-		let elapsed = Math.round(this.state.elapsed / 100)
-		let seconds = (elapsed / 10).toFixed(1)
+		// let elapsed = Math.round(this.state.elapsed / 100)
+		// let seconds = (elapsed / 10).toFixed(1)
 		// if(seconds < 0){
 		// 	console.log(this.props.start)
 		// 	console.log(new Date())
@@ -147,27 +147,7 @@ class StatusHandler extends Component {
 				<div  style={{margin: '0px auto'}}>
 					<div style={{display: 'inline-block'}}>
 						{this.setIncetanceStatus(statusId)}
-					</div>
-				{(statusId === '2' &&  seconds < 10 && seconds >0) &&
-					<div style={{display: 'inline-block', verticalAlign:'middle'}}>
-						<div data-tip data-for='status'>
-							{seconds}s					
-						</div>
-						<ReactTooltip id='status' place="bottom" effect='solid'>
-				          <span>{t('common:status.count')}</span>
-				        </ReactTooltip>
-			        </div>
-		    	}
-		        {(statusId === '2' && seconds > 10) &&
-			        <div style={{display: 'inline-block', verticalAlign:'middle'}}>
-				       <div data-tip data-for='status'>
-				       	{seconds}s <ActionHelpOutline Color={redA700}/>
-						</div>				
-						<ReactTooltip id='status' place="bottom" effect='solid'>
-				          <span>{t('common:status.help')}</span>
-				        </ReactTooltip> 
-			        </div>
-		    	}
+					</div>				
 		    	</div>				
 			</div>
 		)

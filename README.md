@@ -5,7 +5,9 @@
 ## What is this repository for? ##
 ------
 * This webportal for creating instance to run DNN.
-* Version 0.1.14
+* Version 0.2.3
+
+![alt text](/src/app/image/readme/DNNweb.gif "DNN web")
 
 ## How do I get set up? ##
 ------
@@ -33,7 +35,7 @@ npm run styleguide
 ```
 * The compnent document
 * open 'localhost:6060' on browser
-
+![alt text](/src/app/image/readme/DNNdoc.gif "DNN doc")
 
 |#|command|generate|
 | - | ----------- | ------------ |
@@ -68,7 +70,7 @@ npm run build
 ###report.app.html
 |js|State size|Parse size|Gzipped size|
 | --- | --------- | --------- | --------- |
-|app.js|613.02KB|280.61KB|70.18KB|
+|app.js|616.52KB|281.66KB|70.5KB|
 
 * app.js: kernal code of web
 ![alt text](/src/app/image/readme/app.PNG "app.js")
@@ -76,7 +78,7 @@ npm run build
 ###report.dll.html
 |js|State size|Parse size|Gzipped size|
 | ---------| --------- | --------- | --------- |
-|bundle.js|4.97 MB|1.71 MB|456.08 KB|
+|bundle.js|5.03 MB|1.76 MB|460.24 KB|
 |bundle2.js|2.83 MB|1.08 MB|483.42 KB|
 |bundle3.js|753.74 KB|754.66 KB|531.784 KB|
 |bundle4.js|14.86 MB|14.86 MB|8.15 MB|
@@ -107,15 +109,18 @@ npm run build
 
 ### Change log ###
 ------
-last update 2017-09-12
-
+last update 2017-09-14
+* `0.2.3`  add animate hint
+* `0.2.2`  add counting time on sshWebBtn
+* `0.2.1`  add sshWeb on reviewTable
+* `0.2.0`  change new API
 * `0.1.14` add styleguid
 * `0.1.13` add comment on proptype of compnents
 * `0.1.12` add base64 image
 * `0.1.11` add GA
 * `0.1.10` add sshWeb
-* `0.1.9` loading status counting, auto refresh after loading 10s
-* `0.1.8` add traditional chinese PDF 
-* `0.1.7` change history table
-* `0.1.6` add PDF tutorial
-* `0.1.5` prototype
+* `0.1.9`  loading status counting, auto refresh after loading 10s
+* `0.1.8`  add traditional chinese PDF 
+* `0.1.7`  change history table
+* `0.1.6`  add PDF tutorial
+* `0.1.5`  prototype

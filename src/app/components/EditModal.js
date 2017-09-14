@@ -27,6 +27,9 @@ import axios from 'axios'
 import {API_PutExtDate, API_GetExtDate} from '../resource'
 // GA
 import ReactGA from 'react-ga'
+// Animation
+import 'animate.css/animate.min.css'
+import {Animated} from "react-animated-css"
 /**
   Edit endDate of the instance
   Example:
@@ -66,43 +69,41 @@ class EditModal extends React.Component {
     data: React.PropTypes.object.isRequired,
   }
   static defaultProps = {
-    data: {
-      "id": "331",
-      "statusId": "2",
-      "projectCode": null,
-      "startedAt": "2017-09-10T16:00:00.000Z",
-      "endedAt": "2017-09-12T15:59:59.000Z",
-      "createdAt": "2017-09-11T07:50:02.094Z",
-      "updatedAt": "2017-09-11T07:50:01.326Z",
-      "userId": "11",
-      "instance": {
-        "id": "332",
-        "ip": "",
-        "port": null,
-        "username": "A40503",
-        "password": "36bi1z1c",
-        "datasetPath": null,
-        "datasetUsername": null,
-        "datasetPassword": null,
-        "statusId": 1,
-        "image": {
-          "id": "32",
-          "label": "201706v001",
-          "name": "all_java",
-          "path": null,
-          "description": null
-        },
-        "machine": {
-          "id": "5",
-          "label": "m5",
-          "name": "Machine5",
-          "description": "JAPARIPARK",
-          "gpuAmount": 1,
-          "gpuType": "v100",
-          "statusId": 1
-        }
-      }
-    },        
+    data:  { 
+      id: '2',
+      statusId: 1,
+      projectCode: null,
+      username: 'mochatest',
+      password: 'k7xrtjep',
+      startedAt: '2018-12-31T16:00:00.000Z',
+      endedAt: '2019-01-15T15:59:59.000Z',
+      createdAt: '2017-09-12T07:35:30.973Z',
+      updatedAt: '2017-09-12T07:35:31.753Z',
+      userId: '99999999',
+      machine: { 
+        id: '3',
+        label: 'm3',
+        name: 'm3',
+        description: null,
+        gpuAmount: 1,
+        gpuType: 'v100',
+        statusId: 1 
+      },
+      container: {
+        id: '2', 
+        serviceIp: '5.5.6.6', 
+        podIp: '8.7.8.7', 
+        sshPort: '9527', 
+        ports: [] 
+      },
+      image:  { 
+        id: '30',
+        label: '201707v001',
+        name: 'tensorflow',
+        path: null,
+        description: null 
+      } 
+    },          
   }
   dummyAsync = (cb) => {
       this.setState({loading: true}, () => {
@@ -254,7 +255,7 @@ class EditModal extends React.Component {
             <span>{t('common:editDate')}</span>
           </ReactTooltip>
           <Dialog
-            title={this.props.data.id+'-'+t('common:editDate')}
+            title={<div><b>{t('common:scheduleID')}-{this.props.data.id} {t('common:editDate')}</b></div>}
             actions={actions}
             modal={true}
             open={this.state.open}
@@ -267,10 +268,10 @@ class EditModal extends React.Component {
                 <div>
                   <Divider />
                   <div style={{margin: '0px auto'}}>
-                    <div style={{display: 'inline-block'}}>
-                      <ActionLabel 
-                        color = {'white'}
-                      />
+                    <div style={{display: 'inline-block'}}>                      
+                        <ActionLabel 
+                          color = {'white'}
+                        />                      
                     </div>
                     <div style={{display: 'inline-block'}}>
                       <TextField
@@ -283,9 +284,11 @@ class EditModal extends React.Component {
                   <br/>
                   <div style={{margin: '0px auto'}}>
                     <div style={{display: 'inline-block'}}>
-                      <ActionLabel 
-                        color = {muiStyle.palette.primary1Color}
-                      />
+                      <Animated animationIn="rollIn" isVisible={true}>
+                        <ActionLabel 
+                          color = {muiStyle.palette.primary1Color}
+                        />
+                      </Animated>
                     </div>
                     <div style={{display: 'inline-block'}}>
                       <DatePicker

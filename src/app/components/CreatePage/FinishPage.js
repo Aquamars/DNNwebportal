@@ -30,19 +30,19 @@ class FinishPage extends React.Component {
           />
           <ListItem
             primaryText={<span><b>{t('common:account')}</b></span>}
-            secondaryText={this.props.data.instance.username}
+            secondaryText={this.props.data.username}
           />
           <ListItem
             primaryText={<span><b>{t('common:password')}</b></span>}
-            secondaryText={this.props.data.instance.password}
+            secondaryText={this.props.data.password}
           />
           <ListItem
             primaryText={<span><b>{t('common:image')} </b></span>}
-            secondaryText={<p><b>{this.props.data.instance.image.name}</b></p>}            
+            secondaryText={<p><b>{this.props.data.image.name}</b></p>}            
           />
           <ListItem                    
             primaryText={<b>{t('common:gpuType')}</b>}
-            secondaryText={<p><b>{this.props.data.instance.machine.gpuType}</b></p>}
+            secondaryText={<p><b>{this.props.data.machine.gpuType}</b></p>}
           />
           <ListItem
             style={{display:'none'}}

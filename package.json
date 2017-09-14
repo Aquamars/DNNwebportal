@@ -1,6 +1,6 @@
 {
   "name": "DNNwebportal",
-  "version": "0.1.14",
+  "version": "0.2.3",
   "description": "ITRI DNN web portal",
   "author": "a40503",
   "repository": {
@@ -68,6 +68,7 @@
     "webpack-dev-server": "^2.6.1"
   },
   "dependencies": {
+    "animate.css": "^3.5.2",
     "axios": "^0.16.1",
     "chart.js": "^2.6.0",
     "crypto-js": "^3.1.9-1",
@@ -86,6 +87,7 @@
     "rc-progress": "^2.2.1",
     "react": "^15.6.1",
     "react-addons-css-transition-group": "^15.5.2",
+    "react-animated-css": "^1.0.1",
     "react-chartjs-2": "^2.1.0",
     "react-chartjs2": "^1.1.2",
     "react-copy-to-clipboard": "^5.0.0",

@@ -46,6 +46,9 @@ import { translate, Interpolate } from 'react-i18next'
 import i18n from '../../utils/i18n'
 // GA
 import ReactGA from 'react-ga'
+// Animation
+import 'animate.css/animate.min.css'
+import {Animated} from 'react-animated-css'
 
 const styles = {
   errorStyle: {
@@ -119,8 +122,9 @@ class CreatePage extends React.Component {
     //   finished: true,
     // }))
     console.log(this.props.token)
-    console.log(moment(this.state.startDate).format('YYYY-MM-DD'))
-    console.log(moment(this.state.endDate).format('YYYY-MM-DD'))
+    console.table(moment(this.state.startDate).format('YYYY-MM-DD'), moment(this.state.endDate).format('YYYY-MM-DD'),this.state.imageArr[this.state.instanceArr[0].image].id, this.state.instanceArr[0].machineObj.id)
+    // console.log(moment(this.state.startDate).format('YYYY-MM-DD'))
+    // console.log(moment(this.state.endDate).format('YYYY-MM-DD'))
     fetch(API_CreateSchedule, 
       { 
         method: 'post', 
@@ -133,7 +137,7 @@ class CreatePage extends React.Component {
           start: moment(this.state.startDate).format('YYYY-MM-DD'),
           end:moment(this.state.endDate).format('YYYY-MM-DD'),
           image_id: this.state.imageArr[this.state.instanceArr[0].image].id,
-          machineId: this.state.instanceArr[0].machineObj.id
+          // machine_id: this.state.instanceArr[0].machineObj.id
         })
         // body:data
     }).then((response)=>{
@@ -160,7 +164,20 @@ class CreatePage extends React.Component {
         ReactGA.event({
           category: 'CreatePage',
           action: 'createSchedule',
-          label: 'Failed'
+          label: 'Failed 401'
+        })
+      }else if(data.code === '500' || data.code === 500){
+        this.props.errorNotify('ERROR : '+data.message)
+        // this.props.errorNotify('Please, pick another date.')
+        this.setState({
+          stepIndex: 0, 
+          loadingCreate: false
+        })
+        // GA
+        ReactGA.event({
+          category: 'CreatePage',
+          action: 'createSchedule',
+          label: 'Failed 500'
         })
       }else{
         this.setState({
@@ -357,14 +374,14 @@ class CreatePage extends React.Component {
     console.log( instanceIndex, index, machineIndex)
     console.log(this.state.instanceArr)
     const availableMachines = this.state.availableMachines
-    let instanceArr = this.state.instanceArr
-    console.log(instanceArr)
+    let instanceArr = this.state.instanceArr    
     
     instanceArr[instanceIndex].machine = machineIndex
     instanceArr[instanceIndex].machineObj = availableMachines[machineIndex]
     this.setState({
         instanceArr: instanceArr
-    }) 
+    })
+    console.log(this.state.instanceArr)
   }
   ChangeProjectNum = (value, selectValue) => {
     this.setState({
@@ -378,9 +395,11 @@ class CreatePage extends React.Component {
       <div>
         <div style={{margin: '0px auto'}}>
         <div style={{display: 'inline-block',verticalAlign: 'super'}}>
-          <ActionLabel 
-            color = {muiStyle.palette.primary1Color}
-          />
+          <Animated animationIn="rollIn" isVisible={true}>
+            <ActionLabel 
+              color = {muiStyle.palette.primary1Color}
+            />
+          </Animated>
         </div>
         <div style={{display: 'inline-block'}}>
         <SelectField
@@ -466,9 +485,11 @@ class CreatePage extends React.Component {
                 <div>
                   <div style={{margin: '0px auto'}}>
                     <div style={{display: 'inline-block'}}>
-                      <ActionLabel 
-                        color = {muiStyle.palette.primary1Color}
-                      />
+                      <Animated animationIn="rollIn" isVisible={true}>
+                        <ActionLabel 
+                          color = {muiStyle.palette.primary1Color}
+                        />
+                      </Animated>
                     </div>
                     <div style={{display: 'inline-block', marginLeft:'3px'}}>
                       <DatePicker
@@ -486,19 +507,23 @@ class CreatePage extends React.Component {
                   </div>
                   <div style={{margin: '0px auto'}}>
                     <div style={{display: 'inline-block'}}>
-                      <ActionLabel 
-                        color = {muiStyle.palette.primary1Color}
-                      />
+                      <Animated animationIn="rollIn" isVisible={true}>
+                        <ActionLabel 
+                          color = {muiStyle.palette.primary1Color}
+                        />
+                      </Animated>
                     </div>
                     <div style={{display: 'inline-block', marginLeft:'3px'}}>
-                      <DatePicker
-                        autoOk={true}
-                        floatingLabelText={t('common:endDate')}
-                        onChange = {this.handleChangeEndDate}
-                        value =  {this.state.endDate}    
-                        shouldDisableDate={this.disableEndDate}
-                        data-tip data-for='click'
-                      />
+                      <Animated animationIn="flash" isVisible={true}>
+                        <DatePicker
+                          autoOk={true}
+                          floatingLabelText={t('common:endDate')}
+                          onChange = {this.handleChangeEndDate}
+                          value =  {this.state.endDate}    
+                          shouldDisableDate={this.disableEndDate}
+                          data-tip data-for='click'
+                        />
+                      </Animated>
                       <ReactTooltip id='click' place="left" effect='solid'>
                         <span>{t('common:clickEdit')}</span>
                       </ReactTooltip>
