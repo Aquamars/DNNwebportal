@@ -24,6 +24,7 @@ module.exports = {
           'react-virtualized-select',
           'react-table',
           'react-table/react-table.css',
+          'react-animated-css',
           "react-redux",
           "redux",
           "redux-logger",
@@ -41,6 +42,7 @@ module.exports = {
           'crypto-js',
           'semantic-ui-css/components/label.min.css',
           'semantic-ui-react',
+          'animate.css/animate.min.css'
         ],
         // pdf
         bundle2:[
