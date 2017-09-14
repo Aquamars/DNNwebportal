@@ -27,6 +27,9 @@ import axios from 'axios'
 import {API_PutExtDate, API_GetExtDate} from '../resource'
 // GA
 import ReactGA from 'react-ga'
+// Animation
+import 'animate.css/animate.min.css'
+import {Animated} from "react-animated-css"
 /**
   Edit endDate of the instance
   Example:
@@ -252,7 +255,7 @@ class EditModal extends React.Component {
             <span>{t('common:editDate')}</span>
           </ReactTooltip>
           <Dialog
-            title={this.props.data.id+'-'+t('common:editDate')}
+            title={<div><b>{t('common:scheduleID')}-{this.props.data.id} {t('common:editDate')}</b></div>}
             actions={actions}
             modal={true}
             open={this.state.open}
@@ -265,10 +268,10 @@ class EditModal extends React.Component {
                 <div>
                   <Divider />
                   <div style={{margin: '0px auto'}}>
-                    <div style={{display: 'inline-block'}}>
-                      <ActionLabel 
-                        color = {'white'}
-                      />
+                    <div style={{display: 'inline-block'}}>                      
+                        <ActionLabel 
+                          color = {'white'}
+                        />                      
                     </div>
                     <div style={{display: 'inline-block'}}>
                       <TextField
@@ -281,9 +284,11 @@ class EditModal extends React.Component {
                   <br/>
                   <div style={{margin: '0px auto'}}>
                     <div style={{display: 'inline-block'}}>
-                      <ActionLabel 
-                        color = {muiStyle.palette.primary1Color}
-                      />
+                      <Animated animationIn="rollIn" isVisible={true}>
+                        <ActionLabel 
+                          color = {muiStyle.palette.primary1Color}
+                        />
+                      </Animated>
                     </div>
                     <div style={{display: 'inline-block'}}>
                       <DatePicker
