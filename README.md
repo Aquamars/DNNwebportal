@@ -97,6 +97,78 @@ npm run build
 	* webpack-visualizer - https://chrisbateman.github.io/webpack-visualizer/
 	* webpack-chart - https://alexkuz.github.io/webpack-chart/
 
+## Google analytics Event data ##
+------
+### Anatomy of Events
+
+Category -> Action -> Label -> Value
+https://support.google.com/analytics/answer/1033068?hl=en
+
+### webportal events
+
+```
+{
+  createPage:{
+  	selectImage:["All", "Tensorflow", "Caffe", "Torch"],
+  	Open:null,
+  	Close:null,
+  	selectStartDate:["..."],
+  	selectEndDate:["..."],
+  	createSchedule:["Success"]
+  },
+  pageView:{
+    "Access Web":null
+  },
+  DetailModal:{
+    Open:null,
+  	Close:null
+  },
+  DeleteModal:{
+    Open:["1", "5", "12"],
+  	Close:["1", "5", "12"],
+  	Deleted:["1", "5", "12"]
+  },
+  EditModal:{
+    Open:["1", "5", "12"],
+  	Close:["1", "5", "12"],
+  	"Select Date":["1", "5", "12"],
+  	Edited:["1", "5", "12"]
+  },
+  HistoryTable:{
+    Open:null,
+  	Close:null
+  },
+  Notify:{
+    Error:["ERROR : Extend Date", "ERROR : ReviewTable"],
+    Copy:["Password", "Port", "sshCMD", "Account", "Ip"]
+  },
+  FtpInfoModal:{
+    Open:null,
+  	Close:null
+  },
+  SignIn:{
+    Success:["A40503"],
+    Fail:["A40503"]
+  },
+  ReviewTable:{
+    Refresh:null
+  },
+  PDF:{
+    Open:["Eng","Tc"]
+  },
+  Language:{
+    Switch:["Eng","Tw"]
+  },
+  SignOut:{
+    Success:["A40503"]
+  },
+  Outbound:{
+    Click:["SSHweb"]
+  }
+}
+```
+
+
 ## Contribution guidelines ##
 ------
 * A40503
@@ -110,6 +182,7 @@ npm run build
 ### Change log ###
 ------
 last update 2017-09-14
+
 * `0.2.3`  add animate hint
 * `0.2.2`  add counting time on sshWebBtn
 * `0.2.1`  add sshWeb on reviewTable
