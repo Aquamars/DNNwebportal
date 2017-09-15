@@ -2,8 +2,8 @@
 import axios from 'axios'
 
 // export const DOMAIN = 'http://tarsanad.ddns.net'
-export const PORT = ':4321'
-// export const PORT = ':80'
+// export const PORT = ':4321'
+export const PORT = ':80'
 // export const PATH = 'web'
 // export const API_URL = DOMAIN+':'+PORT+'/'+PATH+'/'
 // export const DOMAIN = 'http://54.249.32.121'
