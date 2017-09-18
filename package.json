@@ -12,7 +12,7 @@
     "app": "webpack --config webpack-production.config.js --progress --colors",
     "test": "jest",
     "dll": "webpack -p --progress --config webpack.dll.config.js --colors",
-    "build": "npm run dll & npm run app",
+    "build": "npm run dll && npm run app",
     "styleguide": "styleguidist server",
     "styleguide:build": "styleguidist build"
   },
