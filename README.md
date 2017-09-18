@@ -5,7 +5,7 @@
 ## What is this repository for? ##
 ------
 * This webportal for creating instance to run DNN.
-* Version 0.2.3
+* Version 0.2.4
 
 ![alt text](/src/app/image/readme/DNNweb.gif "DNN web")
 
@@ -82,7 +82,7 @@ npm run build
 |bundle2.js|2.83 MB|1.08 MB|483.42 KB|
 |bundle3.js|753.74 KB|754.66 KB|531.784 KB|
 |bundle4.js|14.86 MB|14.86 MB|8.15 MB|
-|All|23.02 MB|18.03 MB|9.34 MB|
+|All|23.46 MB|18.45 MB|9.59 MB|
 
 * bundle.js: 3rd party modules
 * bundle2.js: PDF modules
@@ -168,6 +168,23 @@ https://support.google.com/analytics/answer/1033068?hl=en
 }
 ```
 
+## Docker Image ##
+------
+### Using the Image ###
+
+* `TAG` is dnnweb version
+
+```
+docker pull 100.86.2.10:32190/dnnweb:TAG
+```
+
+### Building the Image ###
+
+* need `npm run build` in first
+```
+cd docker
+docker build -t dnnweb .
+```
 
 ## Contribution guidelines ##
 ------
@@ -181,8 +198,9 @@ https://support.google.com/analytics/answer/1033068?hl=en
 
 ### Change log ###
 ------
-last update 2017-09-14
+last update 2017-09-18
 
+* `0.2.4`  add Dockerfile
 * `0.2.3`  add animate hint
 * `0.2.2`  add counting time on sshWebBtn
 * `0.2.1`  add sshWeb on reviewTable
