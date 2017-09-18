@@ -1,0 +1,15 @@
+#!/bin/bash
+
+rm /dnnwebportal/src/app/resource/sshweb.json
+
+echo {"\"host\"":\"$1\", "\"port\"":\"$2\"} > ./src/app/resource/sshweb.json
+
+cat /dnnwebportal/src/app/resource/sshweb.json
+
+cd /dnnwebportal
+
+npm run app
+
+rm -r /var/www/html/DNN
+
+cp -r build/ /var/www/html/DNN

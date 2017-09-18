@@ -27,11 +27,15 @@ export const API_GetImage = API_URL + '/image/'
 export const API_GetAll = API_URL + '/schedule'
 export const API_GetMachine = API_URL + '/machine/'
 // FTP
-export const FTPHost = '100.86.2.4'
-export const FTPPort = '21'
+import ftp from './ftp.json'
+export const FTPHost = ftp.host
+export const FTPPort = ftp.port
 // SshWeb
-export const SshWebHost = 'http://140.96.29.86:10443/'
-export const SshWebURL = 'http://140.96.29.86:10443/?ssh=ssh://'
+import sshweb from './sshweb.json'
+export const SshWebIP = sshweb.host
+export const SshWebPort = sshweb.port
+export const SshWebHost = SshWebIP + ':' + SshWebPort
+export const SshWebURL = SshWebHost + '/?ssh=ssh://'
 // fake data
 export const DATA = [
 {startTime:'2017-01-02',endTime:'2017-05-02', instance:'eeny', status:'running', image:'c2c3152907b5', project:'G352BQ2100', account:'information', password:'research', dataSet:false, dataSetPath:'', dataSetId:'', dataSetPass:''},
