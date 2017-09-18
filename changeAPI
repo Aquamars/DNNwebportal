@@ -2,6 +2,12 @@
 
 rm ./src/app/resource/api.json
 
-echo {"host":$1, "port":$2} > ./src/app/resource/api.json
+echo {"\"host\"":\"$1\", "\"port\"":\"$2\"} > ./src/app/resource/api.json
 
-echo ./src/app/resource/api.json
+cat ./src/app/resource/api.json
+
+npm run app
+
+rm -r /var/www/html/DNN
+
+cp -r build/ /var/www/html/DNN
