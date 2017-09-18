@@ -1,0 +1,7 @@
+#!/bin/bash
+
+rm ./src/app/resource/api.json
+
+echo {"host":$1, "port":$2} > ./src/app/resource/api.json
+
+echo ./src/app/resource/api.json
