@@ -206,9 +206,12 @@ class CreatePage extends React.Component {
       API_GetImage,
       { headers: {'Accept': 'application/json'}}
     )
-    .then((result)=>{      
+    .then((result)=>{
+      let imageFilter = []
+      imageFilter = result.data.images.filter(obj => !obj.label.match(/disable/ig))
+
       this.setState({
-        imageArr: result.data.images,        
+        imageArr: imageFilter,        
       })
     }).catch((err)=>{
       console.log(err)

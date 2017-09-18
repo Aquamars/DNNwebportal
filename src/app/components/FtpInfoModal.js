@@ -70,7 +70,7 @@ class FtpInfoModal extends React.Component {
 			<div>
 				<List>
 					<CopyToClipboard 
-						text={'ftpHost'}
+						text={FTPHost}
 						onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),'ftpHost')}
 					>
 					<ListItem
@@ -80,7 +80,7 @@ class FtpInfoModal extends React.Component {
 		            />
 		            </CopyToClipboard>
 		            <CopyToClipboard 
-						text={'ftpPort'}
+						text={FTPPort}
 						onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),'ftpPort')}
 					>
 		            <ListItem
