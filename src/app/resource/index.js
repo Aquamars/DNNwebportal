@@ -1,13 +1,17 @@
 // API call
 import axios from 'axios'
 
+import api from './api.json'
+
 // export const DOMAIN = 'http://tarsanad.ddns.net'
-// export const PORT = ':4321'
-export const PORT = ':80'
+// export const PORT = ':9527'
+//  export const PORT = ':4321'
+export const PORT = ':' + api.port
 // export const PATH = 'web'
 // export const API_URL = DOMAIN+':'+PORT+'/'+PATH+'/'
 // export const DOMAIN = 'http://54.249.32.121'
-export const DOMAIN = 'http://140.96.29.153'
+// export const DOMAIN = 'http://140.96.29.153'
+export const DOMAIN = api.host
 // export const DOMAIN = 'http://localhost'
 // export const PATH = 'user/signin'
 export const API_URL = DOMAIN + PORT
