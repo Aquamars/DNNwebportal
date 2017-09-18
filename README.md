@@ -5,7 +5,7 @@
 ## What is this repository for? ##
 ------
 * This webportal for creating instance to run DNN.
-* Version 0.2.4
+* Version 0.2.5
 
 ![alt text](/src/app/image/readme/DNNweb.gif "DNN web")
 
@@ -200,6 +200,7 @@ docker build -t dnnweb .
 ------
 last update 2017-09-18
 
+* `0.2.5`  add shellSCript for changeAPI
 * `0.2.4`  add Dockerfile
 * `0.2.3`  add animate hint
 * `0.2.2`  add counting time on sshWebBtn

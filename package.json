@@ -1,6 +1,6 @@
 {
   "name": "DNNwebportal",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "ITRI DNN web portal",
   "author": "a40503",
   "repository": {
@@ -12,7 +12,7 @@
     "app": "webpack --config webpack-production.config.js --progress --colors",
     "test": "jest",
     "dll": "webpack -p --progress --config webpack.dll.config.js --colors",
-    "build": "npm run dll & npm run app",
+    "build": "npm run dll && npm run app",
     "styleguide": "styleguidist server",
     "styleguide:build": "styleguidist build"
   },
