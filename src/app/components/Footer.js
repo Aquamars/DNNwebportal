@@ -62,12 +62,17 @@ class Footer extends Component {
             {'© 2017 Industrial Technology Research Institute.'}
           </div>
         </Drawer>
-        <BottomNavigation>        
+        <BottomNavigation>
+          <BottomNavigationItem
+            icon={<div> </div>}
+          />        
           <BottomNavigationItem
             icon={<img src={window.location.href+t('common:logoSrc')} />}
             onTouchTap={this.handleToggle}
           />
-          <LanguageBtn/>
+          <BottomNavigationItem
+            icon={<LanguageBtn/>}
+          />          
         </BottomNavigation>
       </Paper>
 		)
