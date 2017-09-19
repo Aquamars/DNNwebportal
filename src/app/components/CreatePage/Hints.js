@@ -25,7 +25,9 @@ class Hints extends React.Component {
             {this.props.availableNumber != 0 && <span>{'\u00A0'}<TiTick color={greenA700} /> {t('common:createStep.avalableInstance')} : <font color={greenA700}><b>{this.props.availableNumber}</b></font></span>}
             {this.props.availableNumber === 0 && <span>{'\u00A0'}<TiTimes color={redA700} /> {t('common:createStep.avalableInstance')} : <font color={redA700}><b>{this.props.availableNumber} </b>{t('common:noInstance')}</font></span>}
             <br/>
-            {'\u00A0'}{this.props.currentInstanceNum != 0 && <span><TiInfoLarge color={orangeA700} /> {t('common:createStep.currentInstance')} : <font color={greenA700}><b>{this.props.currentInstanceNum}</b></font></span>}            
+            {'\u00A0'}{this.props.currentInstanceNum != 0 && <span><TiInfoLarge color={orangeA700} /> {t('common:createStep.currentInstance')} : <font color={greenA700}><b>{this.props.currentInstanceNum}</b></font></span>}
+            <br/>
+            {'\u00A0'}<span><TiInfoLarge color={orangeA700} /> {t('common:createStep.limitDay')} : <font color={orangeA700}><b>{30}</b> {t('common:days')}</font></span>
           </font>
             <ReactTooltip id='maxHint' place="top" effect='solid'>
               <span>{t('common:maxHint')}</span>
