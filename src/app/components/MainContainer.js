@@ -26,6 +26,7 @@ import Footer from './Footer'
 import CreatePage from './CreatePage/CreatePage'
 import Machines from './Charts/Machines'
 import TutorialBtn from './TutorialBtn'
+
 //ICON
 import ExitIcon from 'material-ui/svg-icons/action/power-settings-new'
 import SocialPerson  from 'material-ui/svg-icons/social/person'
@@ -267,6 +268,7 @@ class MainContainer extends Component {
                                 <b> DNN Web portal</b>
                             </span>
                           }
+                          iconElementLeft = {<div></div>}
                           style={{ backgroundColor: lightBlue900 }}
         				          onLeftIconButtonTouchTap={this.handleToggle}
                           iconElementRight={
