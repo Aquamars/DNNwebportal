@@ -5,7 +5,7 @@
 ## What is this repository for? ##
 ------
 * This webportal for creating instance to run DNN.
-* Version 0.2.6
+* Version 0.2.7
 
 ![alt text](/src/app/image/readme/DNNweb.gif "DNN web")
 
@@ -188,9 +188,9 @@ docker build -t dnnweb .
 
 ### Change API from container ###
 
-```
+`
 docker exec dnnweb sh /dnnwebportal/changeAPI <your IP with http or https> <port>
-```
+`
 
 example :
 
@@ -200,9 +200,9 @@ docker exec dnnweb sh /dnnwebportal/changeAPI http://127.0.0.1 9527
 
 ### Change SSHweb from container ###
 
-```
+`
 docker exec dnnweb sh /dnnwebportal/changeSSH <your IP with http or https> <port>
-```
+`
 
 example :
 
@@ -212,9 +212,9 @@ docker exec dnnweb sh /dnnwebportal/changeSSH http://127.0.0.1 5566
 
 ### Change FTP from container ###
 
-```
+`
 docker exec dnnweb sh /dnnwebportal/changeFTP <your host> <port>
-```
+`
 
 example :
 
@@ -234,8 +234,9 @@ docker exec dnnweb sh /dnnwebportal/changeFTP 127.0.0.1 9487
 
 ### Change log ###
 ------
-last update 2017-09-18
+last update 2017-09-19
 
+* `0.2.7`  add finishAutoPage, limitDay hints
 * `0.2.6`  add shellScript for changeFTP, changeSSH
 * `0.2.5`  add shellScript for changeAPI
 * `0.2.4`  add Dockerfile

@@ -165,7 +165,7 @@ class DetailModal extends React.Component {
 			         	onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),'account')}
 			        >
 		            	<ListItem
-			           		primaryText={<span><b>{t('common:account')}</b></span>}
+			           		primaryText={<span><b>{t('common:sshAccount')}</b></span>}
 			           		secondaryText={this.props.data.username}
 			         	/>
 			        </CopyToClipboard>
@@ -174,7 +174,7 @@ class DetailModal extends React.Component {
 			         	onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),'password')}
 			        >
 			         	<ListItem
-			           		primaryText={<span><b>{t('common:password')}</b></span>}
+			           		primaryText={<span><b>{t('common:sshPassword')}</b></span>}
 			           		secondaryText={this.props.data.password}
 			         	/>			         	
 			        </CopyToClipboard>

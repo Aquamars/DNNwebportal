@@ -52,8 +52,8 @@ class SigninFrom extends Component {
     super(props)    
     
     this.state = {
-      username: 'itri',
-      password: 'itri',
+      username: '',
+      password: '',
       signInError: false,
       submitting: false ,
       data:[],
