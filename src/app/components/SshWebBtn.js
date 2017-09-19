@@ -4,6 +4,7 @@ import FlatButton from 'material-ui/FlatButton'
 import { indigo900, redA700 } from 'material-ui/styles/colors'
 import { SshWebURL, SshWebHost } from '../resource'
 import ReactTooltip from 'react-tooltip'
+import moment from 'moment'
 // ICON
 import Terminal from 'react-icons/lib/go/terminal'
 import ActionHelpOutline from 'material-ui/svg-icons/action/help-outline'
@@ -48,15 +49,24 @@ class SshWebBtn extends Component {
 		clearInterval(this.timer)
 	}
 	tick = () => {
-		this.setState({
-			elapsed: new Date() - new Date(this.props.data.createdAt)
-		})
+		// Adjustment server and client time
+		if(this.props.start < new Date(moment(this.props.data.createdAt).utc(8))){
+			this.setState({
+				elapsed: new Date() - this.props.start
+			})
+		}else{
+			this.setState({
+				elapsed: new Date() - new Date(moment(this.props.data.createdAt).utc(8))
+			})
+		}
+		
 		let elapsed = Math.round(this.state.elapsed / 100)
 		let seconds = (elapsed / 10).toFixed(1)
+		console.log(seconds)
 		if(seconds > 10 && seconds < 11){
 			this.props.refresh()
 			this.setState({
-				elapsed: new Date() - new Date(this.props.data.createdAt),
+				elapsed: new Date() - new Date(moment(this.props.data.createdAt).utc(8)),
 				// refreshTimes: 1
 			})
 		}
@@ -64,6 +74,10 @@ class SshWebBtn extends Component {
 	render(){
 		const {t} = this.props
 		// console.log(this.props.data.statusId)
+
+		console.log('now:'+new Date())
+		console.log('new:'+new Date(moment(this.props.data.createdAt).utc(8)))
+
 		let elapsed = Math.round(this.state.elapsed / 100)
 		let seconds = (elapsed / 10).toFixed(1)
 		return (
