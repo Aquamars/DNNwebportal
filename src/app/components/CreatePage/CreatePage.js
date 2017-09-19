@@ -26,6 +26,7 @@ import Hints from './Hints'
 import ConfirmPage from './ConfirmPage'
 import FinishPage from './FinishPage'
 import ProjectCode from './ProjectCode'
+import FinishAutoPage from './FinishAutoPage'
 // API
 import axios from 'axios'
 import {API_GetMachine, API_CreateSchedule, API_CheckInstance, API_GetImage} from '../../resource'
@@ -208,7 +209,17 @@ class CreatePage extends React.Component {
     )
     .then((result)=>{
       let imageFilter = []
+      // filter the image with disable tag
       imageFilter = result.data.images.filter(obj => !obj.label.match(/disable/ig))
+      // default tensorflow on first position
+      imageFilter.map((obj, index)=>{
+        if(obj.name.match(/tensorflow/ig)){
+          let tmp = obj
+          imageFilter[index] = imageFilter[0]
+          imageFilter[0] = tmp
+          console.log(imageFilter)
+        }
+      })
 
       this.setState({
         imageArr: imageFilter,        
@@ -557,6 +568,7 @@ class CreatePage extends React.Component {
               floatingLabelStyle={{color: orangeA700}}
               value={this.state.instanceNum}
               onChange={this.handleInstanceNumChange}
+              disabled={true}
             >
               {false && this.state.availableNumber.map((data) => (
                 <MenuItem key={data.num+1} value={data.num+1} primaryText={data.num+1} />
@@ -613,7 +625,7 @@ class CreatePage extends React.Component {
         <div style={contentStyle}>
           <List>                
             <Divider />
-              <FinishPage data = {createdRespData} />
+              <FinishAutoPage CreateDone={this.CreateDone} />
             <Divider />
             <RaisedButton 
               label={t('common:backReview')}
