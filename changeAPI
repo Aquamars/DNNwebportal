@@ -2,7 +2,7 @@
 
 rm /dnnwebportal/src/app/resource/api.json
 
-echo {"\"host\"":\"$1\", "\"port\"":\"$2\"} > ./src/app/resource/api.json
+echo {"\"host\"":\"$1\", "\"port\"":\"$2\"} > /dnnwebportal/src/app/resource/api.json
 
 cat /dnnwebportal/src/app/resource/api.json
 

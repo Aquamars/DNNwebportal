@@ -5,6 +5,8 @@
     "appName": "TW DNN webportal",
     "username": "帳號(工號)",
     "password": "密碼",
+    "sshAccount": "SSH 帳號",
+    "sshPassword": "SSH 密碼",
     "submit": "確認",
     "cancel": "取消",
     "create": "建立",
@@ -53,7 +55,9 @@
         "option":"選項",
         "check":"驗證路徑",
         "avalableInstance":"可用的 Instance",
-        "currentInstance":"已使用 Instance"
+        "currentInstance":"已使用 Instance",
+        "limitDay": "日期範圍限制",
+        "refreshHint":"後將會自動重新整理"
     },
     "calendar":{
         "fullyDay":"無Instance可用",

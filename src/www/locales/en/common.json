@@ -3,8 +3,10 @@
     "wlogoSrc": "/image/itri_EL_A_w.png",
     "language": "Language",
     "appName": "DNN webportal",
-    "username": "Username",
+    "username": "Employee ID",
     "password": "Password",
+    "sshAccount": "SSH Account",
+    "sshPassword": "SSH Password",
     "submit": "Submit",
     "cancel": "Cancel",
     "create": "Create",
@@ -53,7 +55,9 @@
         "option":"It's Option.",
         "check":"Check DataSet Path",
         "availableInstance":"Available Instance",
-        "currentInstance":"Subscribed Instance"
+        "currentInstance":"Subscribed Instance",
+        "limitDay": "Date range limit",
+        "refreshHint":"Will refresh page after"
     },
     "calendar":{
         "fullyDay":"Fully Day",

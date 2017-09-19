@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import IconMenu from 'material-ui/IconMenu'
 import MenuItem from 'material-ui/MenuItem'
 import IconButton from 'material-ui/IconButton'
+import FlatButton from 'material-ui/FlatButton'
 // ICON
 import ActionLanguage from 'material-ui/svg-icons/action/language'
 import LockIcon from 'material-ui/svg-icons/action/lock-outline'
@@ -58,14 +59,16 @@ class LanguageBtn extends Component {
 	render(){
 		const {t} = this.props
 		return (
-		<IconMenu
-          iconButtonElement={<IconButton tooltipPosition={'top-center'} tooltip={t('common:language')}><ActionLanguage /></IconButton>}
-          onChange={this.handleChangeSingle}
-          value={this.state.valueSingle}
-        >
-          <MenuItem value="0" primaryText="Eng" />
-          <MenuItem value="1" primaryText="繁中" />          
-        </IconMenu>
+		<div style={{verticalAlign:'middle'}}>
+			<IconMenu
+	          iconButtonElement={<FlatButton label={<b>{t('common:language')}</b>} icon={<ActionLanguage />} />}
+	          onChange={this.handleChangeSingle}
+	          value={this.state.valueSingle}
+	        >
+	          <MenuItem value="0" primaryText="Eng" />
+	          <MenuItem value="1" primaryText="繁中" />          
+	        </IconMenu>
+        </div>
 		)
 	}
 }
