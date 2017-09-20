@@ -5,9 +5,26 @@
 ## What is this repository for? ##
 ------
 * This webportal for creating instance to run DNN.
-* Version 0.2.7
+* Version 0.2.8
 
 ![alt text](/src/app/image/readme/DNNweb.gif "DNN web")
+
+## Features ##
+
+* SignIn & SignOut
+* Dynamic generate PDF
+* Material style
+* i18n
+* Create, edit, remove, review instance schedule
+* Simply access instance with SSH WEB
+* Gzip
+* Code splitting
+* Isolated React component
+* React component development environment with a living guide
+* Google analytics
+* Package Analysis
+* Change API, FTP, SSHweb host&port from container
+* Docker image
 
 ## How do I get set up? ##
 ------
@@ -19,7 +36,7 @@ npm install
 ```
 npm start
 ```
-* need `npm run build` in first
+* need `npm run build` in first time
 * for development, run dev-server
 * open 'localhost:8080' on browser
 
@@ -27,7 +44,7 @@ npm start
 npm run dll
 npm run app
 ```
-* package dll(bundle.js,bundle2.js,bundle3.js) and app(app.js)
+* package dll(bundle.js,bundle2.js,bundle3.js,bundle4.js) and app(app.js)
 * the files will generate in build folder
 
 ```
@@ -70,7 +87,7 @@ npm run build
 ###report.app.html
 |js|State size|Parse size|Gzipped size|
 | --- | --------- | --------- | --------- |
-|app.js|616.52KB|281.66KB|70.5KB|
+|app.js|626.96KB|287.05KB|71.44KB|
 
 * app.js: kernal code of web
 ![alt text](/src/app/image/readme/app.PNG "app.js")
@@ -80,9 +97,9 @@ npm run build
 | ---------| --------- | --------- | --------- |
 |bundle.js|5.03 MB|1.76 MB|460.24 KB|
 |bundle2.js|2.83 MB|1.08 MB|483.42 KB|
-|bundle3.js|753.74 KB|754.66 KB|531.784 KB|
+|bundle3.js|946.21 KB|947.13 KB|673.3 KB|
 |bundle4.js|14.86 MB|14.86 MB|8.15 MB|
-|All|23.46 MB|18.45 MB|9.59 MB|
+|All|23.64 MB|18.63 MB|9.73 MB|
 
 * bundle.js: 3rd party modules
 * bundle2.js: PDF modules
@@ -106,7 +123,7 @@ https://support.google.com/analytics/answer/1033068?hl=en
 
 ### webportal events
 
-```
+```json
 {
   createPage:{
   	selectImage:["All", "Tensorflow", "Caffe", "Torch"],
@@ -170,17 +187,51 @@ https://support.google.com/analytics/answer/1033068?hl=en
 
 ## Docker Image ##
 ------
+
 ### Using the Image ###
 
+* You need import Certificate Authority(CA) on your client
+* The `ca.crt` on `./ca`
+
+```
+cp ca.crt /usr/local/share/ca-certificates/
+sudo update-ca-certificates
+sudo service docker restart
+```
+
+* You can download image from `100.86.2.10:32190` after import CA
+
+* This image inculde development environment (nodejs, npm ...)
 * `TAG` is dnnweb version
 
 ```
 docker pull 100.86.2.10:32190/dnnweb:TAG
+docker run -it -d -p xxxx:80 --name webportal dnnweb:TAG
+docker exec -it webportal /etc/init.d/nginx start
+```
+
+### Upload image ###
+
+* You can upload image from `100.86.2.10:32190` after import CA
+
+```
+docker tag SOURCE_IMAGE:TAG 100.86.2.10:32190/TARGET_IMAGE:TAG
+docker push 100.86.2.10:32190/TARGET_IMAGE:TAG
+
+```
+
+### Building the Image for container ###
+
+```
+docker commit -a "a40503" <container name> dnnweb:TAG
 ```
 
 ### Building the Image ###
 
-* need `npm run build` in first
+* This image only have web server and packaged webportal 
+* This image NOT inculde development environment 
+* You CANNOT Change API,FTP,SSHweb from this container
+* Need `npm run build` in first
 ```
 cd docker
 docker build -t dnnweb .
@@ -224,9 +275,17 @@ docker exec dnnweb sh /dnnwebportal/changeFTP 127.0.0.1 9487
 
 ## Contribution guidelines ##
 ------
+
+### Develop ###
 * A40503
 * Kevin Huang
 * Yenhsuan
+
+### Translation ###
+* 531539
+* Vicky Wang
+* A40503
+* Kevin Huang
 
 ### Who do I talk to? ###
 ------
@@ -236,6 +295,7 @@ docker exec dnnweb sh /dnnwebportal/changeFTP 127.0.0.1 9487
 ------
 last update 2017-09-19
 
+* `0.2.8`  add ssh web tutorial
 * `0.2.7`  add finishAutoPage, limitDay hints
 * `0.2.6`  add shellScript for changeFTP, changeSSH
 * `0.2.5`  add shellScript for changeAPI

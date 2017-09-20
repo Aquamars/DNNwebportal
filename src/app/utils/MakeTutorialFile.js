@@ -20,12 +20,17 @@ import {
 	accessInstance1,
 	accessInstance2,
 	accessInstance3,
+	accessInstance4,
+	accessInstance5,
+	accessInstance6,
 	tensorflow,
 	tensorflow2,
 	tensorflow3,
 	header,
 } from '../image/imageBase64'
-
+// import {	
+	
+// } from '../image'
 
 // import '../plugin/html2Canvas'
 export function displayPDF(username, language){
@@ -95,13 +100,30 @@ export function displayPDF(username, language){
 						style: 'outline'
 					},
 					{ 
+						ul:[
+							{ 
+								text:"Using putty access instance on your PC\n", 
+								linkToPage: 8,
+							},
+							{ 
+								text:"Using linux to access instance\n", 
+								linkToPage: 9,
+							},
+							{ 
+								text:"Using SSH web to access instance\n", 
+								linkToPage: 10,
+							},
+						],
+						fontSize: 22,
+					},
+					{ 
 						text:"Demo of Tensorflow running code\n", 
-						linkToPage: 10,
+						linkToPage: 12,
 						style: 'outline'
 					},
 					{ 
 						text:"TensorAPM\n", 
-						linkToPage: 13,
+						linkToPage: 15,
 						style: 'outline'
 					},
 					// { 
@@ -344,6 +366,60 @@ export function displayPDF(username, language){
 			},
 			{
 				image: accessInstance3,
+				width: 500,
+				alignment: 'center',
+				pageBreak: 'after'
+			},
+			{ 
+				text:"3. Using SSH web to access instance.", 
+				fontSize: 18,
+				bold: true,
+				font: "tc"
+			},
+			{ 
+				text:"Click the “SSH WEB” button to open a new page.", 
+				fontSize: 16,
+				font:"tc"
+			},
+			{ 
+				text:"Login for the first time, please type “yes”.", 
+				fontSize: 16,
+				font:"tc"
+			},
+			{
+				image: accessInstance4,
+				width: 500,
+				alignment: 'center',
+			},
+			{
+				text:'\n\n'
+			},
+			{ 
+				text:"Copy and paste the SSH Password (Click to copy).", 
+				fontSize: 16,
+				font:"tc"
+			},
+			{ 
+				text:"", 
+				fontSize: 16,
+				font:"tc"
+			},
+			{
+				image: accessInstance5,
+				width: 500,
+				alignment: 'center',
+				pageBreak: 'after'
+			},
+			{
+				text:'\n\n'
+			},
+			{ 
+				text:"Schedule ID is shown on URL or on the page title.", 
+				fontSize: 16,
+				font:"tc"
+			},
+			{
+				image: accessInstance6,
 				width: 500,
 				alignment: 'center',
 				pageBreak: 'after'
@@ -741,13 +817,31 @@ export function displayPDF(username, language){
 						style: 'outline'
 					},
 					{ 
+						ul:[
+							{ 
+								text:"使用 putty 登入 instance\n", 
+								linkToPage: 8,
+							},
+							{ 
+								text:"使用 linux 系統登入Instance\n", 
+								linkToPage: 9,
+							},
+							{ 
+								text:"使用 SSH web 登入Instance\n", 
+								linkToPage: 10,
+							},
+						],
+						fontSize: 22,
+						style: 'outline'
+					},
+					{ 
 						text:"Tensorflow測試範例\n", 
-						linkToPage: 10,
+						linkToPage: 12,
 						style: 'outline'
 					},
 					{ 
 						text:"TensorAPM用戶指南\n", 
-						linkToPage: 13,
+						linkToPage: 15,
 						style: 'outline'
 					},
 					// { 
@@ -977,7 +1071,7 @@ export function displayPDF(username, language){
 			},
 			{
 				image: accessInstance1,
-				width: 500,
+				width: 450,
 				alignment: 'center',
 			},
 			{ 
@@ -1006,6 +1100,60 @@ export function displayPDF(username, language){
 			},
 			{
 				image: accessInstance3,
+				width: 500,
+				alignment: 'center',
+				pageBreak: 'after'
+			},
+			{ 
+				text:"3. 使用 SSH web 登入Instance。", 
+				fontSize: 18,
+				bold: true,
+				font: "tc"
+			},
+			{ 
+				text:"只需要點擊SSH WEB按鈕，開啟新頁面。", 
+				fontSize: 16,
+				font:"tc"
+			},
+			{ 
+				text:"第一次登入需要輸入'yes'。", 
+				fontSize: 16,
+				font:"tc"
+			},
+			{
+				image: accessInstance4,
+				width: 500,
+				alignment: 'center',
+			},
+			{
+				text:'\n\n'
+			},
+			{ 
+				text:"複製表格上的密碼(點擊即可複製)。", 
+				fontSize: 16,
+				font:"tc"
+			},
+			{ 
+				text:"", 
+				fontSize: 16,
+				font:"tc"
+			},
+			{
+				image: accessInstance5,
+				width: 500,
+				alignment: 'center',
+				pageBreak: 'after'
+			},
+			{
+				text:'\n\n'
+			},
+			{ 
+				text:"在網址列或是標題可以得知Schedule ID。", 
+				fontSize: 16,
+				font:"tc"
+			},
+			{
+				image: accessInstance6,
 				width: 500,
 				alignment: 'center',
 				pageBreak: 'after'
