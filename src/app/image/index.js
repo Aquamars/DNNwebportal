@@ -12,7 +12,10 @@ import _webCreate6 from './tutorial/webCreate7-1.png'
 import _webCreate7 from './tutorial/webCreate11.png'
 import _accessInstance1 from './tutorial/accessInstance1-2.png'
 import _accessInstance2 from'./tutorial/accessInstance5.png' 
-import _accessInstance3 from'./tutorial/accessInstance7.png' 
+import _accessInstance3 from'./tutorial/accessInstance7.png'
+import _accessInstance4 from'./tutorial/accessInstance8.png' 
+import _accessInstance5 from'./tutorial/accessInstance9.png' 
+import _accessInstance6 from'./tutorial/accessInstance10.png'  
 import _tensorflow from './tutorial/tensorflow.png' 
 import _tensorflow2 from './tutorial/tensorflow2.png'
 import _tensorflow3 from './tutorial/tensorflow3.png'
@@ -39,6 +42,9 @@ export const webCreate7 = _webCreate7
 export const accessInstance1 = _accessInstance1
 export const accessInstance2 = _accessInstance2
 export const accessInstance3 = _accessInstance3
+export const accessInstance4 = _accessInstance4
+export const accessInstance5 = _accessInstance5
+export const accessInstance6 = _accessInstance6
 export const tensorflow = _tensorflow
 export const tensorflow2 = _tensorflow2
 export const tensorflow3 = _tensorflow3
