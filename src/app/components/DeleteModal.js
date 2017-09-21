@@ -209,7 +209,7 @@ class DeleteModal extends React.Component {
           <span>{t('common:remove.remove')}</span>
         </ReactTooltip>
         <Dialog
-          title={t('common:remove.comfirmRemove')}
+          title={<div><b>{t('common:remove.comfirmRemove')}</b></div>}
           actions={actions}
           modal={true}
           open={this.state.open}
