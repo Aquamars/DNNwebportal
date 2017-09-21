@@ -26,7 +26,8 @@ import Footer from './Footer'
 import CreatePage from './CreatePage/CreatePage'
 import Machines from './Charts/Machines'
 import TutorialBtn from './TutorialBtn'
-
+import LanguageBtn from './LanguageBtn'
+import ReactTooltip from 'react-tooltip'
 //ICON
 import ExitIcon from 'material-ui/svg-icons/action/power-settings-new'
 import SocialPerson  from 'material-ui/svg-icons/social/person'
@@ -270,7 +271,8 @@ class MainContainer extends Component {
                           }
                           iconElementLeft = {<div></div>}
                           style={{ backgroundColor: lightBlue900 }}
-        				          onLeftIconButtonTouchTap={this.handleToggle}
+                          onLeftIconButtonTouchTap={this.handleToggle}
+                          iconStyleRight={{margin:'auto'}}
                           iconElementRight={
                             <div>
                               <span style={{display: 'inline-block',verticalAlign: 'super'}}>
@@ -279,20 +281,25 @@ class MainContainer extends Component {
                               </div>        
                               </span>
                               <span style={{display: 'inline-block',verticalAlign: 'super'}}>
-                              <FtpInfoModal iconColor={'#FF3D00'}/>
+                              <FtpInfoModal iconColor={'#fff'}/>
+                              </span>                                                                                        
+                              <span style={{verticalAlign:'super'}}>
+                                <FlatButton
+                                  style = {{color:'white'}}
+                                  label ={<b>{t('common:signOut')}</b>}                                 
+                                  icon={ <ExitIcon color='white'/>}
+                                  onTouchTap={() => this.props.SignOut()} 
+                                />                                
+                              </span>
+                              <span style={{display: 'inline-block', verticalAlign:'super'}}>
+                                <LanguageBtn color={'white'} />
                               </span>
                               <span style={{display: 'inline-block',verticalAlign: 'sub'}}>
-                              <SocialPerson color='white'/>
-                              </span>
-                              <span style={{verticalAlign:'text-bottom'}}><b><font size={3} color='#FDD100'> {this.props.user}</font></b></span>
-                              <span style={{verticalAlign:'sub'}}>
-                              <IconButton 
-                                tooltip={t('common:signOut')} 
-                                onTouchTap={() => this.props.SignOut()}>                           
-                              >
-                                <ExitIcon color='white'/>
-                              </IconButton>
-                              </span>                              
+                                <SocialPerson color='white'/>
+                              </span> 
+                              <span style={{verticalAlign:'text-bottom'}}>
+                                <b><font size={3} color='#FDD100'> {this.props.user}</font></b>
+                              </span> 
                             </div>
                           }
         				        />
