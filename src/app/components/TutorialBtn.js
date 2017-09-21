@@ -63,7 +63,7 @@ class TutorialBtn extends Component {
 		return (
 		<FlatButton
 	        label={<b>{t('common:tutorial')}</b>}
-			style = {{color:greenA700}}
+			style = {{color:'#fff'}}
 			icon={<ImagePictureAsPdf />}
 			onTouchTap={()=>this.openPDF(t('common:pdfLang'))}
         />
