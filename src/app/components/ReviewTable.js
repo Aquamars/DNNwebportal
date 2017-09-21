@@ -91,31 +91,31 @@ class ReviewTable extends Component {
 	      singleInfo:{},
 	    }
 	}
-    static propTypes = {
-      /**
-        The user token for call api
-      */
-      token: React.PropTypes.string.isRequired,
-    }
-    SwitchCreatePage = () => {
-    	this.setState({
+  static propTypes = {
+    /**
+      The user token for call api
+    */
+    token: React.PropTypes.string.isRequired,
+  }
+  SwitchCreatePage = () => {
+  	this.setState({
 		   switchCreatePage: true
 		})
 		//GA
-	  	ReactGA.event({
+	 	ReactGA.event({
 		  category: 'CreatePage',
 		  action: 'open',		  
 		})
-    }
+  }
 
-    switchReview = () => {
-    	this.setState({switchCreatePage: false})
+  switchReview = () => {
+   	this.setState({switchCreatePage: false})
     	//GA
 	  	ReactGA.event({
-		  category: 'CreatePage',
-		  action: 'close',		  
-		})
-    }
+			  category: 'CreatePage',
+			  action: 'close',		  
+			})
+  }
 
 	refresh = (event) => {
 	    event.preventDefault()
@@ -186,20 +186,19 @@ class ReviewTable extends Component {
 			          icon={<ContentAdd />}
 			          disabled={this.state.data.length === 3}
 			          onTouchTap={this.SwitchCreatePage}		          		          
-			        />
+			    />
 					<FlatButton 
 			          label={t('common:refresh')}
 			          style = {{color:muiStyle.palette.primary1Color}}
 			          icon={<NavigationRefresh />}
 			          onTouchTap={this.refresh}
-			        />
-			        <TutorialBtn />
-			        <FlatButton
-		              label={t('common:contactUs')}
-		              style = {{color:muiStyle.palette.primary1Color}}
-		              icon={<CommunicationContactMail />}
-		              href = {'mailto:eNgiNEer@No.oNe.cARe'}		              
-		            />
+			    />
+			    <FlatButton
+		            label={t('common:contactUs')}
+		            style = {{color:muiStyle.palette.primary1Color}}
+		            icon={<CommunicationContactMail />}
+		            href = {'mailto:eNgiNEer@No.oNe.cARe'}		              
+		      />
 			  </CardActions>
 			  <CardTitle title={t('common:reviewTitle')}/>
 			  <ExpandTransition loading={loading} open={true}>
@@ -214,12 +213,12 @@ class ReviewTable extends Component {
 	    			    <TableHeaderColumn style={styles.textCenter}><b>{t('common:detail')}</b></TableHeaderColumn>	    			    
 				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:startDate')}</b></TableHeaderColumn>
 				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:endDate')}</b></TableHeaderColumn>
-				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:scheduleID')}</b></TableHeaderColumn>
-				        <TableHeaderColumn style = {styles.textCenter}><b>{'SSHweb'}</b></TableHeaderColumn>
-				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:status.status')}</b></TableHeaderColumn>				        
+				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:scheduleID')}</b></TableHeaderColumn>				        
+								<TableHeaderColumn style = {styles.textCenter}><b>{t('common:status.status')}</b></TableHeaderColumn>
+								<TableHeaderColumn style = {styles.textCenter}><b>{'SSHweb'}</b></TableHeaderColumn>	
+								<TableHeaderColumn style = {styles.textCenter}><b>{t('common:sshPassword')}</b></TableHeaderColumn>			        
 				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:gpuType')}</b></TableHeaderColumn>
-				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:image')}</b></TableHeaderColumn>
-				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:sshPassword')}</b></TableHeaderColumn>
+				        <TableHeaderColumn style = {styles.textCenter}><b>{t('common:image')}</b></TableHeaderColumn>				        
 				        <TableHeaderColumn style={{display:'none'}}><b>{t('common:project')}</b></TableHeaderColumn>			        
 				        <TableHeaderColumn style={styles.textCenter}><b>{t('common:remove.remove')}</b></TableHeaderColumn>
 				      </TableRow>
@@ -233,20 +232,20 @@ class ReviewTable extends Component {
 				  	  <TableRowColumn style={styles.textCenter}><DetailModal data = {data} /></TableRowColumn>				  	  
 				      <TableRowColumn style = {styles.textCenter}>{moment(data.startedAt).format('YYYY-MM-DD')}</TableRowColumn>
 				      <TableRowColumn style = {styles.textCenter}><EditModal token={this.props.token} data = {data} refresh={this.getData} {...this.props}/></TableRowColumn>
-				      <TableRowColumn style = {styles.textCenter}>{data.id}</TableRowColumn>
-				      <TableRowColumn style = {styles.textCenter}>{<SshWebBtn start = {new Date()} data = {data} refresh={this.getData}/>}</TableRowColumn>
-				      <TableRowColumn style = {styles.textCenter}>{<StatusHandler statusId={data.statusId} />}</TableRowColumn>				      
+				      <TableRowColumn style = {styles.textCenter}>{data.id}</TableRowColumn>				      
+							<TableRowColumn style = {styles.textCenter}>{<StatusHandler statusId={data.statusId} />}</TableRowColumn>
+							<TableRowColumn style = {styles.textCenter}>{<SshWebBtn start = {new Date()} data = {data} refresh={this.getData}/>}</TableRowColumn>
+							<TableRowColumn style = {styles.textCenter}>
+								<CopyToClipboard 
+									text={data.password}
+									onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),'password')}
+								>
+								<div>{data.password}</div>
+								</CopyToClipboard>
+							</TableRowColumn>
 				      <TableRowColumn style = {styles.textCenter}>{<GpuHandler gpu={data.machine.gpuType} />}</TableRowColumn>			      
-				      <TableRowColumn style = {styles.textCenter}>{data.image.name}</TableRowColumn>			      
-				      <TableRowColumn style = {styles.textCenter}>
-				      	<CopyToClipboard 
-							text={data.password}
-							onCopy = {()=> this.props.copyNotify(t('common:alreadyCopy'),'password')}
-						>
-							<div>{data.password}</div>
-	    				</CopyToClipboard>
-		              </TableRowColumn>
-		              <TableRowColumn style={{display:'none'}}>{data.projectCode}</TableRowColumn>
+				      <TableRowColumn style = {styles.textCenter}>{data.image.name}</TableRowColumn>				      
+		          <TableRowColumn style={{display:'none'}}>{data.projectCode}</TableRowColumn>
 				      <TableRowColumn style={styles.textCenter}><DeleteModal data = {data} refresh={this.getData} token={this.props.token}/></TableRowColumn>
 				    </TableRow>
 				  	))}
