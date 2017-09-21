@@ -16,15 +16,24 @@ const toggle = lng => i18n.changeLanguage(lng)
   Switch Language Button
   Example:
   ```
-  <LanguageBtn />
+  <LanguageBtn color={'#666'} />
   ```
  */
 class LanguageBtn extends Component {
+	static propTypes = {
+		/**
+		  Setting the button color
+		*/
+    color: React.PropTypes.string,        
+  }
+
+	static defaultProps = {
+		color: '#000',        
+  }
 	state = {
 	  valueSingle: '3',	  
 	}
 	handleChangeSingle = (event, value) => {
-
 	  // console.log(value)	
 	  switch(value){
 	  	case "0":
@@ -61,14 +70,20 @@ class LanguageBtn extends Component {
 		return (
 		<div style={{verticalAlign:'middle'}}>
 			<IconMenu
-	          iconButtonElement={<FlatButton label={<b>{t('common:language')}</b>} icon={<ActionLanguage />} />}
-	          onChange={this.handleChangeSingle}
-	          value={this.state.valueSingle}
-	        >
-	          <MenuItem value="0" primaryText="Eng" />
-	          <MenuItem value="1" primaryText="繁中" />          
-	        </IconMenu>
-        </div>
+	      iconButtonElement={
+					<FlatButton  
+						style = {{color:this.props.color}} 
+						label={<b>{t('common:language')}</b>} 
+						icon={<ActionLanguage color={this.props.color} />} 
+					/>
+				}
+	      onChange={this.handleChangeSingle}
+	      value={this.state.valueSingle}
+	    >
+	    	<MenuItem value="0" primaryText="Eng" />
+	      <MenuItem value="1" primaryText="繁中" />          
+	    </IconMenu>
+    </div>
 		)
 	}
 }
