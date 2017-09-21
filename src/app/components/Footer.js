@@ -11,8 +11,10 @@ import Paper from 'material-ui/Paper'
 import Drawer from 'material-ui/Drawer'
 import { translate, Interpolate } from 'react-i18next'
 import i18n from '../utils/i18n'
-import {lineCode, lineCode2, easterEgg, DnnLogo} from '../image'
+import {lineCode, lineCode2, easterEgg, DnnLogo, lineLogo} from '../image'
 import pjson from '../../../package.json'
+// ICON
+import CommunicationEmail from 'material-ui/svg-icons/communication/email'
 // GA
 import ReactGA from 'react-ga'
 /**
@@ -41,7 +43,7 @@ class Footer extends Component {
 
 	render(){
 		const {t} = this.props   
-    // console.log(window.location.href)    
+    // console.log(window.location.href)   
 		return (
 			<Paper zDepth={1}>
         <Drawer
@@ -64,15 +66,16 @@ class Footer extends Component {
         </Drawer>
         <BottomNavigation>
           <BottomNavigationItem
-            icon={<div> </div>}
-          />        
+            icon={<div />}            
+          />
           <BottomNavigationItem
             icon={<img src={window.location.href+t('common:logoSrc')} />}
             onTouchTap={this.handleToggle}
           />
           <BottomNavigationItem
-            icon={<LanguageBtn/>}
-          />          
+            icon={<img style={{width:'40%'}} src={lineLogo} />}
+            onTouchTap={this.handleToggle}
+          />
         </BottomNavigation>
       </Paper>
 		)
