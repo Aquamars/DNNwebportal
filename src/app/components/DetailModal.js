@@ -37,10 +37,10 @@ const textCenter = { textAlign: 'center' };
   Show more infomation of the instance
   Example:
   ```
-  <DetailModal 
+  <DetailModal
     data = {data}
-    iconColor = {grey500} 
-    showStatus={false} 
+    iconColor = {grey500}
+    showStatus={false}
   />
   ```
 */
@@ -106,9 +106,9 @@ class DetailModal extends React.Component {
     const leftDay = moment(this.props.data.endedAt).diff(moment(), 'days');
     this.state = {
       open: false,
-      increaseDay: increaseDay,
-      excuteDay: excuteDay,
-      leftDay: leftDay,
+      increaseDay,
+      excuteDay,
+      leftDay,
     };
   }
 
@@ -278,7 +278,7 @@ class DetailModal extends React.Component {
           data-for="detail"
           labelPosition="before"
           icon={<ActionToc />}
-          onTouchTap={this.handleOpen} 
+          onTouchTap={this.handleOpen}
         />
         <ReactTooltip id="detail" place="bottom" effect="solid">
           <span>{t('common:detail')}</span>
@@ -320,8 +320,6 @@ class DetailModal extends React.Component {
   }
 }
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({
-    copyNotify: copyNotify,
-  }, dispatch);
+  return bindActionCreators({ copyNotify }, dispatch);
 }
 export default connect(null, matchDispatchToProps)(translate('')(DetailModal));
