@@ -12,7 +12,6 @@ import Paper from 'material-ui/Paper'
 import CircularProgress from 'material-ui/CircularProgress'
 import Divider from 'material-ui/Divider'
 import EditModal from './EditModal'
-
 import HoverDiv from './HoverDiv'
 import DetailModal from './DetailModal'
 import moment from 'moment'
@@ -237,28 +236,26 @@ class HistoryTable extends Component {
 		// 	console.log(data.startedAt,date)
 		// })
 		return (
-		  <div>		  	
-		    <IconButton 
-		      tooltip={t('common:history.history')}
-		      onTouchTap={this.switchPage}
-		    >
-		      <ActionHistory color={grey500}/>
-		    </IconButton>
-	        {switchPage &&
-			<Card>		
-			  <CardActions style={styles.actions}>
-			  </CardActions>			  
-			  <CardTitle title={<font color={grey500}>{t('common:history.title')}</font>}/>
-			  <ExpandTransition loading={loading} open={switchPage}> 
-			  <Paper>
-			  {loading && <div style = {{textAlign:'center'}}><CircularProgress size={80} thickness={5} /></div>}
-			  
-			  <div style={{margin:'auto', textAlign:'center'}}>{this.state.data.length !== 0 && this.renderTable()}</div>
-			  </Paper>
-			  
-			  </ExpandTransition>
-			</Card>
-			}			
+		  <div>
+				<FlatButton
+					style = {{color:grey500}}
+					icon={<ActionHistory color={grey500}/>}
+					onTouchTap={this.switchPage}
+					label={!switchPage && t('common:history.title')}
+				/>
+	      {switchPage &&
+					<Card>		
+						<CardActions style={styles.actions}>
+						</CardActions>			  
+						<CardTitle title={<font color={grey500}>{t('common:history.title')}</font>}/>
+						<ExpandTransition loading={loading} open={switchPage}> 
+						<Paper>
+						{loading && <div style = {{textAlign:'center'}}><CircularProgress size={80} thickness={5} /></div>}						
+						<div style={{margin:'auto', textAlign:'center'}}>{this.state.data.length !== 0 && this.renderTable()}</div>
+						</Paper>
+						</ExpandTransition>
+					</Card>
+				}			
 		  </div>
 		)
 	}

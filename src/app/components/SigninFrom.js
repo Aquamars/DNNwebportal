@@ -38,7 +38,7 @@ const styles = {
           textAlign: 'center ',
       },
       form: {
-          padding: '0 1em 1em 1em',
+          padding: '0 2.5em 2.5em 2.5em',
       },
       input: {
           display: 'flex',
@@ -163,8 +163,10 @@ class SigninFrom extends Component {
                           />
                       </div>
                     </div>
-                    <CardActions >
+                    <div style={styles.input}>
                       <LanguageBtn />
+                    </div>
+                    <CardActions style={{margin:8}} >                      
                       <RaisedButton
                           type="submit"
                           backgroundColor = {muiStyle.palette.primary1Color}
