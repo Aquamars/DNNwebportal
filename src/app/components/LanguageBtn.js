@@ -1,75 +1,89 @@
-import React, { Component, PropTypes } from 'react'
-import IconMenu from 'material-ui/IconMenu'
-import MenuItem from 'material-ui/MenuItem'
-import IconButton from 'material-ui/IconButton'
-import FlatButton from 'material-ui/FlatButton'
+import React, { Component } from 'react';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import FlatButton from 'material-ui/FlatButton';
 // ICON
-import ActionLanguage from 'material-ui/svg-icons/action/language'
-import LockIcon from 'material-ui/svg-icons/action/lock-outline'
+import ActionLanguage from 'material-ui/svg-icons/action/language';
 // GA
-import ReactGA from 'react-ga'
+import ReactGA from 'react-ga';
 // i18n
-import { translate, Interpolate } from 'react-i18next'
-import i18n from '../utils/i18n'
-const toggle = lng => i18n.changeLanguage(lng)
+import { translate } from 'react-i18next';
+import i18n from '../utils/i18n';
+
+const toggle = lng => i18n.changeLanguage(lng);
 /**
   Switch Language Button
   Example:
   ```
-  <LanguageBtn />
+  <LanguageBtn color={'#666'} />
   ```
  */
 class LanguageBtn extends Component {
-	state = {
-	  valueSingle: '3',	  
-	}
-	handleChangeSingle = (event, value) => {
+  static propTypes = {
+    /**
+      Setting the button color
+    */
+    color: React.PropTypes.string,
+  }
 
-	  // console.log(value)	
-	  switch(value){
-	  	case "0":
-	  		toggle('en')
-	  		//GA
-	  		ReactGA.event({
-		      category: 'Language',
-		      action: 'switch',
-		      label:'en'
-		    })
-	  		break
-	  	case "1":
-	  		toggle('tw')
-	  		//GA
-	  		ReactGA.event({
-		      category: 'Language',
-		      action: 'switch',
-		      label:'tw'
-		    })
-	  		break
-	  	default:
-	  		toggle('en')
-	  		//GA
-	  		ReactGA.event({
-		      category: 'Language',
-		      action: 'switch',
-		      label:'en'
-		    })
-	  		break
-	  }
-	}
-	render(){
-		const {t} = this.props
-		return (
-		<div style={{verticalAlign:'middle'}}>
-			<IconMenu
-	          iconButtonElement={<FlatButton label={<b>{t('common:language')}</b>} icon={<ActionLanguage />} />}
-	          onChange={this.handleChangeSingle}
-	          value={this.state.valueSingle}
-	        >
-	          <MenuItem value="0" primaryText="Eng" />
-	          <MenuItem value="1" primaryText="繁中" />          
-	        </IconMenu>
-        </div>
-		)
-	}
+  static defaultProps = {
+    color: '#000',
+  }
+  state = {
+    valueSingle: '3',
+  }
+  handleChangeSingle = (event, value) => {
+    // console.log(value)
+    switch (value) {
+      case '0' :
+        toggle('en');
+        // GA
+        ReactGA.event({
+          category: 'Language',
+          action: 'switch',
+          label: 'en',
+        });
+        break;
+      case '1':
+        toggle('tw');
+        // GA
+        ReactGA.event({
+          category: 'Language',
+          action: 'switch',
+          label: 'tw',
+        });
+        break;
+      default:
+        toggle('en');
+        // GA
+        ReactGA.event({
+          category: 'Language',
+          action: 'switch',
+          label: 'en',
+        });
+        break;
+    }
+  }
+  render() {
+    const { t } = this.props;
+    return (
+      <div style={{ verticalAlign: 'middle' }}>
+        <IconMenu
+          iconButtonElement={
+            <FlatButton
+              style={{ color: this.props.color }}
+              label={<b>{t('common:language')}</b>}
+              icon={<ActionLanguage color={this.props.color} />}
+            />
+          }
+          onChange={this.handleChangeSingle}
+          value={this.state.valueSingle}
+        >
+          <MenuItem value="0" primaryText="Eng" />
+          <MenuItem value="1" primaryText="繁中" />
+        </IconMenu>
+      </div>
+    );
+  }
 }
-export default translate('')(LanguageBtn)
+export default translate('')(LanguageBtn);

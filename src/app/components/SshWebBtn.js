@@ -35,11 +35,52 @@ class SshWebBtn extends Component {
 	  /**
 	    Will refresh reviewTable after count 
 	  */
+	  start: React.PropTypes.instanceOf(Date).isRequired,
+	  /**
+	    Will refresh reviewTable after count 
+	  */
 	  refresh: React.PropTypes.func.isRequired,
 	  /**
         the instance information 
       */
       data: React.PropTypes.object.isRequired,
+	}
+	static defaultProps = {		
+		data:  { 
+			id: '2',
+			statusId: 3,
+			projectCode: null,
+			username: 'mochatest',
+			password: 'k7xrtjep',
+			startedAt: '2018-12-31T16:00:00.000Z',
+			endedAt: '2019-01-15T15:59:59.000Z',
+			createdAt: '2017-09-12T07:35:30.973Z',
+			updatedAt: '2017-09-12T07:35:31.753Z',
+			userId: '99999999',
+			machine: { 
+				id: '3',
+				label: 'm3',
+				name: 'm3',
+				description: null,
+				gpuAmount: 1,
+				gpuType: 'v100',
+				statusId: 1 
+			},
+			container: {
+				id: '2', 
+				serviceIp: '5.5.6.6', 
+				podIp: '8.7.8.7', 
+				sshPort: '9527', 
+				ports: [] 
+			},
+			image:  { 
+				id: '30',
+				label: '201707v001',
+				name: 'tensorflow',
+				path: null,
+				description: null 
+			} 
+		}, 
 	}	
 	componentDidMount(){
 		if(this.props.data !== undefined && this.props.data.statusId == '2')

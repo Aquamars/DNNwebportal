@@ -26,6 +26,8 @@ import _DnnLogo_yellow from '../image/DNN Web logo_yellow.png'
 import _DnnLogo from './dnnIcon.png'
 import _lineCode from './lineQRCode.png'
 import _lineCode2 from './lineQRCode2.png'
+import _lineLogo from './LINE_Text_Logo_TypeA.png'
+import _lineLogo2 from './LINE_Text_Logo_TypeB.png'
 
 export const monkey = _monkey
 export const logo = _logo
@@ -55,3 +57,5 @@ export const DnnLogo_yellow = _DnnLogo_yellow
 export const DnnLogo = _DnnLogo
 export const lineCode = _lineCode
 export const lineCode2 = _lineCode2
+export const lineLogo = _lineLogo
+export const lineLogo2 = _lineLogo2
