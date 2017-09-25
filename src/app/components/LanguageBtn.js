@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import FlatButton from 'material-ui/FlatButton';
+import ReactTooltip from 'react-tooltip';
 // ICON
 import ActionLanguage from 'material-ui/svg-icons/action/language';
 // GA
@@ -67,7 +68,11 @@ class LanguageBtn extends Component {
   render() {
     const { t } = this.props;
     return (
-      <div style={{ verticalAlign: 'middle' }}>
+      <div
+        style={{ verticalAlign: 'middle' }}
+        data-tip
+        data-for="lang"
+      >
         <IconMenu
           iconButtonElement={
             <FlatButton
@@ -82,6 +87,9 @@ class LanguageBtn extends Component {
           <MenuItem value="0" primaryText="Eng" />
           <MenuItem value="1" primaryText="繁中" />
         </IconMenu>
+        <ReactTooltip id="lang" place="bottom" effect="solid">
+          <span>{t('common:switchLanguage')}</span>
+        </ReactTooltip>
       </div>
     );
   }
