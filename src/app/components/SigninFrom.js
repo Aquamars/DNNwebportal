@@ -134,7 +134,7 @@ class SigninFrom extends Component {
               <Avatar
                 backgroundColor={muiStyle.palette.accent1Color}
                 icon={<LockIcon />}
-                size={60}
+                size={65}
               />
             </div>
             {signInError && (
