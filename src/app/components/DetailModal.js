@@ -141,9 +141,8 @@ class DetailModal extends React.Component {
         <List>
           <div style={{ margin: '0px auto' }}>
             <div style={{ display: 'inline-block' }}><span><FtpInfoModal iconColor={'#FF3D00'} /></span></div>
-            <div style={{ display: 'inline-block' }}><span><SshWebBtn {...this.props} /></span></div>
+            <div style={{ display: 'inline-block' }}><span>{ (this.props.data.statusId === 2 || this.props.data.statusId === 3) && <SshWebBtn {...this.props} />}</span></div>
           </div>
-
           <CopyToClipboard
             text={this.props.data.container.podIp}
             onCopy={() => this.props.copyNotify(t('common:alreadyCopy'), 'ip')}
