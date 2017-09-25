@@ -85,7 +85,7 @@ class SshWebBtn extends Component {
     };
   }
   componentDidMount() {
-    if (this.props.data !== undefined && this.props.data.statusId === 2) {
+    if (this.props.data !== undefined && this.props.data.statusId !== 7) {
       this.timer = setInterval(this.tick, 50);
     }
   }
@@ -158,7 +158,8 @@ class SshWebBtn extends Component {
                   </ReactGA.OutboundLink>
                 </div>
               )}
-            {this.props.data.statusId === 2 && seconds < 10 && seconds > 0 && (
+            {(this.props.data.statusId === 2 || this.props.data.statusId === 1)
+              && seconds < 10 && seconds > 0 && (
               <div
                 style={{ display: 'inline-block', verticalAlign: 'middle' }}
               >
@@ -182,7 +183,7 @@ class SshWebBtn extends Component {
                 </ReactTooltip>
               </div>
             )}
-            {this.props.data.statusId !== 2 && this.props.data.statusId !== 3 && (
+            {this.props.data.statusId === 7 && (
               <div
                 style={{ display: 'inline-block', verticalAlign: 'middle' }}
               >
