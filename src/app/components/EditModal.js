@@ -29,7 +29,7 @@ import ReviewCalendar from './ReviewCalendar/ReviewCalendar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { muiStyle, muiTheme } from '../myTheme';
 
-import { API_PutExtDate, API_GetExtDate } from '../resource';
+import { ApiPutExtDate, ApiGetExtDate } from '../resource';
 
 /**
   Edit endDate of the instance
@@ -112,7 +112,7 @@ class EditModal extends React.Component {
   getExtandDate = () => {
     // console.log(this.props.id)
     // console.log(this.props.token)
-    const api = API_GetExtDate + this.props.data.id + '/extendable';
+    const api = ApiGetExtDate + this.props.data.id + '/extendable';
     axios
       .get(api, {
         headers: {
@@ -133,7 +133,7 @@ class EditModal extends React.Component {
       });
   };
   editDateApi = () => {
-    const api = API_PutExtDate + this.props.data.id;
+    const api = ApiPutExtDate + this.props.data.id;
     // console.log(moment(this.state.endTime).format('YYYY-MM-DD'))
     fetch(api, {
       method: 'put',
@@ -225,12 +225,10 @@ class EditModal extends React.Component {
       label: this.props.data.id,
     });
   };
-  disableDate = (date) => {
-    return (
+  disableDate = date => (
       moment(date).isBefore(this.props.data.endedAt) ||
       moment(date).isAfter(moment(this.state.latestDate))
-    );
-  };
+  );
   render() {
     const { t } = this.props;
     const actions = [

@@ -41,7 +41,7 @@ import LanguageBtn from './LanguageBtn';
 
 import { DnnLogo_yellow } from '../image/imageBase64';
 
-import { API_GetInfo } from '../resource';
+import { ApiGetInfo } from '../resource';
 
 const styles = {
   container: {
@@ -169,7 +169,7 @@ class MainContainer extends Component {
   // }
   getData = () => {
     axios
-      .get(API_GetInfo, {
+      .get(ApiGetInfo, {
         headers: {
           'X-Access-Token': this.props.token,
           Accept: 'application/json',
@@ -222,7 +222,6 @@ class MainContainer extends Component {
             switchReview={() => this.handleMenuTap(1)}
             refresh={this.getData}
             currentInstanceNum={this.state.data.length}
-            notify={this.handleNotify}
             token={this.props.token}
           />
         );

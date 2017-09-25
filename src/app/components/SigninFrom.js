@@ -19,7 +19,7 @@ import LockIcon from 'material-ui/svg-icons/action/lock-outline';
 import LanguageBtn from './LanguageBtn';
 import { muiStyle } from '../myTheme';
 
-import { API_SIGNIN } from '../resource';
+import { ApiSIGNIN } from '../resource';
 
 const styles = {
   main: {
@@ -67,7 +67,7 @@ class SigninFrom extends Component {
     this.setState({ submitting: true });
 
     axios
-      .get(API_SIGNIN, {
+      .get(ApiSIGNIN, {
         headers: {
           Accept: 'application/json',
           'x-username': this.state.username,

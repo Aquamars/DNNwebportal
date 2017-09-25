@@ -8,7 +8,7 @@ import Admin from '../Admin/reducerAdmin';
 
 const allReducers = combineReducers({
   notify: Notify,
-  admin: Admin
+  admin: Admin,
 });
 
 export default allReducers;

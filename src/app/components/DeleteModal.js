@@ -24,7 +24,7 @@ import { errorNotify } from './Notify/actionNotify';
 // style
 import { muiStyle } from '../myTheme';
 
-import { API_DeleteSchedule } from '../resource';
+import { ApiDeleteSchedule } from '../resource';
 
 
 /**
@@ -38,7 +38,7 @@ import { API_DeleteSchedule } from '../resource';
   />
   ```
  */
-class DeleteModal extends React.Component {  
+class DeleteModal extends React.Component {
   static propTypes = {
     /**
       The user token for call api
@@ -129,7 +129,7 @@ class DeleteModal extends React.Component {
       this.setState({
         loading: true,
       });
-      const api = API_DeleteSchedule + this.props.data.id;
+      const api = ApiDeleteSchedule + this.props.data.id;
       fetch(api, {
         method: 'delete',
         headers: {
@@ -197,7 +197,7 @@ class DeleteModal extends React.Component {
         onTouchTap={this.handleSubmit}
       />,
     ];
-    console.log(this.props.data);
+    // console.log(this.props.data);
     return (
       <div>
         <FlatButton

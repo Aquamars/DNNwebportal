@@ -158,9 +158,7 @@ class SshWebBtn extends Component {
                   </ReactGA.OutboundLink>
                 </div>
               )}
-            {this.props.data.statusId === 2 &&
-              seconds < 10 &&
-              seconds > 0 && (
+            {this.props.data.statusId === 2 && seconds < 10 && seconds > 0 && (
                 <div
                   style={{ display: 'inline-block', verticalAlign: 'middle' }}
                 >
@@ -172,15 +170,14 @@ class SshWebBtn extends Component {
                   </ReactTooltip>
                 </div>
               )}
-            {this.props.data.statusId === 2 &&
-              seconds > 10 && (
+            {this.props.data.statusId === 2 && seconds > 10 && (
                 <div
                   style={{ display: 'inline-block', verticalAlign: 'middle' }}
                 >
-                  <div data-tip data-for="status">
+                  <div data-tip data-for="statusHelp">
                     {seconds}s <ActionHelpOutline Color={redA700} />
                   </div>
-                  <ReactTooltip id="status" place="bottom" effect="solid">
+                  <ReactTooltip id="statusHelp" place="bottom" effect="solid">
                     <span>{t('common:status.help')}</span>
                   </ReactTooltip>
                 </div>

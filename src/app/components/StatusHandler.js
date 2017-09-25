@@ -113,7 +113,7 @@ class StatusHandler extends Component {
     //  console.log(new Date())
     //  console.log(new Date(this.props.start))
     // }
-    const { statusId, t } = this.props;
+    const { statusId } = this.props;
     return (
       <div>
         <div style={{ margin: '0px auto' }}>
