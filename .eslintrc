@@ -9,7 +9,8 @@
     "prefer-template":"off",
     "import/first":"off",
     "react/prop-types":"off",
-    "prefer-const":"off"  
+    "prefer-const":"off",
+    "linebreak-style":"off"
   },
   "globals": {
     "localStorage": true,
