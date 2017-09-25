@@ -2,6 +2,7 @@
     "logoSrc": "/image/itri_CEL_A.png",
     "wlogoSrc": "/image/itri_CEL_A_w.png",
     "language": "語言",
+    "switchLanguage": "切換語言",
     "appName": "TW DNN webportal",
     "username": "帳號(工號)",
     "password": "密碼",
@@ -87,7 +88,7 @@
     "excuteDay": "已執行天數",
     "leftDay": "剩餘天數",
     "openStorage":"開啟儲存空間",
-    "storage":"使用FTP client上傳資料",
+    "storage":"請使用FTP client上傳資料",
     "noInstance":",無連續可用的Instance!",    
     "history":{
         "history":"瀏覽歷史紀錄",
