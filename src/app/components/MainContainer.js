@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 // i18n
 import { translate } from 'react-i18next';
+// PDF
+import { displayPDF } from '../utils/MakeTutorialFile';
 // ICON
 import ExitIcon from 'material-ui/svg-icons/action/power-settings-new';
 import SocialPerson from 'material-ui/svg-icons/social/person';
@@ -39,7 +41,7 @@ import Machines from './Charts/Machines';
 import TutorialBtn from './TutorialBtn';
 import LanguageBtn from './LanguageBtn';
 
-import { DnnLogo_yellow } from '../image/imageBase64';
+import { DnnLogoYellow } from '../image/imageBase64';
 
 import { ApiGetInfo } from '../resource';
 
@@ -261,7 +263,7 @@ class MainContainer extends Component {
                 <span>
                   <img
                     style={{ height: 32, width: 64, verticalAlign: 'middle' }}
-                    src={DnnLogo_yellow}
+                    src={DnnLogoYellow}
                     alt={'DnnLogo'}
                   />
                   <b> DNN Web portal</b>
@@ -372,7 +374,7 @@ class MainContainer extends Component {
                   leftIcon={<ImagePictureAsPdf />}
                   primaryText={t('common:tutorial')}
                   onTouchTap={() =>
-                    displayPDF(localStorage.getItem('itriUser'))}
+                    displayPDF(localStorage.getItem('itriUser'), t('common:pdfLang'))}
                 />
                 {localStorage.getItem('itriUser') === 'A40503' &&
                 this.props.admin > 6 && (
