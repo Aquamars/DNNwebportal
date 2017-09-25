@@ -15,6 +15,7 @@ import ActionHistory from 'material-ui/svg-icons/action/history';
 import MachineIcon from 'material-ui/svg-icons/action/dns';
 import ImagePictureAsPdf from 'material-ui/svg-icons/image/picture-as-pdf';
 
+import ReactTooltip from 'react-tooltip';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import MenuItem from 'material-ui/MenuItem';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -287,18 +288,23 @@ class MainContainer extends Component {
                   >
                     <FtpInfoModal iconColor={'#fff'} />
                   </span>
+                  <span
+                    style={{ display: 'inline-block', verticalAlign: 'super' }}
+                  >
+                    <LanguageBtn color={'white'} />
+                  </span>
                   <span style={{ verticalAlign: 'super' }}>
                     <FlatButton
                       style={{ color: 'white' }}
                       label={<b>{t('common:signOut')}</b>}
                       icon={<ExitIcon color="white" />}
                       onTouchTap={() => this.props.SignOut()}
+                      data-tip
+                      data-for="signOut"
                     />
-                  </span>
-                  <span
-                    style={{ display: 'inline-block', verticalAlign: 'super' }}
-                  >
-                    <LanguageBtn color={'white'} />
+                    <ReactTooltip id="signOut" place="bottom" effect="solid">
+                      <span>{t('common:signOut')}</span>
+                    </ReactTooltip>
                   </span>
                   <span
                     style={{ display: 'inline-block', verticalAlign: 'sub' }}
