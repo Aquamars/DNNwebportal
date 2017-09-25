@@ -53,6 +53,7 @@ class FinishAutoPage extends React.Component {
         </h1>
         {t('common:pdfLang') === 'tc' ? (
           <h2 style={{ textAlign: 'center' }}>
+            <br />
             <b>
               {5 - seconds}s {t('common:createStep.refreshHint')}
             </b>
