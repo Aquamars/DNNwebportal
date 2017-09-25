@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import FlatButton from 'material-ui/FlatButton';
+import ReactTooltip from 'react-tooltip';
 // GA
 import ReactGA from 'react-ga';
 // i18n
@@ -47,12 +48,19 @@ class TutorialBtn extends Component {
   render() {
     const { t } = this.props;
     return (
-      <FlatButton
-        label={<b>{t('common:tutorial')}</b>}
-        style={{ color: '#fff' }}
-        icon={<ImagePictureAsPdf />}
-        onTouchTap={() => this.openPDF(t('common:pdfLang'))}
-      />
+      <div>
+        <FlatButton
+          label={<b>{t('common:tutorial')}</b>}
+          style={{ color: '#fff' }}
+          icon={<ImagePictureAsPdf />}
+          data-tip
+          data-for="pdf"
+          onTouchTap={() => this.openPDF(t('common:pdfLang'))}
+        />
+        <ReactTooltip id="pdf" place="bottom" effect="solid">
+          <span>{'PDF ' + t('common:tutorial')}</span>
+        </ReactTooltip>
+      </div>
     );
   }
 }
