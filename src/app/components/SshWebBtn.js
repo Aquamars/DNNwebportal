@@ -159,29 +159,41 @@ class SshWebBtn extends Component {
                 </div>
               )}
             {this.props.data.statusId === 2 && seconds < 10 && seconds > 0 && (
-                <div
-                  style={{ display: 'inline-block', verticalAlign: 'middle' }}
-                >
-                  <div data-tip data-for="status">
-                    <b>{seconds}s</b>
-                  </div>
-                  <ReactTooltip id="status" place="bottom" effect="solid">
-                    <span>{t('common:status.count')}</span>
-                  </ReactTooltip>
+              <div
+                style={{ display: 'inline-block', verticalAlign: 'middle' }}
+              >
+                <div data-tip data-for="status">
+                  <b>{seconds}s</b>
                 </div>
+                <ReactTooltip id="status" place="bottom" effect="solid">
+                  <span>{t('common:status.count')}</span>
+                </ReactTooltip>
+              </div>
               )}
             {this.props.data.statusId === 2 && seconds > 10 && (
-                <div
-                  style={{ display: 'inline-block', verticalAlign: 'middle' }}
-                >
-                  <div data-tip data-for="statusHelp">
-                    {seconds}s <ActionHelpOutline Color={redA700} />
-                  </div>
-                  <ReactTooltip id="statusHelp" place="bottom" effect="solid">
-                    <span>{t('common:status.help')}</span>
-                  </ReactTooltip>
+              <div
+                style={{ display: 'inline-block', verticalAlign: 'middle' }}
+              >
+                <div data-tip data-for="statusHelp">
+                  {seconds}s <ActionHelpOutline Color={redA700} />
                 </div>
-              )}
+                <ReactTooltip id="statusHelp" place="bottom" effect="solid">
+                  <span>{t('common:status.help')}</span>
+                </ReactTooltip>
+              </div>
+            )}
+            {this.props.data.statusId !== 2 && this.props.data.statusId !== 3 && (
+              <div
+                style={{ display: 'inline-block', verticalAlign: 'middle' }}
+              >
+                <div data-tip data-for="statusHelp">
+                  <ActionHelpOutline Color={redA700} />
+                </div>
+                <ReactTooltip id="statusHelp" place="bottom" effect="solid">
+                  <span>{t('common:status.help')}</span>
+                </ReactTooltip>
+              </div>
+            )}
           </div>
         ) : (
           <FlatButton
