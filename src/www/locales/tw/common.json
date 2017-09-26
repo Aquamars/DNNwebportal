@@ -29,7 +29,8 @@
         "canceled":"已取消",
         "error":"錯誤",
         "help":"試試右上的重新整理 或者 聯絡我們",
-        "count":"10秒後將會自動重新整理"
+        "count":"6秒後將會自動重新整理",
+        "creatings":"建立中"
     },
     "image": "Image",
     "imageDesc": "Image 內容描述",

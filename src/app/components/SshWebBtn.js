@@ -13,6 +13,7 @@ import { indigo900, redA700 } from 'material-ui/styles/colors';
 import Terminal from 'react-icons/lib/go/terminal';
 import ActionHelpOutline from 'material-ui/svg-icons/action/help-outline';
 
+import CopyToClipboard from 'react-copy-to-clipboard';
 import { SshWebURL, SshWebHost } from '../resource';
 
 /**
@@ -85,7 +86,8 @@ class SshWebBtn extends Component {
     };
   }
   componentDidMount() {
-    if (this.props.data !== undefined && this.props.data.statusId !== 7) {
+    if (this.props.data !== undefined && this.props.data.statusId !== 7
+      && this.props.data.statusId !== 3) {
       this.timer = setInterval(this.tick, 50);
     }
   }
@@ -107,7 +109,7 @@ class SshWebBtn extends Component {
     const elapsed = Math.round(this.state.elapsed / 100);
     const seconds = (elapsed / 10).toFixed(1);
     // console.log(seconds);
-    if (seconds > 10 && seconds < 11) {
+    if (seconds > 6 && seconds < 7) {
       this.props.refresh();
       this.setState({
         elapsed: new Date() - new Date(moment(this.props.data.createdAt).utc(8)),
@@ -145,20 +147,25 @@ class SshWebBtn extends Component {
                     }
                     target="_blank"
                   >
-                    <FlatButton
-                      icon={<Terminal size={28} color="black" />}
-                      label={
-                        <span>
-                          <font color={indigo900}>
-                            <b>{'ssh Web'}</b>
-                          </font>
-                        </span>
-                      }
-                    />
+                    <CopyToClipboard
+                      text={this.props.data.password}
+                      onCopy={() => this.props.copyNotify(t('common:alreadyCopy'), 'password')}
+                    >
+                      <FlatButton
+                        icon={<Terminal size={28} color="black" />}
+                        label={
+                          <span>
+                            <font color={indigo900}>
+                              <b>{'ssh Web'}</b>
+                            </font>
+                          </span>
+                        }
+                      />
+                    </CopyToClipboard>
                   </ReactGA.OutboundLink>
                 </div>
               )}
-            {(this.props.data.statusId === 2 || this.props.data.statusId === 1)
+            {(this.props.data.statusId === 2 || this.props.data.statusId === 8)
               && seconds < 10 && seconds > 0 && (
               <div
                 style={{ display: 'inline-block', verticalAlign: 'middle' }}
@@ -171,7 +178,7 @@ class SshWebBtn extends Component {
                 </ReactTooltip>
               </div>
               )}
-            {this.props.data.statusId === 2 && seconds > 10 && (
+            {this.props.data.statusId === 2 && seconds > 6 && (
               <div
                 style={{ display: 'inline-block', verticalAlign: 'middle' }}
               >
