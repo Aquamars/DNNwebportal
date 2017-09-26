@@ -29,7 +29,8 @@
         "canceled":"Canceled",
         "error":"Error",
         "help":"Try refresh (on top-right) or contact us.",
-        "count":"Will refresh after 10 seconds."
+        "count":"Will refresh after 6 seconds.",
+        "creatings":"creatings"
     },
     "image": "Image",
     "imageDesc": "Image description",
