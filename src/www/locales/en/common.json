@@ -2,6 +2,7 @@
     "logoSrc": "/image/itri_EL_A.png",
     "wlogoSrc": "/image/itri_EL_A_w.png",
     "language": "Language",
+    "switchLanguage": "Switch Language",
     "appName": "DNN webportal",
     "username": "Employee ID",
     "password": "Password",

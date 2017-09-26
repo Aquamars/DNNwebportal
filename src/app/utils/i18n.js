@@ -16,9 +16,9 @@ i18n
     defaultNS: 'common',
 
     debug: true,
-    backend: {      
+    backend: {
       loadPath: './locales/{{lng}}/{{ns}}.json',
-      crossDomain: true
+      crossDomain: true,
     },
     // cache: {
     //   enabled: true
@@ -27,12 +27,11 @@ i18n
     interpolation: {
       escapeValue: false, // not needed for react!!
       formatSeparator: ',',
-      format: function(value, format, lng) {
+      format: function (value, format, lng) {
         if (format === 'uppercase') return value.toUpperCase();
         return value;
-      }
-    }
+      },
+    },
   });
-
 
 export default i18n;

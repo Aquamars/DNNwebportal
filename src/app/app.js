@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Provider} from 'react-redux';
-import {createStore, applyMiddleware} from 'redux';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import promise from 'redux-promise';
 import { createLogger } from 'redux-logger';
@@ -18,48 +18,49 @@ injectTapEventPlugin();
 // Render the main app react component into the app div.
 // For more details see: https://facebook.github.io/react/docs/top-level-api.html#react.render
 // render(
-// 	<AppContainer>
-// 		<I18nextProvider i18n={ i18n }>
-// 			<Main />
-// 		</I18nextProvider>
-// 	</AppContainer>,
-// 	document.getElementById('app')
+// <AppContainer>
+//  <I18nextProvider i18n={ i18n }>
+//  <Main />
+// </I18nextProvider>
+// </AppContainer>,
+// document.getElementById('app')
 // );
 const logger = createLogger();
 const store = createStore(
-    reducer,
-    applyMiddleware(thunk, promise, logger),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() //for redux dev tool
+  reducer,
+  applyMiddleware(thunk, promise, logger),
+  window.__REDUX_DEVTOOLS_EXTENSION__ &&
+  window.__REDUX_DEVTOOLS_EXTENSION__(), // for redux dev tool
 );
 
-const render = Component => {
+const render = (Component) => {
   ReactDOM.render(
     <Provider store={store}>
       <AppContainer>
-      	<I18nextProvider i18n={ i18n }>
-    			<Component  />
-    		</I18nextProvider>
-    	</AppContainer>
+        <I18nextProvider i18n={i18n}>
+          <Component />
+        </I18nextProvider>
+      </AppContainer>
     </Provider>,
-    document.getElementById('app')
-  )
-}
+    document.getElementById('app'),
+  );
+};
 
-render(Main)
+render(Main);
 
 // if (module.hot) {
 //   module.hot.accept('./Main', () => { render(Main) })
 // }
 
-console.log('module.hot:'+module.hot)
+console.log('module.hot:' + module.hot);
 
-if(module.hot) {
-    module.hot.accept('./Main', () => {
-        const NextApp = require('./Main').default
-        render(NextApp)
-    })
+if (module.hot) {
+  module.hot.accept('./Main', () => {
+    const NextApp = require('./Main').default;
+    render(NextApp);
+  });
 }
- 
+
 // if(module.hot) {
 //     module.hot.accept();
 // }

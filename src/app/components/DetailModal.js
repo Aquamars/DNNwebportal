@@ -37,10 +37,10 @@ const textCenter = { textAlign: 'center' };
   Show more infomation of the instance
   Example:
   ```
-  <DetailModal 
+  <DetailModal
     data = {data}
-    iconColor = {grey500} 
-    showStatus={false} 
+    iconColor = {grey500}
+    showStatus={false}
   />
   ```
 */
@@ -106,9 +106,9 @@ class DetailModal extends React.Component {
     const leftDay = moment(this.props.data.endedAt).diff(moment(), 'days');
     this.state = {
       open: false,
-      increaseDay: increaseDay,
-      excuteDay: excuteDay,
-      leftDay: leftDay,
+      increaseDay,
+      excuteDay,
+      leftDay,
     };
   }
 
@@ -141,9 +141,8 @@ class DetailModal extends React.Component {
         <List>
           <div style={{ margin: '0px auto' }}>
             <div style={{ display: 'inline-block' }}><span><FtpInfoModal iconColor={'#FF3D00'} /></span></div>
-            <div style={{ display: 'inline-block' }}><span><SshWebBtn {...this.props} /></span></div>
+            <div style={{ display: 'inline-block' }}><span>{ (this.props.data.statusId === 2 || this.props.data.statusId === 3) && <SshWebBtn {...this.props} />}</span></div>
           </div>
-
           <CopyToClipboard
             text={this.props.data.container.podIp}
             onCopy={() => this.props.copyNotify(t('common:alreadyCopy'), 'ip')}
@@ -278,7 +277,7 @@ class DetailModal extends React.Component {
           data-for="detail"
           labelPosition="before"
           icon={<ActionToc />}
-          onTouchTap={this.handleOpen} 
+          onTouchTap={this.handleOpen}
         />
         <ReactTooltip id="detail" place="bottom" effect="solid">
           <span>{t('common:detail')}</span>
@@ -320,8 +319,6 @@ class DetailModal extends React.Component {
   }
 }
 function matchDispatchToProps(dispatch) {
-  return bindActionCreators({
-    copyNotify: copyNotify,
-  }, dispatch);
+  return bindActionCreators({ copyNotify }, dispatch);
 }
 export default connect(null, matchDispatchToProps)(translate('')(DetailModal));

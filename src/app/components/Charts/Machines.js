@@ -11,7 +11,7 @@ import 'react-resizable/css/styles.css';
 import { translate, Interpolate } from 'react-i18next'
 // API call
 import axios from 'axios'
-import {API_GetAll,API_GetMachine} from '../../resource'
+import {ApiGetAll,ApiGetMachine} from '../../resource'
 
 import {toMachineData} from '../../utils/ChartDataHandler'
 
@@ -26,9 +26,9 @@ class Machines extends Component {
 	getData = async () => {
 	  let current = moment()
 	  let addYears = current
-	  const a = await axios.get(API_GetMachine,{}).then((res)=>(res)).catch((err)=>(err))
+	  const a = await axios.get(ApiGetMachine,{}).then((res)=>(res)).catch((err)=>(err))
 	  const b = await axios.get(
-		      API_GetAll,
+		      ApiGetAll,
 		      {
 		      	params: {
 		          start: current.format('YYYY-MM-DD'),

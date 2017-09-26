@@ -1,22 +1,21 @@
-import React, { Component, PropTypes } from 'react'
-// Redux
-import {connect} from 'react-redux'
-import {bindActionCreators} from 'redux'
-import {AdminAdd} from './Admin/actionAdmin'
+import React, { Component } from 'react';
 
-import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation'
-import Avatar from 'material-ui/Avatar'
-import LanguageBtn from './LanguageBtn'
-import Paper from 'material-ui/Paper'
-import Drawer from 'material-ui/Drawer'
-import { translate, Interpolate } from 'react-i18next'
-import i18n from '../utils/i18n'
-import {lineCode, lineCode2, easterEgg, DnnLogo, lineLogo} from '../image'
-import pjson from '../../../package.json'
-// ICON
-import CommunicationEmail from 'material-ui/svg-icons/communication/email'
+import Avatar from 'material-ui/Avatar';
+import Paper from 'material-ui/Paper';
+import Drawer from 'material-ui/Drawer';
+import { BottomNavigation, BottomNavigationItem } from 'material-ui/BottomNavigation';
+// i18n
+import { translate } from 'react-i18next';
 // GA
-import ReactGA from 'react-ga'
+import ReactGA from 'react-ga';
+// Redux
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { AdminAdd } from './Admin/actionAdmin';
+
+import { lineCode2, DnnLogo, lineLogo } from '../image';
+import pjson from '../../../package.json';
+
 /**
   Footer
   Example:
@@ -26,64 +25,59 @@ import ReactGA from 'react-ga'
  */
 class Footer extends Component {
   constructor(props, context) {
-    super(props, context)
+    super(props, context);
     this.state = {
       open: false,
-    }
+    };
   }
 
   handleToggle = () => {
-    this.setState({open: !this.state.open})
+    this.setState({ open: !this.state.open });
     // GA
     ReactGA.event({
       category: 'Information',
-      action: !this.state.open ? 'open': 'close',      
-    })
-  }
+      action: !this.state.open ? 'open' : 'close',
+    });
+  };
 
-	render(){
-		const {t} = this.props   
-    // console.log(window.location.href)   
-		return (
-			<Paper zDepth={1}>
+  render() {
+    const { t } = this.props;
+    // console.log(window.location.href)
+    return (
+      <Paper zDepth={1}>
         <Drawer
           width={300}
-          openSecondary={true} 
-          open={this.state.open} 
-          containerStyle={{overflow:'hidden'}}          
+          openSecondary={true}
+          open={this.state.open}
+          containerStyle={{ overflow: 'hidden' }}
         >
-          <img width='100%'
-            src = {lineCode2} 
-            onClick={this.props.AdminAdd}                   
-          />
-          <div style={{textAlign:'center'}}>
+          <img width="100%" src={lineCode2} onClick={this.props.AdminAdd} alt="Line Code" />
+          <div style={{ textAlign: 'center' }}>
             <Avatar src={DnnLogo} size={100} />
-            <br/>
-            {'v '+pjson.version}
-            <br/>
+            <br />
+            {'v ' + pjson.version }
+            <br />
             {'© 2017 Industrial Technology Research Institute.'}
           </div>
         </Drawer>
         <BottomNavigation>
+          <BottomNavigationItem icon={<div />} />
           <BottomNavigationItem
-            icon={<div />}            
-          />
-          <BottomNavigationItem
-            icon={<img src={window.location.href+t('common:logoSrc')} />}
+            icon={<img src={window.location.href + t('common:logoSrc')} alt="DNNLogo" />}
             onTouchTap={this.handleToggle}
           />
           <BottomNavigationItem
-            icon={<img style={{width:'40%'}} src={lineLogo} />}
+            icon={<img style={{ width: '40%' }} src={lineLogo} alt="lineLogo" />}
             onTouchTap={this.handleToggle}
           />
         </BottomNavigation>
       </Paper>
-		)
-	}
+    );
+  }
 }
 
-function matchDispatchToProps(dispatch){
-    return bindActionCreators({AdminAdd: AdminAdd}, dispatch);
+function matchDispatchToProps(dispatch) {
+  return bindActionCreators({ AdminAdd }, dispatch);
 }
 
-export default connect(null, matchDispatchToProps)(translate('')(Footer))
+export default connect(null, matchDispatchToProps)(translate('')(Footer));

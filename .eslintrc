@@ -1,0 +1,24 @@
+{
+  "extends": "airbnb",
+  "parser": "babel-eslint",
+  "rules": {
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "no-undef": "error",
+    "react/jsx-boolean-value": 0,
+    "no-console":"off",
+    "prefer-template":"off",
+    "import/first":"off",
+    "react/prop-types":"off",
+    "prefer-const":"off",
+    "linebreak-style":"off"
+  },
+  "globals": {
+    "localStorage": true,
+    "fetch":false,
+    "window":false,
+    "document":false
+  },
+  "plugins": [
+    "prettier"
+  ]
+}

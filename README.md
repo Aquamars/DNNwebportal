@@ -5,7 +5,7 @@
 ## What is this repository for? ##
 ------
 * This webportal for creating instance to run DNN.
-* Version 0.2.9
+* Version 0.2.10
 
 ![alt text](/src/app/image/readme/DNNweb.gif "DNN web")
 
@@ -58,7 +58,6 @@ docker exec -it webportal /etc/init.d/nginx start
 ```
 docker tag SOURCE_IMAGE:TAG 100.86.2.10:32190/TARGET_IMAGE:TAG
 docker push 100.86.2.10:32190/TARGET_IMAGE:TAG
-
 ```
 
 ### Building the Image for container ###
@@ -118,6 +117,18 @@ docker exec dnnweb sh /dnnwebportal/changeFTP 127.0.0.1 9487
 
 * npm > 5.0.4
 * nodejs > 6.10.0
+
+## Code Style ##
+
+* [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)
+
+
+You can using plugin on editor (like Sublime, VS code, Atom ...)
+
+And install these modules :
+```
+npm install -g prettier eslint-plugin-prettier eslint-config-airbnb eslint-plugin-import eslint-plugin-react eslint-plugin-jsx-a11y@5.1.0
+```
 
 ## How do I get set up from this porject ? ##
 ------
@@ -313,8 +324,9 @@ https://support.google.com/analytics/answer/1033068?hl=en
 
 ## Change log ##
 ------
-last update 2017-09-22
+last update 2017-09-25
 
+* `0.2.10` reformat most of code
 * `0.2.9`  add line logo
 * `0.2.8`  add ssh web tutorial
 * `0.2.7`  add finishAutoPage, limitDay hints
