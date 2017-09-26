@@ -5,7 +5,7 @@
 ## What is this repository for? ##
 ------
 * This webportal for creating instance to run DNN.
-* Version 0.2.10
+* Version 0.2.11
 
 ![alt text](/src/app/image/readme/DNNweb.gif "DNN web")
 
@@ -324,8 +324,9 @@ https://support.google.com/analytics/answer/1033068?hl=en
 
 ## Change log ##
 ------
-last update 2017-09-25
+last update 2017-09-26
 
+* `0.2.11` add creatings status, change auto refresh time (6s)
 * `0.2.10` reformat most of code
 * `0.2.9`  add line logo
 * `0.2.8`  add ssh web tutorial

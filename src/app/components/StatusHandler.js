@@ -61,7 +61,7 @@ class StatusHandler extends Component {
         break;
       case 4:
       case '4':
-        obj = <Label color={'orange'}>{t('common:status.deleting')}</Label>;
+        obj = <Label color={'purple'}>{t('common:status.deleting')}</Label>;
         // obj = <font color ={deepOrangeA400}><b>{t('common:status.deleting')}</b></font>
         break;
       case 5:
@@ -77,6 +77,11 @@ class StatusHandler extends Component {
       case 7:
       case '7':
         obj = <Label color={'red'}>{t('common:status.error')}</Label>;
+        // obj = <font color ={redA700}><b>{t('common:status.error')}</b></font>
+        break;
+      case 8:
+      case '8':
+        obj = <Label color={'orange'}>{t('common:status.creatings')}</Label>;
         // obj = <font color ={redA700}><b>{t('common:status.error')}</b></font>
         break;
       default:
