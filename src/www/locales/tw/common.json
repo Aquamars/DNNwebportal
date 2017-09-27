@@ -28,7 +28,7 @@
         "deleted":"已刪除",
         "canceled":"已取消",
         "error":"錯誤",
-        "help":"試試右上的重新整理 或者 聯絡我們",
+        "help":"試試右上的重新整理 或者 聯絡(LINE)我們",
         "count":"6秒後將會自動重新整理",
         "creatings":"建立中"
     },
@@ -124,6 +124,7 @@
     "ftpPort":"連接埠",
     "ftpProtocol":"通訊協定",
     "copySshCmd":"點擊複製ssh指令",
+    "openSsh":"複製SSH密碼 & 開啟SSH Web",
     "tutorial":"教學文件",
     "contactUs":"聯絡我們",
     "pdfLang":"tc"
