@@ -266,7 +266,12 @@ class ReviewTable extends Component {
                             />
                           </TableRowColumn>
                           <TableRowColumn style={styles.textCenter}>
-                            {data.id}
+                            <CopyToClipboard
+                              text={data.machine.label + ' - ' + data.id}
+                              onCopy={() => this.props.copyNotify(t('common:alreadyCopy'), 'password')}
+                            >
+                              <div>{data.machine.label} - {data.id}</div>
+                            </CopyToClipboard>
                           </TableRowColumn>
                           <TableRowColumn style={styles.textCenter}>
                             {<StatusHandler statusId={data.statusId} />}
