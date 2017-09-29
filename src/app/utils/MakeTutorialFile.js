@@ -26,11 +26,12 @@ import {
   tensorflow,
   tensorflow2,
   tensorflow3,
+  apm1,
   header,
 } from '../image/imageBase64';
 // import {
 
-// } from '../image'
+// } from '../image';
 
 // import '../plugin/html2Canvas'
 export function displayPDF(username, language) {
@@ -634,8 +635,8 @@ export function displayPDF(username, language) {
         text: '\n\n',
       },
       {
-        text: 'Specifications',
-        fontSize: 24,
+        text: 'Notes',
+        fontSize: 18,
         bold: true,
       },
       {
@@ -643,12 +644,14 @@ export function displayPDF(username, language) {
       },
       {
         ul: [
-          'Users run script to upload event logs and obtain an URL to browse to TensorAPM. (details described in User Guide)',
-          'Every user will obtain a dedicated instance of TensorAPM, all instances will be isolated by IP port.',
-          'All graphs for same user+container IP address are grouped as drop-down items in same TensorAPM.',
-          'Once user changes relative to a given container IP address, the TensorAPM instance created for the previous user will be flushed.',
+          'In browser, Chrome and Firefox are supported. In case of unsupported browsers, like IE, the following message will show up',
         ],
         alignment: 'justify',
+      },
+      {
+        image: apm1,
+        width: 400,
+        alignment: 'center',
       },
     ],
 // PDF footer
@@ -1242,12 +1245,6 @@ export function displayPDF(username, language) {
         text: '\n\n',
       },
       {
-        text: '版本 : 0.1.0',
-        fontSize: 24,
-        font: 'tc',
-        bold: true,
-      },
-      {
         text: '\n',
       },
       {
@@ -1333,7 +1330,7 @@ export function displayPDF(username, language) {
       },
       {
         text: 'Specifications',
-        fontSize: 24,
+        fontSize: 18,
         bold: true,
       },
       {
@@ -1341,12 +1338,15 @@ export function displayPDF(username, language) {
       },
       {
         ul: [
-          'Users run script to upload event logs and obtain an URL to browse to TensorAPM. (details described in User Guide)',
-          'Every user will obtain a dedicated instance of TensorAPM, all instances will be isolated by IP port.',
-          'All graphs for same user+container IP address are grouped as drop-down items in same TensorAPM.',
-          'Once user changes relative to a given container IP address, the TensorAPM instance created for the previous user will be flushed.',
+          '瀏覽器支援Chrome與Firefox. 如果使用不支援的瀏覽器, 例如IE, 將出現如下的警示通知',
         ],
         alignment: 'justify',
+        font: 'tc',
+      },
+      {
+        image: apm1,
+        width: 350,
+        alignment: 'center',
       },
     ],
 // PDF footer
