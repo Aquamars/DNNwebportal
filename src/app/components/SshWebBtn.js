@@ -132,7 +132,7 @@ class SshWebBtn extends Component {
           <div>
             {this.props.data !== undefined &&
               this.props.data.statusId === 3 && (
-                <div>
+                <div data-tip data-for="openSSH">
                   <ReactGA.OutboundLink
                     eventLabel="SSHweb"
                     to={SshWebURL +
@@ -163,6 +163,9 @@ class SshWebBtn extends Component {
                       />
                     </CopyToClipboard>
                   </ReactGA.OutboundLink>
+                  <ReactTooltip id="openSSH" place="bottom" effect="solid">
+                    <span>{t('common:openSsh')}</span>
+                  </ReactTooltip>
                 </div>
               )}
             {(this.props.data.statusId === 2 || this.props.data.statusId === 8)

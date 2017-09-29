@@ -28,7 +28,7 @@
         "deleted":"Deleted",
         "canceled":"Canceled",
         "error":"Error",
-        "help":"Try refresh (on top-right) or contact us.",
+        "help":"Try refresh (on top-right) or contact(LINE) us.",
         "count":"Will refresh after 6 seconds.",
         "creatings":"creatings"
     },
@@ -124,6 +124,7 @@
     "ftpPort":"Port",
     "ftpProtocol":"Protocol",
     "copySshCmd":"Click to Copy SSH command",
+    "openSsh":"Copy SSH password & Open SSH web",
     "tutorial":"Tutorial",
     "contactUs":"Contact",
     "pdfLang":"eng"

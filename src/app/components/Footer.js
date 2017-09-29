@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { Friend } from 'react-line-social';
 import Avatar from 'material-ui/Avatar';
 import Paper from 'material-ui/Paper';
 import Drawer from 'material-ui/Drawer';
@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { AdminAdd } from './Admin/actionAdmin';
 
-import { lineCode2, DnnLogo, lineLogo } from '../image';
+import { lineCode2, DnnLogo } from '../image';
 import pjson from '../../../package.json';
 
 /**
@@ -40,6 +40,17 @@ class Footer extends Component {
     });
   };
 
+  switchLineLang = (lang) => {
+    switch (lang) {
+      case 'eng':
+        return (<Friend lineid="@bsw9983a" locale="en" count home />);
+      case 'tc':
+        return (<Friend lineid="@bsw9983a" count home />);
+      default:
+        return (<Friend lineid="@bsw9983a" count home />);
+    }
+  }
+
   render() {
     const { t } = this.props;
     // console.log(window.location.href)
@@ -61,14 +72,13 @@ class Footer extends Component {
           </div>
         </Drawer>
         <BottomNavigation>
-          <BottomNavigationItem icon={<div />} />
+          <BottomNavigationItem icon={<div></div>} />
           <BottomNavigationItem
             icon={<img src={window.location.href + t('common:logoSrc')} alt="DNNLogo" />}
             onTouchTap={this.handleToggle}
           />
           <BottomNavigationItem
-            icon={<img style={{ width: '40%' }} src={lineLogo} alt="lineLogo" />}
-            onTouchTap={this.handleToggle}
+            icon={this.switchLineLang(t('common:pdfLang'))}
           />
         </BottomNavigation>
       </Paper>

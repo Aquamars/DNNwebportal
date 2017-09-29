@@ -285,7 +285,7 @@ class DetailModal extends React.Component {
         <Dialog
           title={
             <div>
-              <b>{t('common:scheduleID')}-{this.props.data.id}</b>
+              <b>{this.props.data.machine.label}-{this.props.data.id}</b>
               {
                 showStatus &&
                 <div style={{ margin: '0px auto' }}>

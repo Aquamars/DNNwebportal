@@ -260,7 +260,7 @@ class DeleteModal extends React.Component {
                     />
                     <ListItem
                       primaryText={<b>{t('common:scheduleID')}</b>}
-                      secondaryText={this.props.data.id}
+                      secondaryText={this.props.data.machine.label + '-' + this.props.data.id}
                     />
                     <ListItem
                       primaryText={<b>{t('common:image')}</b>}
