@@ -1,6 +1,6 @@
 {
   "name": "DNNwebportal",
-  "version": "0.2.11",
+  "version": "0.2.12",
   "description": "ITRI DNN web portal",
   "author": "a40503",
   "repository": {
@@ -99,6 +99,7 @@
     "react-grid-layout": "^0.14.6",
     "react-i18next": "^4.6.1",
     "react-icons": "^2.2.3",
+    "react-line-social": "^0.2.0",
     "react-notification-system": "^0.2.13",
     "react-redux": "^5.0.6",
     "react-table": "^6.5.3",

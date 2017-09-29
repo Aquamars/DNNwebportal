@@ -276,8 +276,7 @@ class EditModal extends React.Component {
             title={
               <div>
                 <b>
-                  {t('common:scheduleID')}-{this.props.data.id}{' '}
-                  {t('common:editDate')}
+                  {this.props.data.machine.label}-{this.props.data.id}
                 </b>
               </div>
             }
