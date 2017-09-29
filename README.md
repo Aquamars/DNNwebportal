@@ -5,7 +5,7 @@
 ## What is this repository for? ##
 ------
 * This webportal for creating instance to run DNN.
-* Version 0.2.11
+* Version 0.2.12
 
 ![alt text](/src/app/image/readme/DNNweb.gif "DNN web")
 
@@ -29,6 +29,11 @@
 ## Docker Image ##
 ------
 
+### naming of Image ###
+
+* dnnweb: `dnn-web-gui` version: `2017v0.2.12`
+* sshweb: `dnn-web-gui` version: `2017v1.0.0`
+
 ### Using the Image ###
 
 * You need import Certificate Authority(CA) on your client
@@ -46,8 +51,8 @@ sudo service docker restart
 * `TAG` is dnnweb version
 
 ```
-docker pull 100.86.2.10:32190/dnnweb:TAG
-docker run -it -d -p xxxx:80 --name webportal dnnweb:TAG
+docker pull 100.86.2.10:32190/dnn-web-gui:TAG
+docker run -it -d -p xxxx:80 --name webportal dnn-web-gui:TAG
 docker exec -it webportal /etc/init.d/nginx start
 ```
 
@@ -63,7 +68,7 @@ docker push 100.86.2.10:32190/TARGET_IMAGE:TAG
 ### Building the Image for container ###
 
 ```
-docker commit -a "a40503" <container name> dnnweb:TAG
+docker commit -a "a40503" <container name> dnn-web-gui:TAG
 ```
 
 ### Building the Image ###
@@ -91,6 +96,8 @@ docker exec dnnweb sh /dnnwebportal/changeAPI http://127.0.0.1 9527
 
 ### Change SSHweb from container ###
 
+* input one port (the ssh gui port(default 10443))
+
 `
 docker exec dnnweb sh /dnnwebportal/changeSSH <your IP with http or https> <port>
 `
@@ -113,13 +120,17 @@ example :
 docker exec dnnweb sh /dnnwebportal/changeFTP 127.0.0.1 9487
 ```
 
-## Requirement ##
+## Webportal Requirement ##
+------
+* NOT support IE
 
+## Develop Requirement ##
+------
 * npm > 5.0.4
 * nodejs > 6.10.0
 
 ## Code Style ##
-
+------
 * [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)
 
 
@@ -177,6 +188,7 @@ npm run build
 * the files will generate in build folder
 
 ## Built With (major)
+------
 * [Reactjs](https://facebook.github.io/react/)
 * [Babel](https://babeljs.io/)
 * [Redux](https://github.com/reactjs/redux)
@@ -186,6 +198,7 @@ npm run build
 * [react-ga](https://github.com/react-ga/react-ga)
 
 ## Package With
+------
 * [Webpack](https://github.com/webpack/webpack) - module bundler
 	* [UglifyJS](https://github.com/webpack-contrib/uglifyjs-webpack-plugin) - minify JavaScript
 	* [Compression](https://github.com/webpack-contrib/compression-webpack-plugin) - compressed static assets
@@ -324,8 +337,9 @@ https://support.google.com/analytics/answer/1033068?hl=en
 
 ## Change log ##
 ------
-last update 2017-09-26
+last update 2017-09-29
 
+* `0.2.12` add noIE hint, change schedule ID (will show machine ID together)
 * `0.2.11` add creatings status, change auto refresh time (6s)
 * `0.2.10` reformat most of code
 * `0.2.9`  add line logo
