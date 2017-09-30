@@ -162,6 +162,12 @@ class EditModal extends React.Component {
       })
       .catch((err) => {
         console.log('err:' + err);
+        // GA
+        ReactGA.event({
+          category: 'Notify',
+          action: 'ERROR',
+          label: 'ERROR : Edit Date',
+        });
         this.props.errorNotify('ERROR : Edit Date');
       });
   };

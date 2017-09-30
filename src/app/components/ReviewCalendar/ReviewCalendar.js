@@ -19,6 +19,7 @@ class ReviewCalendar extends React.Component {
     endDate: React.PropTypes.string,
     title: React.PropTypes.object,
     showDetail: React.PropTypes.bool,
+    // gpuType: React.PropTypes.string,
   };
   static defaultProps = {
     defualtLoading: true,
@@ -105,7 +106,13 @@ class ReviewCalendar extends React.Component {
   getData = () => {
     console.log('ReviewCalendar');
     axios
-      .get(ApiGetCalendar)
+      .get(
+        ApiGetCalendar, {
+          // body: {
+          //   gpuType: this.props.gpuType,
+          // },
+        },
+      )
       .then((result) => {
         // console.log(result.data.availableCalendar)
         let avil1 = [];

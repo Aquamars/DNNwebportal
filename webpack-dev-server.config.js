@@ -8,6 +8,7 @@ const HappyPack = require('happypack');
 const os = require('os');
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length })
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const NyanProgressPlugin = require('nyan-progress-webpack-plugin');
 const config = {
   // context: path.join(__dirname, '/src/app/app.js'),
   // Entry points to the project
@@ -64,7 +65,15 @@ const config = {
       context: buildPath,
       // The path to the generated vendor-manifest file
       manifest: require(path.join(__dirname, './build/bundle4.manifest.json')),
-    }),     
+    }),
+    new NyanProgressPlugin({
+      debounceInterval: 60,
+      nyanCatSays (progress, messages) {
+        if (progress === 1){
+          return 'Engineer make bug, bug make engineer work.'
+        }
+      }
+    }),
     new webpack.optimize.UglifyJsPlugin({
       beautify: false,
       comments: false,
