@@ -6,6 +6,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const HappyPack = require('happypack');
 const os = require('os');
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
+const NyanProgressPlugin = require('nyan-progress-webpack-plugin');
 module.exports = {
     entry: {
         bundle: [
@@ -117,6 +118,13 @@ module.exports = {
           id: 'styleHappy',
           threadPool: happyThreadPool,
           loaders: ["style-loader","css-loader","less-loader","url-loader"]
+        }),
+        new NyanProgressPlugin({
+          nyanCatSays (progress, messages) {
+            if (progress === 1){
+              return 'Engineer make bug, bug make engineer work.'
+            }
+          }
         }),
         new BundleAnalyzerPlugin({
           // Can be `server`, `static` or `disabled`.
