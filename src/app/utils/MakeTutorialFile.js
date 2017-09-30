@@ -102,16 +102,16 @@ export function displayPDF(username, language) {
           {
             ul: [
               {
-                text: 'Using putty access instance on your PC\n',
+                text: 'Using SSH web to access instance\n',
                 linkToPage: 8,
               },
               {
-                text: 'Using linux to access instance\n',
-                linkToPage: 9,
+                text: 'Using putty access instance on your PC\n',
+                linkToPage: 10,
               },
               {
-                text: 'Using SSH web to access instance\n',
-                linkToPage: 10,
+                text: 'Using linux to access instance\n',
+                linkToPage: 11,
               },
             ],
             fontSize: 22,
@@ -298,48 +298,7 @@ export function displayPDF(username, language) {
         text: '\n\n',
       },
       {
-        text: '1. Using putty access instance on your PC.',
-        fontSize: 18,
-        bold: true,
-      },
-      {
-        text: 'Input your ip & port and select SSH.(you can click to copy&paste)',
-        fontSize: 16,
-      },
-      {
-        image: accessInstance1,
-        width: 500,
-        alignment: 'center',
-      },
-      {
-        text: 'Input your account name and password to access instance.',
-        fontSize: 16,
-      },
-      {
-        image: accessInstance2,
-        width: 260,
-        alignment: 'center',
-      },
-      {
-        text: '\n\n',
-      },
-      {
-        text: '2. Using linux to access instance.',
-        fontSize: 18,
-        bold: true,
-      },
-      {
-        text: 'Click to copy and paste the command lines.',
-        fontSize: 16,
-      },
-      {
-        image: accessInstance3,
-        width: 500,
-        alignment: 'center',
-        pageBreak: 'after',
-      },
-      {
-        text: '3. Using SSH web to access instance.',
+        text: '1. Using SSH web to access instance.',
         fontSize: 18,
         bold: true,
         font: 'tc',
@@ -388,6 +347,45 @@ export function displayPDF(username, language) {
       },
       {
         image: accessInstance6,
+        width: 500,
+        alignment: 'center',
+        pageBreak: 'after',
+      },
+      {
+        text: '2. Using putty access instance on your PC.',
+        fontSize: 18,
+        bold: true,
+      },
+      {
+        text: 'Input your ip & port and select SSH.(you can click to copy&paste)',
+        fontSize: 16,
+      },
+      {
+        image: accessInstance1,
+        width: 500,
+        alignment: 'center',
+      },
+      {
+        text: 'Input your account name and password to access instance.',
+        fontSize: 16,
+      },
+      {
+        image: accessInstance2,
+        width: 260,
+        alignment: 'center',
+        pageBreak: 'after',
+      },
+      {
+        text: '3. Using linux to access instance.',
+        fontSize: 18,
+        bold: true,
+      },
+      {
+        text: 'Click to copy and paste the command lines.',
+        fontSize: 16,
+      },
+      {
+        image: accessInstance3,
         width: 500,
         alignment: 'center',
         pageBreak: 'after',
@@ -778,7 +776,7 @@ export function displayPDF(username, language) {
           {
             ul: [
               {
-                text: '使用 putty 登入 instance\n',
+                text: '使用 SSH web 登入Instance\n',
                 linkToPage: 8,
               },
               {
@@ -786,7 +784,7 @@ export function displayPDF(username, language) {
                 linkToPage: 9,
               },
               {
-                text: '使用 SSH web 登入Instance\n',
+                text: '使用 putty 登入 instance\n',
                 linkToPage: 10,
               },
             ],
@@ -983,53 +981,7 @@ export function displayPDF(username, language) {
         text: '\n\n',
       },
       {
-        text: '1. 使用 putty 登入 instance。',
-        fontSize: 18,
-        bold: true,
-        font: 'tc',
-      },
-      {
-        text: '輸入Instance的IP和port，選擇SSH. (您可以直接點擊來複製資訊)',
-        fontSize: 16,
-        font: 'tc',
-      },
-      {
-        image: accessInstance1,
-        width: 450,
-        alignment: 'center',
-      },
-      {
-        text: '輸入您的帳號與密碼來登入您的Instance。',
-        fontSize: 16,
-        font: 'tc',
-      },
-      {
-        image: accessInstance2,
-        width: 260,
-        alignment: 'center',
-      },
-      {
-        text: '\n\n',
-      },
-      {
-        text: '2. 使用 linux 系統登入Instance。',
-        fontSize: 18,
-        bold: true,
-        font: 'tc',
-      },
-      {
-        text: '只需要點擊即可複製指令，然後貼上指令執行。',
-        fontSize: 16,
-        font: 'tc',
-      },
-      {
-        image: accessInstance3,
-        width: 500,
-        alignment: 'center',
-        pageBreak: 'after',
-      },
-      {
-        text: '3. 使用 SSH web 登入Instance。',
+        text: '1. 使用 SSH web 登入Instance。',
         fontSize: 18,
         bold: true,
         font: 'tc',
@@ -1078,6 +1030,50 @@ export function displayPDF(username, language) {
       },
       {
         image: accessInstance6,
+        width: 500,
+        alignment: 'center',
+        pageBreak: 'after',
+      },
+      {
+        text: '2. 使用 putty 登入 instance。',
+        fontSize: 18,
+        bold: true,
+        font: 'tc',
+      },
+      {
+        text: '輸入Instance的IP和port，選擇SSH. (您可以直接點擊來複製資訊)',
+        fontSize: 16,
+        font: 'tc',
+      },
+      {
+        image: accessInstance1,
+        width: 450,
+        alignment: 'center',
+      },
+      {
+        text: '輸入您的帳號與密碼來登入您的Instance。',
+        fontSize: 16,
+        font: 'tc',
+      },
+      {
+        image: accessInstance2,
+        width: 260,
+        alignment: 'center',
+        pageBreak: 'after',
+      },
+      {
+        text: '3. 使用 linux 系統登入Instance。',
+        fontSize: 18,
+        bold: true,
+        font: 'tc',
+      },
+      {
+        text: '只需要點擊即可複製指令，然後貼上指令執行。',
+        fontSize: 16,
+        font: 'tc',
+      },
+      {
+        image: accessInstance3,
         width: 500,
         alignment: 'center',
         pageBreak: 'after',
