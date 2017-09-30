@@ -9,7 +9,7 @@ import 'animate.css/animate.min.css';
 import { Animated } from 'react-animated-css';
 // API
 import axios from 'axios';
-import { ApiGetMachine, ApiCreateSchedule, ApiCheckInstance, ApiGetImage } from '../../resource';
+import { ApiGetMachine, ApiCreateSchedule, ApiCheckInstance, ApiGetImage, gpuTypeList } from '../../resource';
 // redux
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -81,6 +81,7 @@ class CreatePage extends React.Component {
       createdRespData: {},
       availableNumber: [], // arrary of avilable instances
       availableMachines: [], // arrary of avilable machines
+      gpuType: gpuTypeList[0], // selected gputype
       instanceArr: [{ instance: 0, image: 0, imageDesc: '' }],
       imageArr: [
         'Cowboy Bebop',
@@ -101,6 +102,7 @@ class CreatePage extends React.Component {
       case 0:
         return (
           <div>
+            {}
             <div style={{ margin: '0px auto' }}>
               <div style={{ display: 'inline-block' }}>
                 <div>
@@ -203,7 +205,7 @@ class CreatePage extends React.Component {
                 />
                 <Divider />
                 <CardText expandable={true}>
-                  {''}
+                  {}
                   {this.renderSelectImage(instance, index)}
                 </CardText>
                 {}
@@ -287,8 +289,8 @@ class CreatePage extends React.Component {
       body: JSON.stringify({
         start: moment(this.state.startDate).format('YYYY-MM-DD'),
         end: moment(this.state.endDate).format('YYYY-MM-DD'),
-        image_id: this.state.imageArr[this.state.instanceArr[0].image].id,
-        // machine_id: this.state.instanceArr[0].machineObj.id
+        imageId: this.state.imageArr[this.state.instanceArr[0].image].id,
+        machineId: this.state.instanceArr[0].machineObj.id,
       }),
       // body:data
     })
@@ -551,6 +553,7 @@ class CreatePage extends React.Component {
     this.setState({ instanceArr });
     console.log(this.state.instanceArr);
   };
+  gpuSelect = (event, index, value) => this.setState({ gpuType: value });
   ChangeProjectNum = (value, selectValue) => {
     this.setState({
       projectNum: value,
@@ -561,6 +564,35 @@ class CreatePage extends React.Component {
     this.props.refresh();
     this.props.switchReview();
   };
+  renderSelectGpu = () => {
+    const { t } = this.props;
+    return (
+      <div style={{ margin: '0px auto' }}>
+        <div style={{ display: 'inline-block', verticalAlign: 'super' }}>
+          <Animated animationIn="rollIn" isVisible={true}>
+            <ActionLabel color={muiStyle.palette.primary1Color} />
+          </Animated>
+        </div>
+        <div style={{ display: 'inline-block' }}>
+          <SelectField
+            floatingLabelText={
+              'GPU'
+            }
+            onChange={this.gpuSelect}
+            value={this.state.gpuType}
+          >
+            {gpuTypeList.map((gpu, index) => (
+              <MenuItem
+                key={index}
+                value={gpu}
+                primaryText={gpu}
+              />
+            ))}
+          </SelectField>
+        </div>
+      </div>
+    );
+  }
   renderSelectImage = (instance, index) => {
     const { t } = this.props;
     return (
@@ -613,22 +645,31 @@ class CreatePage extends React.Component {
     console.log(instance.machine);
     return (
       <div>
-        <SelectField
-          key={instance.instance}
-          floatingLabelText={
-            'Instance ' + index + ' ' + t('common:instanceMachine')
-          }
-          onChange={this.machineSelect.bind(null, index)}
-          value={instance.machine}
-        >
-          {this.state.availableMachines.map((machine, index) => (
-            <MenuItem
-              key={machine.id}
-              value={index}
-              primaryText={machine.name}
-            />
-          ))}
-        </SelectField>
+        <div style={{ margin: '0px auto' }}>
+          <div style={{ display: 'inline-block', verticalAlign: 'super' }}>
+            <Animated animationIn="rollIn" isVisible={true}>
+              <ActionLabel color={muiStyle.palette.primary1Color} />
+            </Animated>
+          </div>
+          <div style={{ display: 'inline-block' }}>
+          <SelectField
+            key={instance.instance}
+            floatingLabelText={
+              'Instance ' + index + ' ' + t('common:instanceMachine')
+            }
+            onChange={this.machineSelect.bind(null, index)}
+            value={instance.machine}
+          >
+            {this.state.availableMachines.map((machine, index) => (
+              <MenuItem
+                key={machine.id}
+                value={index}
+                primaryText={machine.name}
+              />
+            ))}
+          </SelectField>
+          </div>
+        </div>
         <br />
         <div>
           <Card>
@@ -687,7 +728,7 @@ class CreatePage extends React.Component {
               </Table>
             </CardText>
           </Card>
-        </div>
+        </div>        
       </div>
     );
   };
