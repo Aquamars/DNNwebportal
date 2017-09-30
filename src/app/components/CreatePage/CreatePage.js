@@ -174,6 +174,7 @@ class CreatePage extends React.Component {
               value={this.state.instanceNum}
               onChange={this.handleInstanceNumChange}
               disabled={true}
+              style={{ display: 'none' }}
             >
               {false &&
                 this.state.availableNumber.map(data => (
