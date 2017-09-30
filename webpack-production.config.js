@@ -9,6 +9,7 @@ const os = require('os');
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length })
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const NyanProgressPlugin = require('nyan-progress-webpack-plugin');
+
 const config = {
   entry: ['babel-polyfill',path.join(__dirname, '/src/app/app.js')],
   // Render source-map file for final build
@@ -103,6 +104,7 @@ const config = {
       manifest: require(path.join(__dirname, './build/bundle4.manifest.json')),
     }),
     new NyanProgressPlugin({
+      debounceInterval: 60,
       nyanCatSays (progress, messages) {
         if (progress === 1){
           return 'Engineer make bug, bug make engineer work.'

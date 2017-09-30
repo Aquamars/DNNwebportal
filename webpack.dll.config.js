@@ -120,6 +120,7 @@ module.exports = {
           loaders: ["style-loader","css-loader","less-loader","url-loader"]
         }),
         new NyanProgressPlugin({
+          debounceInterval: 60,
           nyanCatSays (progress, messages) {
             if (progress === 1){
               return 'Engineer make bug, bug make engineer work.'
