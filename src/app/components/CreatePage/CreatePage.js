@@ -290,7 +290,7 @@ class CreatePage extends React.Component {
         start: moment(this.state.startDate).format('YYYY-MM-DD'),
         end: moment(this.state.endDate).format('YYYY-MM-DD'),
         imageId: this.state.imageArr[this.state.instanceArr[0].image].id,
-        machineId: this.state.instanceArr[0].machineObj.id,
+        // machineId: this.state.instanceArr[0].machineObj.id,
       }),
       // body:data
     })
