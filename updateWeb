@@ -1,0 +1,9 @@
+#!/bin/bash
+
+cd /dnnwebportal
+
+git checkout master
+
+git pull
+
+npm run build
