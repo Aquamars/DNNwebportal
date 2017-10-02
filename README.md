@@ -1,6 +1,38 @@
 # DNN webportal #
 
-
+## Outline ##
+-----
+* [What is this repository for](#What-is-this-repository-for)
+* [Features](#Features)
+* [Docker Image](#Docker-Image)
+    * [Naming of Image](#Naming-of-Image)
+    * [Using the Image](#Using-the-Image)
+    * [Upload image](#Upload-image)
+    * [Building Image form container](#Building-Image-form-container)
+    * [Building the Image](#Building-the-Image)
+    * [Change API from container](#Change-API-from-container)
+    * [Change SSHweb from container](#Change-SSHweb-from-container)
+    * [Change FTP from container](#Change-FTP-from-container)    
+    * [Update webportal from container](#Update-webportal-from-container)
+* [Webportal Requirement](#Webportal-Requirement)
+* [Develop Requirement](#Develop-Requirement)
+* [Code Style](#Code-Style)
+* [How do I get set up from this porject ?](#How-do-I-get-set-up-from-this-porject-?)
+* [Built With](#Built-With)
+* [Package With](#Package-With)
+* [Package Analysis](#Package-Analysis)
+    * [report.app.html](#report.app.html)
+    * [report.dll.html](#report.dll.html)
+    * [Other Analysis tools](#Other-Analysis-tools)
+* [Google analytics Event data](#Google-analytics-Event-data)
+    * [Anatomy of Events](#Anatomy-of-Events)
+    * [Webportal events](#Webportal-events)
+* [Contribution guidelines](#Contribution-guidelines)
+    * [Develop](#Develop)
+    * [Translation](#Translation)
+    * [UI&UX Design](#UI&UX-Design)
+* [Who do I talk to?](#Who-do-I-talk-to?)
+* [Change log](#Change-log)
 
 ## What is this repository for? ##
 ------
@@ -66,7 +98,7 @@ docker tag SOURCE_IMAGE:TAG 100.86.2.10:32190/TARGET_IMAGE:TAG
 docker push 100.86.2.10:32190/TARGET_IMAGE:TAG
 ```
 
-### Building the Image for container ###
+### Building Image form container ###
 
 ```
 docker commit -a "a40503" <container name> dnn-web-gui:TAG
@@ -121,10 +153,11 @@ example :
 docker exec dnn-web-gui sh /dnnwebportal/changeFTP 127.0.0.1 9487
 ```
 
-### update webportal from container ###
+### Update webportal from container ###
+
+* on `91% additional asset processing` will take a monent to build
 
 example :
-
 ```
 docker exec dnn-web-gui sh /dnnwebportal/updateWeb
 ```
@@ -142,6 +175,7 @@ docker exec dnn-web-gui sh /dnnwebportal/updateWeb
 ------
 * [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)
 
+On `.eslintrc` will ignore some rule.
 
 You can using plugin on editor (like Sublime, VS code, Atom, WeBstorm ...)
 
@@ -176,6 +210,7 @@ npm run app
 ```
 * package dll(bundle.js,bundle2.js,bundle3.js,bundle4.js) and app(app.js)
 * the files will generate in build folder
+* on `91% additional asset processing` will take a monent to build
 
 ```
 npm run styleguide
@@ -196,7 +231,7 @@ npm run build
 * package all (dll and app)
 * the files will generate in build folder
 
-## Built With (major)
+## Built With
 ------
 * [Reactjs](https://facebook.github.io/react/)
 * [Babel](https://babeljs.io/)
@@ -245,7 +280,7 @@ npm run build
 
 ![alt text](/src/app/image/readme/dll.PNG "dll.js")
 
-### other Analysis tools
+### Other Analysis tools
 * put JSON file( `stats.dev.json` , `stats.app.json` , `stats.dll.json` ) on these website
 	* analyse - https://github.com/webpack/analyse
 	* webpack-visualizer - https://chrisbateman.github.io/webpack-visualizer/
@@ -258,7 +293,7 @@ npm run build
 Category -> Action -> Label -> Value
 https://support.google.com/analytics/answer/1033068?hl=en
 
-### webportal events
+### Webportal events
 
 ```javascript
 {
@@ -348,7 +383,7 @@ https://support.google.com/analytics/answer/1033068?hl=en
 
 ## Change log ##
 ------
-last update 2017-09-30
+last update 2017-10-02
 
 * `0.3.2` add updateWeb Shell Script
 * `0.3.1` update tutorial APM, hiden instance number
