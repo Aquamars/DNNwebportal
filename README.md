@@ -155,7 +155,9 @@ docker exec dnn-web-gui sh /dnnwebportal/changeFTP 127.0.0.1 9487
 
 ### Update webportal from container ###
 
+* Need set `.git-credentials` in first
 * on `91% additional asset processing` will take a monent to build
+* Will automatically git pull, install module, package and update Web
 
 example :
 ```
