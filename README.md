@@ -1,16 +1,48 @@
 # DNN webportal #
 
-
+## Outline ##
+-----
+* [What is this repository for](#What-is-this-repository-for)
+* [Features](#Features)
+* [Docker Image](#Docker-Image)
+    * [Naming of Image](#Naming-of-Image)
+    * [Using the Image](#Using-the-Image)
+    * [Upload image](#Upload-image)
+    * [Building Image form container](#Building-Image-form-container)
+    * [Building the Image](#Building-the-Image)
+    * [Change API from container](#Change-API-from-container)
+    * [Change SSHweb from container](#Change-SSHweb-from-container)
+    * [Change FTP from container](#Change-FTP-from-container)    
+    * [Update webportal from container](#Update-webportal-from-container)
+* [Webportal Requirement](#Webportal-Requirement)
+* [Develop Requirement](#Develop-Requirement)
+* [Code Style](#Code-Style)
+* [How do I get set up from this porject ?](#How-do-I-get-set-up-from-this-porject-?)
+* [Built With](#Built-With)
+* [Package With](#Package-With)
+* [Package Analysis](#Package-Analysis)
+    * [report.app.html](#report.app.html)
+    * [report.dll.html](#report.dll.html)
+    * [Other Analysis tools](#Other-Analysis-tools)
+* [Google analytics Event data](#Google-analytics-Event-data)
+    * [Anatomy of Events](#Anatomy-of-Events)
+    * [Webportal events](#Webportal-events)
+* [Contribution guidelines](#Contribution-guidelines)
+    * [Develop](#Develop)
+    * [Translation](#Translation)
+    * [UI&UX Design](#UI&UX-Design)
+* [Who do I talk to?](#Who-do-I-talk-to?)
+* [Change log](#Change-log)
 
 ## What is this repository for? ##
 ------
 * This webportal for creating instance to run DNN.
-* Version 0.2.12
+* Version 0.3.2
 
 ![alt text](/src/app/image/readme/DNNweb.gif "DNN web")
 
 ## Features ##
-
+------
 * SignIn & SignOut
 * Dynamic generate PDF
 * Material style
@@ -24,6 +56,7 @@
 * Google analytics
 * Package Analysis
 * Change API, FTP, SSHweb host&port from container
+* Update web version from container
 * Docker image
 
 ## Docker Image ##
@@ -65,7 +98,7 @@ docker tag SOURCE_IMAGE:TAG 100.86.2.10:32190/TARGET_IMAGE:TAG
 docker push 100.86.2.10:32190/TARGET_IMAGE:TAG
 ```
 
-### Building the Image for container ###
+### Building Image form container ###
 
 ```
 docker commit -a "a40503" <container name> dnn-web-gui:TAG
@@ -85,13 +118,13 @@ docker build -t dnnweb .
 ### Change API from container ###
 
 `
-docker exec dnnweb sh /dnnwebportal/changeAPI <your IP with http or https> <port>
+docker exec dnn-web-gui sh /dnnwebportal/changeAPI <your IP with http or https> <port>
 `
 
 example :
 
 ```
-docker exec dnnweb sh /dnnwebportal/changeAPI http://127.0.0.1 9527
+docker exec dnn-web-gui sh /dnnwebportal/changeAPI http://127.0.0.1 9527
 ```
 
 ### Change SSHweb from container ###
@@ -99,25 +132,34 @@ docker exec dnnweb sh /dnnwebportal/changeAPI http://127.0.0.1 9527
 * input one port (the ssh gui port(default 10443))
 
 `
-docker exec dnnweb sh /dnnwebportal/changeSSH <your IP with http or https> <port>
+docker exec dnn-web-gui sh /dnnwebportal/changeSSH <your IP with http or https> <port>
 `
 
 example :
 
 ```
-docker exec dnnweb sh /dnnwebportal/changeSSH http://127.0.0.1 5566
+docker exec dnn-web-gui sh /dnnwebportal/changeSSH http://127.0.0.1 5566
 ```
 
 ### Change FTP from container ###
 
 `
-docker exec dnnweb sh /dnnwebportal/changeFTP <your host> <port>
+docker exec dnn-web-gui sh /dnnwebportal/changeFTP <your host> <port>
 `
 
 example :
 
 ```
-docker exec dnnweb sh /dnnwebportal/changeFTP 127.0.0.1 9487
+docker exec dnn-web-gui sh /dnnwebportal/changeFTP 127.0.0.1 9487
+```
+
+### Update webportal from container ###
+
+* on `91% additional asset processing` will take a monent to build
+
+example :
+```
+docker exec dnn-web-gui sh /dnnwebportal/updateWeb
 ```
 
 ## Webportal Requirement ##
@@ -133,8 +175,9 @@ docker exec dnnweb sh /dnnwebportal/changeFTP 127.0.0.1 9487
 ------
 * [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)
 
+On `.eslintrc` will ignore some rule.
 
-You can using plugin on editor (like Sublime, VS code, Atom ...)
+You can using plugin on editor (like Sublime, VS code, Atom, WeBstorm ...)
 
 And install these modules :
 ```
@@ -167,6 +210,7 @@ npm run app
 ```
 * package dll(bundle.js,bundle2.js,bundle3.js,bundle4.js) and app(app.js)
 * the files will generate in build folder
+* on `91% additional asset processing` will take a monent to build
 
 ```
 npm run styleguide
@@ -187,7 +231,7 @@ npm run build
 * package all (dll and app)
 * the files will generate in build folder
 
-## Built With (major)
+## Built With
 ------
 * [Reactjs](https://facebook.github.io/react/)
 * [Babel](https://babeljs.io/)
@@ -207,6 +251,8 @@ npm run build
 
 ## Package Analysis ##
 ------
+
+**Different cpu have different result**
 
 ### report.app.html
 
@@ -234,7 +280,7 @@ npm run build
 
 ![alt text](/src/app/image/readme/dll.PNG "dll.js")
 
-### other Analysis tools
+### Other Analysis tools
 * put JSON file( `stats.dev.json` , `stats.app.json` , `stats.dll.json` ) on these website
 	* analyse - https://github.com/webpack/analyse
 	* webpack-visualizer - https://chrisbateman.github.io/webpack-visualizer/
@@ -247,7 +293,7 @@ npm run build
 Category -> Action -> Label -> Value
 https://support.google.com/analytics/answer/1033068?hl=en
 
-### webportal events
+### Webportal events
 
 ```javascript
 {
@@ -337,8 +383,11 @@ https://support.google.com/analytics/answer/1033068?hl=en
 
 ## Change log ##
 ------
-last update 2017-09-29
+last update 2017-10-02
 
+* `0.3.2` add updateWeb Shell Script
+* `0.3.1` update tutorial APM, hiden instance number
+* `0.3.0` change new API
 * `0.2.12` add noIE hint, change schedule ID (will show machine ID together)
 * `0.2.11` add creatings status, change auto refresh time (6s)
 * `0.2.10` reformat most of code

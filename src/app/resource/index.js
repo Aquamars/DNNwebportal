@@ -43,12 +43,15 @@ export const ApiGetAll = ApiURL + '/schedule';
 export const ApiGetMachine = ApiURL + '/machine/';
 // FTP
 export const FTPHost = ftp.host;
-export const FTPPort = ftp.port;// SshWeb
-
+export const FTPPort = ftp.port;
+// SshWeb
 export const SshWebIP = sshweb.host;
 export const SshWebPort = sshweb.port;
 export const SshWebHost = SshWebIP + ':' + SshWebPort;
 export const SshWebURL = SshWebHost + '/?ssh=ssh://';
+// GPU array
+export const gpuTypeList = ['v100', 'GTX1080'];
+
 // fake data
 export const DATA = [
   {
@@ -275,7 +278,7 @@ function readFile(OrgProject) {
 export const getInfo = async (token, mode) => {
   const result = await axios
   .get(ApiGetInfo, {
-    headers: { 'X-Access-Token': token, Accepts: 'application/json' },
+    headers: { 'X-Access-Token': token, Accept: 'application/json' },
     params: { mode },
   })
   .then(res => res)
