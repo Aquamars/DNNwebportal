@@ -1,45 +1,49 @@
 # DNN webportal #
 
-## Outline ##
------
-* [What is this repository for](#What-is-this-repository-for)
-* [Features](#Features)
-* [Docker Image](#Docker-Image)
-    * [Naming of Image](#Naming-of-Image)
-    * [Using the Image](#Using-the-Image)
-    * [Upload image](#Upload-image)
-    * [Building Image form container](#Building-Image-form-container)
-    * [Building the Image](#Building-the-Image)
-    * [Change API from container](#Change-API-from-container)
-    * [Change SSHweb from container](#Change-SSHweb-from-container)
-    * [Change FTP from container](#Change-FTP-from-container)    
-    * [Update webportal from container](#Update-webportal-from-container)
-* [Webportal Requirement](#Webportal-Requirement)
-* [Develop Requirement](#Develop-Requirement)
-* [Code Style](#Code-Style)
-* [How do I get set up from this porject ?](#How-do-I-get-set-up-from-this-porject-?)
-* [Built With](#Built-With)
-* [Package With](#Package-With)
-* [Package Analysis](#Package-Analysis)
-    * [report.app.html](#report.app.html)
-    * [report.dll.html](#report.dll.html)
-    * [Other Analysis tools](#Other-Analysis-tools)
-* [Google analytics Event data](#Google-analytics-Event-data)
-    * [Anatomy of Events](#Anatomy-of-Events)
-    * [Webportal events](#Webportal-events)
-* [Contribution guidelines](#Contribution-guidelines)
-    * [Develop](#Develop)
-    * [Translation](#Translation)
-    * [UI&UX Design](#UI&UX-Design)
-* [Who do I talk to?](#Who-do-I-talk-to?)
-* [Change log](#Change-log)
-
 ## What is this repository for? ##
 ------
 * This webportal for creating instance to run DNN.
 * Version 0.3.2
 
 ![alt text](/src/app/image/readme/DNNweb.gif "DNN web")
+
+## Outline ##
+-----
+* [What is this repository for-?](#what-is-this-repository-for-?)
+* [Features](#features)
+* [Docker Image](#docker-image)
+    * [Naming of Image](#naming-of-image)
+    * [Using the Image](#using-the-image)
+    * [Upload image](#upload-image)
+    * [Building Image form container](#building-image-form-container)
+    * [Building the Image](#building-the-image)
+    * [Change API from container](#change-api-from-container)
+    * [Change SSHweb from container](#change-sshweb-from-container)
+    * [Change FTP from container](#change-ftp-from-container)    
+    * [Update webportal from container](#update-webportal-from-container)
+* [Webportal Requirement](#webportal-requirement)
+* [Develop Requirement](#develop-requirement)
+* [Code Style](#code-style)
+* [How do I get set up from this porject](#how-do-i-get-set-up-from-this-porject)
+    * [Install Modules](#install-modules)
+    * [Run dev-server](#run-dev-server)
+    * [Testing compnent](#testing-compnent)
+    * [Packaging Project](#packaging-project)
+* [Built With](#built-with)
+* [Package With](#package-with)
+* [Package Analysis](#package-analysis)
+    * [report.app.html](#report.app.html)
+    * [report.dll.html](#report.dll.html)
+    * [Other Analysis tools](#other-analysis-tools)
+* [Google analytics Event data](#google-analytics-event-data)
+    * [Anatomy of Events](#anatomy-of-Events)
+    * [Webportal events](#webportal-events)
+* [Contribution guidelines](#contribution-guidelines)
+    * [Develop](#develop)
+    * [Translation](#translation)
+    * [UI&UX Design](#ui&ux-design)
+* [Who do I talk to?](#who-do-I-talk-to?)
+* [Change log](#change-log)
 
 ## Features ##
 ------
@@ -186,7 +190,7 @@ And install these modules :
 npm install -g prettier eslint-plugin-prettier eslint-config-airbnb eslint-plugin-import eslint-plugin-react eslint-plugin-jsx-a11y@5.1.0
 ```
 
-## How do I get set up from this porject ? ##
+## How do I get set up from this porject ##
 ------
 
 Ask for developer to get access privileges, then you can clone or fork.
@@ -194,10 +198,14 @@ Ask for developer to get access privileges, then you can clone or fork.
 git clone https://a40503@bitbucket.org/a40503/dnnwebportal.git
 ```
 
+### Install Modules ###
+
 ```
 npm install
 ```
 * for install modules
+
+### Run dev-server ###
 
 ```
 npm start
@@ -206,13 +214,7 @@ npm start
 * for development, run dev-server
 * open 'localhost:8080' on browser
 
-```
-npm run dll
-npm run app
-```
-* package dll(bundle.js,bundle2.js,bundle3.js,bundle4.js) and app(app.js)
-* the files will generate in build folder
-* on `91% additional asset processing` will take a monent to build
+### Testing compnent ###
 
 ```
 npm run styleguide
@@ -220,6 +222,16 @@ npm run styleguide
 * The compnent document
 * open 'localhost:6060' on browser
 ![alt text](/src/app/image/readme/DNNdoc.gif "DNN doc")
+
+### Packaging Project ###
+
+```
+npm run dll
+npm run app
+```
+* package dll(bundle.js,bundle2.js,bundle3.js,bundle4.js) and app(app.js)
+* the files will generate in build folder
+* on `91% additional asset processing` will take a monent to build
 
 |#|command|generate|
 | - | ----------- | ------------ |
