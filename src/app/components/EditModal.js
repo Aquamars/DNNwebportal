@@ -219,10 +219,13 @@ class EditModal extends React.Component {
     }
   };
   handleChangeMaxDate = (event, date) => {
-    console.log(this.props.data.endedAt, date);
+    // console.log(this.props.data.endedAt, date);
+    const endDate = moment(this.props.data.endedAt).utc(8).format('YYYY-MM-DD');
+    const selectDate = moment(date).format('YYYY-MM-DD');
+    // console.log(endDate, selectDate);
     this.setState({
       endTime: date,
-      increaseDay: moment(date).diff(moment(this.props.data.endedAt), 'days'),
+      increaseDay: moment(selectDate).diff(moment(endDate), 'days'),
     });
     // GA
     ReactGA.event({
