@@ -42,20 +42,7 @@ import ConfirmPage from './ConfirmPage';
 import ProjectCode from './ProjectCode';
 import FinishAutoPage from './FinishAutoPage';
 
-// const styles = {
-//   errorStyle: {
-//     color: orange500
-//   },
-//   underlineStyle: {
-//     borderColor: orange500
-//   },
-//   floatingLabelStyle: {
-//     color: orange500
-//   },
-//   floatingLabelFocusStyle: {
-//     color: muiStyle.palette.primary1Color
-//   }
-// };
+const startStep = 0;
 
 class CreatePage extends React.Component {
   static propTypes = {
@@ -67,10 +54,12 @@ class CreatePage extends React.Component {
     this.state = {
       loading: false,
       finished: false,
-      stepIndex: 0,
+      stepIndex: startStep,
       submitting: false,
       projectNum: null,
       selectprojectNum: null,
+      gpu: 'GTX1080',
+      gpuNumber: '4',
       startDate: new Date(moment().format('YYYY-MM-DD')),
       // startDate: new Date(moment().add(1,'day').format('YYYY-MM-DD')),
       endDate: null,
@@ -99,6 +88,12 @@ class CreatePage extends React.Component {
     const { t } = this.props;
     const { loadingCreate } = this.state;
     switch (stepIndex) {
+      case -1:
+        return (
+          <div>
+            {this.renderSelectGpuWithNum()}
+          </div>
+        );
       case 0:
         return (
           <div>
@@ -253,7 +248,7 @@ class CreatePage extends React.Component {
             const tmp = obj;
             imageFilter[index] = imageFilter[0];
             imageFilter[0] = tmp;
-            console.log(imageFilter);
+            // console.log(imageFilter);
           }
           return 0;
         });
@@ -390,6 +385,14 @@ class CreatePage extends React.Component {
         }),
       );
     }
+  };
+  handleGpuChange = (event, index, value) => {
+    console.log('handleGpuChange', event, index, value);
+    this.setState({ gpu: value });
+  };
+  handleGpuNumberChange = (event, index, value) => {
+    console.log('handleGpuNumberChange', event, index, value);
+    this.setState({ gpuNumber: value });
   };
   handleInstanceNumChange = (event, index, value) => {
     let arr = [];
@@ -564,6 +567,57 @@ class CreatePage extends React.Component {
     this.props.refresh();
     this.props.switchReview();
   };
+  renderSelectGpuWithNum = () => {
+    const { t } = this.props;
+    const gpuItems = [
+      <MenuItem key={1} value={'1080'} primaryText="1080" />,
+      <MenuItem key={2} value={'p100'} primaryText="p100" />,
+    ];
+    const gpuNumber = [
+      <MenuItem key={1} value={2} primaryText="2" />,
+      <MenuItem key={2} value={4} primaryText="4" />,
+    ];
+    return (
+      <div style={{ margin: '0px auto' }}>
+        <div style={{ display: 'inline-block' }}>
+          <div>
+            <div style={{ margin: '0px auto' }}>
+              <div style={{ display: 'inline-block', verticalAlign: 'super' }}>
+                <Animated animationIn="rollIn" isVisible={true}>
+                  <ActionLabel color={muiStyle.palette.primary1Color} />
+                </Animated>
+              </div>
+              <div style={{ display: 'inline-block', marginLeft: '3px' }}>
+                <SelectField
+                  floatingLabelText={t('common:gpuType')}
+                  onChange={this.handleGpuChange}
+                  value={this.state.gpu}
+                >
+                  {gpuItems}
+                </SelectField>
+              </div>
+            </div>
+            <div style={{ margin: '0px auto' }}>
+              <div style={{ display: 'inline-block' }}>
+                <Animated animationIn="rollIn" isVisible={true}>
+                  <ActionLabel color={muiStyle.palette.primary1Color} />
+                </Animated>
+              </div>
+              <div style={{ display: 'inline-block', marginLeft: '3px' }}>
+                <SelectField
+                  floatingLabelText={t('common:gpuNumber')}
+                  onChange={this.handleGpuNumberChange}
+                  value={this.state.gpuNumber}
+                >
+                  {gpuNumber}
+                </SelectField>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
   renderSelectGpu = () => {
     const { t } = this.props;
     return (
@@ -780,17 +834,13 @@ class CreatePage extends React.Component {
         <div style={{ marginTop: 24, marginBottom: 12 }}>
           <FlatButton
             label={t('common:createStep.back')}
-            disabled={stepIndex === 0 || this.state.loadingCreate}
+            disabled={stepIndex === startStep || this.state.loadingCreate}
             onTouchTap={this.handlePrev}
             style={{ marginRight: 12 }}
           />
           <RaisedButton
             label={
-              stepIndex === 2 ? (
-                t('common:createStep.create')
-              ) : (
-                t('common:createStep.next')
-              )
+              stepIndex === 2 ? (t('common:createStep.create')) : (t('common:createStep.next'))
             }
             backgroundColor={muiStyle.palette.primary1Color}
             labelColor={white}

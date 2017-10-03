@@ -70,7 +70,16 @@ const config = {
       debounceInterval: 60,
       nyanCatSays (progress, messages) {
         if (progress === 1){
-          return 'Engineer make bug, bug make engineer work.'
+          const msg = [
+            'Programmer make bug and bug make Programmer work.',
+            'Programmer - A machine that turns coffee into code.',
+            "What is a programmer's favourite hangout place? Ans: Foo bar",
+            'Real programmers count from 0',
+            'There’s no place like 127.0.0.1',
+            'There are only 10 kinds of people: those who know binary and those who don’t.'
+          ]
+          const x = Math.floor((Math.random() * (msg.length - 1)) + 1);
+          return msg[x];
         }
       }
     }),
