@@ -3,7 +3,7 @@
 ## What is this repository for? ##
 ------
 * This webportal for creating instance to run DNN.
-* Version 0.3.2
+* Version 0.3.3
 
 ![alt text](/src/app/image/readme/DNNweb.gif "DNN web")
 
@@ -397,8 +397,9 @@ https://support.google.com/analytics/answer/1033068?hl=en
 
 ## Change log ##
 ------
-last update 2017-10-02
+last update 2017-10-03
 
+* `0.3.3` fix editDate counting days
 * `0.3.2` add updateWeb Shell Script
 * `0.3.1` update tutorial APM, hiden instance number
 * `0.3.0` change new API
