@@ -109,6 +109,7 @@
     "instanceEmpty":"請按右上角[+建立]按鈕?",
     "searchSelect":"輸入 計畫主持人, 計畫名稱, 計畫代號 來搜尋",
     "gpuType":"GPU 類型",
+    "gpuNumber":"GPU 數量",
     "menu":{
         "info":"Instance資訊",
         "history":"歷史紀錄",

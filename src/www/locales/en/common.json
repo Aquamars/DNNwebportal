@@ -109,6 +109,7 @@
     "instanceEmpty":"Click [+Create] on top right",
     "searchSelect":"You can input project Name, Host, Number to search",
     "gpuType":"GPU Type",
+    "gpuNumber":"GPU Number",
     "menu":{
         "info":"Information",
         "history":"History",
